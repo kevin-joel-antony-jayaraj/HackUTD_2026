@@ -14,6 +14,22 @@ messy CSV/XLSX/text ──Nemotron──> clean JSON ──> Safety Index ──
 This folder is separate from `sitesignal-backend/`. The two define tables with the same names
 (`sites`, `assets`) but different columns, so use a separate database for each.
 
+## Run the full product (backend + React dashboard)
+
+```bash
+# terminal 1: backend
+cd safety-pipeline && ./setup_local.sh && cp .env.example .env   # once; put NVIDIA_API_KEY in .env
+source .venv/bin/activate && uvicorn api.main:app --port 8000
+
+# terminal 2: dashboard (frontend/)
+cd frontend && npm install && npm run dev                          # http://localhost:5173
+```
+
+Log in with any name, then open **Data notes** and click **Use demo data (30 sites)**. That runs the
+whole pipeline on `samples/demo/`, a 30-site slice of the team's dataset, in about 15 seconds. Or upload
+your own files: name them with "sites", "assets" and "work_orders". The frontend reads
+`VITE_API_BASE` (default `http://localhost:8000`).
+
 ## Run the product (API + demo page)
 
 ```bash

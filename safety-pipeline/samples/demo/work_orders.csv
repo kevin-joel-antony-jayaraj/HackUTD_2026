@@ -1,0 +1,1985 @@
+Equipment ID,Store,Service Date,Work Type,Problem,Refrigerant Charge,Invoice Total,Tech Notes
+D274COOLER1,d274,2023-11-01,Preventive Maintenance,Scheduled PM,,180.49,"PM complete, no issues"
+H243-PKG2,H243,2023-11-01,Preventive Maintenance,Scheduled PM,,287.25,"Checked charge ok, belts ok"
+C123-CASE2,C123,2023-11-04,Emergency Repair,Refrigerant leak,2.7,4581.02,
+C113-RTU1,c113,2023-11-05,Preventive Maintenance,Scheduled PM,,356.6,"Filters changed, coils cleaned"
+V222-RTU1,V222,2023-11-05,Repair,Not cooling,,996.22,
+C113-CASE1,C113,2023-11-06,Preventive Maintenance,Scheduled PM,,355.12,"Filters changed, coils cleaned"
+D125-CASE1,D125,2023-11-06,Preventive Maintenance,Scheduled PM,,270.07,
+C235-COOLER1,C235,2023-11-08,Preventive Maintenance,Scheduled PM,,176.97,"Checked charge ok, belts ok"
+c123-case2,C123,2023-11-09,Preventive Maintenance,Scheduled PM,,343.45,
+C123-COOLER1,C123,2023-11-09,Preventive Maintenance,Scheduled PM,,,"Filters changed, coils cleaned"
+C235-CASE1,C235,2023-11-09,Repair,Not cooling,,,
+D393-CASE5,D393,2023-11-09,Preventive Maintenance,Scheduled PM,,332.33,"Filters changed, coils cleaned"
+D125-COOLER1,D125,2023-11-10,Preventive Maintenance,Scheduled PM,,221.39,"Filters changed, coils cleaned"
+C374-CASE2,C374,2023-11-11,Preventive Maintenance,Scheduled PM,,265.73,"Filters changed, coils cleaned"
+D129-CASE2,D129,2023-11-11,Preventive Maintenance,Scheduled PM,,349.29,"Filters changed, coils cleaned"
+D129-PKG1,D129,2023-11-11,Preventive Maintenance,Scheduled PM,,186.23,"PM complete, no issues"
+D345-RTU1,D345,2023-11-11,Preventive Maintenance,Scheduled PM,,187.93,"Filters changed, coils cleaned"
+C113-COOLER1,C113,2023-11-12,Preventive Maintenance,Scheduled PM,,173.52,
+D211-CASE3,d211,2023-11-12,Preventive Maintenance,Scheduled PM,,359.05,"PM complete, no issues"
+V237-RTU1,V237,2023-11-12,Preventive Maintenance,Scheduled PM,,278.53,
+V203-PKG1,V203,2023-11-12,Preventive Maintenance,Scheduled PM,,235.78,"PM complete, no issues"
+D274-CASE1,D274,2023-11-12,Preventive Maintenance,Scheduled PM,,353.73,"Checked charge ok, belts ok"
+H274-FREEZER2,H274,2023-11-12,Preventive Maintenance,Scheduled PM,,306.26,
+,H243,2023-11-12,Preventive Maintenance,Scheduled PM,,309.25,
+H300-RTU1,H300,2023-11-12,Preventive Maintenance,Scheduled PM,,177.14,"Checked charge ok, belts ok"
+C218-RTU1,C218,2023-11-13,Preventive Maintenance,Scheduled PM,,187.8,"Filters changed, coils cleaned"
+V235-PKG1,V235,2023-11-14,Preventive Maintenance,Scheduled PM,,251.23,"PM complete, no issues"
+D292-CASE2,D292,2023-11-14,Preventive Maintenance,Scheduled PM,,295.06,"Checked charge ok, belts ok"
+D274-CASE4,D274,2023-11-15,Preventive Maintenance,Scheduled PM,,348.74,"Checked charge ok, belts ok"
+H116-COOLER2,H116,2023-11-16,Preventive Maintenance,Scheduled PM,,217.61,"Filters changed, coils cleaned"
+D292-CASE4,D292,2023-11-16,Preventive Maintenance,Scheduled PM,,309.46,"PM complete, no issues"
+,D345,2023-11-16,Preventive Maintenance,Scheduled PM,,315.46,
+D292-RTU1,D292,2023-11-17,Preventive Maintenance,Scheduled PM,,240.5,
+C218-COOLER1,C218,2023-11-18,Preventive Maintenance,Scheduled PM,,246.81,"Checked charge ok, belts ok"
+H274-PKG3,H274,2023-11-18,Preventive Maintenance,Scheduled PM,,278.06,
+H300-FREEZER1,h300,2023-11-18,Preventive Maintenance,Scheduled PM,,312.91,
+C380-COOLER1,C380,2023-11-19,Preventive Maintenance,Scheduled PM,,361.21,"Checked charge ok, belts ok"
+D136-FREEZER1,D136,2023-11-19,Preventive Maintenance,Scheduled PM,,332.68,
+V203-RTU2,V203,2023-11-20,Preventive Maintenance,Scheduled PM,,234.49,
+D274-SPLIT1,D274,2023-11-20,Preventive Maintenance,Scheduled PM,,310.9,"Filters changed, coils cleaned"
+H333-FREEZER2,H333,2023-11-21,Repair,Controls / thermostat,,,Faulty defrost control
+D321-CASE4,D321,2023-11-21,Preventive Maintenance,Scheduled PM,,360.59,"Checked charge ok, belts ok"
+H333-RTU2,H333,2023-11-22,Preventive Maintenance,Scheduled PM,,280.91,
+C374-COOLER1,C374,2023-11-22,Preventive Maintenance,Scheduled PM,,279.64,
+,D136,2023-11-23,Preventive Maintenance,Scheduled PM,,366.81,"PM complete, no issues"
+,D212,2023-11-23,Preventive Maintenance,Scheduled PM,,356.44,"Filters changed, coils cleaned"
+D345-RTU2,D345,2023-11-23,Preventive Maintenance,Scheduled PM,,253.32,"PM complete, no issues"
+D212-FREEZER1,D212,2023-11-24,Preventive Maintenance,Scheduled PM,,312.4,
+D212-RTU2,D212,2023-11-24,Preventive Maintenance,Scheduled PM,,196.72,"Checked charge ok, belts ok"
+H116CASE5,H116,2023-11-25,Preventive Maintenance,Scheduled PM,,228.26,
+D125-RTU3,D125,2023-11-25,Preventive Maintenance,Scheduled PM,,215.62,"Filters changed, coils cleaned"
+C235-CASE1,C235,2023-11-27,Preventive Maintenance,Scheduled PM,,167.42,"Checked charge ok, belts ok"
+D274-CASE2,D274,2023-11-27,Preventive Maintenance,Scheduled PM,,192.67,
+D393-CASE4,D393,2023-11-27,Preventive Maintenance,Scheduled PM,,149.9,"Checked charge ok, belts ok"
+C235-ICE1,C235,2023-12-01,Preventive Maintenance,Scheduled PM,,190.53,"Checked charge ok, belts ok"
+D212-COOLER1,D212,2023-12-01,Preventive Maintenance,Scheduled PM,,339.41,"PM complete, no issues"
+C218-ICE1,c218,2023-12-02,Preventive Maintenance,Scheduled PM,,140.2,"Filters changed, coils cleaned"
+D345-CASE3,D345,2023-12-02,Preventive Maintenance,Scheduled PM,,248.91,
+D211-COOLER1,D211,2023-12-03,Preventive Maintenance,Scheduled PM,,294.82,
+D212-FREEZER1,D212,2023-12-03,Repair,Not cooling,,3653.67,no cooling. capacitor bad. repl
+H116-CASE3,H116,2023-12-04,Repair,Not cooling,5.9,1851.25,Not cooling - checked charge and capacitor
+H333-CASE3,H333,2023-12-04,Preventive Maintenance,Scheduled PM,,274.7,
+D125-RTU2,D125,2023-12-04,Preventive Maintenance,Scheduled PM,,253.67,"PM complete, no issues"
+D274-COOLER1,D274,2023-12-04,Repair,Fan motor failure,,431.2,
+D393-FREEZER1,D393,2023-12-04,Preventive Maintenance,Scheduled PM,,188.83,"PM complete, no issues"
+H243-FREEZER2,H243,2023-12-04,Preventive Maintenance,Scheduled PM,,147.98,"PM complete, no issues"
+H300-COOLER2,H300,2023-12-04,Preventive Maintenance,Scheduled PM,,252.7,
+H116-CASE1,H116,2023-12-05,Repair,Fan motor failure,,1640.86,
+H243-COOLER1,H243,2023-12-05,Preventive Maintenance,Scheduled PM,,242.81,"Checked charge ok, belts ok"
+H116-FREEZER2,H116,2023-12-06,Preventive Maintenance,Scheduled PM,,156.02,"PM complete, no issues"
+D296-CASE2,D296,2023-12-06,Preventive Maintenance,Scheduled PM,,184.8,"Filters changed, coils cleaned"
+D212-RTU1,D212,2023-12-06,Preventive Maintenance,Scheduled PM,,187.08,"Filters changed, coils cleaned"
+,D212,2023-12-06,Preventive Maintenance,Scheduled PM,,240.2,"Filters changed, coils cleaned"
+C123-RTU1,C123,2023-12-07,Preventive Maintenance,Scheduled PM,,308.11,"Checked charge ok, belts ok"
+H333-FREEZER2,H333,2023-12-07,Preventive Maintenance,Scheduled PM,,288.78,"Filters changed, coils cleaned"
+V222-RTU1,V222,2023-12-07,Preventive Maintenance,Scheduled PM,,320.31,
+C303-CASE1,C303,2023-12-08,Preventive Maintenance,Scheduled PM,,242.42,"PM complete, no issues"
+H116-SPLIT1,H116,2023-12-09,Preventive Maintenance,Scheduled PM,,201.75,"Checked charge ok, belts ok"
+D296-CASE3,D296,2023-12-09,Preventive Maintenance,Scheduled PM,,262.93,"Filters changed, coils cleaned"
+H274-PKG1,H274,2023-12-09,Preventive Maintenance,Scheduled PM,,258.97,"PM complete, no issues"
+H333-CASE4,H333,2023-12-10,Preventive Maintenance,Scheduled PM,,247.93,"Checked charge ok, belts ok"
+D393-PKG1,D393,2023-12-10,Preventive Maintenance,Scheduled PM,,204.62,"PM complete, no issues"
+D393-CASE1,D393,2023-12-10,Preventive Maintenance,Scheduled PM,,198.4,"Checked charge ok, belts ok"
+D212-CASE2,D212,2023-12-10,Preventive Maintenance,Scheduled PM,,344.24,
+D292-ICE1,D292,2023-12-11,Preventive Maintenance,Scheduled PM,,172.34,"PM complete, no issues"
+H243-RTU1,h243,2023-12-11,Preventive Maintenance,Scheduled PM,,290.64,"Checked charge ok, belts ok"
+H300-COOLER1,H300,2023-12-11,Preventive Maintenance,Scheduled PM,,258.08,"Filters changed, coils cleaned"
+D292-RTU2,D292,2023-12-12,Preventive Maintenance,Scheduled PM,,368.01,"Filters changed, coils cleaned"
+D345-ICE1,D345,2023-12-12,Preventive Maintenance,Scheduled PM,,195.45,"PM complete, no issues"
+V258-SPLIT1,V258,2023-12-14,Preventive Maintenance,Scheduled PM,,237.35,
+H274-COOLER2,H274,2023-12-15,Leak Repair,Refrigerant leak,7.9,8507.35,"Leak found at capacitor, repaired, recharged"
+D296-COOLER1,D296,2023-12-16,Preventive Maintenance,Scheduled PM,,162.44,"Checked charge ok, belts ok"
+D321-FREEZER1,D321,2023-12-16,Preventive Maintenance,Scheduled PM,,152.22,
+H274-FREEZER1,h274,2023-12-16,Preventive Maintenance,Scheduled PM,,158.97,"Filters changed, coils cleaned"
+H274-PKG2,H274,2023-12-17,Preventive Maintenance,Scheduled PM,,365.35,"Checked charge ok, belts ok"
+H333-FREEZER1,H333,2023-12-18,Preventive Maintenance,Scheduled PM,,,"Filters changed, coils cleaned"
+D393-CASE3,D393,2023-12-18,Preventive Maintenance,Scheduled PM,,174.6,
+UNKNOWN,D345,2023-12-19,Preventive Maintenance,Scheduled PM,,175.04,"PM complete, no issues"
+D321-CASE3,D321,2023-12-20,Preventive Maintenance,Scheduled PM,,325.38,"Checked charge ok, belts ok"
+H116-CASE3,H116,2023-12-21,Preventive Maintenance,Scheduled PM,,183.68,"Filters changed, coils cleaned"
+C380-CASE1,C380,2023-12-21,Preventive Maintenance,Scheduled PM,,158.0,"Checked charge ok, belts ok"
+H116-RTU3,H116,2023-12-22,Preventive Maintenance,Scheduled PM,,365.65,"PM complete, no issues"
+C303-ICE1,C303,2023-12-23,Preventive Maintenance,Scheduled PM,,,"PM complete, no issues"
+D321CASE4,D321,2023-12-24,Leak Repair,Refrigerant leak,6.2,2704.55,"Low charge, leak at coil, added refrigerant"
+H274-COOLER1,H274,2023-12-25,Preventive Maintenance,Scheduled PM,,255.93,"Checked charge ok, belts ok"
+H274-CASE2,H274,2023-12-25,Preventive Maintenance,Scheduled PM,,283.39,"PM complete, no issues"
+D129-FREEZER1,D129,2023-12-26,Preventive Maintenance,Scheduled PM,,282.3,"PM complete, no issues"
+D321-CASE5,D321,2023-12-26,Preventive Maintenance,Scheduled PM,,370.79,"PM complete, no issues"
+H300-FREEZER2,H300,2023-12-26,Emergency Repair,Not cooling,,,
+D296-CASE1,D296,2023-12-27,Preventive Maintenance,Scheduled PM,,311.44,"Checked charge ok, belts ok"
+D296-CASE2,D296,2023-12-27,Leak Repair,Refrigerant leak,1.7,2997.47,Leak check - found at fittings. recharge
+H274-CASE2,H274,2023-12-28,Emergency Repair,Refrigerant leak,2.5,3274.54,"Low charge, leak at coil, added refrigerant"
+D212-CASE1,D212,2023-12-28,Preventive Maintenance,Scheduled PM,,164.03,"PM complete, no issues"
+C374-RTU1,C374,11/08/2023,Preventive Maintenance,Scheduled PM,,367.23,
+UNKNOWN,D136,12/08/2023,Repair,Compressor failure,,3699.57,
+D321-COOLER1,D321,12/18/2023,Preventive Maintenance,Scheduled PM,,173.92,
+H300-PKG1,H300,12/18/2023,Preventive Maintenance,Scheduled PM,,361.83,
+C113-CASE2,C113,12/28/2023,Preventive Maintenance,Scheduled PM,,289.94,"Checked charge ok, belts ok"
+C303-COOLER1,C303,2024-01-01,Preventive Maintenance,Scheduled PM,,320.82,
+H274-ICE1,H274,2024-01-01,Preventive Maintenance,Scheduled PM,,259.09,"Checked charge ok, belts ok"
+C123-CASE1,C123,2024-01-02,Preventive Maintenance,Scheduled PM,,346.03,
+D125-CASE2,D125,2024-01-02,Preventive Maintenance,Scheduled PM,,178.07,"Filters changed, coils cleaned"
+D125-FREEZER1,D125,2024-01-02,Preventive Maintenance,Scheduled PM,,161.29,"PM complete, no issues"
+D129-CASE4,D129,2024-01-03,Preventive Maintenance,Scheduled PM,,200.77,"PM complete, no issues"
+H333-RTU1,H333,2024-01-05,Preventive Maintenance,Scheduled PM,,277.6,"PM complete, no issues"
+C113-ICE1,C113,2024-01-06,Preventive Maintenance,Scheduled PM,,310.79,"Checked charge ok, belts ok"
+H116-PKG1,H116,2024-01-06,Preventive Maintenance,Scheduled PM,,345.9,
+H274-SPLIT1,H274,2024-01-06,Preventive Maintenance,Scheduled PM,,236.51,"PM complete, no issues"
+h300-freezer2,H300,2024-01-06,Preventive Maintenance,Scheduled PM,,348.72,"PM complete, no issues"
+D296-PKG1,D296,2024-01-07,Preventive Maintenance,Scheduled PM,,254.72,
+,D321,2024-01-07,Repair,Compressor failure,,4417.98,"Compressor seized, quoted replacement"
+D321-RTU1,D321,2024-01-07,Preventive Maintenance,Scheduled PM,,375.93,"PM complete, no issues"
+,D321,2024-01-08,Preventive Maintenance,Scheduled PM,,274.26,"Filters changed, coils cleaned"
+D129-RTU1,D129,2024-01-09,Preventive Maintenance,Scheduled PM,,210.99,"PM complete, no issues"
+P166-RTU1,P166,2024-01-09,Preventive Maintenance,Scheduled PM,,282.42,"Checked charge ok, belts ok"
+D393-SPLIT1,D393,2024-01-09,Leak Repair,Refrigerant leak,1.4,3212.98,"Leak found at pressure switch, repaired, recharged"
+H243-PKG2,H243,2024-01-09,Repair,Frozen coil,,954.22,Evap coil frozen - dirty filters
+H243-FREEZER2,H243,2024-01-11,Repair,Water leak,,805.18,"Drain line clogged, cleared"
+H333-PKG2,H333,2024-01-13,Preventive Maintenance,Scheduled PM,,229.94,"PM complete, no issues"
+H116-CASE1,H116,2024-01-14,Preventive Maintenance,Scheduled PM,,272.63,"Checked charge ok, belts ok"
+H333-CASE2,H333,2024-01-14,Preventive Maintenance,Scheduled PM,,223.26,
+C374-CASE1,c374,2024-01-15,Preventive Maintenance,Scheduled PM,,274.16,"Filters changed, coils cleaned"
+H243-CASE1,H243,2024-01-16,Preventive Maintenance,Scheduled PM,,349.37,
+D136-PKG1,D136,2024-01-18,Preventive Maintenance,Scheduled PM,,223.47,"Filters changed, coils cleaned"
+D125-CASE3,D125,2024-01-18,Preventive Maintenance,Scheduled PM,,,"Filters changed, coils cleaned"
+H243-RTU2,H243,2024-01-18,Preventive Maintenance,Scheduled PM,,245.05,"Checked charge ok, belts ok"
+D345-CASE1,D345,2024-01-18,Preventive Maintenance,Scheduled PM,,334.86,"PM complete, no issues"
+D136-CASE2,D136,2024-01-20,Preventive Maintenance,Scheduled PM,,354.15,"Filters changed, coils cleaned"
+H300-SPLIT1,H300,2024-01-20,Preventive Maintenance,Scheduled PM,,219.56,
+C380-RTU1,c380,2024-01-21,Preventive Maintenance,Scheduled PM,,242.5,"Filters changed, coils cleaned"
+C380-CASE2,C380,2024-01-21,Preventive Maintenance,Scheduled PM,,188.94,"Checked charge ok, belts ok"
+H116-COOLER2,H116,2024-01-22,Emergency Repair,Not cooling,,2819.38,Not cooling - checked charge and relay
+D211-RTU1,D211,2024-01-22,Preventive Maintenance,Scheduled PM,,166.0,"Checked charge ok, belts ok"
+D136-ICE1,D136,2024-01-23,Preventive Maintenance,Scheduled PM,,338.68,"PM complete, no issues"
+C235-COOLER1,C235,2024-01-25,Preventive Maintenance,Scheduled PM,,256.76,"Checked charge ok, belts ok"
+D292-CASE1,D292,2024-01-25,Preventive Maintenance,Scheduled PM,,190.46,
+H300-RTU3,H300,2024-01-26,Preventive Maintenance,Scheduled PM,,363.17,"Checked charge ok, belts ok"
+D274-RTU1,D274,2024-01-27,Preventive Maintenance,Scheduled PM,,299.02,"PM complete, no issues"
+H116-CASE5,H116,2024-01-28,Repair,Not cooling,,1094.94,"Found unit not cooling, replaced pressure switch, tested ok"
+C303-RTU1,C303,2024-02-01,Preventive Maintenance,Scheduled PM,,189.13,"PM complete, no issues"
+D296-RTU1,D296,2024-02-02,Preventive Maintenance,Scheduled PM,,249.59,"Filters changed, coils cleaned"
+D125-COOLER1,D125,2024-02-04,Preventive Maintenance,Scheduled PM,,257.72,"PM complete, no issues"
+D292-RTU1,D292,2024-02-04,Preventive Maintenance,Scheduled PM,,362.08,"Filters changed, coils cleaned"
+H243PKG2,H243,2024-02-04,Preventive Maintenance,Scheduled PM,,327.92,"Checked charge ok, belts ok"
+D393-SPLIT1,D393,2024-02-05,Repair,Not cooling,6.1,526.49,"Found unit not cooling, replaced relay, tested ok"
+H274-FREEZER2,H274,2024-02-05,Preventive Maintenance,Scheduled PM,,233.55,"Filters changed, coils cleaned"
+V203-RTU2,V203,2024-02-07,Preventive Maintenance,Scheduled PM,,297.45,"Checked charge ok, belts ok"
+V203-PKG1,V203,2024-02-08,Preventive Maintenance,Scheduled PM,,247.2,"Filters changed, coils cleaned"
+D274-COOLER1,D274,2024-02-08,Preventive Maintenance,Scheduled PM,,357.42,"Checked charge ok, belts ok"
+D345-FREEZER1,D345,2024-02-09,Preventive Maintenance,Scheduled PM,,212.0,"Filters changed, coils cleaned"
+C374-RTU1,C374,2024-02-12,Preventive Maintenance,Scheduled PM,,151.51,"Filters changed, coils cleaned"
+H333-COOLER2,H333,2024-02-13,Repair,Water leak,,2329.24,"Drain line clogged, cleared"
+H116-COOLER2,H116,2024-02-14,Preventive Maintenance,Scheduled PM,,268.68,"PM complete, no issues"
+V235-PKG1,V235,2024-02-16,Preventive Maintenance,Scheduled PM,,195.01,"Filters changed, coils cleaned"
+H243-RTU3,H243,2024-02-16,Preventive Maintenance,Scheduled PM,,343.79,
+H333-COOLER2,H333,2024-02-18,Preventive Maintenance,Scheduled PM,,273.38,
+H243-FREEZER1,H243,2024-02-18,Preventive Maintenance,Scheduled PM,,230.22,
+D345-RTU2,D345,2024-02-18,Preventive Maintenance,Scheduled PM,,199.87,
+D129-PKG1,D129,2024-02-19,Preventive Maintenance,Scheduled PM,,302.28,"Filters changed, coils cleaned"
+V237-RTU1,V237,2024-02-19,Preventive Maintenance,Scheduled PM,,316.38,"PM complete, no issues"
+h300-rtu1,H300,2024-02-19,Preventive Maintenance,Scheduled PM,,308.79,"Checked charge ok, belts ok"
+D393-COOLER1,D393,2024-02-20,Preventive Maintenance,Scheduled PM,,223.65,"PM complete, no issues"
+D393-FREEZER1,D393,2024-02-20,Repair,Compressor failure,,9547.23,"Comp. failed, recommend replace unit if age > 12yrs"
+H300-RTU2,H300,2024-02-20,Preventive Maintenance,Scheduled PM,,332.91,"Checked charge ok, belts ok"
+D136-FREEZER1,D136,2024-02-21,Preventive Maintenance,Scheduled PM,,319.22,"PM complete, no issues"
+C235-ICE1,C235,2024-02-21,Preventive Maintenance,Scheduled PM,,350.03,"PM complete, no issues"
+D125-RTU3,D125,2024-02-23,Preventive Maintenance,Scheduled PM,,310.71,"Checked charge ok, belts ok"
+D136-RTU1,D136,2024-02-24,Preventive Maintenance,Scheduled PM,,323.76,"PM complete, no issues"
+H333-RTU2,H333,2024-02-24,Preventive Maintenance,Scheduled PM,,266.06,"PM complete, no issues"
+C218-ICE1,C218,2024-02-24,Preventive Maintenance,Scheduled PM,,356.02,"PM complete, no issues"
+C380-COOLER1,C380,2024-02-26,Preventive Maintenance,Scheduled PM,,166.43,"Filters changed, coils cleaned"
+D129-COOLER1,D129,2024-02-26,Preventive Maintenance,Scheduled PM,,376.22,"PM complete, no issues"
+D274-SPLIT1,D274,2024-02-26,Preventive Maintenance,Scheduled PM,,274.45,"PM complete, no issues"
+H274-PKG3,H274,2024-02-26,Preventive Maintenance,Scheduled PM,,331.61,
+D292-FREEZER1,D292,2024-02-27,Preventive Maintenance,Scheduled PM,,244.62,
+D393-FREEZER1,D393,2024-02-28,Preventive Maintenance,Scheduled PM,,311.87,"Filters changed, coils cleaned"
+H243-RTU1,H243,2024-02-28,Preventive Maintenance,Scheduled PM,,376.26,
+D212-FREEZER1,D212,2024-02-28,Preventive Maintenance,Scheduled PM,,296.76,"PM complete, no issues"
+H243-WH1,H243,2024-03-01,Repair,Water leak,,736.73,"Fitting leak, repaired"
+D345-ICE1,D345,2024-03-01,Preventive Maintenance,Scheduled PM,,219.14,"PM complete, no issues"
+D211-COOLER1,D211,2024-03-02,Preventive Maintenance,Scheduled PM,,225.86,"Filters changed, coils cleaned"
+D212-COOLER1,D212,2024-03-03,Preventive Maintenance,Scheduled PM,,,
+D212-RTU2,D212,2024-03-04,Preventive Maintenance,Scheduled PM,,173.93,"Checked charge ok, belts ok"
+H116ICE1,H116,2024-03-05,Preventive Maintenance,Scheduled PM,,248.94,"Checked charge ok, belts ok"
+H116-SPLIT1,H116,2024-03-05,Preventive Maintenance,Scheduled PM,,172.8,"Checked charge ok, belts ok"
+C303-CASE1,C303,2024-03-06,Repair,Controls / thermostat,,476.46,"Thermostat replaced, recalibrated"
+D274-ICE1,D274,2024-03-06,Preventive Maintenance,Scheduled PM,,274.73,"PM complete, no issues"
+D321-FREEZER1,D321,2024-03-06,Preventive Maintenance,Scheduled PM,,265.73,
+D125-RTU2,D125,2024-03-07,Preventive Maintenance,Scheduled PM,,235.93,"PM complete, no issues"
+D321-COOLER1,D321,2024-03-07,Preventive Maintenance,Scheduled PM,,251.32,
+H116-FREEZER2,H116,2024-03-08,Preventive Maintenance,Scheduled PM,,321.3,
+V222-RTU1,V222,2024-03-08,Preventive Maintenance,Scheduled PM,,309.09,"PM complete, no issues"
+H300-PKG1,H300,2024-03-08,Preventive Maintenance,Scheduled PM,,255.88,"PM complete, no issues"
+H333-FREEZER1,H333,2024-03-10,Preventive Maintenance,Scheduled PM,,176.09,
+H274-FREEZER1,H274,2024-03-13,Preventive Maintenance,Scheduled PM,,234.18,
+H274-PKG1,H274,2024-03-16,Preventive Maintenance,Scheduled PM,,244.35,
+C123-RTU1,C123,2024-03-17,Preventive Maintenance,Scheduled PM,,156.67,"PM complete, no issues"
+H300-COOLER1,H300,2024-03-17,Preventive Maintenance,Scheduled PM,,336.37,"Checked charge ok, belts ok"
+D136-RTU3,D136,2024-03-18,Preventive Maintenance,Scheduled PM,,198.71,"Filters changed, coils cleaned"
+V258-SPLIT1,V258,2024-03-18,Preventive Maintenance,Scheduled PM,,192.57,
+D393-RTU1,D393,2024-03-18,Repair,Water leak,,675.97,"Drain line clogged, cleared"
+D129-FREEZER1,D129,2024-03-19,Preventive Maintenance,Scheduled PM,,145.2,"Checked charge ok, belts ok"
+D125-RTU1,D125,2024-03-19,Preventive Maintenance,Scheduled PM,,299.5,
+P166-PKG1,P166,2024-03-19,Preventive Maintenance,Scheduled PM,,242.83,"Filters changed, coils cleaned"
+H274-CASE1,H274,2024-03-20,Repair,Not cooling,,1657.02,"Found unit not cooling, replaced contactor, tested ok"
+H333-FREEZER2,H333,2024-03-21,Emergency Repair,Refrigerant leak,9.0,3387.94,"Leak found at condenser coil, repaired, recharged"
+D296-COOLER1,D296,2024-03-21,Preventive Maintenance,Scheduled PM,,143.58,"Checked charge ok, belts ok"
+D393-PKG1,D393,2024-03-21,Preventive Maintenance,Scheduled PM,,349.72,
+C303-MUA1,C303,2024-03-22,Repair,Noise / vibration,,767.19,belt replaced
+D345-COOLER1,D345,2024-03-22,Preventive Maintenance,Scheduled PM,,152.36,
+D393-CASE4,D393,2024-03-23,Repair,Controls / thermostat,,2126.1,"Thermostat replaced, recalibrated"
+H116-RTU3,H116,2024-03-26,Preventive Maintenance,Scheduled PM,,294.94,
+C303-COOLER1,C303,2024-03-26,Preventive Maintenance,Scheduled PM,,150.3,
+C303-WH1,c303,2024-03-28,Repair,Noise / vibration,,466.32,
+d393-rtu1,d393,2024-03-28,Preventive Maintenance,Scheduled PM,,271.61,"Checked charge ok, belts ok"
+H274-COOLER2,H274,2024-03-28,Preventive Maintenance,Scheduled PM,,323.57,
+d129-rtu1,D129,2024-04-01,Preventive Maintenance,Scheduled PM,,168.55,
+D292-COOLER1,D292,2024-04-02,Preventive Maintenance,Scheduled PM,,304.44,"Checked charge ok, belts ok"
+C303-ICE1,C303,2024-04-03,Preventive Maintenance,Scheduled PM,,189.07,"Checked charge ok, belts ok"
+D321-SPLIT1,D321,2024-04-03,Preventive Maintenance,Scheduled PM,,203.89,"Filters changed, coils cleaned"
+D129-PKG1,D129,2024-04-05,Repair,Not cooling,,1419.3,"Found unit not cooling, replaced capacitor, tested ok"
+P166-RTU1,P166,2024-04-05,Preventive Maintenance,Scheduled PM,,301.05,"PM complete, no issues"
+H300-RTU2,H300,2024-04-05,Repair,Frozen coil,,1469.06,"Coil iced up, defrosted, checked airflow"
+H116-PKG1,H116,2024-04-06,Preventive Maintenance,Scheduled PM,,197.61,"Filters changed, coils cleaned"
+H333-COOLER1,H333,2024-04-06,Emergency Repair,Refrigerant leak,14.6,17591.73,"Low charge, leak at coil, added refrigerant"
+D125-FREEZER1,D125,2024-04-07,Preventive Maintenance,Scheduled PM,,248.57,"PM complete, no issues"
+D321-RTU1,D321,2024-04-07,Preventive Maintenance,Scheduled PM,,311.01,"Checked charge ok, belts ok"
+D296-RTU2,D296,2024-04-09,Preventive Maintenance,Scheduled PM,,249.72,"PM complete, no issues"
+H333-RTU2,H333,2024-04-10,Repair,Frozen coil,,606.37,"Coil iced up, defrosted, checked airflow"
+V307-SPLIT1,V307,2024-04-10,Preventive Maintenance,Scheduled PM,,170.0,"Filters changed, coils cleaned"
+H333-PKG1,H333,2024-04-11,Preventive Maintenance,Scheduled PM,,250.09,"PM complete, no issues"
+C374-CASE2,C374,2024-04-11,Emergency Repair,Water leak,,1333.77,"Drain line clogged, cleared"
+H274-SPLIT1,H274,2024-04-12,Preventive Maintenance,Scheduled PM,,339.9,
+H333-RTU1,H333,2024-04-16,Preventive Maintenance,Scheduled PM,,260.38,"Filters changed, coils cleaned"
+C380-RTU1,C380,2024-04-17,Preventive Maintenance,Scheduled PM,,199.27,"Filters changed, coils cleaned"
+D274-RTU1,D274,2024-04-17,Preventive Maintenance,Scheduled PM,,330.02,"PM complete, no issues"
+D393-CASE2,D393,2024-04-17,Repair,Frozen coil,,256.35,
+H333-PKG2,H333,2024-04-18,Preventive Maintenance,Scheduled PM,,291.65,"PM complete, no issues"
+H300-SPLIT1,H300,2024-04-21,Preventive Maintenance,Scheduled PM,,168.38,
+D345-RTU1,D345,2024-04-21,Leak Repair,Refrigerant leak,13.2,3821.69,Leak check - found at fittings. recharge
+H116-RTU1,H116,2024-04-24,Preventive Maintenance,Scheduled PM,,329.46,"PM complete, no issues"
+D136-PKG1,D136,2024-04-24,Preventive Maintenance,Scheduled PM,,320.8,"PM complete, no issues"
+C235-COOLER1,C235,2024-04-24,Preventive Maintenance,Scheduled PM,,286.54,"PM complete, no issues"
+D125-COOLER1,D125,2024-04-26,Preventive Maintenance,Scheduled PM,,264.31,"Checked charge ok, belts ok"
+H274-FREEZER2,H274,2024-04-26,Preventive Maintenance,Scheduled PM,,151.29,"PM complete, no issues"
+D212-SPLIT1,D212,2024-04-26,Repair,Not cooling,,978.81,
+D136-ICE1,D136,2024-04-27,Preventive Maintenance,Scheduled PM,,285.33,
+D211-ICE1,D211,2024-04-28,Preventive Maintenance,Scheduled PM,,166.44,
+C374-RTU1,C374,2024-05-01,Preventive Maintenance,Scheduled PM,,,"Checked charge ok, belts ok"
+C303-CASE2,C303,2024-05-01,Leak Repair,Refrigerant leak,4.4,1797.46,"Low charge, leak at coil, added refrigerant"
+C303-RTU1,C303,2024-05-02,Preventive Maintenance,Scheduled PM,,164.31,
+H300-RTU3,H300,2024-05-02,Preventive Maintenance,Scheduled PM,,214.02,"Checked charge ok, belts ok"
+D211-RTU1,D211,2024-05-03,Preventive Maintenance,Scheduled PM,,191.03,"Checked charge ok, belts ok"
+D136-FREEZER1,D136,2024-05-03,Emergency Repair,Compressor failure,,14948.79,
+H243-PKG2,H243,2024-05-04,Preventive Maintenance,Scheduled PM,,377.96,"PM complete, no issues"
+H300-FREEZER1,H300,2024-05-05,Preventive Maintenance,Scheduled PM,,325.5,"PM complete, no issues"
+D125-CASE4,D125,2024-05-07,Repair,Not cooling,6.1,4401.38,no cooling. TXV bad. repl
+V237-RTU1,V237,2024-05-07,Repair,Compressor failure,,7965.57,
+D393-CASE5,D393,2024-05-07,Preventive Maintenance,Scheduled PM,,178.64,
+H300-CASE1,H300,2024-05-07,Preventive Maintenance,Scheduled PM,,178.57,"Checked charge ok, belts ok"
+H333-PKG2,H333,2024-05-08,Repair,Fan motor failure,,568.24,"Fan motor noisy then failed, replaced"
+V237-RTU1,V237,2024-05-08,Preventive Maintenance,Scheduled PM,,291.99,"PM complete, no issues"
+V203-RTU2,V203,2024-05-08,Preventive Maintenance,Scheduled PM,,312.15,"Checked charge ok, belts ok"
+C218-COOLER1,C218,2024-05-08,Preventive Maintenance,Scheduled PM,,274.98,"Checked charge ok, belts ok"
+H243-FREEZER1,H243,2024-05-08,Preventive Maintenance,Scheduled PM,,243.89,"Checked charge ok, belts ok"
+D212-CASE3,D212,2024-05-09,Preventive Maintenance,Scheduled PM,,292.2,"PM complete, no issues"
+D345-CASE5,D345,2024-05-09,Preventive Maintenance,Scheduled PM,,293.51,
+H116-COOLER2,H116,2024-05-10,Preventive Maintenance,Scheduled PM,,302.7,"PM complete, no issues"
+D211-CASE3,D211,2024-05-10,Preventive Maintenance,Scheduled PM,,,"Checked charge ok, belts ok"
+H333-PKG1,H333,2024-05-10,Repair,Not cooling,4.1,,no cooling. contactor bad. repl
+D274-COOLER1,D274,2024-05-10,Preventive Maintenance,Scheduled PM,,265.57,"PM complete, no issues"
+C113-COOLER1,C113,2024-05-11,Preventive Maintenance,Scheduled PM,,205.52,
+D321-CASE4,D321,2024-05-11,Preventive Maintenance,Scheduled PM,,,"Checked charge ok, belts ok"
+H333-COOLER2,H333,2024-05-12,Preventive Maintenance,Scheduled PM,,238.49,"PM complete, no issues"
+C235-ICE1,C235,2024-05-12,Preventive Maintenance,Scheduled PM,,219.85,
+D274-FREEZER1,D274,2024-05-12,Preventive Maintenance,Scheduled PM,,306.36,"Checked charge ok, belts ok"
+C113-CASE1,c113,2024-05-14,Preventive Maintenance,Scheduled PM,,,"Filters changed, coils cleaned"
+C123-CASE2,C123,2024-05-14,Preventive Maintenance,Scheduled PM,,297.79,"PM complete, no issues"
+D136-FREEZER1,D136,2024-05-14,Preventive Maintenance,Scheduled PM,,282.67,"Filters changed, coils cleaned"
+D292-RTU1,D292,2024-05-14,Preventive Maintenance,Scheduled PM,,176.52,"PM complete, no issues"
+H243-FREEZER2,H243,2024-05-14,Preventive Maintenance,Scheduled PM,,172.79,"Filters changed, coils cleaned"
+H300-RTU2,H300,2024-05-14,Preventive Maintenance,Scheduled PM,,360.76,"Filters changed, coils cleaned"
+C218-ICE1,C218,2024-05-15,Preventive Maintenance,Scheduled PM,,,"Checked charge ok, belts ok"
+C374-CASE2,C374,2024-05-16,Preventive Maintenance,Scheduled PM,,268.45,
+D292-CASE4,D292,2024-05-17,Preventive Maintenance,Scheduled PM,,207.28,"Checked charge ok, belts ok"
+D393-FREEZER1,D393,2024-05-17,Preventive Maintenance,Scheduled PM,,173.43,"Filters changed, coils cleaned"
+D129-ICE1,D129,2024-05-18,Preventive Maintenance,Scheduled PM,,243.62,
+D274-CASE4,D274,2024-05-18,Preventive Maintenance,Scheduled PM,,268.94,"Checked charge ok, belts ok"
+H243-FREEZER2,H243,2024-05-19,Repair,Not cooling,,949.2,"Found unit not cooling, replaced capacitor, tested ok"
+H243-RTU3,H243,2024-05-19,Preventive Maintenance,Scheduled PM,,272.99,"Filters changed, coils cleaned"
+D129-CASE2,D129,2024-05-20,Preventive Maintenance,Scheduled PM,,230.03,
+D274-CASE1,D274,2024-05-20,Preventive Maintenance,Scheduled PM,,187.8,"Checked charge ok, belts ok"
+H300-COOLER2,H300,2024-05-20,Preventive Maintenance,Scheduled PM,,367.05,
+D129-PKG1,D129,2024-05-21,Preventive Maintenance,Scheduled PM,,194.65,"Checked charge ok, belts ok"
+D136-CASE1,D136,2024-05-22,Preventive Maintenance,Scheduled PM,,245.34,"PM complete, no issues"
+D393-CASE2,d393,2024-05-22,Preventive Maintenance,Scheduled PM,,307.18,
+H116-CASE4,H116,2024-05-23,Preventive Maintenance,Scheduled PM,,160.9,"Checked charge ok, belts ok"
+H116-CASE5,H116,2024-05-23,Preventive Maintenance,Scheduled PM,,332.31,"Filters changed, coils cleaned"
+H274-PKG3,H274,2024-05-23,Preventive Maintenance,Scheduled PM,,281.84,"PM complete, no issues"
+D345-CASE3,D345,2024-05-23,Preventive Maintenance,Scheduled PM,,207.69,"Filters changed, coils cleaned"
+D393-COOLER1,D393,2024-05-24,Preventive Maintenance,Scheduled PM,,245.87,"Checked charge ok, belts ok"
+D211-COOLER1,D211,2024-05-25,Preventive Maintenance,Scheduled PM,,169.35,
+D136-RTU1,D136,2024-05-25,Preventive Maintenance,Scheduled PM,,287.76,
+D321-CASE2,D321,2024-05-25,Leak Repair,Refrigerant leak,2.0,2074.98,"Low charge, leak at coil, added refrigerant"
+D345COOLER1,D345,2024-05-26,Repair,Not cooling,,,no cooling. relay bad. repl
+D345-RTU2,D345,2024-05-26,Preventive Maintenance,Scheduled PM,,193.63,"PM complete, no issues"
+H116-CASE5,H116,2024-05-27,Repair,Controls / thermostat,,749.78,
+H333-RTU2,H333,2024-05-27,Preventive Maintenance,Scheduled PM,,276.66,"Filters changed, coils cleaned"
+D125-RTU3,D125,2024-05-27,Preventive Maintenance,Scheduled PM,,374.14,"PM complete, no issues"
+D296-CASE2,D296,2024-05-27,Preventive Maintenance,Scheduled PM,,186.41,"Checked charge ok, belts ok"
+,D292,2024-05-27,Preventive Maintenance,Scheduled PM,,278.18,"Checked charge ok, belts ok"
+D393-CASE1,D393,2024-05-27,Preventive Maintenance,Scheduled PM,,169.52,
+D345-CASE2,D345,2024-05-27,Preventive Maintenance,Scheduled PM,,352.62,
+H116-SPLIT1,H116,2024-05-28,Preventive Maintenance,Scheduled PM,,260.17,
+,D136,2024-05-28,Repair,Fan motor failure,,706.97,
+D136-RTU2,D136,2024-05-28,Repair,Not cooling,,1019.51,no cooling. TXV bad. repl
+C374-COOLER1,C374,2024-05-28,Preventive Maintenance,Scheduled PM,,171.93,"Checked charge ok, belts ok"
+D125-RTU2,D125,2024-05-28,Preventive Maintenance,Scheduled PM,,302.7,"PM complete, no issues"
+D292-ICE1,D292,2024-05-28,Preventive Maintenance,Scheduled PM,,167.21,"Checked charge ok, belts ok"
+D274-CASE3,D274,2024-05-28,Preventive Maintenance,Scheduled PM,,177.33,"Filters changed, coils cleaned"
+D212-RTU2,D212,2024-05-28,Preventive Maintenance,Scheduled PM,,236.41,"Checked charge ok, belts ok"
+,C380,2024-06-01,Leak Repair,Refrigerant leak,7.2,4576.66,"Leak found at TXV, repaired, recharged"
+D393-CASE3,D393,2024-06-03,Preventive Maintenance,Scheduled PM,,152.39,"PM complete, no issues"
+D345-ICE1,D345,2024-06-03,Preventive Maintenance,Scheduled PM,,206.34,"Filters changed, coils cleaned"
+D125-RTU1,D125,2024-06-05,Repair,Compressor failure,,12443.8,
+,d274,2024-06-05,Preventive Maintenance,Scheduled PM,,,"Filters changed, coils cleaned"
+V222-RTU1,V222,2024-06-05,Preventive Maintenance,Scheduled PM,,216.48,"Checked charge ok, belts ok"
+D212-FREEZER1,D212,2024-06-06,Preventive Maintenance,Scheduled PM,,237.92,"Filters changed, coils cleaned"
+H116-FREEZER2,H116,2024-06-07,Preventive Maintenance,Scheduled PM,,157.57,"Checked charge ok, belts ok"
+P166-PKG1,P166,2024-06-07,Preventive Maintenance,Scheduled PM,,306.91,"PM complete, no issues"
+H243-RTU1,H243,2024-06-07,Preventive Maintenance,Scheduled PM,,282.4,"Filters changed, coils cleaned"
+H333-CASE3,H333,2024-06-09,Preventive Maintenance,Scheduled PM,,179.15,"Filters changed, coils cleaned"
+D129-FREEZER1,D129,2024-06-10,Preventive Maintenance,Scheduled PM,,256.77,"Checked charge ok, belts ok"
+D393-PKG1,D393,2024-06-10,Preventive Maintenance,Scheduled PM,,308.56,"Checked charge ok, belts ok"
+H116-ICE1,H116,2024-06-11,Preventive Maintenance,Scheduled PM,,342.64,"Checked charge ok, belts ok"
+H333-FREEZER2,H333,2024-06-11,Preventive Maintenance,Scheduled PM,,311.07,"PM complete, no issues"
+H274-PKG3,H274,2024-06-11,Repair,Fan motor failure,,1513.14,"Fan motor noisy then failed, replaced"
+H243-PKG1,H243,2024-06-11,Preventive Maintenance,Scheduled PM,,295.56,
+C123-RTU1,C123,2024-06-13,Preventive Maintenance,Scheduled PM,,349.57,"Checked charge ok, belts ok"
+H333-CASE4,H333,2024-06-13,Preventive Maintenance,Scheduled PM,,374.0,
+H274-CASE2,H274,2024-06-13,Preventive Maintenance,Scheduled PM,,347.13,"Checked charge ok, belts ok"
+D212-RTU1,D212,2024-06-13,Preventive Maintenance,Scheduled PM,,222.89,"Filters changed, coils cleaned"
+D212-COOLER1,D212,2024-06-13,Preventive Maintenance,Scheduled PM,,340.07,"PM complete, no issues"
+D296-CASE3,D296,2024-06-14,Preventive Maintenance,Scheduled PM,,297.16,"Filters changed, coils cleaned"
+V203-RTU2,v203,2024-06-15,Repair,Fan motor failure,,809.54,
+H274-COOLER2,H274,2024-06-15,Preventive Maintenance,Scheduled PM,,320.94,"Checked charge ok, belts ok"
+D296-CASE1,D296,2024-06-16,Repair,Controls / thermostat,,2540.58,"Thermostat replaced, recalibrated"
+D296-CASE1,D296,2024-06-16,Preventive Maintenance,Scheduled PM,,284.43,
+D274-CASE2,D274,2024-06-16,Emergency Repair,Controls / thermostat,,1420.45,"Thermostat replaced, recalibrated"
+H333-FREEZER1,H333,2024-06-18,Preventive Maintenance,Scheduled PM,,249.2,"Filters changed, coils cleaned"
+C374-PKG1,C374,2024-06-18,Preventive Maintenance,Scheduled PM,,184.27,"Filters changed, coils cleaned"
+D136-RTU3,D136,2024-06-19,Preventive Maintenance,Scheduled PM,,248.54,"Filters changed, coils cleaned"
+D296-COOLER1,D296,2024-06-20,Preventive Maintenance,Scheduled PM,,333.74,
+H274-PKG2,H274,2024-06-20,Preventive Maintenance,Scheduled PM,,235.49,
+D212-CASE1,D212,2024-06-21,Preventive Maintenance,Scheduled PM,,226.8,"PM complete, no issues"
+P166-RTU1,P166,2024-06-22,Preventive Maintenance,Scheduled PM,,264.96,"Filters changed, coils cleaned"
+H274-ICE1,H274,2024-06-23,Preventive Maintenance,Scheduled PM,,299.18,"Filters changed, coils cleaned"
+D125-FREEZER1,D125,2024-06-24,Preventive Maintenance,Scheduled PM,,300.15,"PM complete, no issues"
+D345-CASE4,D345,2024-06-24,Preventive Maintenance,Scheduled PM,,188.3,"PM complete, no issues"
+C113-CASE2,C113,2024-06-25,Preventive Maintenance,Scheduled PM,,347.83,"Filters changed, coils cleaned"
+D125-RTU1,D125,2024-06-25,Preventive Maintenance,Scheduled PM,,258.64,
+D211-COOLER1,D211,2024-06-26,Repair,Compressor failure,,5460.35,"Compressor seized, quoted replacement"
+D129-CASE1,D129,2024-06-27,Preventive Maintenance,Scheduled PM,,163.3,"Filters changed, coils cleaned"
+D393-SPLIT1,D393,2024-06-27,Preventive Maintenance,Scheduled PM,,195.31,
+H116-FREEZER1,H116,2024-06-28,Preventive Maintenance,Scheduled PM,,311.0,"Checked charge ok, belts ok"
+H116-PKG1,H116,2024-06-28,Preventive Maintenance,Scheduled PM,,,"Filters changed, coils cleaned"
+H300-CASE3,H300,2024-06-28,Preventive Maintenance,Scheduled PM,,339.31,"Filters changed, coils cleaned"
+D292-COOLER1,D292,2024-07-01,Preventive Maintenance,Scheduled PM,,181.81,
+H274-COOLER1,H274,2024-07-01,Preventive Maintenance,Scheduled PM,,353.08,"Checked charge ok, belts ok"
+D296-RTU2,D296,2024-07-02,Preventive Maintenance,Scheduled PM,,279.81,"PM complete, no issues"
+D393-CASE4,D393,2024-07-02,Emergency Repair,Not cooling,,1409.84,"Found unit not cooling, replaced capacitor, tested ok"
+D321-RTU1,D321,2024-07-03,Preventive Maintenance,Scheduled PM,,355.98,
+D211-CASE2,D211,2024-07-04,Preventive Maintenance,Scheduled PM,,325.85,"Checked charge ok, belts ok"
+D296-PKG1,D296,2024-07-04,Preventive Maintenance,Scheduled PM,,334.18,"Checked charge ok, belts ok"
+D296-FREEZER1,D296,2024-07-04,Preventive Maintenance,Scheduled PM,,367.87,"Checked charge ok, belts ok"
+D393-RTU1,D393,2024-07-04,Preventive Maintenance,Scheduled PM,,322.64,"Checked charge ok, belts ok"
+D292-COOLER1,D292,2024-07-05,Repair,Frozen coil,,802.83,Evap coil frozen - dirty filters
+D321-CASE5,D321,2024-07-05,Preventive Maintenance,Scheduled PM,,,"PM complete, no issues"
+C303-COOLER1,C303,2024-07-06,Preventive Maintenance,Scheduled PM,,340.73,"PM complete, no issues"
+D292-CASE2,D292,2024-07-06,Repair,Refrigerant leak,,,
+C303-ICE1,C303,2024-07-08,Preventive Maintenance,Scheduled PM,,199.29,
+D125-CASE3,D125,2024-07-08,Preventive Maintenance,Scheduled PM,,163.06,"Checked charge ok, belts ok"
+H243-CASE1,H243,2024-07-08,Preventive Maintenance,Scheduled PM,,271.53,"Filters changed, coils cleaned"
+C380-RTU1,C380,2024-07-09,Preventive Maintenance,Scheduled PM,,253.29,"Filters changed, coils cleaned"
+D129-CASE3,D129,2024-07-09,Preventive Maintenance,Scheduled PM,,316.02,"PM complete, no issues"
+D129-RTU1,d129,2024-07-09,Preventive Maintenance,Scheduled PM,,190.03,"Checked charge ok, belts ok"
+C123-RTU1,C123,2024-07-10,Repair,Not cooling,,1440.67,
+H333-PKG2,H333,2024-07-10,Preventive Maintenance,Scheduled PM,,248.5,"PM complete, no issues"
+D125-CASE3,D125,2024-07-10,Emergency Repair,Not cooling,,1630.25,Not cooling - checked charge and pressure switch
+D129-CASE1,D129,2024-07-11,Repair,Frozen coil,,1506.25,
+D125-CASE2,D125,2024-07-11,Preventive Maintenance,Scheduled PM,,143.3,"Filters changed, coils cleaned"
+H333-PKG1,H333,2024-07-12,Preventive Maintenance,Scheduled PM,,304.83,"PM complete, no issues"
+D125-COOLER1,D125,2024-07-15,Preventive Maintenance,Scheduled PM,,250.62,
+V307-SPLIT1,V307,2024-07-18,Preventive Maintenance,Scheduled PM,,249.16,"PM complete, no issues"
+D136-CASE2,D136,2024-07-19,Preventive Maintenance,Scheduled PM,,367.8,"Filters changed, coils cleaned"
+,H333,2024-07-19,Emergency Repair,Not cooling,,1941.61,Not cooling - checked charge and fan blade
+D296-RTU1,D296,2024-07-19,Preventive Maintenance,Scheduled PM,,183.81,"Checked charge ok, belts ok"
+D211-CASE3,D211,2024-07-20,Repair,Not cooling,,865.79,Not cooling - checked charge and pressure switch
+UNKNOWN,C235,2024-07-21,Preventive Maintenance,Scheduled PM,,159.7,"Filters changed, coils cleaned"
+H333-RTU1,H333,2024-07-22,Preventive Maintenance,Scheduled PM,,189.71,"Checked charge ok, belts ok"
+D321-CASE5,D321,2024-07-22,Repair,Compressor failure,,4481.35,"Compressor locked out, replaced start kit then comp"
+H243-FREEZER2,H243,2024-07-22,Emergency Repair,Water leak,,1095.11,"Drain line clogged, cleared"
+H116-CASE1,H116,2024-07-23,Preventive Maintenance,Scheduled PM,,245.28,"Filters changed, coils cleaned"
+D211-RTU1,D211,2024-07-23,Preventive Maintenance,Scheduled PM,,252.79,"PM complete, no issues"
+,H274,2024-07-23,Preventive Maintenance,Scheduled PM,,261.83,
+D212-ICE1,D212,2024-07-23,Preventive Maintenance,Scheduled PM,,201.76,"Filters changed, coils cleaned"
+H274-CASE1,H274,2024-07-24,Preventive Maintenance,Scheduled PM,,274.74,
+D212-CASE1,D212,2024-07-24,Emergency Repair,Refrigerant leak,1.5,5410.17,"Leak found at capacitor, repaired, recharged"
+H274-FREEZER2,H274,2024-07-25,Preventive Maintenance,Scheduled PM,,147.76,"Checked charge ok, belts ok"
+H243-FREEZER1,H243,2024-07-25,Preventive Maintenance,Scheduled PM,,330.73,"Checked charge ok, belts ok"
+D211-ICE1,D211,2024-07-26,Preventive Maintenance,Scheduled PM,,174.59,"Checked charge ok, belts ok"
+D292-CASE1,D292,2024-07-26,Repair,Fan motor failure,,1437.13,
+D136-RTU2,D136,2024-07-28,Preventive Maintenance,Scheduled PM,,221.56,"Filters changed, coils cleaned"
+,V237,2024-07-28,Preventive Maintenance,Scheduled PM,,308.1,"Checked charge ok, belts ok"
+D345-RTU1,D345,2024-07-28,Preventive Maintenance,Scheduled PM,,266.08,
+D345-CASE4,D345,2024-07-28,Repair,Fan motor failure,,808.84,
+V203-PKG1,V203,2024-08-01,Preventive Maintenance,Scheduled PM,,355.34,"Checked charge ok, belts ok"
+H243-FREEZER2,H243,2024-08-01,Preventive Maintenance,Scheduled PM,,369.29,"Filters changed, coils cleaned"
+H300-SPLIT1,H300,2024-08-01,Preventive Maintenance,Scheduled PM,,248.33,"Checked charge ok, belts ok"
+H243-PKG2,H243,2024-08-02,Preventive Maintenance,Scheduled PM,,335.83,"Filters changed, coils cleaned"
+V235-PKG1,V235,2024-08-03,Preventive Maintenance,Scheduled PM,,187.17,"Filters changed, coils cleaned"
+C218-COOLER1,c218,2024-08-03,Preventive Maintenance,Scheduled PM,,344.15,
+H300-RTU2,H300,2024-08-03,Preventive Maintenance,Scheduled PM,,315.8,"Checked charge ok, belts ok"
+D211-CASE3,D211,2024-08-04,Leak Repair,Refrigerant leak,2.3,2769.8,
+D136-PKG1,D136,2024-08-04,Preventive Maintenance,Scheduled PM,,346.04,"Checked charge ok, belts ok"
+D212-RTU2,D212,2024-08-04,Repair,Compressor failure,,6142.56,
+V203-RTU2,V203,2024-08-05,Preventive Maintenance,Scheduled PM,,299.71,
+H116-RTU2,H116,2024-08-06,Preventive Maintenance,Scheduled PM,,251.28,"Checked charge ok, belts ok"
+H333-FREEZER2,H333,2024-08-06,Leak Repair,Refrigerant leak,5.2,4818.6,Leak check - found at fittings. recharge
+D393-WH1,D393,2024-08-06,Repair,No hot water,,527.58,"Pilot out, relit and cleaned burner"
+H243-RTU3,H243,2024-08-06,Preventive Maintenance,Scheduled PM,,376.61,"Filters changed, coils cleaned"
+C123-COOLER1,C123,2024-08-07,Preventive Maintenance,Scheduled PM,,208.66,"PM complete, no issues"
+D125-WH1,D125,2024-08-07,Repair,Noise / vibration,,329.22,"Tightened mounts, lubricated bearings"
+H300-RTU3,H300,2024-08-07,Preventive Maintenance,Scheduled PM,,146.91,"Filters changed, coils cleaned"
+D136-RTU1,D136,2024-08-08,Repair,Not cooling,,4919.75,
+C374-RTU1,C374,2024-08-10,Preventive Maintenance,Scheduled PM,,150.73,"PM complete, no issues"
+D125-RTU1,D125,2024-08-10,Repair,Controls / thermostat,,,
+H243-FREEZER2,H243,2024-08-10,Repair,Fan motor failure,,830.68,"Fan motor noisy then failed, replaced"
+D136-FREEZER1,D136,2024-08-11,Preventive Maintenance,Scheduled PM,,186.23,
+D212-RTU1,D212,2024-08-12,Leak Repair,Refrigerant leak,2.9,1318.61,"Leak found at relay, repaired, recharged"
+D292-FREEZER1,D292,2024-08-13,Preventive Maintenance,Scheduled PM,,339.13,"PM complete, no issues"
+D292-CASE2,D292,2024-08-13,Repair,Refrigerant leak,,2755.32,Leak check - found at fittings. recharge
+D345-RTU2,D345,2024-08-13,Preventive Maintenance,Scheduled PM,,301.21,"Filters changed, coils cleaned"
+D292-ICE1,D292,2024-08-16,Preventive Maintenance,Scheduled PM,,320.65,"Checked charge ok, belts ok"
+C374-COOLER1,C374,2024-08-17,Preventive Maintenance,Scheduled PM,,287.22,"Filters changed, coils cleaned"
+D321-CASE1,D321,2024-08-17,Repair,Frozen coil,,1684.95,"Coil iced up, defrosted, checked airflow"
+H243-COOLER1,h243,2024-08-18,Emergency Repair,Controls / thermostat,,1114.33,"Controller fault, reset and replaced sensor"
+H300-COOLER2,H300,2024-08-19,Preventive Maintenance,Scheduled PM,,270.26,"Checked charge ok, belts ok"
+C380-COOLER1,C380,2024-08-21,Preventive Maintenance,Scheduled PM,,267.32,"PM complete, no issues"
+H333-RTU1,h333,2024-08-21,Repair,Not cooling,4.8,1037.17,no cooling. pressure switch bad. repl
+D136-RTU1,D136,2024-08-22,Preventive Maintenance,Scheduled PM,,349.58,"PM complete, no issues"
+H116-RTU2,H116,2024-08-23,Repair,Not cooling,,416.31,Not cooling - checked charge and fan blade
+D292-RTU1,D292,2024-08-24,Preventive Maintenance,Scheduled PM,,253.75,"Checked charge ok, belts ok"
+C218-ICE1,C218,2024-08-24,Preventive Maintenance,Scheduled PM,,365.09,"Filters changed, coils cleaned"
+D125-COOLER1,D125,2024-08-25,Repair,Controls / thermostat,,996.92,
+D393-FREEZER1,D393,2024-08-25,Preventive Maintenance,Scheduled PM,,283.15,
+V222-RTU1,V222,2024-08-26,Preventive Maintenance,Scheduled PM,,361.65,"Filters changed, coils cleaned"
+D129-PKG1,D129,2024-08-27,Preventive Maintenance,Scheduled PM,,192.38,
+D129-COOLER1,D129,2024-08-27,Preventive Maintenance,Scheduled PM,,140.06,"Filters changed, coils cleaned"
+H274-PKG3,H274,2024-08-28,Preventive Maintenance,Scheduled PM,,305.53,"Filters changed, coils cleaned"
+C123-RTU1,C123,2024-09-02,Preventive Maintenance,Scheduled PM,,316.36,
+D393-COOLER1,D393,2024-09-02,Preventive Maintenance,Scheduled PM,,173.04,"PM complete, no issues"
+C380-WH1,C380,2024-09-03,Repair,Noise / vibration,,554.86,"Tightened mounts, lubricated bearings"
+D274-SPLIT1,D274,2024-09-03,Preventive Maintenance,Scheduled PM,,229.18,"Filters changed, coils cleaned"
+D321-COOLER1,D321,2024-09-03,Preventive Maintenance,Scheduled PM,,256.8,
+H300-RTU2,H300,2024-09-03,Emergency Repair,Refrigerant leak,3.5,5207.15,"Leak found at TXV, repaired, recharged"
+H116-ICE1,H116,2024-09-05,Preventive Maintenance,Scheduled PM,,150.43,"PM complete, no issues"
+UNKNOWN,H116,2024-09-05,Preventive Maintenance,Scheduled PM,,200.15,"PM complete, no issues"
+H333-RTU2,H333,2024-09-05,Preventive Maintenance,Scheduled PM,,299.42,"Checked charge ok, belts ok"
+D212-RTU1,D212,2024-09-06,Preventive Maintenance,Scheduled PM,,304.8,"PM complete, no issues"
+D212-SPLIT1,D212,2024-09-06,Preventive Maintenance,Scheduled PM,,320.79,"Filters changed, coils cleaned"
+H333-FREEZER2,H333,2024-09-07,Preventive Maintenance,Scheduled PM,,240.1,
+D125-FREEZER1,D125,2024-09-07,Repair,Not cooling,8.8,2961.07,"Found unit not cooling, replaced TXV, tested ok"
+D212-RTU2,D212,2024-09-07,Preventive Maintenance,Scheduled PM,,297.27,
+H300-COOLER1,H300,2024-09-08,Preventive Maintenance,Scheduled PM,,145.51,"PM complete, no issues"
+D129-FREEZER1,D129,2024-09-09,Preventive Maintenance,Scheduled PM,,224.81,"Filters changed, coils cleaned"
+D212-COOLER1,d212,2024-09-09,Preventive Maintenance,Scheduled PM,,356.77,
+H243-RTU1,H243,2024-09-10,Preventive Maintenance,Scheduled PM,,251.06,"Filters changed, coils cleaned"
+H300-PKG1,H300,2024-09-10,Preventive Maintenance,Scheduled PM,,245.94,"Filters changed, coils cleaned"
+D345-COOLER1,D345,2024-09-10,Repair,Not cooling,16.1,3852.59,Not cooling - checked charge and relay
+C374-PKG1,C374,2024-09-11,Preventive Maintenance,Scheduled PM,,324.59,"PM complete, no issues"
+V203-RTU1,V203,2024-09-12,Preventive Maintenance,Scheduled PM,,206.9,
+,H274,2024-09-12,Preventive Maintenance,Scheduled PM,,206.35,"Checked charge ok, belts ok"
+H274-ICE1,H274,2024-09-13,Preventive Maintenance,Scheduled PM,,313.34,"PM complete, no issues"
+D212-FREEZER1,d212,2024-09-13,Preventive Maintenance,Scheduled PM,,221.54,"Filters changed, coils cleaned"
+D125-RTU1,D125,2024-09-14,Preventive Maintenance,Scheduled PM,,379.62,
+D125-FREEZER1,D125,2024-09-15,Preventive Maintenance,Scheduled PM,,351.24,
+P166-RTU1,P166,2024-09-16,Preventive Maintenance,Scheduled PM,,140.26,"Checked charge ok, belts ok"
+D136-RTU3,D136,2024-09-17,Preventive Maintenance,Scheduled PM,,214.55,"PM complete, no issues"
+H333-COOLER1,H333,2024-09-17,Repair,Fan motor failure,,3785.97,"Fan motor noisy then failed, replaced"
+H333-FREEZER1,H333,2024-09-18,Preventive Maintenance,Scheduled PM,,353.4,
+D296-RTU2,D296,2024-09-18,Preventive Maintenance,Scheduled PM,,276.05,"PM complete, no issues"
+D321-SPLIT1,D321,2024-09-18,Preventive Maintenance,Scheduled PM,,161.93,
+H243-PKG2,H243,2024-09-19,Repair,Frozen coil,,1064.45,Evap coil frozen - dirty filters
+h300-case3,H300,2024-09-19,Emergency Repair,Compressor failure,,8839.09,
+D393-RTU1,D393,2024-09-20,Preventive Maintenance,Scheduled PM,,285.21,"Filters changed, coils cleaned"
+D321-RTU1,D321,2024-09-22,Preventive Maintenance,Scheduled PM,,252.77,"Checked charge ok, belts ok"
+H274-COOLER2,H274,2024-09-23,Repair,Not cooling,15.9,1978.14,no cooling. capacitor bad. repl
+D296-COOLER1,D296,2024-09-24,Preventive Maintenance,Scheduled PM,,326.53,"Checked charge ok, belts ok"
+D345-CASE5,D345,2024-09-25,Repair,Refrigerant leak,,2945.14,"Low charge, leak at coil, added refrigerant"
+D211-FREEZER1,D211,2024-09-26,Preventive Maintenance,Scheduled PM,,213.78,"Checked charge ok, belts ok"
+H300-FREEZER2,H300,2024-09-26,Preventive Maintenance,Scheduled PM,,259.7,"Filters changed, coils cleaned"
+,H116,2024-09-27,Preventive Maintenance,Scheduled PM,,304.43,"Filters changed, coils cleaned"
+H333-COOLER1,H333,2024-09-27,Preventive Maintenance,Scheduled PM,,289.69,"Checked charge ok, belts ok"
+H243-FREEZER2,H243,2024-09-27,Repair,Fan motor failure,,4583.7,
+H116-RTU3,H116,2024-09-28,Preventive Maintenance,Scheduled PM,,146.22,"PM complete, no issues"
+H116-PKG1,H116,2024-10-01,Repair,Not cooling,,2789.78,Not cooling - checked charge and fan blade
+D393-ICE1,D393,2024-10-01,Preventive Maintenance,Scheduled PM,,342.63,
+D296-PKG1,D296,2024-10-03,Preventive Maintenance,Scheduled PM,,330.15,"Checked charge ok, belts ok"
+H274-COOLER1,H274,2024-10-05,Preventive Maintenance,Scheduled PM,,248.51,"Checked charge ok, belts ok"
+H116-FREEZER1,H116,2024-10-06,Preventive Maintenance,Scheduled PM,,295.94,"PM complete, no issues"
+C123-RTU2,C123,2024-10-07,Preventive Maintenance,Scheduled PM,,239.91,"PM complete, no issues"
+C380-RTU1,C380,2024-10-08,Preventive Maintenance,Scheduled PM,,163.25,"Filters changed, coils cleaned"
+D125-CASE3,D125,2024-10-08,Repair,Compressor failure,,6374.05,"Compressor locked out, replaced start kit then comp"
+H333-PKG2,h333,2024-10-10,Preventive Maintenance,Scheduled PM,,324.44,
+H243-FREEZER2,H243,2024-10-10,Repair,Compressor failure,,41336.07,"Comp. failed, recommend replace unit if age > 12yrs"
+D125-COOLER1,D125,2024-10-11,Preventive Maintenance,Scheduled PM,,280.6,"Filters changed, coils cleaned"
+H333-PKG1,H333,2024-10-13,Preventive Maintenance,Scheduled PM,,163.0,"PM complete, no issues"
+D129-RTU1,D129,2024-10-14,Preventive Maintenance,Scheduled PM,,257.92,"Filters changed, coils cleaned"
+H243-RTU2,H243,2024-10-14,Preventive Maintenance,Scheduled PM,,249.9,"Checked charge ok, belts ok"
+D212-ICE1,D212,2024-10-14,Preventive Maintenance,Scheduled PM,,374.17,"Checked charge ok, belts ok"
+H116-COOLER2,H116,2024-10-15,Repair,Not cooling,,2127.2,"Found unit not cooling, replaced contactor, tested ok"
+C303-COOLER1,C303,2024-10-15,Preventive Maintenance,Scheduled PM,,237.57,"PM complete, no issues"
+C303-RTU1,C303,2024-10-18,Preventive Maintenance,Scheduled PM,,272.39,"Filters changed, coils cleaned"
+D211-RTU1,D211,2024-10-19,Preventive Maintenance,Scheduled PM,,334.05,"Checked charge ok, belts ok"
+D296-RTU1,D296,2024-10-19,Preventive Maintenance,Scheduled PM,,210.6,"PM complete, no issues"
+D274-RTU1,D274,2024-10-20,Preventive Maintenance,Scheduled PM,,264.34,"Checked charge ok, belts ok"
+V203-PKG1,V203,2024-10-21,Preventive Maintenance,Scheduled PM,,312.41,"Filters changed, coils cleaned"
+H274-FREEZER2,H274,2024-10-22,Repair,Not cooling,9.1,1148.06,"Found unit not cooling, replaced condenser coil, tested ok"
+D136-RTU2,D136,2024-10-23,Preventive Maintenance,Scheduled PM,,327.09,"Filters changed, coils cleaned"
+H243-FREEZER2,H243,2024-10-24,Preventive Maintenance,Scheduled PM,,,
+H116-RTU1,H116,2024-10-27,Preventive Maintenance,Scheduled PM,,150.58,"PM complete, no issues"
+H116-CASE2,H116,2024-10-27,Preventive Maintenance,Scheduled PM,,253.95,
+D211-CASE1,D211,2024-10-27,Preventive Maintenance,Scheduled PM,,325.27,
+V237-RTU1,V237,2024-10-27,Preventive Maintenance,Scheduled PM,,319.05,"Filters changed, coils cleaned"
+d292-case2,D292,2024-10-27,Preventive Maintenance,Scheduled PM,,336.28,"PM complete, no issues"
+D274-COOLER1,D274,2024-10-27,Preventive Maintenance,Scheduled PM,,171.64,"Checked charge ok, belts ok"
+C218-RTU1,C218,2024-10-27,Preventive Maintenance,Scheduled PM,,185.25,"Filters changed, coils cleaned"
+H274-SPLIT1,H274,2024-10-27,Preventive Maintenance,Scheduled PM,,240.55,"Filters changed, coils cleaned"
+V307-SPLIT1,V307,2024-10-28,Preventive Maintenance,Scheduled PM,,354.66,
+D125-CASE1,D125,2024-11-01,Preventive Maintenance,Scheduled PM,,237.9,
+C218-COOLER1,C218,2024-11-01,Preventive Maintenance,Scheduled PM,,260.98,
+H243-FREEZER1,H243,2024-11-02,Preventive Maintenance,Scheduled PM,,270.74,"Filters changed, coils cleaned"
+H243-PKG2,H243,2024-11-02,Preventive Maintenance,Scheduled PM,,301.34,"Checked charge ok, belts ok"
+D136-PKG1,D136,2024-11-03,Preventive Maintenance,Scheduled PM,,231.51,"PM complete, no issues"
+D345-RTU1,D345,2024-11-03,Preventive Maintenance,Scheduled PM,,302.44,"Checked charge ok, belts ok"
+C113-COOLER1,C113,2024-11-05,Preventive Maintenance,Scheduled PM,,142.3,"PM complete, no issues"
+D292-CASE4,D292,2024-11-05,Preventive Maintenance,Scheduled PM,,334.68,
+,H300,2024-11-05,Preventive Maintenance,Scheduled PM,,258.86,"Checked charge ok, belts ok"
+D129-ICE1,D129,2024-11-06,Preventive Maintenance,Scheduled PM,,237.39,"Checked charge ok, belts ok"
+V235-PKG1,V235,2024-11-07,Preventive Maintenance,Scheduled PM,,247.24,"Checked charge ok, belts ok"
+H300-FREEZER1,H300,2024-11-07,Preventive Maintenance,Scheduled PM,,283.87,"Checked charge ok, belts ok"
+D292-ICE1,D292,2024-11-08,Preventive Maintenance,Scheduled PM,,164.0,
+C374-COOLER1,C374,2024-11-09,Leak Repair,Refrigerant leak,1.4,1404.8,"Leak found at capacitor, repaired, recharged"
+H243-CASE2,H243,2024-11-09,Preventive Maintenance,Scheduled PM,,349.96,"Filters changed, coils cleaned"
+D136-FREEZER1,D136,2024-11-10,Preventive Maintenance,Scheduled PM,,201.14,"PM complete, no issues"
+D292-FREEZER1,D292,2024-11-10,Preventive Maintenance,Scheduled PM,,336.98,"PM complete, no issues"
+H243-RTU3,H243,2024-11-10,Preventive Maintenance,Scheduled PM,,208.15,"Filters changed, coils cleaned"
+H333-COOLER2,H333,2024-11-11,Preventive Maintenance,Scheduled PM,,186.41,
+V203-RTU2,V203,2024-11-11,Preventive Maintenance,Scheduled PM,,263.52,"Filters changed, coils cleaned"
+,D274,2024-11-11,Preventive Maintenance,Scheduled PM,,260.59,"Checked charge ok, belts ok"
+D393-CASE4,D393,2024-11-11,Preventive Maintenance,Scheduled PM,,358.73,
+d393-freezer1,D393,2024-11-11,Preventive Maintenance,Scheduled PM,,260.19,"Filters changed, coils cleaned"
+H300-COOLER2,H300,2024-11-11,Preventive Maintenance,Scheduled PM,,219.27,"Filters changed, coils cleaned"
+D274-CASE1,D274,2024-11-12,Preventive Maintenance,Scheduled PM,,172.96,"Checked charge ok, belts ok"
+C374-COOLER1,C374,2024-11-13,Preventive Maintenance,Scheduled PM,,198.48,"Filters changed, coils cleaned"
+D274-FREEZER1,D274,2024-11-13,Preventive Maintenance,Scheduled PM,,207.34,"Filters changed, coils cleaned"
+C123-CASE2,C123,2024-11-14,Preventive Maintenance,Scheduled PM,,300.25,"Checked charge ok, belts ok"
+C235-ICE1,C235,2024-11-14,Preventive Maintenance,Scheduled PM,,310.19,"Checked charge ok, belts ok"
+D292-COOLER1,D292,2024-11-14,Repair,Controls / thermostat,,635.91,Faulty defrost control
+D292-RTU1,D292,2024-11-14,Preventive Maintenance,Scheduled PM,,182.45,"Filters changed, coils cleaned"
+H243-PKG2,H243,2024-11-14,Repair,Fan motor failure,,1423.67,evap fan motor repl
+C113-CASE1,C113,2024-11-15,Preventive Maintenance,Scheduled PM,,245.96,"Checked charge ok, belts ok"
+D136-CASE1,D136,2024-11-15,Preventive Maintenance,Scheduled PM,,272.52,"PM complete, no issues"
+D321-CASE2,D321,2024-11-15,Leak Repair,Refrigerant leak,4.5,2753.69,"Leak found at capacitor, repaired, recharged"
+C113-RTU1,C113,2024-11-17,Preventive Maintenance,Scheduled PM,,288.36,"Checked charge ok, belts ok"
+C235-CASE1,C235,2024-11-19,Preventive Maintenance,Scheduled PM,,303.82,"PM complete, no issues"
+D345-CASE2,D345,2024-11-19,Preventive Maintenance,Scheduled PM,,234.18,
+D129-CASE2,D129,2024-11-20,Preventive Maintenance,Scheduled PM,,257.32,
+H274-PKG3,H274,2024-11-20,Preventive Maintenance,Scheduled PM,,,
+H300-FREEZER2,H300,2024-11-20,Repair,Compressor failure,,20398.99,"Comp. failed, recommend replace unit if age > 12yrs"
+H116-RTU2,H116,2024-11-21,Repair,Not cooling,,1413.24,no cooling. fan blade bad. repl
+UNKNOWN,C303,2024-11-22,Preventive Maintenance,Scheduled PM,,307.74,"Filters changed, coils cleaned"
+D274CASE2,D274,2024-11-22,Preventive Maintenance,Scheduled PM,,273.47,
+C218-ICE1,C218,2024-11-22,Preventive Maintenance,Scheduled PM,,241.4,
+H274-FREEZER1,H274,2024-11-22,Preventive Maintenance,Scheduled PM,,269.5,"Filters changed, coils cleaned"
+H116-ICE1,H116,2024-11-23,Preventive Maintenance,Scheduled PM,,141.24,"PM complete, no issues"
+D321-CASE2,D321,2024-11-24,Preventive Maintenance,Scheduled PM,,266.47,"PM complete, no issues"
+H333-CASE5,h333,2024-11-25,Preventive Maintenance,Scheduled PM,,300.58,"Filters changed, coils cleaned"
+D292-RTU2,D292,2024-11-25,Preventive Maintenance,Scheduled PM,,247.39,"Checked charge ok, belts ok"
+V222-RTU1,V222,2024-11-25,Preventive Maintenance,Scheduled PM,,257.45,"Filters changed, coils cleaned"
+H300-RTU1,H300,2024-11-25,Preventive Maintenance,Scheduled PM,,,"PM complete, no issues"
+D212-CASE2,D212,2024-11-25,Preventive Maintenance,Scheduled PM,,353.97,"Filters changed, coils cleaned"
+H116-CASE5,H116,2024-11-26,Preventive Maintenance,Scheduled PM,,191.77,
+D274-ICE1,d274,2024-11-26,Preventive Maintenance,Scheduled PM,,265.37,
+D393-PKG1,D393,2024-11-26,Preventive Maintenance,Scheduled PM,,349.72,"Filters changed, coils cleaned"
+D393-CASE2,D393,2024-11-26,Preventive Maintenance,Scheduled PM,,229.59,"Filters changed, coils cleaned"
+D393-CASE3,D393,2024-11-27,Preventive Maintenance,Scheduled PM,,235.85,"PM complete, no issues"
+H243-PKG1,H243,2024-11-27,Preventive Maintenance,Scheduled PM,,326.35,"Filters changed, coils cleaned"
+,H300,2024-11-27,Preventive Maintenance,Scheduled PM,,336.15,"Checked charge ok, belts ok"
+C380-COOLER1,C380,2024-11-28,Preventive Maintenance,Scheduled PM,,208.88,"Filters changed, coils cleaned"
+H333-CASE4,H333,2024-11-28,Preventive Maintenance,Scheduled PM,,242.6,"Checked charge ok, belts ok"
+D129-FREEZER1,D129,2024-11-28,Preventive Maintenance,Scheduled PM,,173.95,"Checked charge ok, belts ok"
+D125-RTU2,D125,2024-11-28,Preventive Maintenance,Scheduled PM,,312.08,
+D296-CASE1,D296,2024-12-01,Preventive Maintenance,Scheduled PM,,364.94,
+H116-FREEZER2,H116,2024-12-02,Preventive Maintenance,Scheduled PM,,297.69,"Checked charge ok, belts ok"
+d129-cooler1,D129,2024-12-02,Preventive Maintenance,Scheduled PM,,145.37,"Filters changed, coils cleaned"
+D274-SPLIT1,D274,2024-12-02,Preventive Maintenance,Scheduled PM,,331.7,"Filters changed, coils cleaned"
+H116-CASE3,H116,2024-12-03,Emergency Repair,Not cooling,5.1,2147.84,
+D321-CASE3,D321,2024-12-03,Preventive Maintenance,Scheduled PM,,145.61,"Filters changed, coils cleaned"
+D321-CASE1,D321,2024-12-05,Preventive Maintenance,Scheduled PM,,157.1,"Checked charge ok, belts ok"
+P166-RTU1,P166,2024-12-06,Preventive Maintenance,Scheduled PM,,272.18,"PM complete, no issues"
+H300-PKG1,H300,2024-12-06,Preventive Maintenance,Scheduled PM,,,"PM complete, no issues"
+D321-SPLIT1,D321,2024-12-08,Repair,Controls / thermostat,,612.25,
+H243-RTU1,H243,2024-12-08,Preventive Maintenance,Scheduled PM,,212.6,"Checked charge ok, belts ok"
+D393-COOLER1,D393,2024-12-09,Preventive Maintenance,Scheduled PM,,362.3,
+H274-CASE2,H274,2024-12-09,Preventive Maintenance,Scheduled PM,,368.44,"Filters changed, coils cleaned"
+H243-COOLER1,H243,2024-12-09,Preventive Maintenance,Scheduled PM,,322.08,"Checked charge ok, belts ok"
+,D345,2024-12-09,Preventive Maintenance,Scheduled PM,,184.7,"Filters changed, coils cleaned"
+D211-CASE2,D211,2024-12-10,Emergency Repair,Controls / thermostat,,1191.11,"Controller fault, reset and replaced sensor"
+C123-RTU1,C123,2024-12-10,Preventive Maintenance,Scheduled PM,,374.87,"PM complete, no issues"
+V258-SPLIT1,V258,2024-12-10,Preventive Maintenance,Scheduled PM,,335.91,
+D345-ICE1,D345,2024-12-10,Preventive Maintenance,Scheduled PM,,319.57,"Filters changed, coils cleaned"
+D212-COOLER1,D212,2024-12-11,Preventive Maintenance,Scheduled PM,,308.77,"PM complete, no issues"
+H333-RTU2,H333,2024-12-12,Preventive Maintenance,Scheduled PM,,268.34,"Filters changed, coils cleaned"
+H274-COOLER2,H274,2024-12-12,Preventive Maintenance,Scheduled PM,,231.48,"Checked charge ok, belts ok"
+H333-FREEZER1,H333,2024-12-13,Preventive Maintenance,Scheduled PM,,204.14,
+H333-COOLER1,H333,2024-12-14,Preventive Maintenance,Scheduled PM,,185.32,"PM complete, no issues"
+D129-CASE1,D129,2024-12-14,Preventive Maintenance,Scheduled PM,,338.78,"Checked charge ok, belts ok"
+D321-CASE1,D321,2024-12-14,Emergency Repair,Compressor failure,,15967.96,"Compressor seized, quoted replacement"
+D212-FREEZER1,D212,2024-12-14,Preventive Maintenance,Scheduled PM,,304.47,"Filters changed, coils cleaned"
+D212-RTU2,D212,2024-12-15,Preventive Maintenance,Scheduled PM,,231.5,"Checked charge ok, belts ok"
+H243-CASE2,H243,2024-12-16,Emergency Repair,Compressor failure,,11379.05,"Comp. failed, recommend replace unit if age > 12yrs"
+H116-CASE3,H116,2024-12-17,Preventive Maintenance,Scheduled PM,,377.03,"Filters changed, coils cleaned"
+H116-RTU3,H116,2024-12-17,Preventive Maintenance,Scheduled PM,,219.05,"Filters changed, coils cleaned"
+,C123,2024-12-17,Repair,Compressor failure,,14316.74,"Compressor locked out, replaced start kit then comp"
+D136-ICE1,D136,2024-12-18,Repair,Not cooling,,629.76,"Found unit not cooling, replaced fan blade, tested ok"
+H333-CASE3,H333,2024-12-18,Preventive Maintenance,Scheduled PM,,326.91,"PM complete, no issues"
+v203-rtu1,V203,2024-12-19,Preventive Maintenance,Scheduled PM,,166.33,"Checked charge ok, belts ok"
+H274PKG1,H274,2024-12-20,Preventive Maintenance,Scheduled PM,,195.71,"Checked charge ok, belts ok"
+D125-SPLIT1,D125,2024-12-21,Preventive Maintenance,Scheduled PM,,193.53,"PM complete, no issues"
+D274-RTU1,D274,2024-12-21,Repair,Fan motor failure,,641.14,evap fan motor repl
+H333-CASE2,H333,2024-12-22,Preventive Maintenance,Scheduled PM,,275.3,"Filters changed, coils cleaned"
+D296-FREEZER1,D296,2024-12-22,Preventive Maintenance,Scheduled PM,,335.26,"Filters changed, coils cleaned"
+H300-CASE3,H300,2024-12-22,Preventive Maintenance,Scheduled PM,,350.2,"Checked charge ok, belts ok"
+C235-CASE2,C235,2024-12-23,Preventive Maintenance,Scheduled PM,,149.29,"PM complete, no issues"
+D125-FREEZER1,D125,2024-12-23,Preventive Maintenance,Scheduled PM,,230.74,"PM complete, no issues"
+D211-CASE2,D211,2024-12-25,Preventive Maintenance,Scheduled PM,,270.19,
+C303-CASE2,C303,2024-12-25,Preventive Maintenance,Scheduled PM,,161.59,"PM complete, no issues"
+D321-RTU1,D321,2024-12-25,Preventive Maintenance,Scheduled PM,,241.28,"PM complete, no issues"
+D129-CASE4,D129,2024-12-26,Preventive Maintenance,Scheduled PM,,318.75,"PM complete, no issues"
+H274-PKG2,H274,2024-12-27,Preventive Maintenance,Scheduled PM,,203.32,"Checked charge ok, belts ok"
+C113-ICE1,C113,2024-12-28,Preventive Maintenance,Scheduled PM,,,"Checked charge ok, belts ok"
+D296-COOLER1,D296,2024-12-28,Preventive Maintenance,Scheduled PM,,205.26,"Filters changed, coils cleaned"
+D296-RTU2,D296,2024-12-28,Preventive Maintenance,Scheduled PM,,218.47,"Filters changed, coils cleaned"
+D393-SPLIT1,D393,2024-12-28,Preventive Maintenance,Scheduled PM,,216.45,"Checked charge ok, belts ok"
+V307-SPLIT1,V307,01/14/2024,Preventive Maintenance,Scheduled PM,,367.19,"PM complete, no issues"
+D125-CASE4,D125,01/17/2024,Preventive Maintenance,Scheduled PM,,208.84,
+H116-RTU1,H116,01/19/2024,Preventive Maintenance,Scheduled PM,,248.98,
+H116-RTU2,H116,02/17/2024,Preventive Maintenance,Scheduled PM,,253.73,"Filters changed, coils cleaned"
+H300-FREEZER1,H300,02/17/2024,Preventive Maintenance,Scheduled PM,,285.51,"PM complete, no issues"
+H243-FREEZER2,H243,02/26/2024,Preventive Maintenance,Scheduled PM,,209.43,"PM complete, no issues"
+C374-COOLER1,C374,03/03/2024,Preventive Maintenance,Scheduled PM,,310.8,"Checked charge ok, belts ok"
+H243-PKG1,H243,03/05/2024,Preventive Maintenance,Scheduled PM,,353.06,"Filters changed, coils cleaned"
+V203-PKG1,V203,03/08/2024,Repair,Controls / thermostat,,461.44,"Controller fault, reset and replaced sensor"
+V203-RTU1,V203,03/09/2024,Preventive Maintenance,Scheduled PM,,182.63,"PM complete, no issues"
+H333-COOLER1,H333,03/25/2024,Preventive Maintenance,Scheduled PM,,156.11,"Filters changed, coils cleaned"
+C113-ICE1,C113,03/26/2024,Preventive Maintenance,Scheduled PM,,191.55,"Filters changed, coils cleaned"
+D125-SPLIT1,D125,03/28/2024,Preventive Maintenance,Scheduled PM,,,"PM complete, no issues"
+C123-RTU2,C123,04/13/2024,Preventive Maintenance,Scheduled PM,,357.0,
+H243-RTU2,H243,04/22/2024,Preventive Maintenance,Scheduled PM,,162.51,"Checked charge ok, belts ok"
+D125-CASE1,D125,04/27/2024,Preventive Maintenance,Scheduled PM,,276.56,"Filters changed, coils cleaned"
+H300-CASE2,H300,05/04/2024,Preventive Maintenance,Scheduled PM,,256.49,"PM complete, no issues"
+D345-CASE4,D345,05/22/2024,Emergency Repair,Compressor failure,,23196.13,"Compressor seized, quoted replacement"
+C123-RTU1,C123,06/06/2024,Leak Repair,Refrigerant leak,17.6,4100.83,"Low charge, leak at coil, added refrigerant"
+H274-FREEZER1,H274,06/06/2024,Preventive Maintenance,Scheduled PM,,337.1,"Filters changed, coils cleaned"
+D321-CASE1,D321,06/14/2024,Preventive Maintenance,Scheduled PM,,255.28,"Filters changed, coils cleaned"
+C113-ICE1,C113,06/23/2024,Preventive Maintenance,Scheduled PM,,349.28,"Checked charge ok, belts ok"
+D345-COOLER1,D345,06/27/2024,Preventive Maintenance,Scheduled PM,,296.63,"Filters changed, coils cleaned"
+H333-CASE2,H333,07/06/2024,Preventive Maintenance,Scheduled PM,,192.38,
+C380-CASE2,C380,07/11/2024,Preventive Maintenance,Scheduled PM,,335.74,"PM complete, no issues"
+C374-CASE1,C374,07/12/2024,Preventive Maintenance,Scheduled PM,,355.17,"Filters changed, coils cleaned"
+D345-CASE1,D345,07/13/2024,Preventive Maintenance,Scheduled PM,,204.56,
+D274-RTU1,D274,07/28/2024,Preventive Maintenance,Scheduled PM,,179.47,"Filters changed, coils cleaned"
+H243-RTU2,H243,07/28/2024,Preventive Maintenance,Scheduled PM,,168.87,
+C113-RTU1,C113,08/09/2024,Preventive Maintenance,Scheduled PM,,356.05,"PM complete, no issues"
+D321-FREEZER1,D321,08/21/2024,Preventive Maintenance,Scheduled PM,,253.41,"PM complete, no issues"
+D292-COOLER1,D292,08/22/2024,Repair,Fan motor failure,,1540.77,
+D129-COOLER1,D129,09/01/2024,Repair,Not cooling,7.5,1934.77,
+D393-PKG1,D393,09/02/2024,Preventive Maintenance,Scheduled PM,,195.53,"Filters changed, coils cleaned"
+H243-COOLER1,H243,09/07/2024,Preventive Maintenance,Scheduled PM,,368.26,
+V258-SPLIT1,V258,09/11/2024,Preventive Maintenance,Scheduled PM,,291.35,
+D296-FREEZER1,D296,09/24/2024,Preventive Maintenance,Scheduled PM,,376.35,"PM complete, no issues"
+D211-ICE1,D211,10/19/2024,Preventive Maintenance,Scheduled PM,,,"PM complete, no issues"
+H300-RTU2,H300,10/26/2024,Preventive Maintenance,Scheduled PM,,337.2,"Checked charge ok, belts ok"
+H333-COOLER1,H333,10/28/2024,Emergency Repair,Compressor failure,,4898.08,"Compressor locked out, replaced start kit then comp"
+D321-CASE4,D321,11/07/2024,Preventive Maintenance,Scheduled PM,,282.87,
+D136-RTU1,D136,11/09/2024,Preventive Maintenance,Scheduled PM,,223.92,"PM complete, no issues"
+C123-COOLER1,C123,11/16/2024,Preventive Maintenance,Scheduled PM,,279.71,"Filters changed, coils cleaned"
+D296CASE2,D296,11/16/2024,Preventive Maintenance,Scheduled PM,,347.98,"PM complete, no issues"
+D321-FREEZER1,d321,11/24/2024,Preventive Maintenance,Scheduled PM,,253.2,"Checked charge ok, belts ok"
+D211-COOLER1,D211,12/01/2024,Preventive Maintenance,Scheduled PM,,303.71,"Checked charge ok, belts ok"
+P166-PKG1,P166,12/07/2024,Preventive Maintenance,Scheduled PM,,307.73,
+D321-SPLIT1,D321,12/12/2024,Preventive Maintenance,Scheduled PM,,295.41,"Checked charge ok, belts ok"
+H274-ICE1,H274,12/16/2024,Preventive Maintenance,Scheduled PM,,184.12,
+H333-CASE1,H333,12/20/2024,Preventive Maintenance,Scheduled PM,,280.69,
+D321-CASE4,d321,12/20/2024,Repair,Not cooling,,1568.06,"Found unit not cooling, replaced fan blade, tested ok"
+C380-CASE1,C380,12/27/2024,Preventive Maintenance,Scheduled PM,,352.06,"PM complete, no issues"
+C380-CASE2,C380,2025-01-01,Preventive Maintenance,Scheduled PM,,,"PM complete, no issues"
+D129-CASE3,D129,2025-01-01,Emergency Repair,Not cooling,5.5,2570.74,"Found unit not cooling, replaced pressure switch, tested ok"
+C123-RTU2,C123,2025-01-02,Preventive Maintenance,Scheduled PM,,184.01,"Checked charge ok, belts ok"
+D393-ICE1,D393,2025-01-02,Preventive Maintenance,Scheduled PM,,189.85,"Filters changed, coils cleaned"
+D211-FREEZER1,D211,2025-01-03,Preventive Maintenance,Scheduled PM,,233.93,"Checked charge ok, belts ok"
+C123-CASE1,C123,2025-01-06,Preventive Maintenance,Scheduled PM,,348.76,"Filters changed, coils cleaned"
+D125-CASE4,D125,2025-01-06,Preventive Maintenance,Scheduled PM,,291.31,
+D296-PKG1,D296,2025-01-06,Preventive Maintenance,Scheduled PM,,221.09,
+C303-COOLER1,C303,2025-01-08,Preventive Maintenance,Scheduled PM,,147.42,"Filters changed, coils cleaned"
+D129-CASE3,D129,2025-01-09,Preventive Maintenance,Scheduled PM,,215.38,
+C235-COOLER1,C235,2025-01-09,Preventive Maintenance,Scheduled PM,,182.62,"PM complete, no issues"
+D136-CASE2,D136,2025-01-10,Preventive Maintenance,Scheduled PM,,316.05,
+D274-RTU1,D274,2025-01-11,Preventive Maintenance,Scheduled PM,,,"Checked charge ok, belts ok"
+H243-RTU2,H243,2025-01-11,Preventive Maintenance,Scheduled PM,,152.61,"Checked charge ok, belts ok"
+D321-CASE5,D321,2025-01-12,Preventive Maintenance,Scheduled PM,,144.32,
+D212-ICE1,D212,2025-01-12,Preventive Maintenance,Scheduled PM,,196.17,"Checked charge ok, belts ok"
+C218-RTU1,C218,2025-01-13,Preventive Maintenance,Scheduled PM,,352.71,"PM complete, no issues"
+H243-CASE1,H243,2025-01-13,Preventive Maintenance,Scheduled PM,,157.58,"Checked charge ok, belts ok"
+D125-FREEZER1,D125,2025-01-14,Repair,Not cooling,14.0,2243.34,no cooling. fan blade bad. repl
+C380-RTU1,C380,2025-01-15,Preventive Maintenance,Scheduled PM,,226.73,
+V237RTU1,V237,2025-01-16,Preventive Maintenance,Scheduled PM,,169.03,"Filters changed, coils cleaned"
+D211-ICE1,D211,2025-01-17,Preventive Maintenance,Scheduled PM,,165.44,"Filters changed, coils cleaned"
+H243-FREEZER2,h243,2025-01-17,Preventive Maintenance,Scheduled PM,,348.07,"PM complete, no issues"
+H116-COOLER1,H116,2025-01-18,Repair,Not cooling,,1019.0,no cooling. contactor bad. repl
+H116-CASE1,H116,2025-01-18,Preventive Maintenance,Scheduled PM,,194.12,"Checked charge ok, belts ok"
+C374-CASE1,C374,2025-01-18,Preventive Maintenance,Scheduled PM,,307.33,
+C303-RTU1,c303,2025-01-19,Preventive Maintenance,Scheduled PM,,142.65,"Filters changed, coils cleaned"
+D125-COOLER1,D125,2025-01-19,Preventive Maintenance,Scheduled PM,,269.37,
+D211-RTU1,D211,2025-01-20,Preventive Maintenance,Scheduled PM,,241.5,
+UNKNOWN,D136,2025-01-20,Preventive Maintenance,Scheduled PM,,263.58,"Checked charge ok, belts ok"
+D129-FREEZER1,D129,2025-01-21,Emergency Repair,Compressor failure,,8020.5,"Comp. failed, recommend replace unit if age > 12yrs"
+V203-PKG1,V203,2025-01-21,Preventive Maintenance,Scheduled PM,,,"Filters changed, coils cleaned"
+C218-COOLER1,C218,2025-01-21,Preventive Maintenance,Scheduled PM,,264.56,
+H116-RTU1,H116,2025-01-22,Preventive Maintenance,Scheduled PM,,280.08,"PM complete, no issues"
+D292-COOLER1,D292,2025-01-22,Emergency Repair,Not cooling,,3867.74,Not cooling - checked charge and condenser coil
+H116-CASE5,H116,2025-01-23,Emergency Repair,Controls / thermostat,,436.1,
+D136-PKG1,D136,2025-01-24,Preventive Maintenance,Scheduled PM,,205.85,"PM complete, no issues"
+D292-CASE3,D292,2025-01-24,Preventive Maintenance,Scheduled PM,,243.18,"PM complete, no issues"
+D296-RTU1,D296,2025-01-25,Preventive Maintenance,Scheduled PM,,329.49,"PM complete, no issues"
+D274-CASE2,D274,2025-01-26,Repair,Not cooling,1.9,1249.52,"Found unit not cooling, replaced contactor, tested ok"
+D211-FREEZER1,d211,2025-01-27,Repair,Not cooling,,2931.28,no cooling. capacitor bad. repl
+H333-RTU1,h333,2025-01-27,Preventive Maintenance,Scheduled PM,,216.71,"Checked charge ok, belts ok"
+H300-RTU2,H300,2025-01-27,Preventive Maintenance,Scheduled PM,,242.53,"Filters changed, coils cleaned"
+C374-RTU1,C374,2025-01-28,Preventive Maintenance,Scheduled PM,,277.07,"Filters changed, coils cleaned"
+H116-COOLER2,H116,2025-02-02,Preventive Maintenance,Scheduled PM,,154.38,
+H333-COOLER1,H333,2025-02-02,Leak Repair,Refrigerant leak,14.3,8965.29,"Leak found at capacitor, repaired, recharged"
+D345-RTU1,D345,2025-02-02,Preventive Maintenance,Scheduled PM,,143.23,"Filters changed, coils cleaned"
+D274-COOLER1,D274,2025-02-03,Preventive Maintenance,Scheduled PM,,289.19,"Checked charge ok, belts ok"
+V222-RTU1,v222,2025-02-03,Emergency Repair,Frozen coil,,676.25,Evap coil frozen - dirty filters
+C113-COOLER1,C113,2025-02-04,Preventive Maintenance,Scheduled PM,,159.48,"Filters changed, coils cleaned"
+D136-RTU1,d136,2025-02-04,Preventive Maintenance,Scheduled PM,,158.33,"PM complete, no issues"
+D292-ICE1,D292,2025-02-04,Preventive Maintenance,Scheduled PM,,282.59,
+D274-ICE1,D274,2025-02-05,Repair,Frozen coil,,379.06,Evap coil frozen - dirty filters
+D129-ICE1,D129,2025-02-06,Preventive Maintenance,Scheduled PM,,218.24,"Checked charge ok, belts ok"
+H274-PKG2,H274,2025-02-06,Emergency Repair,Fan motor failure,,4872.0,Replaced condenser fan motor
+C123-COOLER1,C123,2025-02-08,Preventive Maintenance,Scheduled PM,,339.78,"Checked charge ok, belts ok"
+H243-FREEZER1,H243,2025-02-08,Preventive Maintenance,Scheduled PM,,241.93,"Checked charge ok, belts ok"
+D393-CASE2,D393,2025-02-09,Emergency Repair,Refrigerant leak,2.0,3980.38,Leak check - found at fittings. recharge
+H243-PKG2,H243,2025-02-09,Preventive Maintenance,Scheduled PM,,147.89,"Checked charge ok, belts ok"
+D136-RTU2,D136,2025-02-11,Repair,Compressor failure,,6647.78,"Compressor seized, quoted replacement"
+V235-PKG1,V235,2025-02-12,Preventive Maintenance,Scheduled PM,,187.75,"PM complete, no issues"
+D393-FREEZER1,D393,2025-02-12,Preventive Maintenance,Scheduled PM,,359.06,"PM complete, no issues"
+D345-CASE3,D345,2025-02-12,Emergency Repair,Not cooling,5.7,1707.37,no cooling. pressure switch bad. repl
+h274-pkg3,H274,2025-02-13,Preventive Maintenance,Scheduled PM,,290.1,"PM complete, no issues"
+v203-rtu2,V203,2025-02-14,Preventive Maintenance,Scheduled PM,,163.54,"Checked charge ok, belts ok"
+D274-ICE1,D274,2025-02-15,Preventive Maintenance,Scheduled PM,,239.07,
+H116-ICE1,H116,2025-02-19,Preventive Maintenance,Scheduled PM,,374.74,"Checked charge ok, belts ok"
+D129-FREEZER1,D129,2025-02-20,Preventive Maintenance,Scheduled PM,,170.75,"Checked charge ok, belts ok"
+C235-ICE1,C235,2025-02-20,Preventive Maintenance,Scheduled PM,,147.53,
+D292-COOLER1,D292,2025-02-20,Repair,Compressor failure,,,"Comp. failed, recommend replace unit if age > 12yrs"
+H116-FREEZER2,H116,2025-02-22,Preventive Maintenance,Scheduled PM,,341.24,"Filters changed, coils cleaned"
+c380-cooler1,C380,2025-02-22,Preventive Maintenance,Scheduled PM,,310.71,"Filters changed, coils cleaned"
+D129-PKG1,D129,2025-02-22,Preventive Maintenance,Scheduled PM,,222.61,"Filters changed, coils cleaned"
+c113-rtu1,C113,2025-02-25,Preventive Maintenance,Scheduled PM,,351.43,"Filters changed, coils cleaned"
+H116SPLIT1,H116,2025-02-25,Preventive Maintenance,Scheduled PM,,363.71,"PM complete, no issues"
+H116-CASE3,H116,2025-02-25,Leak Repair,Refrigerant leak,2.9,2946.16,"Low charge, leak at coil, added refrigerant"
+D321-COOLER1,D321,2025-02-25,Preventive Maintenance,Scheduled PM,,309.36,"PM complete, no issues"
+C218-ICE1,C218,2025-02-26,Preventive Maintenance,Scheduled PM,,345.51,
+H300-COOLER1,H300,2025-02-26,Preventive Maintenance,Scheduled PM,,219.94,"PM complete, no issues"
+D211-COOLER1,D211,2025-02-27,Preventive Maintenance,Scheduled PM,,258.54,"Filters changed, coils cleaned"
+D125RTU3,D125,2025-02-27,Preventive Maintenance,Scheduled PM,,160.13,"Checked charge ok, belts ok"
+C123-COOLER1,C123,2025-02-28,Repair,Controls / thermostat,,517.76,Faulty defrost control
+P166-RTU1,P166,2025-02-28,Preventive Maintenance,Scheduled PM,,330.86,"PM complete, no issues"
+D212-RTU1,D212,2025-02-28,Preventive Maintenance,Scheduled PM,,357.36,"Filters changed, coils cleaned"
+H333-RTU2,H333,2025-03-01,Preventive Maintenance,Scheduled PM,,183.84,"PM complete, no issues"
+D321-FREEZER1,d321,2025-03-01,Preventive Maintenance,Scheduled PM,,146.6,"Filters changed, coils cleaned"
+P166-PKG1,P166,2025-03-02,Preventive Maintenance,Scheduled PM,,343.16,
+V222-RTU1,V222,2025-03-02,Preventive Maintenance,Scheduled PM,,349.18,"PM complete, no issues"
+H274-FREEZER1,h274,2025-03-04,Preventive Maintenance,Scheduled PM,,269.51,"PM complete, no issues"
+H243-PKG2,H243,2025-03-04,Repair,Controls / thermostat,,539.16,Faulty defrost control
+H300-RTU1,H300,2025-03-04,Preventive Maintenance,Scheduled PM,,146.74,"PM complete, no issues"
+D393-COOLER1,D393,2025-03-05,Preventive Maintenance,Scheduled PM,,189.47,"Checked charge ok, belts ok"
+D393-PKG1,D393,2025-03-06,Preventive Maintenance,Scheduled PM,,364.72,"Checked charge ok, belts ok"
+H116-COOLER1,H116,2025-03-07,Preventive Maintenance,Scheduled PM,,192.55,
+H333-COOLER1,H333,2025-03-08,Preventive Maintenance,Scheduled PM,,,"PM complete, no issues"
+H243-COOLER1,H243,2025-03-08,Preventive Maintenance,Scheduled PM,,224.7,
+D125-RTU2,D125,2025-03-09,Preventive Maintenance,Scheduled PM,,159.72,"Filters changed, coils cleaned"
+D274-SPLIT1,D274,2025-03-10,Preventive Maintenance,Scheduled PM,,206.19,"PM complete, no issues"
+D129-FREEZER1,D129,2025-03-11,Emergency Repair,Compressor failure,,39249.72,"Comp. failed, recommend replace unit if age > 12yrs"
+H333-FREEZER1,H333,2025-03-12,Preventive Maintenance,Scheduled PM,,166.8,"Filters changed, coils cleaned"
+D125-RTU1,D125,2025-03-13,Preventive Maintenance,Scheduled PM,,237.65,"Filters changed, coils cleaned"
+H274-ICE1,H274,2025-03-13,Preventive Maintenance,Scheduled PM,,205.02,"Checked charge ok, belts ok"
+C123-RTU1,C123,2025-03-14,Leak Repair,Refrigerant leak,7.1,3466.79,Leak check - found at fittings. recharge
+H116-RTU3,H116,2025-03-16,Preventive Maintenance,Scheduled PM,,205.68,"Filters changed, coils cleaned"
+H333-FREEZER2,H333,2025-03-16,Preventive Maintenance,Scheduled PM,,334.8,"Filters changed, coils cleaned"
+D296-COOLER1,D296,2025-03-16,Preventive Maintenance,Scheduled PM,,300.25,"Checked charge ok, belts ok"
+D212-RTU2,D212,2025-03-16,Preventive Maintenance,Scheduled PM,,157.19,"Checked charge ok, belts ok"
+D345-ICE1,D345,2025-03-17,Preventive Maintenance,Scheduled PM,,237.5,
+V203-RTU1,V203,2025-03-18,Preventive Maintenance,Scheduled PM,,316.57,"Filters changed, coils cleaned"
+D393-RTU1,D393,2025-03-18,Preventive Maintenance,Scheduled PM,,180.05,"Filters changed, coils cleaned"
+C123-RTU1,C123,2025-03-19,Preventive Maintenance,Scheduled PM,,358.97,"PM complete, no issues"
+H274-COOLER2,H274,2025-03-19,Preventive Maintenance,Scheduled PM,,171.04,
+C113-ICE1,C113,2025-03-20,Preventive Maintenance,Scheduled PM,,249.3,"Filters changed, coils cleaned"
+V258-SPLIT1,V258,2025-03-20,Preventive Maintenance,Scheduled PM,,227.41,"Checked charge ok, belts ok"
+D321-RTU1,D321,2025-03-21,Preventive Maintenance,Scheduled PM,,351.2,"Filters changed, coils cleaned"
+D212-COOLER1,D212,2025-03-21,Preventive Maintenance,Scheduled PM,,195.99,
+C113-COOLER1,C113,2025-03-22,Repair,Controls / thermostat,,634.39,Faulty defrost control
+C374-PKG1,C374,2025-03-22,Preventive Maintenance,Scheduled PM,,188.16,"Filters changed, coils cleaned"
+,D125,2025-03-22,Preventive Maintenance,Scheduled PM,,367.99,
+D393-ICE1,D393,2025-03-22,Preventive Maintenance,Scheduled PM,,212.79,"Checked charge ok, belts ok"
+UNKNOWN,C123,2025-03-24,Preventive Maintenance,Scheduled PM,,364.37,
+D212-FREEZER1,D212,2025-03-25,Preventive Maintenance,Scheduled PM,,,"PM complete, no issues"
+H116-PKG1,H116,2025-03-26,Preventive Maintenance,Scheduled PM,,158.03,"PM complete, no issues"
+H274-PKG2,H274,2025-03-27,Preventive Maintenance,Scheduled PM,,179.35,
+C303-ICE1,C303,2025-03-28,Preventive Maintenance,Scheduled PM,,169.86,"Checked charge ok, belts ok"
+P166-PKG1,P166,2025-04-01,Repair,Not cooling,4.6,,
+D125-SPLIT1,D125,2025-04-02,Preventive Maintenance,Scheduled PM,,307.92,"Checked charge ok, belts ok"
+D211-ICE1,D211,2025-04-03,Emergency Repair,Compressor failure,,2876.26,"Comp. failed, recommend replace unit if age > 12yrs"
+,D296,2025-04-05,Preventive Maintenance,Scheduled PM,,227.29,"PM complete, no issues"
+C235-COOLER1,C235,2025-04-06,Preventive Maintenance,Scheduled PM,,225.74,"Filters changed, coils cleaned"
+D274-RTU1,D274,2025-04-06,Preventive Maintenance,Scheduled PM,,140.34,
+H243-RTU2,H243,2025-04-06,Preventive Maintenance,Scheduled PM,,327.75,
+D212-ICE1,D212,2025-04-07,Preventive Maintenance,Scheduled PM,,367.96,"Checked charge ok, belts ok"
+D125-COOLER1,D125,2025-04-08,Preventive Maintenance,Scheduled PM,,377.22,
+H333-PKG1,H333,2025-04-09,Preventive Maintenance,Scheduled PM,,157.2,"Checked charge ok, belts ok"
+H243-COOLER1,H243,2025-04-09,Repair,Frozen coil,,510.15,"Coil iced up, defrosted, checked airflow"
+H300-CASE3,H300,2025-04-09,Leak Repair,Refrigerant leak,5.8,2170.59,Leak check - found at fittings. recharge
+C303-COOLER1,C303,2025-04-13,Preventive Maintenance,Scheduled PM,,228.69,"Checked charge ok, belts ok"
+H274-COOLER1,H274,2025-04-13,Preventive Maintenance,Scheduled PM,,307.13,"Checked charge ok, belts ok"
+H243-FREEZER2,H243,2025-04-13,Preventive Maintenance,Scheduled PM,,253.26,"PM complete, no issues"
+D129-RTU1,D129,2025-04-15,Preventive Maintenance,Scheduled PM,,288.86,
+C218-COOLER1,C218,2025-04-15,Preventive Maintenance,Scheduled PM,,231.4,"Filters changed, coils cleaned"
+D393-CASE4,D393,2025-04-15,Repair,Not cooling,,1552.55,
+H243-RTU1,H243,2025-04-16,Emergency Repair,Not cooling,,978.67,Not cooling - checked charge and pressure switch
+D296-PKG1,D296,2025-04-17,Preventive Maintenance,Scheduled PM,,241.27,
+D274-CASE1,D274,2025-04-17,Emergency Repair,Compressor failure,,4670.83,"Comp. failed, recommend replace unit if age > 12yrs"
+D274-CASE1,D274,2025-04-17,Emergency Repair,Compressor failure,,4670.83,"Comp. failed, recommend replace unit if age > 12yrs"
+V237-RTU1,V237,2025-04-18,Preventive Maintenance,Scheduled PM,,245.03,"PM complete, no issues"
+C218-RTU1,C218,2025-04-18,Preventive Maintenance,Scheduled PM,,240.3,"PM complete, no issues"
+H333-RTU1,H333,2025-04-19,Preventive Maintenance,Scheduled PM,,301.52,
+D296-RTU1,D296,2025-04-19,Preventive Maintenance,Scheduled PM,,,
+D211-ICE1,D211,2025-04-20,Preventive Maintenance,Scheduled PM,,220.96,"Filters changed, coils cleaned"
+D136-ICE1,D136,2025-04-21,Preventive Maintenance,Scheduled PM,,168.57,
+H333-CASE1,H333,2025-04-21,Repair,Not cooling,,923.9,Not cooling - checked charge and relay
+H333-CASE2,H333,2025-04-21,Leak Repair,Refrigerant leak,7.3,1816.27,"Low charge, leak at coil, added refrigerant"
+D292-CASE2,D292,2025-04-24,Preventive Maintenance,Scheduled PM,,198.55,"Filters changed, coils cleaned"
+H274-SPLIT1,H274,2025-04-26,Preventive Maintenance,Scheduled PM,,171.78,"Filters changed, coils cleaned"
+D292-COOLER1,D292,2025-04-27,Emergency Repair,Refrigerant leak,10.1,13969.51,"Low charge, leak at coil, added refrigerant"
+D292-ICE1,D292,2025-04-27,Preventive Maintenance,Scheduled PM,,151.27,"Checked charge ok, belts ok"
+D211-CASE1,D211,2025-04-28,Preventive Maintenance,Scheduled PM,,227.23,
+D211-RTU1,D211,2025-04-28,Preventive Maintenance,Scheduled PM,,349.71,"Checked charge ok, belts ok"
+D211-CASE3,D211,2025-04-28,Preventive Maintenance,Scheduled PM,,210.64,"Checked charge ok, belts ok"
+D136-RTU2,D136,2025-04-28,Preventive Maintenance,Scheduled PM,,209.64,"PM complete, no issues"
+D345-COOLER1,D345,2025-04-28,Repair,Compressor failure,,20171.07,"Compressor seized, quoted replacement"
+H116-CASE2,H116,2025-05-01,Preventive Maintenance,Scheduled PM,,199.24,
+H243-PKG2,H243,2025-05-01,Preventive Maintenance,Scheduled PM,,275.2,
+D136-CASE1,D136,2025-05-02,Preventive Maintenance,Scheduled PM,,228.69,
+D292-RTU1,D292,2025-05-03,Preventive Maintenance,Scheduled PM,,322.52,"Filters changed, coils cleaned"
+D274-COOLER1,D274,2025-05-03,Preventive Maintenance,Scheduled PM,,277.2,
+D274-FREEZER1,D274,2025-05-04,Preventive Maintenance,Scheduled PM,,149.01,"PM complete, no issues"
+H243-CASE2,H243,2025-05-05,Preventive Maintenance,Scheduled PM,,279.75,
+H116-COOLER2,H116,2025-05-06,Preventive Maintenance,Scheduled PM,,361.62,"Checked charge ok, belts ok"
+D136-PKG1,D136,2025-05-06,Preventive Maintenance,Scheduled PM,,298.22,"Filters changed, coils cleaned"
+D125-CASE1,D125,2025-05-06,Preventive Maintenance,Scheduled PM,,186.19,
+D274-CASE1,D274,2025-05-06,Preventive Maintenance,Scheduled PM,,343.99,
+H300-FREEZER1,H300,2025-05-06,Preventive Maintenance,Scheduled PM,,303.92,"Checked charge ok, belts ok"
+H300-RTU2,H300,2025-05-06,Preventive Maintenance,Scheduled PM,,223.97,"Checked charge ok, belts ok"
+V307-SPLIT1,V307,2025-05-06,Preventive Maintenance,Scheduled PM,,371.94,"Checked charge ok, belts ok"
+V203-RTU2,V203,2025-05-07,Preventive Maintenance,Scheduled PM,,297.92,"Checked charge ok, belts ok"
+H333-CASE5,H333,2025-05-09,Leak Repair,Refrigerant leak,6.4,1408.95,"Low charge, leak at coil, added refrigerant"
+D129-CASE2,D129,2025-05-09,Preventive Maintenance,Scheduled PM,,334.58,"Filters changed, coils cleaned"
+C113-COOLER1,C113,2025-05-10,Preventive Maintenance,Scheduled PM,,142.25,"Filters changed, coils cleaned"
+H116-ICE1,H116,2025-05-10,Preventive Maintenance,Scheduled PM,,290.07,"Filters changed, coils cleaned"
+H300-COOLER2,H300,2025-05-10,Preventive Maintenance,Scheduled PM,,211.2,"PM complete, no issues"
+H116-CASE4,H116,2025-05-11,Preventive Maintenance,Scheduled PM,,207.29,
+C380-COOLER1,C380,2025-05-11,Preventive Maintenance,Scheduled PM,,175.47,"Checked charge ok, belts ok"
+D274-CASE4,D274,2025-05-12,Preventive Maintenance,Scheduled PM,,207.62,"Checked charge ok, belts ok"
+D212-RTU1,D212,2025-05-12,Repair,Water leak,,483.79,"Condensate leak, replaced pan"
+C123-CASE2,C123,2025-05-13,Preventive Maintenance,Scheduled PM,,142.64,
+C123-COOLER1,C123,2025-05-13,Preventive Maintenance,Scheduled PM,,156.12,"Checked charge ok, belts ok"
+D292-FREEZER1,D292,2025-05-14,Preventive Maintenance,Scheduled PM,,219.79,"Filters changed, coils cleaned"
+D393-CASE2,D393,2025-05-14,Preventive Maintenance,Scheduled PM,,330.62,"Filters changed, coils cleaned"
+D321-CASE4,D321,2025-05-14,Preventive Maintenance,Scheduled PM,,262.09,"Checked charge ok, belts ok"
+D292-CASE4,D292,2025-05-15,Preventive Maintenance,Scheduled PM,,340.4,
+H116-FREEZER2,H116,2025-05-16,Preventive Maintenance,Scheduled PM,,323.26,
+C123-CASE1,C123,2025-05-16,Leak Repair,Refrigerant leak,5.6,2643.64,"Leak found at relay, repaired, recharged"
+D321-CASE2,D321,2025-05-16,Preventive Maintenance,Scheduled PM,,182.11,"PM complete, no issues"
+H333-CASE5,H333,2025-05-18,Preventive Maintenance,Scheduled PM,,342.73,"Filters changed, coils cleaned"
+D292-WH1,D292,2025-05-18,Repair,No hot water,,1138.71,
+H243-RTU1,H243,2025-05-18,Repair,Controls / thermostat,,1557.38,Faulty defrost control
+D274-ICE1,d274,2025-05-19,Preventive Maintenance,Scheduled PM,,142.44,
+H116-SPLIT1,H116,2025-05-20,Preventive Maintenance,Scheduled PM,,223.66,"Checked charge ok, belts ok"
+D296-CASE2,D296,2025-05-20,Preventive Maintenance,Scheduled PM,,277.38,"Checked charge ok, belts ok"
+V235-PKG1,V235,2025-05-20,Preventive Maintenance,Scheduled PM,,201.01,"Checked charge ok, belts ok"
+D393-CASE1,D393,2025-05-20,Preventive Maintenance,Scheduled PM,,223.68,"Checked charge ok, belts ok"
+H333-RTU1,H333,2025-05-21,Repair,Controls / thermostat,,331.58,Faulty defrost control
+C235ICE1,C235,2025-05-21,Preventive Maintenance,Scheduled PM,,310.19,
+H274-COOLER1,H274,2025-05-21,Repair,Controls / thermostat,,1070.92,Faulty defrost control
+D212-RTU1,D212,2025-05-21,Preventive Maintenance,Scheduled PM,,222.55,"Filters changed, coils cleaned"
+C218-ICE1,C218,2025-05-22,Preventive Maintenance,Scheduled PM,,238.34,"Checked charge ok, belts ok"
+,D393,2025-05-22,Preventive Maintenance,Scheduled PM,,224.75,"Filters changed, coils cleaned"
+D211-COOLER1,D211,2025-05-24,Preventive Maintenance,Scheduled PM,,231.89,"Filters changed, coils cleaned"
+D274-CASE2,D274,2025-05-24,Preventive Maintenance,Scheduled PM,,351.46,"Filters changed, coils cleaned"
+H300-COOLER1,h300,2025-05-24,Repair,Controls / thermostat,,1030.55,"Thermostat replaced, recalibrated"
+H333-RTU2,H333,2025-05-25,Preventive Maintenance,Scheduled PM,,286.19,
+H333-CASE4,H333,2025-05-25,Preventive Maintenance,Scheduled PM,,178.5,"Checked charge ok, belts ok"
+D321-COOLER1,D321,2025-05-26,Preventive Maintenance,Scheduled PM,,234.66,"Checked charge ok, belts ok"
+H333-COOLER1,H333,2025-05-27,Repair,Frozen coil,,1105.3,"Coil iced up, defrosted, checked airflow"
+C374-RTU1,C374,2025-05-27,Repair,Not cooling,4.0,1281.33,
+UNKNOWN,H243,2025-05-28,Preventive Maintenance,Scheduled PM,,188.38,"Checked charge ok, belts ok"
+D345-CASE2,D345,2025-05-28,Preventive Maintenance,Scheduled PM,,258.99,
+D211-COOLER1,D211,2025-06-01,Repair,Controls / thermostat,,1462.61,Faulty defrost control
+H243-PKG1,H243,2025-06-01,Preventive Maintenance,Scheduled PM,,242.32,
+H300-RTU1,H300,2025-06-01,Preventive Maintenance,Scheduled PM,,241.28,"Checked charge ok, belts ok"
+D345-CASE4,D345,2025-06-01,Repair,Fan motor failure,,1224.88,
+D292-RTU2,D292,2025-06-02,Preventive Maintenance,Scheduled PM,,302.84,"PM complete, no issues"
+H243-RTU1,H243,2025-06-03,Preventive Maintenance,Scheduled PM,,328.19,"Filters changed, coils cleaned"
+H116-CASE5,H116,2025-06-04,Preventive Maintenance,Scheduled PM,,343.64,"Filters changed, coils cleaned"
+D393-FREEZER1,D393,2025-06-04,Emergency Repair,Not cooling,,3511.27,
+D212-SPLIT1,D212,2025-06-04,Preventive Maintenance,Scheduled PM,,189.72,"Filters changed, coils cleaned"
+D125-CASE4,D125,2025-06-05,Emergency Repair,Fan motor failure,,1117.72,Replaced condenser fan motor
+D321-CASE3,D321,2025-06-05,Preventive Maintenance,Scheduled PM,,349.05,"PM complete, no issues"
+H274-CASE2,H274,2025-06-05,Preventive Maintenance,Scheduled PM,,273.79,"Filters changed, coils cleaned"
+D125-RTU2,D125,2025-06-07,Preventive Maintenance,Scheduled PM,,320.07,
+H300-COOLER1,H300,2025-06-07,Preventive Maintenance,Scheduled PM,,144.19,"Filters changed, coils cleaned"
+D296-CASE3,D296,2025-06-08,Preventive Maintenance,Scheduled PM,,299.29,"Checked charge ok, belts ok"
+D393-PKG1,D393,2025-06-08,Preventive Maintenance,Scheduled PM,,330.66,"Checked charge ok, belts ok"
+H274FREEZER1,H274,2025-06-08,Preventive Maintenance,Scheduled PM,,149.58,
+D296-CASE3,D296,2025-06-08,Preventive Maintenance,Scheduled PM,,299.29,"Checked charge ok, belts ok"
+H116-CASE3,h116,2025-06-09,Preventive Maintenance,Scheduled PM,,225.45,
+H333-CASE1,H333,2025-06-09,Preventive Maintenance,Scheduled PM,,253.63,"Filters changed, coils cleaned"
+D212-CASE1,D212,2025-06-09,Preventive Maintenance,Scheduled PM,,184.2,"Filters changed, coils cleaned"
+H333-CASE3,H333,2025-06-10,Preventive Maintenance,Scheduled PM,,301.25,
+D129-CASE1,D129,2025-06-10,Preventive Maintenance,Scheduled PM,,267.75,"Checked charge ok, belts ok"
+D345-RTU1,D345,2025-06-10,Repair,Not cooling,,2273.14,
+D136-RTU3,d136,2025-06-11,Preventive Maintenance,Scheduled PM,,176.15,
+V258-SPLIT1,V258,2025-06-11,Preventive Maintenance,Scheduled PM,,269.8,
+D292-COOLER1,D292,2025-06-12,Repair,Not cooling,,2656.86,no cooling. relay bad. repl
+D393-RTU1,D393,2025-06-12,Preventive Maintenance,Scheduled PM,,160.4,"Filters changed, coils cleaned"
+H300-CASE2,H300,2025-06-12,Emergency Repair,Not cooling,,1409.56,no cooling. contactor bad. repl
+C123-RTU1,C123,2025-06-13,Preventive Maintenance,Scheduled PM,,366.86,
+C303-CASE2,C303,2025-06-13,Preventive Maintenance,Scheduled PM,,244.61,"PM complete, no issues"
+H300-CASE3,H300,2025-06-13,Preventive Maintenance,Scheduled PM,,210.25,"Checked charge ok, belts ok"
+UNKNOWN,H116,2025-06-14,Preventive Maintenance,Scheduled PM,,169.64,
+D211-CASE2,D211,2025-06-14,Preventive Maintenance,Scheduled PM,,298.31,"Checked charge ok, belts ok"
+D321-CASE1,D321,2025-06-14,Preventive Maintenance,Scheduled PM,,300.26,
+H333-FREEZER1,H333,2025-06-15,Preventive Maintenance,Scheduled PM,,314.43,"Checked charge ok, belts ok"
+D212-RTU2,D212,2025-06-15,Preventive Maintenance,Scheduled PM,,229.9,
+H116-COOLER1,H116,2025-06-16,Preventive Maintenance,Scheduled PM,,182.26,
+C218-COOLER1,C218,2025-06-17,Leak Repair,Refrigerant leak,14.7,5929.31,"Leak found at relay, repaired, recharged"
+D393-ICE1,D393,2025-06-17,Preventive Maintenance,Scheduled PM,,190.27,"Filters changed, coils cleaned"
+H333-CASE2,H333,2025-06-18,Preventive Maintenance,Scheduled PM,,315.43,"Checked charge ok, belts ok"
+H333-COOLER1,H333,2025-06-18,Preventive Maintenance,Scheduled PM,,278.79,"Filters changed, coils cleaned"
+D212-COOLER1,D212,2025-06-18,Preventive Maintenance,Scheduled PM,,216.4,"Filters changed, coils cleaned"
+D393-SPLIT1,D393,2025-06-19,Preventive Maintenance,Scheduled PM,,347.89,
+C380-CASE2,C380,2025-06-20,Preventive Maintenance,Scheduled PM,,172.95,"Filters changed, coils cleaned"
+c374-pkg1,C374,2025-06-20,Preventive Maintenance,Scheduled PM,,290.53,
+c380-case1,c380,2025-06-21,Preventive Maintenance,Scheduled PM,,291.84,
+D211-FREEZER1,D211,2025-06-21,Preventive Maintenance,Scheduled PM,,,"Filters changed, coils cleaned"
+D296-COOLER1,D296,2025-06-21,Preventive Maintenance,Scheduled PM,,340.09,"Checked charge ok, belts ok"
+D321-SPLIT1,D321,2025-06-21,Preventive Maintenance,Scheduled PM,,303.06,"Checked charge ok, belts ok"
+D125-FREEZER1,D125,2025-06-22,Preventive Maintenance,Scheduled PM,,368.87,"Checked charge ok, belts ok"
+D321-RTU1,D321,2025-06-22,Preventive Maintenance,Scheduled PM,,379.52,"Checked charge ok, belts ok"
+D125-SPLIT1,D125,2025-06-23,Preventive Maintenance,Scheduled PM,,373.36,"Filters changed, coils cleaned"
+H274-COOLER2,H274,2025-06-23,Preventive Maintenance,Scheduled PM,,181.8,"Filters changed, coils cleaned"
+C123-RTU2,C123,2025-06-24,Preventive Maintenance,Scheduled PM,,359.01,"Filters changed, coils cleaned"
+D296-CASE2,D296,2025-06-24,Repair,Controls / thermostat,,,
+D292-CASE2,D292,2025-06-25,Repair,Refrigerant leak,,4757.96,"Low charge, leak at coil, added refrigerant"
+D321-SPLIT1,d321,2025-06-25,Emergency Repair,Fan motor failure,,1269.95,"Fan motor noisy then failed, replaced"
+H300-RTU3,H300,2025-06-25,Repair,Fan motor failure,,1346.44,
+C113-CASE2,C113,2025-06-26,Preventive Maintenance,Scheduled PM,,297.98,"PM complete, no issues"
+H274-PKG2,H274,2025-06-26,Preventive Maintenance,Scheduled PM,,309.55,"Checked charge ok, belts ok"
+C123-CASE1,C123,2025-06-27,Preventive Maintenance,Scheduled PM,,152.76,
+D321-CASE2,D321,2025-06-27,Repair,Controls / thermostat,,300.46,
+D345-COOLER1,D345,2025-06-27,Preventive Maintenance,Scheduled PM,,182.71,"Checked charge ok, belts ok"
+H116-FREEZER1,H116,2025-06-28,Preventive Maintenance,Scheduled PM,,160.34,"Filters changed, coils cleaned"
+,C303,2025-06-28,Preventive Maintenance,Scheduled PM,,223.26,
+D296-FREEZER1,D296,2025-07-01,Preventive Maintenance,Scheduled PM,,317.19,"Filters changed, coils cleaned"
+H116-COOLER2,H116,2025-07-02,Repair,Compressor failure,,17507.83,"Compressor seized, quoted replacement"
+D393-SPLIT1,D393,2025-07-02,Repair,Not cooling,10.3,869.97,Not cooling - checked charge and contactor
+H116-COOLER2,H116,2025-07-02,Repair,Compressor failure,,17507.83,"Compressor seized, quoted replacement"
+d211-cooler1,D211,2025-07-04,Emergency Repair,Fan motor failure,,2806.85,Replaced condenser fan motor
+H333-PKG2,H333,2025-07-05,Preventive Maintenance,Scheduled PM,,146.1,"PM complete, no issues"
+D136-CASE2,D136,2025-07-07,Repair,Not cooling,,2004.5,Not cooling - checked charge and fan blade
+D125-COOLER1,d125,2025-07-07,Preventive Maintenance,Scheduled PM,,210.11,"PM complete, no issues"
+C303-COOLER1,C303,2025-07-08,Preventive Maintenance,Scheduled PM,,268.47,
+d296-rtu1,D296,2025-07-08,Preventive Maintenance,Scheduled PM,,313.38,"Checked charge ok, belts ok"
+D274-RTU1,d274,2025-07-08,Preventive Maintenance,Scheduled PM,,224.97,"PM complete, no issues"
+C380-RTU1,C380,2025-07-09,Preventive Maintenance,Scheduled PM,,358.92,"PM complete, no issues"
+H274-CASE1,H274,2025-07-09,Repair,Fan motor failure,,1693.97,evap fan motor repl
+C113-CASE1,C113,2025-07-10,Repair,Controls / thermostat,,753.9,"Controller fault, reset and replaced sensor"
+C123-COOLER1,C123,2025-07-10,Repair,Not cooling,9.5,837.58,no cooling. relay bad. repl
+D129-CASE3,D129,2025-07-10,Preventive Maintenance,Scheduled PM,,348.26,"Checked charge ok, belts ok"
+D125-CASE3,D125,2025-07-10,Preventive Maintenance,Scheduled PM,,172.57,"PM complete, no issues"
+C218-COOLER1,C218,2025-07-10,Preventive Maintenance,Scheduled PM,,235.21,
+H333-COOLER2,H333,2025-07-11,Repair,Not cooling,,1629.19,Not cooling - checked charge and relay
+V237-RTU1,v237,2025-07-11,Preventive Maintenance,Scheduled PM,,186.19,"Checked charge ok, belts ok"
+D321-CASE5,D321,2025-07-11,Preventive Maintenance,Scheduled PM,,216.53,
+,H243,2025-07-11,Preventive Maintenance,Scheduled PM,,199.11,"Filters changed, coils cleaned"
+D125-CASE2,D125,2025-07-12,Preventive Maintenance,Scheduled PM,,376.76,"PM complete, no issues"
+H274-COOLER1,H274,2025-07-12,Preventive Maintenance,Scheduled PM,,323.6,"Filters changed, coils cleaned"
+D345-FREEZER1,D345,2025-07-12,Preventive Maintenance,Scheduled PM,,151.54,
+H274-COOLER1,H274,2025-07-12,Preventive Maintenance,Scheduled PM,,323.6,"Filters changed, coils cleaned"
+H116-RTU1,H116,2025-07-13,Preventive Maintenance,Scheduled PM,,336.6,"Filters changed, coils cleaned"
+H243-CASE1,H243,2025-07-13,Preventive Maintenance,Scheduled PM,,,"Checked charge ok, belts ok"
+,H243,2025-07-13,Repair,Not cooling,,823.7,no cooling. capacitor bad. repl
+D296-PKG1,D296,2025-07-14,Preventive Maintenance,Scheduled PM,,213.09,"Filters changed, coils cleaned"
+C374-CASE1,C374,2025-07-15,Preventive Maintenance,Scheduled PM,,347.06,"Filters changed, coils cleaned"
+D211-ICE1,D211,2025-07-16,Preventive Maintenance,Scheduled PM,,,"PM complete, no issues"
+C374-RTU1,C374,2025-07-16,Preventive Maintenance,Scheduled PM,,361.32,
+H333-PKG1,H333,2025-07-17,Preventive Maintenance,Scheduled PM,,324.28,
+D212-ICE1,D212,2025-07-17,Preventive Maintenance,Scheduled PM,,313.06,"PM complete, no issues"
+,H333,2025-07-18,Preventive Maintenance,Scheduled PM,,252.17,"PM complete, no issues"
+V203-PKG1,V203,2025-07-18,Repair,Not cooling,,3566.4,
+D292-CASE3,D292,2025-07-20,Preventive Maintenance,Scheduled PM,,143.7,"PM complete, no issues"
+D129-RTU1,D129,2025-07-23,Preventive Maintenance,Scheduled PM,,357.41,"Checked charge ok, belts ok"
+D292-RTU1,D292,2025-07-23,Preventive Maintenance,Scheduled PM,,310.63,"PM complete, no issues"
+H300-RTU3,H300,2025-07-25,Preventive Maintenance,Scheduled PM,,244.4,"Filters changed, coils cleaned"
+H116-COOLER1,H116,2025-07-26,Repair,Fan motor failure,,2060.65,"Fan motor noisy then failed, replaced"
+H116-CASE1,H116,2025-07-26,Preventive Maintenance,Scheduled PM,,173.39,
+D136-PKG1,D136,2025-07-26,Preventive Maintenance,Scheduled PM,,343.42,"Checked charge ok, belts ok"
+D136-ICE1,D136,2025-07-26,Preventive Maintenance,Scheduled PM,,360.97,"Checked charge ok, belts ok"
+D292-WH1,D292,2025-07-26,Repair,No hot water,,412.45,"Pilot out, relit and cleaned burner"
+D274-COOLER1,D274,2025-07-26,Preventive Maintenance,Scheduled PM,,218.92,"PM complete, no issues"
+C218-RTU1,C218,2025-07-26,Preventive Maintenance,Scheduled PM,,268.16,"Checked charge ok, belts ok"
+H243-FREEZER1,H243,2025-07-26,Preventive Maintenance,Scheduled PM,,294.93,
+H116-ICE1,H116,2025-07-27,Repair,Controls / thermostat,,249.6,"Thermostat replaced, recalibrated"
+H116-CASE3,H116,2025-07-27,Repair,Controls / thermostat,,1316.63,"Controller fault, reset and replaced sensor"
+H243-COOLER1,H243,2025-07-27,Repair,Controls / thermostat,,955.47,
+H300-COOLER1,H300,2025-07-27,Repair,Controls / thermostat,,649.42,Faulty defrost control
+D212-CASE2,D212,2025-07-27,Emergency Repair,Fan motor failure,,1865.0,
+H116-RTU2,H116,2025-07-28,Preventive Maintenance,Scheduled PM,,358.13,"PM complete, no issues"
+D211-RTU1,D211,2025-07-28,Preventive Maintenance,Scheduled PM,,162.19,"Checked charge ok, belts ok"
+D292-CASE1,D292,2025-07-28,Preventive Maintenance,Scheduled PM,,213.46,
+H243-RTU3,H243,2025-07-28,Preventive Maintenance,Scheduled PM,,271.49,
+UNKNOWN,H300,2025-07-28,Preventive Maintenance,Scheduled PM,,295.52,"Checked charge ok, belts ok"
+D345-RTU1,D345,2025-07-28,Preventive Maintenance,Scheduled PM,,276.25,"Checked charge ok, belts ok"
+D345-RTU2,D345,2025-07-28,Preventive Maintenance,Scheduled PM,,377.11,
+H300-FREEZER1,H300,2025-08-02,Preventive Maintenance,Scheduled PM,,265.71,"Filters changed, coils cleaned"
+D212-CASE1,D212,2025-08-02,Emergency Repair,Fan motor failure,,1428.99,evap fan motor repl
+D136-RTU2,D136,2025-08-04,Repair,Not cooling,,2161.12,no cooling. fan blade bad. repl
+D274-CASE3,D274,2025-08-04,Repair,Not cooling,,2294.21,
+D321-CASE4,D321,2025-08-04,Repair,Not cooling,,1918.4,no cooling. TXV bad. repl
+H274-PKG3,H274,2025-08-04,Preventive Maintenance,Scheduled PM,,235.62,
+H300-CASE2,H300,2025-08-04,Repair,Not cooling,,1779.97,no cooling. contactor bad. repl
+H300-FREEZER2,H300,2025-08-04,Repair,Frozen coil,,1128.83,"Coil iced up, defrosted, checked airflow"
+H300-RTU2,H300,2025-08-04,Preventive Maintenance,Scheduled PM,,366.79,"Checked charge ok, belts ok"
+D292-FREEZER1,d292,2025-08-05,Preventive Maintenance,Scheduled PM,,202.92,"Filters changed, coils cleaned"
+D136-RTU1,D136,2025-08-06,Preventive Maintenance,Scheduled PM,,348.55,"PM complete, no issues"
+D296-CASE1,D296,2025-08-06,Repair,Controls / thermostat,,899.99,"Thermostat replaced, recalibrated"
+H243-COOLER1,H243,2025-08-10,Repair,Not cooling,,2012.23,no cooling. fan blade bad. repl
+D345-FREEZER1,D345,2025-08-10,Repair,Frozen coil,,1678.24,
+H116-ICE1,H116,2025-08-11,Preventive Maintenance,Scheduled PM,,366.45,"Checked charge ok, belts ok"
+D393-PKG1,D393,2025-08-11,Repair,Controls / thermostat,,899.33,"Controller fault, reset and replaced sensor"
+D393-FREEZER1,D393,2025-08-11,Repair,Not cooling,1.3,8966.72,"Found unit not cooling, replaced capacitor, tested ok"
+D136-PKG1,d136,2025-08-12,Emergency Repair,Not cooling,,2513.68,Not cooling - checked charge and pressure switch
+C303-CASE1,C303,2025-08-12,Repair,Not cooling,,1516.4,
+D393-FREEZER1,D393,2025-08-12,Preventive Maintenance,Scheduled PM,,242.35,"Filters changed, coils cleaned"
+C113-RTU1,C113,2025-08-13,Preventive Maintenance,Scheduled PM,,214.94,
+D296-CASE2,D296,2025-08-13,Repair,Controls / thermostat,,942.85,
+D274-ICE1,d274,2025-08-13,Preventive Maintenance,Scheduled PM,,313.65,"PM complete, no issues"
+D292-COOLER1,D292,2025-08-14,Repair,Not cooling,,1935.77,no cooling. pressure switch bad. repl
+V222-WH1,V222,2025-08-14,Repair,Controls fault,,887.88,Board replaced
+H116-COOLER2,H116,2025-08-15,Preventive Maintenance,Scheduled PM,,198.14,"Filters changed, coils cleaned"
+D321-COOLER1,d321,2025-08-16,Preventive Maintenance,Scheduled PM,,150.97,"Checked charge ok, belts ok"
+H300-RTU2,H300,2025-08-17,Leak Repair,Refrigerant leak,15.5,927.9,"Leak found at condenser coil, repaired, recharged"
+H300-COOLER2,H300,2025-08-17,Preventive Maintenance,Scheduled PM,,178.41,"Checked charge ok, belts ok"
+V235-PKG1,V235,2025-08-18,Preventive Maintenance,Scheduled PM,,197.73,"PM complete, no issues"
+D211-COOLER1,D211,2025-08-19,Preventive Maintenance,Scheduled PM,,151.3,
+C113-COOLER1,C113,2025-08-20,Preventive Maintenance,Scheduled PM,,287.23,
+C380-COOLER1,C380,2025-08-20,Preventive Maintenance,Scheduled PM,,242.59,
+c374-pkg1,C374,2025-08-20,Leak Repair,Refrigerant leak,10.0,2614.62,"Low charge, leak at coil, added refrigerant"
+,D129,2025-08-20,Preventive Maintenance,Scheduled PM,,155.19,"PM complete, no issues"
+C235-ICE1,C235,2025-08-21,Preventive Maintenance,Scheduled PM,,215.55,"PM complete, no issues"
+H333-COOLER1,h333,2025-08-24,Leak Repair,Refrigerant leak,17.9,4406.87,Leak check - found at fittings. recharge
+C218-ICE1,C218,2025-08-24,Preventive Maintenance,Scheduled PM,,267.98,"PM complete, no issues"
+D393-CASE4,D393,2025-08-24,Leak Repair,Refrigerant leak,4.9,2160.83,"Low charge, leak at coil, added refrigerant"
+D125RTU2,D125,2025-08-25,Preventive Maintenance,Scheduled PM,,228.57,"PM complete, no issues"
+D274-SPLIT1,D274,2025-08-25,Preventive Maintenance,Scheduled PM,,143.25,"Filters changed, coils cleaned"
+P166-RTU1,P166,2025-08-26,Preventive Maintenance,Scheduled PM,,244.77,
+C374-COOLER1,C374,2025-08-28,Preventive Maintenance,Scheduled PM,,243.52,
+D129-PKG1,D129,2025-08-28,Preventive Maintenance,Scheduled PM,,216.42,
+H243-COOLER1,H243,2025-09-01,Leak Repair,Refrigerant leak,17.7,6051.03,Leak check - found at fittings. recharge
+H333-FREEZER2,H333,2025-09-03,Preventive Maintenance,Scheduled PM,,313.28,
+H333-COOLER2,H333,2025-09-03,Repair,Fan motor failure,,2141.81,Replaced condenser fan motor
+D292-RTU2,D292,2025-09-03,Preventive Maintenance,Scheduled PM,,304.42,"Filters changed, coils cleaned"
+D345-ICE1,D345,2025-09-03,Preventive Maintenance,Scheduled PM,,313.43,"Filters changed, coils cleaned"
+D125-CASE3,D125,2025-09-04,Repair,Not cooling,,5103.99,
+V235-WH1,V235,2025-09-04,Emergency Repair,No hot water,,1444.89,"Pilot out, relit and cleaned burner"
+H116-COOLER1,H116,2025-09-05,Preventive Maintenance,Scheduled PM,,331.77,"Checked charge ok, belts ok"
+H243-RTU1,H243,2025-09-05,Preventive Maintenance,Scheduled PM,,171.67,"Checked charge ok, belts ok"
+D212-SPLIT1,D212,2025-09-05,Preventive Maintenance,Scheduled PM,,306.95,"Filters changed, coils cleaned"
+D125-RTU1,D125,2025-09-06,Preventive Maintenance,Scheduled PM,,203.41,
+V203-RTU1,V203,2025-09-06,Preventive Maintenance,Scheduled PM,,259.53,"PM complete, no issues"
+C303-CASE1,C303,2025-09-07,Emergency Repair,Not cooling,,4353.25,"Found unit not cooling, replaced pressure switch, tested ok"
+D125-RTU3,D125,2025-09-07,Preventive Maintenance,Scheduled PM,,358.76,"PM complete, no issues"
+C123-RTU1,C123,2025-09-08,Preventive Maintenance,Scheduled PM,,169.51,"Checked charge ok, belts ok"
+H333-COOLER1,H333,2025-09-09,Preventive Maintenance,Scheduled PM,,231.21,"Checked charge ok, belts ok"
+H300-RTU1,H300,2025-09-09,Preventive Maintenance,Scheduled PM,,199.39,"PM complete, no issues"
+D393-PKG1,D393,2025-09-11,Preventive Maintenance,Scheduled PM,,218.59,"PM complete, no issues"
+D345-CASE3,D345,2025-09-11,Repair,Not cooling,5.4,3613.97,"Found unit not cooling, replaced capacitor, tested ok"
+D393-ICE1,D393,2025-09-12,Preventive Maintenance,Scheduled PM,,,"PM complete, no issues"
+H243-FREEZER2,H243,2025-09-12,Repair,Not cooling,7.9,3116.67,no cooling. condenser coil bad. repl
+V222-RTU1,V222,2025-09-12,Preventive Maintenance,Scheduled PM,,160.4,"PM complete, no issues"
+D212-FREEZER1,D212,2025-09-12,Preventive Maintenance,Scheduled PM,,256.96,"Checked charge ok, belts ok"
+D125FREEZER1,D125,2025-09-13,Preventive Maintenance,Scheduled PM,,191.4,"Filters changed, coils cleaned"
+D274-RTU1,D274,2025-09-13,Emergency Repair,Compressor failure,,4748.95,"Compressor seized, quoted replacement"
+H243-RTU1,H243,2025-09-13,Emergency Repair,Controls / thermostat,,772.53,
+H333-FREEZER1,H333,2025-09-14,Preventive Maintenance,Scheduled PM,,360.51,"Checked charge ok, belts ok"
+V222-WH1,V222,2025-09-14,Repair,Noise / vibration,,416.99,"Tightened mounts, lubricated bearings"
+D212-COOLER1,D212,2025-09-14,Preventive Maintenance,Scheduled PM,,325.23,"Checked charge ok, belts ok"
+D393-SPLIT1,D393,2025-09-15,Preventive Maintenance,Scheduled PM,,364.12,"Checked charge ok, belts ok"
+D393-FREEZER1,D393,2025-09-15,Leak Repair,Refrigerant leak,2.5,6152.0,Leak check - found at fittings. recharge
+D212-RTU2,D212,2025-09-17,Preventive Maintenance,Scheduled PM,,189.73,"Checked charge ok, belts ok"
+D345-RTU1,D345,2025-09-17,Repair,Not cooling,17.3,3245.97,no cooling. relay bad. repl
+H116-RTU3,H116,2025-09-18,Preventive Maintenance,Scheduled PM,,347.7,
+C218-COOLER1,C218,2025-09-18,Emergency Repair,Controls / thermostat,,1984.29,Faulty defrost control
+D321-CASE2,D321,2025-09-18,Repair,Not cooling,,522.53,"Found unit not cooling, replaced TXV, tested ok"
+H243-PKG2,H243,2025-09-18,Repair,Not cooling,7.8,3050.3,Not cooling - checked charge and capacitor
+D136-RTU3,D136,2025-09-19,Preventive Maintenance,Scheduled PM,,273.15,"Filters changed, coils cleaned"
+C303-CASE2,C303,2025-09-19,Repair,Controls / thermostat,,1646.99,"Thermostat replaced, recalibrated"
+D393-SPLIT1,D393,2025-09-19,Leak Repair,Refrigerant leak,18.0,1700.3,
+V258-SPLIT1,V258,2025-09-21,Preventive Maintenance,Scheduled PM,,146.61,"Filters changed, coils cleaned"
+D393-RTU1,D393,2025-09-21,Preventive Maintenance,Scheduled PM,,207.08,"Filters changed, coils cleaned"
+H116-FREEZER1,H116,2025-09-23,Preventive Maintenance,Scheduled PM,,289.07,"Checked charge ok, belts ok"
+D125-COOLER1,D125,2025-09-25,Preventive Maintenance,Scheduled PM,,269.6,
+D292-COOLER1,D292,2025-09-25,Preventive Maintenance,Scheduled PM,,274.33,"PM complete, no issues"
+D321-CASE1,D321,2025-09-25,Emergency Repair,Not cooling,4.5,,"Found unit not cooling, replaced pressure switch, tested ok"
+H116-RTU2,H116,2025-09-26,Leak Repair,Refrigerant leak,10.0,3252.44,
+D136-RTU3,D136,2025-09-26,Repair,Fan motor failure,,959.38,"Fan motor noisy then failed, replaced"
+C113-ICE1,C113,2025-09-27,Preventive Maintenance,Scheduled PM,,209.5,"PM complete, no issues"
+C374-PKG1,C374,2025-09-27,Preventive Maintenance,Scheduled PM,,180.78,
+C303-ICE1,C303,2025-09-27,Preventive Maintenance,Scheduled PM,,332.31,"Filters changed, coils cleaned"
+d321-rtu1,D321,2025-09-27,Preventive Maintenance,Scheduled PM,,351.73,
+D274-ICE1,D274,2025-09-28,Repair,Not cooling,,998.59,Not cooling - checked charge and fan blade
+C380-RTU1,C380,2025-10-01,Preventive Maintenance,Scheduled PM,,222.3,"Checked charge ok, belts ok"
+D292-FREEZER1,D292,2025-10-01,Repair,Not cooling,,1261.82,Not cooling - checked charge and contactor
+D274-RTU1,D274,2025-10-01,Preventive Maintenance,Scheduled PM,,163.68,"Checked charge ok, belts ok"
+d321-split1,D321,2025-10-01,Preventive Maintenance,Scheduled PM,,298.19,"Filters changed, coils cleaned"
+D296-PKG1,D296,2025-10-02,Preventive Maintenance,Scheduled PM,,344.24,"Filters changed, coils cleaned"
+D296-FREEZER1,D296,2025-10-03,Preventive Maintenance,Scheduled PM,,251.16,"Filters changed, coils cleaned"
+C123-RTU2,C123,2025-10-04,Preventive Maintenance,Scheduled PM,,262.93,"PM complete, no issues"
+H300-PKG1,H300,2025-10-04,Repair,Not cooling,15.9,1862.42,
+H116-PKG1,H116,2025-10-05,Preventive Maintenance,Scheduled PM,,210.45,"PM complete, no issues"
+C380-CASE2,c380,2025-10-05,Repair,Controls / thermostat,,578.8,"Thermostat replaced, recalibrated"
+V237-RTU1,V237,2025-10-07,Preventive Maintenance,Scheduled PM,,303.93,"PM complete, no issues"
+V203-PKG1,V203,2025-10-07,Preventive Maintenance,Scheduled PM,,303.27,"Checked charge ok, belts ok"
+D321-COOLER1,D321,2025-10-07,Repair,Fan motor failure,,3780.43,
+D212-ICE1,D212,2025-10-07,Preventive Maintenance,Scheduled PM,,,"PM complete, no issues"
+C374-RTU1,C374,2025-10-08,Preventive Maintenance,Scheduled PM,,142.45,"Checked charge ok, belts ok"
+D296-RTU2,D296,2025-10-08,Preventive Maintenance,Scheduled PM,,318.48,"Checked charge ok, belts ok"
+H300-FREEZER2,H300,2025-10-08,Preventive Maintenance,Scheduled PM,,262.3,"Filters changed, coils cleaned"
+C113-RTU1,C113,2025-10-09,Repair,Frozen coil,,285.07,"Coil iced up, defrosted, checked airflow"
+D393-FREEZER1,D393,2025-10-09,Emergency Repair,Not cooling,,4345.23,Not cooling - checked charge and condenser coil
+H116-RTU1,H116,2025-10-12,Preventive Maintenance,Scheduled PM,,156.42,"PM complete, no issues"
+D274-COOLER1,D274,2025-10-12,Preventive Maintenance,Scheduled PM,,183.61,"Filters changed, coils cleaned"
+H333-PKG1,H333,2025-10-14,Preventive Maintenance,Scheduled PM,,359.5,"PM complete, no issues"
+H274-COOLER1,h274,2025-10-15,Preventive Maintenance,Scheduled PM,,189.42,"Filters changed, coils cleaned"
+H243-FREEZER1,H243,2025-10-15,Preventive Maintenance,Scheduled PM,,232.78,"Filters changed, coils cleaned"
+H243-FREEZER2,H243,2025-10-16,Preventive Maintenance,Scheduled PM,,300.06,
+D129-RTU1,D129,2025-10-17,Preventive Maintenance,Scheduled PM,,361.35,"Checked charge ok, belts ok"
+D345-RTU2,D345,2025-10-17,Preventive Maintenance,Scheduled PM,,173.93,
+H243-PKG2,H243,2025-10-18,Preventive Maintenance,Scheduled PM,,267.11,"Checked charge ok, belts ok"
+D321-CASE2,D321,2025-10-19,Repair,Not cooling,5.1,2932.43,Not cooling - checked charge and condenser coil
+h300-case2,H300,2025-10-19,Emergency Repair,Fan motor failure,,1904.65,evap fan motor repl
+D345-FREEZER1,D345,2025-10-21,Preventive Maintenance,Scheduled PM,,317.33,"PM complete, no issues"
+H243-CASE2,H243,2025-10-22,Preventive Maintenance,Scheduled PM,,332.05,"Checked charge ok, belts ok"
+V307-SPLIT1,V307,2025-10-22,Preventive Maintenance,Scheduled PM,,229.49,"Filters changed, coils cleaned"
+H333-RTU1,H333,2025-10-23,Preventive Maintenance,Scheduled PM,,323.59,
+D292-ICE1,D292,2025-10-24,Preventive Maintenance,Scheduled PM,,244.59,"PM complete, no issues"
+H243-RTU3,H243,2025-10-24,Preventive Maintenance,Scheduled PM,,214.85,"Filters changed, coils cleaned"
+D345-RTU1,D345,2025-10-24,Preventive Maintenance,Scheduled PM,,323.39,"Checked charge ok, belts ok"
+D211-CASE1,D211,2025-10-25,Preventive Maintenance,Scheduled PM,,160.04,"Checked charge ok, belts ok"
+D136-ICE1,D136,2025-10-25,Preventive Maintenance,Scheduled PM,,308.03,"PM complete, no issues"
+,H116,2025-10-26,Preventive Maintenance,Scheduled PM,,346.88,"PM complete, no issues"
+D211-CASE3,D211,2025-10-26,Preventive Maintenance,Scheduled PM,,234.28,
+D136-PKG1,D136,2025-10-26,Preventive Maintenance,Scheduled PM,,,
+D129-ICE1,D129,2025-10-26,Preventive Maintenance,Scheduled PM,,323.35,"Checked charge ok, belts ok"
+D393-CASE5,D393,2025-10-26,Preventive Maintenance,Scheduled PM,,,"PM complete, no issues"
+h300-case1,H300,2025-10-26,Preventive Maintenance,Scheduled PM,,166.55,
+D212-CASE3,D212,2025-10-26,Preventive Maintenance,Scheduled PM,,289.07,"PM complete, no issues"
+H333COOLER2,h333,2025-10-27,Preventive Maintenance,Scheduled PM,,322.03,"PM complete, no issues"
+D292-CASE2,D292,2025-10-27,Preventive Maintenance,Scheduled PM,,316.0,"Filters changed, coils cleaned"
+H274-FREEZER2,H274,2025-10-27,Preventive Maintenance,Scheduled PM,,330.24,"Checked charge ok, belts ok"
+D393-CASE1,D393,2025-10-28,Repair,Compressor failure,,5407.39,"Compressor seized, quoted replacement"
+H300-CASE2,H300,2025-11-02,Preventive Maintenance,Scheduled PM,,155.36,
+H333-COOLER1,H333,2025-11-03,Repair,Compressor failure,,5319.48,"Compressor seized, quoted replacement"
+D292-RTU2,D292,2025-11-03,Leak Repair,Refrigerant leak,11.3,2345.29,"Leak found at relay, repaired, recharged"
+H116-FREEZER2,H116,2025-11-04,Preventive Maintenance,Scheduled PM,,265.49,"Filters changed, coils cleaned"
+D136-FREEZER1,D136,2025-11-06,Preventive Maintenance,Scheduled PM,,377.38,"Filters changed, coils cleaned"
+D321-CASE4,D321,2025-11-06,Preventive Maintenance,Scheduled PM,,155.07,"PM complete, no issues"
+C123-COOLER1,C123,2025-11-07,Preventive Maintenance,Scheduled PM,,214.94,"Filters changed, coils cleaned"
+D129-FREEZER1,D129,2025-11-07,Preventive Maintenance,Scheduled PM,,275.19,"Filters changed, coils cleaned"
+C235-ICE1,C235,2025-11-07,Preventive Maintenance,Scheduled PM,,350.13,
+,D136,2025-11-08,Preventive Maintenance,Scheduled PM,,223.19,"Checked charge ok, belts ok"
+D296-CASE2,D296,2025-11-08,Emergency Repair,Fan motor failure,,1923.4,evap fan motor repl
+C235-CASE1,C235,2025-11-09,Preventive Maintenance,Scheduled PM,,192.55,"PM complete, no issues"
+C380COOLER1,C380,2025-11-10,Preventive Maintenance,Scheduled PM,,216.64,"Checked charge ok, belts ok"
+H333-RTU2,h333,2025-11-11,Preventive Maintenance,Scheduled PM,,322.8,"Checked charge ok, belts ok"
+D393-CASE3,D393,2025-11-11,Preventive Maintenance,Scheduled PM,,251.56,
+D393-SPLIT1,D393,2025-11-11,Repair,Not cooling,17.8,2839.24,"Found unit not cooling, replaced contactor, tested ok"
+D345-COOLER1,D345,2025-11-11,Repair,Water leak,,2503.51,"Condensate leak, replaced pan"
+D345-CASE5,D345,2025-11-11,Preventive Maintenance,Scheduled PM,,244.83,
+D292-CASE4,D292,2025-11-12,Preventive Maintenance,Scheduled PM,,310.47,"Filters changed, coils cleaned"
+D393-CASE4,D393,2025-11-13,Preventive Maintenance,Scheduled PM,,363.23,"Filters changed, coils cleaned"
+H274-PKG3,H274,2025-11-13,Preventive Maintenance,Scheduled PM,,226.76,"PM complete, no issues"
+D321-CASE2,D321,2025-11-15,Preventive Maintenance,Scheduled PM,,375.03,
+H116-CASE4,H116,2025-11-16,Preventive Maintenance,Scheduled PM,,306.03,"PM complete, no issues"
+D274-CASE3,D274,2025-11-16,Repair,Controls / thermostat,,726.26,"Thermostat replaced, recalibrated"
+D393-CASE2,D393,2025-11-16,Preventive Maintenance,Scheduled PM,,285.63,"Filters changed, coils cleaned"
+D274-ICE1,D274,2025-11-17,Preventive Maintenance,Scheduled PM,,290.72,"Checked charge ok, belts ok"
+D274-SPLIT1,D274,2025-11-18,Preventive Maintenance,Scheduled PM,,208.84,"Checked charge ok, belts ok"
+H300-COOLER2,H300,2025-11-18,Preventive Maintenance,Scheduled PM,,197.68,"Filters changed, coils cleaned"
+D274-CASE4,D274,2025-11-19,Preventive Maintenance,Scheduled PM,,173.82,"Checked charge ok, belts ok"
+D125-RTU2,D125,2025-11-20,Preventive Maintenance,Scheduled PM,,252.76,
+c113-case1,C113,2025-11-21,Preventive Maintenance,Scheduled PM,,332.42,"Checked charge ok, belts ok"
+C374-COOLER1,C374,2025-11-21,Preventive Maintenance,Scheduled PM,,346.39,"PM complete, no issues"
+D321-CASE3,D321,2025-11-21,Preventive Maintenance,Scheduled PM,,151.15,"PM complete, no issues"
+H116-SPLIT1,H116,2025-11-22,Repair,Controls / thermostat,,256.23,
+P166-RTU1,P166,2025-11-22,Preventive Maintenance,Scheduled PM,,319.91,"Checked charge ok, belts ok"
+C113-RTU1,C113,2025-11-23,Preventive Maintenance,Scheduled PM,,290.48,
+D125-RTU3,D125,2025-11-24,Preventive Maintenance,Scheduled PM,,326.87,"Filters changed, coils cleaned"
+D212-CASE1,D212,2025-11-24,Preventive Maintenance,Scheduled PM,,141.54,
+D296-CASE1,D296,2025-11-25,Preventive Maintenance,Scheduled PM,,252.25,
+P166-PKG1,P166,2025-11-25,Preventive Maintenance,Scheduled PM,,345.44,"Filters changed, coils cleaned"
+D274-CASE3,D274,2025-11-25,Preventive Maintenance,Scheduled PM,,373.19,
+D345-CASE3,D345,2025-11-25,Preventive Maintenance,Scheduled PM,,226.64,"Filters changed, coils cleaned"
+,H274,2025-11-26,Preventive Maintenance,Scheduled PM,,217.12,"Filters changed, coils cleaned"
+C303-CASE1,C303,2025-11-27,Preventive Maintenance,Scheduled PM,,175.37,"PM complete, no issues"
+C218-ICE1,C218,2025-11-27,Preventive Maintenance,Scheduled PM,,143.99,"PM complete, no issues"
+H300-PKG1,h300,2025-11-27,Preventive Maintenance,Scheduled PM,,298.78,
+C113-COOLER1,c113,2025-11-28,Preventive Maintenance,Scheduled PM,,258.28,"PM complete, no issues"
+H243-COOLER1,H243,2025-11-28,Leak Repair,Refrigerant leak,15.4,8552.8,"Leak found at pressure switch, repaired, recharged"
+D212-CASE2,D212,2025-11-28,Preventive Maintenance,Scheduled PM,,205.75,
+UNKNOWN,C235,2025-12-01,Preventive Maintenance,Scheduled PM,,287.06,"PM complete, no issues"
+D345-CASE2,D345,2025-12-01,Preventive Maintenance,Scheduled PM,,247.07,"Checked charge ok, belts ok"
+H333-CASE4,H333,2025-12-02,Preventive Maintenance,Scheduled PM,,376.86,"Checked charge ok, belts ok"
+H333-FREEZER2,H333,2025-12-03,Preventive Maintenance,Scheduled PM,,203.48,
+D125-RTU1,D125,2025-12-03,Preventive Maintenance,Scheduled PM,,195.56,
+H300-FREEZER2,H300,2025-12-03,Repair,Not cooling,,1664.67,
+D345-CASE4,D345,2025-12-03,Leak Repair,Refrigerant leak,5.4,2579.48,
+C303-CASE2,C303,2025-12-05,Preventive Maintenance,Scheduled PM,,333.85,"PM complete, no issues"
+D292-RTU2,D292,2025-12-05,Preventive Maintenance,Scheduled PM,,195.09,"PM complete, no issues"
+D345-CASE4,D345,2025-12-05,Preventive Maintenance,Scheduled PM,,290.48,
+D292-RTU2,D292,2025-12-05,Preventive Maintenance,Scheduled PM,,195.09,"PM complete, no issues"
+H116-CASE5,H116,2025-12-06,Preventive Maintenance,Scheduled PM,,343.95,
+D129-PKG1,D129,2025-12-06,Preventive Maintenance,Scheduled PM,,248.19,"Checked charge ok, belts ok"
+D321-CASE1,D321,2025-12-06,Preventive Maintenance,Scheduled PM,,271.04,"Filters changed, coils cleaned"
+H243-PKG1,H243,2025-12-06,Preventive Maintenance,Scheduled PM,,192.3,"PM complete, no issues"
+H116-CASE5,H116,2025-12-07,Repair,Fan motor failure,,1597.77,evap fan motor repl
+H333-COOLER1,H333,2025-12-08,Preventive Maintenance,Scheduled PM,,253.13,
+D296-CASE3,D296,2025-12-08,Preventive Maintenance,Scheduled PM,,342.92,"PM complete, no issues"
+D321-FREEZER1,D321,2025-12-08,Preventive Maintenance,Scheduled PM,,221.32,"PM complete, no issues"
+D345-ICE1,D345,2025-12-08,Preventive Maintenance,Scheduled PM,,340.42,"Checked charge ok, belts ok"
+D393-RTU1,D393,2025-12-09,Preventive Maintenance,Scheduled PM,,163.93,"PM complete, no issues"
+H243-COOLER1,H243,2025-12-09,Repair,Not cooling,,1883.4,no cooling. TXV bad. repl
+C113-MUA1,C113,2025-12-10,Repair,Noise / vibration,,559.94,belt replaced
+D321-CASE3,D321,2025-12-10,Repair,Compressor failure,,11461.15,"Compressor locked out, replaced start kit then comp"
+H274-FREEZER1,H274,2025-12-10,Preventive Maintenance,Scheduled PM,,,"PM complete, no issues"
+H300-COOLER1,H300,2025-12-10,Preventive Maintenance,Scheduled PM,,339.83,"PM complete, no issues"
+C113-CASE2,C113,2025-12-11,Preventive Maintenance,Scheduled PM,,208.48,"PM complete, no issues"
+D296-COOLER1,D296,2025-12-11,Preventive Maintenance,Scheduled PM,,159.23,"Filters changed, coils cleaned"
+D393-PKG1,D393,2025-12-12,Leak Repair,Refrigerant leak,8.2,2989.0,"Low charge, leak at coil, added refrigerant"
+H274-CASE2,H274,2025-12-12,Preventive Maintenance,Scheduled PM,,219.24,"Checked charge ok, belts ok"
+H300-CASE3,H300,2025-12-12,Preventive Maintenance,Scheduled PM,,307.55,"Filters changed, coils cleaned"
+D212-RTU2,D212,2025-12-12,Preventive Maintenance,Scheduled PM,,374.47,"Checked charge ok, belts ok"
+D345-FREEZER1,D345,2025-12-12,Repair,Water leak,,3819.9,"Drain line clogged, cleared"
+H333-PKG1,H333,2025-12-13,Emergency Repair,Compressor failure,,9579.24,"Compressor seized, quoted replacement"
+D393-PKG1,D393,2025-12-13,Preventive Maintenance,Scheduled PM,,179.02,"Checked charge ok, belts ok"
+H116-COOLER1,H116,2025-12-14,Preventive Maintenance,Scheduled PM,,186.0,"Checked charge ok, belts ok"
+D345-COOLER1,D345,2025-12-14,Preventive Maintenance,Scheduled PM,,346.27,"Filters changed, coils cleaned"
+D345-RTU1,D345,2025-12-14,Repair,Fan motor failure,,841.94,Replaced condenser fan motor
+C303-ICE1,C303,2025-12-15,Preventive Maintenance,Scheduled PM,,328.13,"Checked charge ok, belts ok"
+V258-SPLIT1,V258,2025-12-15,Preventive Maintenance,Scheduled PM,,365.94,"Filters changed, coils cleaned"
+V203-RTU1,V203,2025-12-15,Preventive Maintenance,Scheduled PM,,326.44,"PM complete, no issues"
+C380-CASE1,C380,2025-12-16,Preventive Maintenance,Scheduled PM,,153.74,"Filters changed, coils cleaned"
+H274-COOLER2,H274,2025-12-16,Preventive Maintenance,Scheduled PM,,371.96,"Checked charge ok, belts ok"
+H274-PKG1,H274,2025-12-16,Preventive Maintenance,Scheduled PM,,171.61,"Filters changed, coils cleaned"
+H243-RTU1,H243,2025-12-16,Preventive Maintenance,Scheduled PM,,195.43,
+C113-ICE1,C113,2025-12-17,Preventive Maintenance,Scheduled PM,,329.89,"PM complete, no issues"
+D345-COOLER1,D345,2025-12-17,Repair,Compressor failure,,5687.8,"Compressor seized, quoted replacement"
+C113-CASE2,C113,2025-12-19,Leak Repair,Refrigerant leak,1.3,2975.23,"Leak found at contactor, repaired, recharged"
+D211-CASE2,D211,2025-12-19,Preventive Maintenance,Scheduled PM,,295.91,"Checked charge ok, belts ok"
+D212-FREEZER1,d212,2025-12-19,Preventive Maintenance,Scheduled PM,,159.43,"PM complete, no issues"
+D129-CASE4,D129,2025-12-20,Preventive Maintenance,Scheduled PM,,331.26,"Checked charge ok, belts ok"
+D296-PKG1,D296,2025-12-20,Preventive Maintenance,Scheduled PM,,280.72,"PM complete, no issues"
+D393-COOLER1,D393,2025-12-20,Preventive Maintenance,Scheduled PM,,246.87,"Filters changed, coils cleaned"
+D274-RTU1,D274,2025-12-21,Preventive Maintenance,Scheduled PM,,368.52,"PM complete, no issues"
+H116-PKG1,H116,2025-12-22,Preventive Maintenance,Scheduled PM,,213.16,"Filters changed, coils cleaned"
+C303-RTU1,C303,2025-12-22,Preventive Maintenance,Scheduled PM,,271.52,"Filters changed, coils cleaned"
+C123-CASE1,C123,2025-12-23,Preventive Maintenance,Scheduled PM,,267.1,"Checked charge ok, belts ok"
+D345-CASE1,D345,2025-12-23,Preventive Maintenance,Scheduled PM,,163.07,"Checked charge ok, belts ok"
+H116-FREEZER1,H116,2025-12-24,Preventive Maintenance,Scheduled PM,,231.77,"PM complete, no issues"
+H116-RTU3,H116,2025-12-24,Preventive Maintenance,Scheduled PM,,183.36,"Checked charge ok, belts ok"
+C380-CASE2,C380,2025-12-24,Preventive Maintenance,Scheduled PM,,316.67,
+H300-CASE3,H300,2025-12-24,Repair,Frozen coil,,1406.8,
+C380-CASE2,C380,2025-12-24,Preventive Maintenance,Scheduled PM,,316.67,
+C374-PKG1,C374,2025-12-25,Preventive Maintenance,Scheduled PM,,140.82,"Filters changed, coils cleaned"
+D393-SPLIT1,D393,2025-12-25,Preventive Maintenance,Scheduled PM,,373.39,
+D211-FREEZER1,D211,2025-12-26,Preventive Maintenance,Scheduled PM,,146.15,"Filters changed, coils cleaned"
+D292-COOLER1,D292,2025-12-26,Preventive Maintenance,Scheduled PM,,343.5,"Filters changed, coils cleaned"
+H333-COOLER2,H333,2025-12-27,Repair,Not cooling,,2682.91,no cooling. fan blade bad. repl
+C235-CASE2,C235,2025-12-27,Preventive Maintenance,Scheduled PM,,271.17,"Checked charge ok, belts ok"
+D125-COOLER1,D125,2025-12-27,Preventive Maintenance,Scheduled PM,,209.35,"Filters changed, coils cleaned"
+D125-CASE4,D125,2025-12-27,Preventive Maintenance,Scheduled PM,,,"Filters changed, coils cleaned"
+D136-CASE2,D136,2025-12-28,Preventive Maintenance,Scheduled PM,,283.48,"Checked charge ok, belts ok"
+D129-CASE2,D129,2025-12-28,Repair,Not cooling,,607.03,Not cooling - checked charge and condenser coil
+D125-SPLIT1,D125,2025-12-28,Preventive Maintenance,Scheduled PM,,300.84,
+D296-RTU1,D296,2025-12-28,Preventive Maintenance,Scheduled PM,,,"PM complete, no issues"
+D321-CASE5,D321,2025-12-28,Preventive Maintenance,Scheduled PM,,165.51,"PM complete, no issues"
+H274-COOLER1,H274,01/01/2025,Preventive Maintenance,Scheduled PM,,151.21,"Checked charge ok, belts ok"
+H300-FREEZER2,H300,01/04/2025,Preventive Maintenance,Scheduled PM,,185.07,
+H333-CASE5,H333,01/14/2025,Emergency Repair,Frozen coil,,4203.53,Evap coil frozen - dirty filters
+H243-COOLER1,H243,01/14/2025,Repair,Water leak,,963.42,"Drain line clogged, cleared"
+D345-FREEZER1,D345,01/24/2025,Preventive Maintenance,Scheduled PM,,280.58,"Checked charge ok, belts ok"
+D345-CASE3,D345,01/25/2025,Repair,Frozen coil,,1870.06,Evap coil frozen - dirty filters
+D345-CASE3,D345,01/25/2025,Repair,Frozen coil,,1870.06,Evap coil frozen - dirty filters
+H300-COOLER2,H300,02/05/2025,Preventive Maintenance,Scheduled PM,,,
+D292-FREEZER1,D292,02/18/2025,Preventive Maintenance,Scheduled PM,,140.1,"PM complete, no issues"
+H243-RTU1,h243,03/01/2025,Preventive Maintenance,Scheduled PM,,246.39,"PM complete, no issues"
+D212-SPLIT1,D212,03/06/2025,Preventive Maintenance,Scheduled PM,,344.71,"Filters changed, coils cleaned"
+H243-PKG1,H243,03/08/2025,Preventive Maintenance,Scheduled PM,,152.82,"PM complete, no issues"
+D211-FREEZER1,D211,03/23/2025,Preventive Maintenance,Scheduled PM,,292.71,"PM complete, no issues"
+D136-RTU3,D136,03/24/2025,Preventive Maintenance,Scheduled PM,,253.64,"PM complete, no issues"
+C303-RTU1,C303,04/11/2025,Preventive Maintenance,Scheduled PM,,291.36,
+H243-PKG2,H243,05/09/2025,Repair,Not cooling,16.6,2757.66,"Found unit not cooling, replaced TXV, tested ok"
+C303-ICE1,c303,05/16/2025,Repair,Not cooling,,399.71,
+C374-COOLER1,C374,05/19/2025,Preventive Maintenance,Scheduled PM,,278.11,"Checked charge ok, belts ok"
+P166-RTU1,P166,05/19/2025,Preventive Maintenance,Scheduled PM,,358.37,"Filters changed, coils cleaned"
+D345-CASE4,D345,06/05/2025,Preventive Maintenance,Scheduled PM,,327.96,
+V222-RTU1,V222,06/12/2025,Preventive Maintenance,Scheduled PM,,252.69,"Checked charge ok, belts ok"
+H333-FREEZER2,H333,06/13/2025,Preventive Maintenance,Scheduled PM,,328.98,"Filters changed, coils cleaned"
+D393-COOLER1,D393,06/15/2025,Preventive Maintenance,Scheduled PM,,159.92,"PM complete, no issues"
+D129-CASE4,D129,06/18/2025,Preventive Maintenance,Scheduled PM,,278.11,
+D212-FREEZER1,D212,06/23/2025,Preventive Maintenance,Scheduled PM,,,"Checked charge ok, belts ok"
+C235-COOLER1,C235,06/24/2025,Preventive Maintenance,Scheduled PM,,379.12,"Filters changed, coils cleaned"
+H116-PKG1,H116,06/28/2025,Preventive Maintenance,Scheduled PM,,372.73,
+c303-ice1,C303,07/01/2025,Preventive Maintenance,Scheduled PM,,254.33,"Checked charge ok, belts ok"
+V203-PKG1,v203,07/08/2025,Preventive Maintenance,Scheduled PM,,,"PM complete, no issues"
+D393-COOLER1,D393,07/14/2025,Leak Repair,Refrigerant leak,15.4,3277.86,"Leak found at fan blade, repaired, recharged"
+H243-RTU2,H243,07/16/2025,Preventive Maintenance,Scheduled PM,,279.84,"PM complete, no issues"
+D136-FREEZER1,D136,07/28/2025,Preventive Maintenance,Scheduled PM,,278.16,
+H274-CASE1,H274,07/28/2025,Preventive Maintenance,Scheduled PM,,356.7,"Filters changed, coils cleaned"
+D129-CASE3,D129,08/01/2025,Repair,Controls / thermostat,,,"Thermostat replaced, recalibrated"
+D129-COOLER1,D129,08/01/2025,Repair,Frozen coil,,,"Coil iced up, defrosted, checked airflow"
+V307-SPLIT1,V307,08/01/2025,Preventive Maintenance,Scheduled PM,,191.36,
+C123-COOLER1,C123,08/19/2025,Preventive Maintenance,Scheduled PM,,349.15,
+D212-RTU1,D212,08/23/2025,Preventive Maintenance,Scheduled PM,,224.02,
+H243-PKG1,H243,08/26/2025,Preventive Maintenance,Scheduled PM,,145.94,"PM complete, no issues"
+C235-COOLER1,C235,09/11/2025,Preventive Maintenance,Scheduled PM,,233.81,"Checked charge ok, belts ok"
+D129-COOLER1,D129,09/16/2025,Emergency Repair,Fan motor failure,,7989.1,"Fan motor noisy then failed, replaced"
+D292COOLER1,D292,09/21/2025,Emergency Repair,Refrigerant leak,12.4,12893.71,
+V237-RTU1,V237,09/22/2025,Repair,Not cooling,,1873.26,"Found unit not cooling, replaced contactor, tested ok"
+D296-COOLER1,D296,09/23/2025,Preventive Maintenance,Scheduled PM,,337.65,"Filters changed, coils cleaned"
+H333-PKG2,h333,09/24/2025,Preventive Maintenance,Scheduled PM,,272.11,
+D211-ICE1,D211,10/02/2025,Preventive Maintenance,Scheduled PM,,310.74,
+C303-COOLER1,C303,10/03/2025,Preventive Maintenance,Scheduled PM,,341.48,"PM complete, no issues"
+H116-CASE2,H116,11/03/2025,Preventive Maintenance,Scheduled PM,,308.08,
+D292-FREEZER1,D292,11/04/2025,Preventive Maintenance,Scheduled PM,,202.09,"Filters changed, coils cleaned"
+D274-CASE1,D274,11/09/2025,Preventive Maintenance,Scheduled PM,,356.27,
+H300-RTU2,H300,11/11/2025,Preventive Maintenance,Scheduled PM,,306.69,"PM complete, no issues"
+D129-COOLER1,D129,11/12/2025,Preventive Maintenance,Scheduled PM,,145.86,
+H333-COOLER2,H333,11/20/2025,Repair,Water leak,,1889.92,"Condensate leak, replaced pan"
+H116-COOLER2,H116,11/22/2025,Preventive Maintenance,Scheduled PM,,349.45,
+D274-CASE2,D274,11/22/2025,Preventive Maintenance,Scheduled PM,,164.38,"Checked charge ok, belts ok"
+H116-SPLIT1,H116,11/24/2025,Preventive Maintenance,Scheduled PM,,278.8,"PM complete, no issues"
+V235-PKG1,V235,11/26/2025,Preventive Maintenance,Scheduled PM,,239.55,"Filters changed, coils cleaned"
+D296-CASE2,D296,11/27/2025,Preventive Maintenance,Scheduled PM,,220.41,"Checked charge ok, belts ok"
+D393-ICE1,D393,12/01/2025,Preventive Maintenance,Scheduled PM,,320.29,"PM complete, no issues"
+H300-RTU1,H300,12/05/2025,Preventive Maintenance,Scheduled PM,,326.43,"Checked charge ok, belts ok"
+D136-RTU3,D136,12/09/2025,Preventive Maintenance,Scheduled PM,,,"Filters changed, coils cleaned"
+H333-CASE1,H333,12/15/2025,Emergency Repair,Controls / thermostat,,1298.3,"Thermostat replaced, recalibrated"
+D296-RTU2,D296,2026-01-01,Preventive Maintenance,Scheduled PM,,219.83,
+D274-COOLER1,D274,2026-01-02,Preventive Maintenance,Scheduled PM,,325.9,"Checked charge ok, belts ok"
+D129-CASE3,D129,2026-01-03,Emergency Repair,Fan motor failure,,1128.71,"Fan motor noisy then failed, replaced"
+V237-RTU1,V237,2026-01-03,Preventive Maintenance,Scheduled PM,,283.12,"Checked charge ok, belts ok"
+D321-SPLIT1,D321,2026-01-03,Preventive Maintenance,Scheduled PM,,154.35,"Checked charge ok, belts ok"
+H300-FREEZER2,H300,2026-01-03,Preventive Maintenance,Scheduled PM,,265.39,"Filters changed, coils cleaned"
+D129-CASE3,D129,2026-01-03,Emergency Repair,Fan motor failure,,1128.71,"Fan motor noisy then failed, replaced"
+H333-PKG1,H333,2026-01-04,Preventive Maintenance,Scheduled PM,,179.25,"Filters changed, coils cleaned"
+C303-CASE1,C303,2026-01-04,Repair,Not cooling,,949.48,no cooling. capacitor bad. repl
+C303-COOLER1,C303,2026-01-04,Preventive Maintenance,Scheduled PM,,287.93,"Filters changed, coils cleaned"
+D129-CASE3,D129,2026-01-05,Preventive Maintenance,Scheduled PM,,222.46,"Filters changed, coils cleaned"
+D393-FREEZER1,D393,2026-01-05,Repair,Controls / thermostat,,2283.64,"Controller fault, reset and replaced sensor"
+H300-CASE3,H300,2026-01-05,Repair,Not cooling,4.2,1023.61,
+C374-RTU1,C374,2026-01-06,Preventive Maintenance,Scheduled PM,,284.03,"Checked charge ok, belts ok"
+D296-FREEZER1,D296,2026-01-06,Preventive Maintenance,Scheduled PM,,249.45,"PM complete, no issues"
+H116-COOLER2,H116,2026-01-07,Emergency Repair,Controls / thermostat,,747.23,"Controller fault, reset and replaced sensor"
+H243-FREEZER2,H243,2026-01-08,Preventive Maintenance,Scheduled PM,,322.85,
+C123-RTU2,C123,2026-01-09,Preventive Maintenance,Scheduled PM,,234.24,"Checked charge ok, belts ok"
+D292-COOLER1,D292,2026-01-09,Repair,Compressor failure,,8749.74,"Compressor locked out, replaced start kit then comp"
+H243-RTU3,H243,2026-01-10,Preventive Maintenance,Scheduled PM,,364.22,"Checked charge ok, belts ok"
+,C380,2026-01-11,Preventive Maintenance,Scheduled PM,,272.12,
+C218-COOLER1,C218,2026-01-11,Preventive Maintenance,Scheduled PM,,272.26,"Checked charge ok, belts ok"
+H116-RTU2,H116,2026-01-12,Preventive Maintenance,Scheduled PM,,189.5,"PM complete, no issues"
+D292-RTU1,D292,2026-01-13,Preventive Maintenance,Scheduled PM,,360.69,"Filters changed, coils cleaned"
+H274-CASE1,H274,2026-01-15,Preventive Maintenance,Scheduled PM,,262.64,
+H243-PKG2,h243,2026-01-17,Preventive Maintenance,Scheduled PM,,371.56,"Filters changed, coils cleaned"
+D212-ICE1,D212,2026-01-17,Preventive Maintenance,Scheduled PM,,273.45,"Filters changed, coils cleaned"
+H116-RTU1,H116,2026-01-19,Preventive Maintenance,Scheduled PM,,344.48,
+D136-PKG1,D136,2026-01-20,Preventive Maintenance,Scheduled PM,,288.31,"Filters changed, coils cleaned"
+H243-RTU2,H243,2026-01-20,Preventive Maintenance,Scheduled PM,,346.0,
+C374-CASE1,C374,2026-01-21,Preventive Maintenance,Scheduled PM,,186.71,"PM complete, no issues"
+D292-CASE3,D292,2026-01-21,Preventive Maintenance,Scheduled PM,,256.47,"Filters changed, coils cleaned"
+D136-RTU2,D136,2026-01-22,Preventive Maintenance,Scheduled PM,,315.83,"Filters changed, coils cleaned"
+D129-ICE1,D129,2026-01-23,Preventive Maintenance,Scheduled PM,,296.54,
+D292-RTU1,D292,2026-01-23,Repair,Controls / thermostat,,622.65,"Thermostat replaced, recalibrated"
+H243-FREEZER1,H243,2026-01-23,Preventive Maintenance,Scheduled PM,,247.94,"Filters changed, coils cleaned"
+D345-FREEZER1,D345,2026-01-23,Preventive Maintenance,Scheduled PM,,216.81,"PM complete, no issues"
+H274-SPLIT1,H274,2026-01-25,Preventive Maintenance,Scheduled PM,,192.4,"Checked charge ok, belts ok"
+H333-RTU1,H333,2026-01-26,Preventive Maintenance,Scheduled PM,,230.82,"Filters changed, coils cleaned"
+D345-RTU1,D345,2026-01-26,Preventive Maintenance,Scheduled PM,,310.88,
+D345-RTU1,D345,2026-01-26,Preventive Maintenance,Scheduled PM,,310.88,
+D292-CASE1,D292,2026-01-27,Preventive Maintenance,Scheduled PM,,148.74,"Filters changed, coils cleaned"
+D274-FREEZER1,D274,2026-01-27,Preventive Maintenance,Scheduled PM,,233.8,"PM complete, no issues"
+H300-RTU3,h300,2026-01-27,Preventive Maintenance,Scheduled PM,,272.07,"Filters changed, coils cleaned"
+H116-CASE1,H116,2026-01-28,Preventive Maintenance,Scheduled PM,,268.28,"PM complete, no issues"
+C235-ICE1,C235,2026-01-28,Preventive Maintenance,Scheduled PM,,258.89,
+V307-SPLIT1,V307,2026-02-01,Preventive Maintenance,Scheduled PM,,212.34,"Checked charge ok, belts ok"
+H116-FREEZER2,H116,2026-02-02,Preventive Maintenance,Scheduled PM,,230.57,"PM complete, no issues"
+D129-FREEZER1,D129,2026-02-03,Preventive Maintenance,Scheduled PM,,159.51,"Checked charge ok, belts ok"
+D129-COOLER1,D129,2026-02-04,Preventive Maintenance,Scheduled PM,,208.76,"Filters changed, coils cleaned"
+D292-FREEZER1,D292,2026-02-05,Repair,Compressor failure,,5369.06,"Comp. failed, recommend replace unit if age > 12yrs"
+C303-CASE2,C303,2026-02-06,Repair,Not cooling,,3051.15,
+D296-CASE2,D296,2026-02-06,Repair,Not cooling,5.0,1679.49,
+D274-CASE4,d274,2026-02-06,Emergency Repair,Fan motor failure,,2115.05,evap fan motor repl
+D292-FREEZER1,D292,2026-02-07,Preventive Maintenance,Scheduled PM,,234.68,"Checked charge ok, belts ok"
+H116-SPLIT1,H116,2026-02-10,Preventive Maintenance,Scheduled PM,,309.46,"Filters changed, coils cleaned"
+h116-case3,h116,2026-02-11,Repair,Fan motor failure,,598.89,"Fan motor noisy then failed, replaced"
+C380-COOLER1,c380,2026-02-11,Preventive Maintenance,Scheduled PM,,332.51,"PM complete, no issues"
+H333-CASE1,H333,2026-02-11,Repair,Controls / thermostat,,1378.12,"Controller fault, reset and replaced sensor"
+H333-RTU2,H333,2026-02-11,Preventive Maintenance,Scheduled PM,,157.53,"Checked charge ok, belts ok"
+C374-CASE1,C374,2026-02-11,Repair,Frozen coil,,4032.87,Evap coil frozen - dirty filters
+D274-SPLIT1,D274,2026-02-11,Preventive Maintenance,Scheduled PM,,215.32,
+H274-PKG3,H274,2026-02-11,Preventive Maintenance,Scheduled PM,,331.08,"PM complete, no issues"
+C113-RTU1,C113,2026-02-12,Preventive Maintenance,Scheduled PM,,316.85,"Checked charge ok, belts ok"
+H116-COOLER2,H116,2026-02-13,Preventive Maintenance,Scheduled PM,,187.41,"Checked charge ok, belts ok"
+P166-RTU1,P166,2026-02-13,Preventive Maintenance,Scheduled PM,,152.08,
+D321-COOLER1,D321,2026-02-13,Preventive Maintenance,Scheduled PM,,354.35,"Checked charge ok, belts ok"
+C123-RTU2,C123,2026-02-15,Repair,Controls / thermostat,,280.65,Faulty defrost control
+D321-WH1,D321,2026-02-17,Repair,No hot water,,350.06,"Pilot out, relit and cleaned burner"
+H300-PKG1,H300,2026-02-17,Preventive Maintenance,Scheduled PM,,190.6,"Filters changed, coils cleaned"
+D212-RTU1,D212,2026-02-17,Preventive Maintenance,Scheduled PM,,217.8,"Filters changed, coils cleaned"
+D212-RTU1,D212,2026-02-17,Preventive Maintenance,Scheduled PM,,217.8,"Filters changed, coils cleaned"
+H116-ICE1,H116,2026-02-19,Preventive Maintenance,Scheduled PM,,327.84,"Filters changed, coils cleaned"
+C235-COOLER1,C235,2026-02-19,Preventive Maintenance,Scheduled PM,,326.26,"Filters changed, coils cleaned"
+D125-COOLER1,d125,2026-02-20,Emergency Repair,Refrigerant leak,1.8,16596.03,"Low charge, leak at coil, added refrigerant"
+V235-PKG1,V235,2026-02-21,Preventive Maintenance,Scheduled PM,,167.96,"Checked charge ok, belts ok"
+H243-FREEZER2,H243,2026-02-23,Repair,Not cooling,,588.21,
+D211-COOLER1,D211,2026-02-25,Preventive Maintenance,Scheduled PM,,338.11,"PM complete, no issues"
+H300-COOLER2,H300,2026-02-25,Preventive Maintenance,Scheduled PM,,261.89,
+C235-WH1,C235,2026-02-26,Repair,No hot water,,893.85,"Pilot out, relit and cleaned burner"
+H300-COOLER1,H300,2026-02-26,Preventive Maintenance,Scheduled PM,,281.44,"PM complete, no issues"
+D129-COOLER1,D129,2026-02-27,Repair,Fan motor failure,,2571.47,evap fan motor repl
+D125-RTU3,D125,2026-02-27,Preventive Maintenance,Scheduled PM,,230.55,"Checked charge ok, belts ok"
+H243-COOLER1,H243,2026-02-27,Preventive Maintenance,Scheduled PM,,217.25,"PM complete, no issues"
+D125-RTU1,d125,2026-02-28,Preventive Maintenance,Scheduled PM,,346.22,
+V237-RTU1,V237,2026-02-28,Repair,Controls / thermostat,,2578.2,Faulty defrost control
+D393-RTU1,D393,2026-03-02,Preventive Maintenance,Scheduled PM,,,"Checked charge ok, belts ok"
+D345-ICE1,D345,2026-03-02,Preventive Maintenance,Scheduled PM,,296.53,"PM complete, no issues"
+H333-COOLER1,h333,2026-03-05,Repair,Not cooling,,1061.36,"Found unit not cooling, replaced condenser coil, tested ok"
+H274-PKG1,H274,2026-03-06,Preventive Maintenance,Scheduled PM,,287.76,"Checked charge ok, belts ok"
+c218-ice1,C218,2026-03-07,Preventive Maintenance,Scheduled PM,,181.0,
+UNKNOWN,H333,2026-03-08,Repair,Not cooling,,2233.98,Not cooling - checked charge and relay
+D212-FREEZER1,D212,2026-03-08,Preventive Maintenance,Scheduled PM,,214.32,
+D212-RTU2,D212,2026-03-08,Repair,Compressor failure,,2433.33,"Compressor locked out, replaced start kit then comp"
+C303-ICE1,C303,2026-03-09,Preventive Maintenance,Scheduled PM,,374.44,
+H274-COOLER2,H274,2026-03-09,Preventive Maintenance,Scheduled PM,,353.53,"PM complete, no issues"
+H333-FREEZER2,H333,2026-03-11,Preventive Maintenance,Scheduled PM,,321.68,
+C123-RTU1,C123,2026-03-13,Preventive Maintenance,Scheduled PM,,372.0,"PM complete, no issues"
+H243-PKG1,H243,2026-03-13,Preventive Maintenance,Scheduled PM,,348.46,
+C303-RTU1,C303,2026-03-14,Preventive Maintenance,Scheduled PM,,313.41,
+C303-RTU1,C303,2026-03-14,Preventive Maintenance,Scheduled PM,,313.41,
+H333-PKG2,H333,2026-03-15,Preventive Maintenance,Scheduled PM,,365.9,"PM complete, no issues"
+D321-CASE2,D321,2026-03-15,Leak Repair,Refrigerant leak,4.3,3054.58,"Leak found at contactor, repaired, recharged"
+H274-FREEZER1,H274,2026-03-17,Preventive Maintenance,Scheduled PM,,244.96,"PM complete, no issues"
+,H243,2026-03-17,Repair,Controls / thermostat,,593.39,
+h274-freezer2,H274,2026-03-18,Emergency Repair,Fan motor failure,,1740.47,Replaced condenser fan motor
+D212-RTU2,D212,2026-03-18,Preventive Maintenance,Scheduled PM,,158.9,
+D136-PKG1,D136,2026-03-19,Repair,Fan motor failure,,620.08,"Fan motor noisy then failed, replaced"
+H333-COOLER1,H333,2026-03-19,Preventive Maintenance,Scheduled PM,,210.34,"Checked charge ok, belts ok"
+V203-RTU1,V203,2026-03-19,Preventive Maintenance,Scheduled PM,,187.29,"Filters changed, coils cleaned"
+D393-PKG1,D393,2026-03-19,Preventive Maintenance,Scheduled PM,,172.77,
+D393-COOLER1,D393,2026-03-19,Preventive Maintenance,Scheduled PM,,189.85,
+H274-COOLER1,H274,2026-03-19,Repair,Not cooling,15.2,3993.72,"Found unit not cooling, replaced condenser coil, tested ok"
+D212-COOLER1,D212,2026-03-20,Preventive Maintenance,Scheduled PM,,351.66,"Checked charge ok, belts ok"
+H333-CASE1,H333,2026-03-22,Repair,Fan motor failure,,1459.98,evap fan motor repl
+D292-COOLER1,D292,2026-03-22,Preventive Maintenance,Scheduled PM,,334.04,"PM complete, no issues"
+V258-SPLIT1,V258,2026-03-22,Preventive Maintenance,Scheduled PM,,366.18,"Checked charge ok, belts ok"
+C113-ICE1,C113,2026-03-23,Preventive Maintenance,Scheduled PM,,183.94,"Checked charge ok, belts ok"
+D129-CASE3,D129,2026-03-23,Repair,Compressor failure,,11052.41,"Comp. failed, recommend replace unit if age > 12yrs"
+D345-COOLER1,D345,2026-03-23,Preventive Maintenance,Scheduled PM,,341.58,"Filters changed, coils cleaned"
+H116-COOLER1,H116,2026-03-24,Preventive Maintenance,Scheduled PM,,151.09,"PM complete, no issues"
+H116-PKG1,H116,2026-03-24,Preventive Maintenance,Scheduled PM,,250.48,
+D125-CASE1,D125,2026-03-24,Repair,Not cooling,1.9,685.07,
+C374-PKG1,C374,2026-03-25,Preventive Maintenance,Scheduled PM,,275.27,"Filters changed, coils cleaned"
+D125-COOLER1,D125,2026-03-25,Preventive Maintenance,Scheduled PM,,169.51,"Checked charge ok, belts ok"
+D212-FREEZER1,D212,2026-03-25,Emergency Repair,Water leak,,3197.54,"Drain line clogged, cleared"
+H116-FREEZER1,H116,2026-03-26,Preventive Maintenance,Scheduled PM,,342.22,"Filters changed, coils cleaned"
+C374-RTU1,c374,2026-03-26,Preventive Maintenance,Scheduled PM,,193.51,"Filters changed, coils cleaned"
+D296-RTU1,D296,2026-03-26,Preventive Maintenance,Scheduled PM,,377.94,"Filters changed, coils cleaned"
+D274-RTU1,D274,2026-03-26,Preventive Maintenance,Scheduled PM,,346.17,"Checked charge ok, belts ok"
+H243RTU1,H243,2026-03-26,Preventive Maintenance,Scheduled PM,,356.51,"Filters changed, coils cleaned"
+H116-RTU3,H116,2026-03-27,Preventive Maintenance,Scheduled PM,,297.82,"PM complete, no issues"
+H243-COOLER1,H243,2026-03-27,Repair,Not cooling,,2103.81,
+D274-COOLER1,D274,2026-04-02,Preventive Maintenance,Scheduled PM,,208.18,"Filters changed, coils cleaned"
+D393-SPLIT1,D393,2026-04-03,Preventive Maintenance,Scheduled PM,,246.96,"Filters changed, coils cleaned"
+D125-SPLIT1,D125,2026-04-05,Preventive Maintenance,Scheduled PM,,340.63,
+D296-MUA1,D296,2026-04-05,Repair,Noise / vibration,,816.58,"Tightened mounts, lubricated bearings"
+D296-FREEZER1,d296,2026-04-05,Preventive Maintenance,Scheduled PM,,290.66,"Checked charge ok, belts ok"
+H333-PKG1,H333,2026-04-06,Preventive Maintenance,Scheduled PM,,237.07,"Filters changed, coils cleaned"
+D321-SPLIT1,D321,2026-04-06,Preventive Maintenance,Scheduled PM,,264.09,
+H333-CASE1,H333,2026-04-07,Leak Repair,Refrigerant leak,5.8,2608.8,Leak check - found at fittings. recharge
+D296-RTU2,D296,2026-04-07,Preventive Maintenance,Scheduled PM,,183.31,"Checked charge ok, belts ok"
+D292-RTU1,D292,2026-04-07,Preventive Maintenance,Scheduled PM,,194.71,
+C218-COOLER1,C218,2026-04-07,Preventive Maintenance,Scheduled PM,,376.22,"PM complete, no issues"
+D321-CASE4,D321,2026-04-08,Emergency Repair,Refrigerant leak,5.7,5207.68,
+D129-RTU1,D129,2026-04-09,Preventive Maintenance,Scheduled PM,,302.06,"Filters changed, coils cleaned"
+D136-RTU2,D136,2026-04-10,Preventive Maintenance,Scheduled PM,,281.17,"Checked charge ok, belts ok"
+D292-ICE1,D292,2026-04-10,Preventive Maintenance,Scheduled PM,,248.15,
+C123-COOLER1,c123,2026-04-11,Repair,Compressor failure,,3505.65,
+H243-PKG2,H243,2026-04-12,Preventive Maintenance,Scheduled PM,,154.73,"Checked charge ok, belts ok"
+D345-RTU2,D345,2026-04-13,Preventive Maintenance,Scheduled PM,,320.9,"PM complete, no issues"
+D345-FREEZER1,D345,2026-04-13,Preventive Maintenance,Scheduled PM,,285.76,"Checked charge ok, belts ok"
+H243-FREEZER2,H243,2026-04-14,Leak Repair,Refrigerant leak,17.2,7980.01,"Low charge, leak at coil, added refrigerant"
+D212-ICE1,D212,2026-04-14,Preventive Maintenance,Scheduled PM,,176.54,"PM complete, no issues"
+D136-PKG1,D136,2026-04-15,Preventive Maintenance,Scheduled PM,,262.65,"PM complete, no issues"
+D274-CASE3,D274,2026-04-16,Emergency Repair,Not cooling,,3689.09,
+H243-RTU3,H243,2026-04-16,Preventive Maintenance,Scheduled PM,,358.36,"Checked charge ok, belts ok"
+H300-RTU2,H300,2026-04-16,Repair,Not cooling,,1024.55,Not cooling - checked charge and contactor
+D211-CASE3,D211,2026-04-17,Preventive Maintenance,Scheduled PM,,289.5,"Checked charge ok, belts ok"
+H333-RTU1,H333,2026-04-17,Preventive Maintenance,Scheduled PM,,324.92,"Filters changed, coils cleaned"
+C123-RTU2,C123,2026-04-18,Preventive Maintenance,Scheduled PM,,262.6,"Filters changed, coils cleaned"
+D136-PKG1,D136,2026-04-18,Repair,Controls / thermostat,,1093.11,
+D136-PKG1,D136,2026-04-18,Repair,Controls / thermostat,,1093.11,
+H243-FREEZER2,H243,2026-04-19,Preventive Maintenance,Scheduled PM,,260.05,"Checked charge ok, belts ok"
+D345-COOLER1,D345,2026-04-19,Repair,Controls / thermostat,,847.69,"Thermostat replaced, recalibrated"
+D212-CASE3,D212,2026-04-21,Preventive Maintenance,Scheduled PM,,185.08,"Checked charge ok, belts ok"
+D211-RTU1,D211,2026-04-22,Preventive Maintenance,Scheduled PM,,274.62,"PM complete, no issues"
+C235-ICE1,C235,2026-04-22,Preventive Maintenance,Scheduled PM,,310.73,
+D321-FREEZER1,D321,2026-04-22,Repair,Controls / thermostat,,1755.39,Faulty defrost control
+H300-CASE1,H300,2026-04-22,Preventive Maintenance,Scheduled PM,,280.39,"Filters changed, coils cleaned"
+H300-FREEZER1,H300,2026-04-22,Preventive Maintenance,Scheduled PM,,333.32,"Checked charge ok, belts ok"
+D125-CASE1,d125,2026-04-24,Repair,Water leak,,461.98,"Drain line clogged, cleared"
+D345-RTU2,d345,2026-04-24,Repair,Water leak,,621.48,
+H333-RTU1,H333,2026-04-25,Repair,Not cooling,,2267.13,no cooling. pressure switch bad. repl
+H274-COOLER1,H274,2026-04-25,Preventive Maintenance,Scheduled PM,,249.81,"Filters changed, coils cleaned"
+H274-FREEZER2,H274,2026-04-25,Preventive Maintenance,Scheduled PM,,362.75,"Filters changed, coils cleaned"
+H243-CASE2,H243,2026-04-25,Preventive Maintenance,Scheduled PM,,219.36,"Checked charge ok, belts ok"
+D292-RTU2,D292,2026-04-26,Repair,Controls / thermostat,,806.38,"Controller fault, reset and replaced sensor"
+D345-RTU1,D345,2026-04-26,Preventive Maintenance,Scheduled PM,,288.52,
+D211-CASE1,D211,2026-04-27,Preventive Maintenance,Scheduled PM,,307.94,"Filters changed, coils cleaned"
+H116-FREEZER2,H116,2026-04-28,Preventive Maintenance,Scheduled PM,,241.2,"Filters changed, coils cleaned"
+V203-RTU2,V203,2026-04-28,Preventive Maintenance,Scheduled PM,,367.82,"Filters changed, coils cleaned"
+D393-CASE3,D393,2026-04-28,Preventive Maintenance,Scheduled PM,,331.65,"PM complete, no issues"
+V307SPLIT1,V307,2026-05-01,Preventive Maintenance,Scheduled PM,,328.98,
+H116-CASE2,H116,2026-05-02,Preventive Maintenance,Scheduled PM,,358.6,"PM complete, no issues"
+D136-CASE1,D136,2026-05-03,Preventive Maintenance,Scheduled PM,,372.43,"Filters changed, coils cleaned"
+H333-CASE1,H333,2026-05-03,Leak Repair,Refrigerant leak,5.0,3134.61,
+H333-RTU2,H333,2026-05-03,Preventive Maintenance,Scheduled PM,,283.59,
+D321CASE4,D321,2026-05-03,Preventive Maintenance,Scheduled PM,,171.51,"Filters changed, coils cleaned"
+H274-SPLIT1,H274,2026-05-03,Preventive Maintenance,Scheduled PM,,256.29,"Filters changed, coils cleaned"
+D136-ICE1,D136,2026-05-04,Preventive Maintenance,Scheduled PM,,245.26,
+D136-FREEZER1,D136,2026-05-04,Preventive Maintenance,Scheduled PM,,260.09,"Filters changed, coils cleaned"
+D292-FREEZER1,D292,2026-05-04,Preventive Maintenance,Scheduled PM,,199.75,"Checked charge ok, belts ok"
+D274-ICE1,D274,2026-05-04,Preventive Maintenance,Scheduled PM,,211.6,
+H243-FREEZER1,H243,2026-05-04,Preventive Maintenance,Scheduled PM,,299.47,"PM complete, no issues"
+D393-CASE4,D393,2026-05-05,Preventive Maintenance,Scheduled PM,,239.27,"Checked charge ok, belts ok"
+D129-FREEZER1,D129,2026-05-06,Preventive Maintenance,Scheduled PM,,247.88,"PM complete, no issues"
+D321-CASE2,D321,2026-05-06,Repair,Not cooling,3.0,3148.41,no cooling. relay bad. repl
+D125-RTU2,D125,2026-05-08,Emergency Repair,Not cooling,,2371.49,no cooling. pressure switch bad. repl
+C235-CASE1,c235,2026-05-10,Preventive Maintenance,Scheduled PM,,211.78,"PM complete, no issues"
+D274-CASE4,D274,2026-05-10,Preventive Maintenance,Scheduled PM,,287.6,"PM complete, no issues"
+D321-FREEZER1,D321,2026-05-10,Repair,Fan motor failure,,445.27,Replaced condenser fan motor
+C113-RTU1,C113,2026-05-11,Preventive Maintenance,Scheduled PM,,354.64,"PM complete, no issues"
+C123-COOLER1,C123,2026-05-11,Preventive Maintenance,Scheduled PM,,275.33,"Filters changed, coils cleaned"
+D345-CASE5,D345,2026-05-11,Preventive Maintenance,Scheduled PM,,286.59,"Checked charge ok, belts ok"
+C380-COOLER1,C380,2026-05-12,Preventive Maintenance,Scheduled PM,,337.14,"Checked charge ok, belts ok"
+D129-COOLER1,D129,2026-05-12,Preventive Maintenance,Scheduled PM,,356.44,"PM complete, no issues"
+D212-CASE1,D212,2026-05-13,Preventive Maintenance,Scheduled PM,,364.34,"Checked charge ok, belts ok"
+C113-COOLER1,C113,2026-05-15,Preventive Maintenance,Scheduled PM,,275.77,"PM complete, no issues"
+H116-SPLIT1,H116,2026-05-15,Preventive Maintenance,Scheduled PM,,306.04,"Checked charge ok, belts ok"
+D129-CASE1,D129,2026-05-16,Repair,Frozen coil,,2577.67,"Coil iced up, defrosted, checked airflow"
+D211-COOLER1,D211,2026-05-17,Preventive Maintenance,Scheduled PM,,161.12,
+D136-RTU1,D136,2026-05-17,Preventive Maintenance,Scheduled PM,,169.46,"PM complete, no issues"
+C235-ICE1,C235,2026-05-17,Leak Repair,Refrigerant leak,4.4,486.14,"Low charge, leak at coil, added refrigerant"
+D296-CASE2,D296,2026-05-17,Preventive Maintenance,Scheduled PM,,286.15,
+H300-COOLER1,H300,2026-05-17,Preventive Maintenance,Scheduled PM,,214.33,"Filters changed, coils cleaned"
+D212-CASE2,d212,2026-05-18,Preventive Maintenance,Scheduled PM,,214.65,"PM complete, no issues"
+D274-CASE1,D274,2026-05-19,Preventive Maintenance,Scheduled PM,,284.84,"PM complete, no issues"
+H333-CASE4,H333,2026-05-20,Preventive Maintenance,Scheduled PM,,172.23,"Filters changed, coils cleaned"
+D125-RTU2,d125,2026-05-20,Preventive Maintenance,Scheduled PM,,,
+H274-PKG3,H274,2026-05-20,Preventive Maintenance,Scheduled PM,,309.93,"Filters changed, coils cleaned"
+H243-RTU1,H243,2026-05-20,Leak Repair,Refrigerant leak,8.0,2915.13,Leak check - found at fittings. recharge
+c113-case1,C113,2026-05-21,Preventive Maintenance,Scheduled PM,,312.23,"Filters changed, coils cleaned"
+H116-CASE4,H116,2026-05-21,Preventive Maintenance,Scheduled PM,,294.1,"Checked charge ok, belts ok"
+D393-CASE2,D393,2026-05-21,Preventive Maintenance,Scheduled PM,,216.78,
+H300-COOLER2,H300,2026-05-21,Preventive Maintenance,Scheduled PM,,274.6,
+D212-RTU1,D212,2026-05-21,Preventive Maintenance,Scheduled PM,,321.39,"PM complete, no issues"
+H116-ICE1,H116,2026-05-22,Preventive Maintenance,Scheduled PM,,153.39,"Filters changed, coils cleaned"
+D292-CASE4,D292,2026-05-22,Preventive Maintenance,Scheduled PM,,,"PM complete, no issues"
+,C113,2026-05-23,Emergency Repair,Water leak,,761.27,"Condensate leak, replaced pan"
+D125-CASE1,D125,2026-05-23,Emergency Repair,Not cooling,1.7,1739.23,no cooling. relay bad. repl
+H333-CASE1,H333,2026-05-24,Preventive Maintenance,Scheduled PM,,371.78,"PM complete, no issues"
+D296-CASE1,D296,2026-05-24,Preventive Maintenance,Scheduled PM,,370.7,
+D345-RTU1,d345,2026-05-24,Repair,Not cooling,13.0,2254.79,Not cooling - checked charge and capacitor
+D345-CASE3,D345,2026-05-24,Preventive Maintenance,Scheduled PM,,232.44,
+D345-ICE1,D345,2026-05-24,Preventive Maintenance,Scheduled PM,,322.24,"PM complete, no issues"
+C374-COOLER1,C374,2026-05-25,Preventive Maintenance,Scheduled PM,,194.68,
+H116-CASE3,H116,2026-05-26,Preventive Maintenance,Scheduled PM,,159.53,"Checked charge ok, belts ok"
+H333-COOLER1,H333,2026-05-26,Emergency Repair,Refrigerant leak,14.8,4506.25,"Low charge, leak at coil, added refrigerant"
+H300-PKG1,H300,2026-05-26,Preventive Maintenance,Scheduled PM,,368.53,"PM complete, no issues"
+D212-FREEZER1,D212,2026-05-26,Preventive Maintenance,Scheduled PM,,322.7,"Filters changed, coils cleaned"
+D345-CASE2,D345,2026-05-26,Preventive Maintenance,Scheduled PM,,273.82,
+V235-PKG1,V235,2026-05-28,Preventive Maintenance,Scheduled PM,,319.77,
+H243-COOLER1,H243,2026-05-28,Repair,Not cooling,5.0,3254.19,"Found unit not cooling, replaced relay, tested ok"
+V222-RTU1,V222,2026-05-28,Preventive Maintenance,Scheduled PM,,300.23,"Filters changed, coils cleaned"
+D321-CASE3,D321,2026-06-01,Preventive Maintenance,Scheduled PM,,261.03,
+D212-SPLIT1,D212,2026-06-02,Preventive Maintenance,Scheduled PM,,305.42,"Filters changed, coils cleaned"
+D129-PKG1,D129,2026-06-03,Preventive Maintenance,Scheduled PM,,317.09,"Checked charge ok, belts ok"
+D125-RTU1,D125,2026-06-03,Preventive Maintenance,Scheduled PM,,350.71,"Filters changed, coils cleaned"
+D274-CASE3,D274,2026-06-03,Preventive Maintenance,Scheduled PM,,188.57,
+D321-CASE3,D321,2026-06-03,Emergency Repair,Water leak,,1025.05,"Drain line clogged, cleared"
+H274-CASE2,H274,2026-06-03,Preventive Maintenance,Scheduled PM,,237.78,"Filters changed, coils cleaned"
+H243-COOLER1,H243,2026-06-03,Preventive Maintenance,Scheduled PM,,367.67,
+C303-ICE1,C303,2026-06-04,Preventive Maintenance,Scheduled PM,,204.02,
+C303-RTU1,C303,2026-06-04,Preventive Maintenance,Scheduled PM,,234.66,"Filters changed, coils cleaned"
+,D125,2026-06-04,Preventive Maintenance,Scheduled PM,,,"PM complete, no issues"
+D296-CASE3,D296,2026-06-04,Preventive Maintenance,Scheduled PM,,235.66,"PM complete, no issues"
+H243-COOLER1,H243,2026-06-04,Emergency Repair,Compressor failure,,13002.73,"Comp. failed, recommend replace unit if age > 12yrs"
+,H243,2026-06-04,Leak Repair,Refrigerant leak,14.0,6827.07,Leak check - found at fittings. recharge
+H243-PKG2,H243,2026-06-04,Repair,Controls / thermostat,,417.25,"Controller fault, reset and replaced sensor"
+C113-CASE2,C113,2026-06-05,Preventive Maintenance,Scheduled PM,,197.51,"PM complete, no issues"
+H333-PKG2,H333,2026-06-05,Preventive Maintenance,Scheduled PM,,269.47,"PM complete, no issues"
+D125-RTU3,D125,2026-06-05,Preventive Maintenance,Scheduled PM,,313.95,"Checked charge ok, belts ok"
+H300-RTU1,H300,2026-06-05,Repair,Controls / thermostat,,1058.29,"Thermostat replaced, recalibrated"
+H116-CASE5,H116,2026-06-06,Preventive Maintenance,Scheduled PM,,186.96,"Filters changed, coils cleaned"
+H333-FREEZER2,h333,2026-06-06,Preventive Maintenance,Scheduled PM,,206.07,"Filters changed, coils cleaned"
+C303-CASE1,C303,2026-06-06,Preventive Maintenance,Scheduled PM,,233.09,"Filters changed, coils cleaned"
+D321-CASE1,D321,2026-06-06,Preventive Maintenance,Scheduled PM,,221.93,
+H300-RTU1,H300,2026-06-06,Preventive Maintenance,Scheduled PM,,243.2,"PM complete, no issues"
+H116-FREEZER1,H116,2026-06-07,Emergency Repair,Not cooling,,4149.72,"Found unit not cooling, replaced fan blade, tested ok"
+D393-COOLER1,D393,2026-06-07,Preventive Maintenance,Scheduled PM,,144.96,"Checked charge ok, belts ok"
+D211-CASE2,D211,2026-06-08,Preventive Maintenance,Scheduled PM,,209.58,"Checked charge ok, belts ok"
+C123-RTU1,C123,2026-06-08,Preventive Maintenance,Scheduled PM,,192.16,"Filters changed, coils cleaned"
+H333-CASE2,H333,2026-06-08,Preventive Maintenance,Scheduled PM,,146.85,"PM complete, no issues"
+D296-PKG1,D296,2026-06-08,Preventive Maintenance,Scheduled PM,,141.34,
+C113-ICE1,C113,2026-06-09,Preventive Maintenance,Scheduled PM,,277.53,"Checked charge ok, belts ok"
+V258-SPLIT1,V258,2026-06-09,Preventive Maintenance,Scheduled PM,,289.04,"PM complete, no issues"
+H274-FREEZER1,H274,2026-06-09,Preventive Maintenance,Scheduled PM,,363.81,"Checked charge ok, belts ok"
+H333-COOLER1,H333,2026-06-10,Preventive Maintenance,Scheduled PM,,355.33,"Filters changed, coils cleaned"
+D393-RTU1,D393,2026-06-10,Preventive Maintenance,Scheduled PM,,320.16,"Checked charge ok, belts ok"
+D212-COOLER1,D212,2026-06-10,Preventive Maintenance,Scheduled PM,,322.5,"Filters changed, coils cleaned"
+C374-PKG1,C374,2026-06-11,Preventive Maintenance,Scheduled PM,,207.79,"Checked charge ok, belts ok"
+C218-ICE1,C218,2026-06-11,Preventive Maintenance,Scheduled PM,,261.74,"PM complete, no issues"
+H300-CASE3,H300,2026-06-12,Preventive Maintenance,Scheduled PM,,315.16,"Filters changed, coils cleaned"
+D296-RTU1,D296,2026-06-13,Repair,Fan motor failure,,2658.43,"Fan motor noisy then failed, replaced"
+D321-FREEZER1,D321,2026-06-13,Leak Repair,Refrigerant leak,11.2,7080.04,"Leak found at relay, repaired, recharged"
+H274-COOLER2,H274,2026-06-13,Preventive Maintenance,Scheduled PM,,191.68,"Checked charge ok, belts ok"
+C374-RTU1,C374,2026-06-15,Preventive Maintenance,Scheduled PM,,180.17,
+D129-PKG1,D129,2026-06-15,Repair,Compressor failure,,2318.23,"Comp. failed, recommend replace unit if age > 12yrs"
+D125-COOLER1,D125,2026-06-15,Preventive Maintenance,Scheduled PM,,151.76,
+H274-PKG2,h274,2026-06-15,Preventive Maintenance,Scheduled PM,,184.84,"PM complete, no issues"
+H333-COOLER1,H333,2026-06-16,Repair,Controls / thermostat,,757.8,
+V237-RTU1,V237,2026-06-16,Preventive Maintenance,Scheduled PM,,194.93,"Checked charge ok, belts ok"
+V203-RTU1,V203,2026-06-16,Preventive Maintenance,Scheduled PM,,250.3,"Checked charge ok, belts ok"
+D393-PKG1,D393,2026-06-17,Preventive Maintenance,Scheduled PM,,286.3,"Filters changed, coils cleaned"
+H243-PKG1,H243,2026-06-17,Preventive Maintenance,Scheduled PM,,358.4,"PM complete, no issues"
+D292-COOLER1,D292,2026-06-18,Preventive Maintenance,Scheduled PM,,331.49,"Checked charge ok, belts ok"
+D345-FREEZER1,D345,2026-06-18,Emergency Repair,Fan motor failure,,5286.76,
+H243-RTU1,H243,2026-06-19,Preventive Maintenance,Scheduled PM,,324.23,"Checked charge ok, belts ok"
+H116-FREEZER1,H116,2026-06-20,Preventive Maintenance,Scheduled PM,,173.09,
+H333-PKG2,H333,2026-06-20,Repair,Fan motor failure,,1665.21,
+D296-COOLER1,D296,2026-06-20,Preventive Maintenance,Scheduled PM,,290.47,"Filters changed, coils cleaned"
+H116-PKG1,H116,2026-06-21,Preventive Maintenance,Scheduled PM,,142.13,"Checked charge ok, belts ok"
+D211-FREEZER1,D211,2026-06-21,Repair,Fan motor failure,,1783.48,"Fan motor noisy then failed, replaced"
+D345-CASE1,D345,2026-06-21,Preventive Maintenance,Scheduled PM,,230.55,"Checked charge ok, belts ok"
+D129-CASE4,D129,2026-06-22,Preventive Maintenance,Scheduled PM,,294.54,"PM complete, no issues"
+D274-CASE3,D274,2026-06-22,Emergency Repair,Not cooling,6.7,4090.25,Not cooling - checked charge and pressure switch
+D136-CASE2,D136,2026-06-23,Preventive Maintenance,Scheduled PM,,298.98,"Filters changed, coils cleaned"
+D125-CASE4,D125,2026-06-23,Preventive Maintenance,Scheduled PM,,243.15,"PM complete, no issues"
+H333-CASE1,H333,2026-06-24,Emergency Repair,Compressor failure,,20136.15,"Compressor locked out, replaced start kit then comp"
+H333-RTU2,h333,2026-06-24,Leak Repair,Refrigerant leak,16.1,3740.5,"Leak found at TXV, repaired, recharged"
+,C218,2026-06-24,Preventive Maintenance,Scheduled PM,,359.65,"Filters changed, coils cleaned"
+D321-SPLIT1,D321,2026-06-24,Preventive Maintenance,Scheduled PM,,232.41,
+H116-RTU3,H116,2026-06-25,Preventive Maintenance,Scheduled PM,,228.84,"PM complete, no issues"
+D321-CASE5,D321,2026-06-25,Preventive Maintenance,Scheduled PM,,238.69,
+D292-WH1,D292,2026-06-27,Repair,Noise / vibration,,435.06,belt replaced
+H243-CASE1,H243,2026-06-27,Preventive Maintenance,Scheduled PM,,343.48,"Filters changed, coils cleaned"
+H333-PKG1,H333,2026-06-28,Preventive Maintenance,Scheduled PM,,249.13,"Checked charge ok, belts ok"
+H300-FREEZER2,H300,2026-06-28,Preventive Maintenance,Scheduled PM,,289.87,"Filters changed, coils cleaned"
+D212-COOLER1,d212,2026-06-28,Repair,Water leak,,734.65,"Drain line clogged, cleared"
+H116-RTU2,H116,2026-07-01,Preventive Maintenance,Scheduled PM,,299.03,"Filters changed, coils cleaned"
+C380-CASE2,C380,2026-07-02,Preventive Maintenance,Scheduled PM,,270.45,
+D211-FREEZER1,D211,2026-07-02,Preventive Maintenance,Scheduled PM,,327.21,"Checked charge ok, belts ok"
+D129-CASE3,D129,2026-07-02,Emergency Repair,Controls / thermostat,,701.24,Faulty defrost control
+H274-CASE1,H274,2026-07-02,Preventive Maintenance,Scheduled PM,,211.6,"Checked charge ok, belts ok"
+D136-RTU2,D136,2026-07-03,Preventive Maintenance,Scheduled PM,,318.44,
+H243-RTU2,H243,2026-07-03,Preventive Maintenance,Scheduled PM,,255.47,"PM complete, no issues"
+D345-COOLER1,D345,2026-07-03,Preventive Maintenance,Scheduled PM,,357.57,"Checked charge ok, belts ok"
+V203-PKG1,V203,2026-07-04,Preventive Maintenance,Scheduled PM,,236.07,
+D274-RTU1,D274,2026-07-04,Preventive Maintenance,Scheduled PM,,246.23,
+D393-COOLER1,D393,2026-07-05,Repair,Controls / thermostat,,1105.28,"Thermostat replaced, recalibrated"
+D345-RTU2,D345,2026-07-05,Preventive Maintenance,Scheduled PM,,173.93,"PM complete, no issues"
+D393-SPLIT1,D393,2026-07-06,Preventive Maintenance,Scheduled PM,,228.65,
+D212-RTU1,D212,2026-07-06,Repair,Controls / thermostat,,733.19,"Controller fault, reset and replaced sensor"
+d129-case3,D129,2026-07-07,Preventive Maintenance,Scheduled PM,,145.64,"Checked charge ok, belts ok"
+D136-PKG1,D136,2026-07-08,Preventive Maintenance,Scheduled PM,,294.05,
+D274-CASE3,d274,2026-07-10,Repair,Controls / thermostat,,908.11,"Controller fault, reset and replaced sensor"
+D211-RTU1,D211,2026-07-11,Preventive Maintenance,Scheduled PM,,337.64,
+D274-COOLER1,D274,2026-07-11,Preventive Maintenance,Scheduled PM,,,"Checked charge ok, belts ok"
+D393-PKG1,D393,2026-07-11,Repair,Not cooling,,1660.4,Not cooling - checked charge and TXV
+H333-FREEZER2,H333,2026-07-12,Emergency Repair,Refrigerant leak,10.6,8253.1,Leak check - found at fittings. recharge
+D129-RTU1,D129,2026-07-12,Preventive Maintenance,Scheduled PM,,233.16,"Filters changed, coils cleaned"
+d212-ice1,D212,2026-07-12,Preventive Maintenance,Scheduled PM,,303.09,"PM complete, no issues"
+C374-CASE1,C374,2026-07-13,Preventive Maintenance,Scheduled PM,,161.78,
+D296-RTU2,D296,2026-07-13,Preventive Maintenance,Scheduled PM,,181.84,"Filters changed, coils cleaned"
+P166-PKG1,P166,2026-07-13,Emergency Repair,Frozen coil,,898.15,Evap coil frozen - dirty filters
+H243-FREEZER2,H243,2026-07-13,Preventive Maintenance,Scheduled PM,,297.75,"Checked charge ok, belts ok"
+H300-RTU2,H300,2026-07-13,Emergency Repair,Fan motor failure,,1145.51,evap fan motor repl
+D292-COOLER1,D292,2026-07-14,Repair,Not cooling,,1199.29,no cooling. pressure switch bad. repl
+D292-CASE2,D292,2026-07-14,Repair,Not cooling,,841.15,"Found unit not cooling, replaced contactor, tested ok"
+C218-RTU1,C218,2026-07-14,Preventive Maintenance,Scheduled PM,,261.36,"Filters changed, coils cleaned"
+D345-FREEZER1,D345,2026-07-15,Preventive Maintenance,Scheduled PM,,276.68,"Filters changed, coils cleaned"
+D292-RTU1,D292,2026-07-16,Preventive Maintenance,Scheduled PM,,272.99,"PM complete, no issues"
+C235-ICE1,C235,2026-07-19,Preventive Maintenance,Scheduled PM,,244.39,"Filters changed, coils cleaned"
+D292-ICE1,D292,2026-07-21,Preventive Maintenance,Scheduled PM,,146.93,"PM complete, no issues"
+H243-FREEZER1,H243,2026-07-21,Repair,Not cooling,16.9,3022.02,
+H274-SPLIT1,H274,2026-07-22,Preventive Maintenance,Scheduled PM,,298.86,"PM complete, no issues"
+H243-COOLER1,H243,2026-07-22,Leak Repair,Refrigerant leak,9.9,4450.75,"Low charge, leak at coil, added refrigerant"
+D321-CASE2,D321,2026-07-24,Repair,Not cooling,,3127.77,Not cooling - checked charge and pressure switch
+H274-FREEZER2,H274,2026-07-24,Preventive Maintenance,Scheduled PM,,229.03,"PM complete, no issues"
+H116-RTU1,H116,2026-07-25,Preventive Maintenance,Scheduled PM,,306.37,"Checked charge ok, belts ok"
+H116-FREEZER2,H116,2026-07-25,Preventive Maintenance,Scheduled PM,,274.89,"PM complete, no issues"
+H333-RTU1,H333,2026-07-25,Preventive Maintenance,Scheduled PM,,268.55,"Checked charge ok, belts ok"
+D212-FREEZER1,D212,2026-07-26,Repair,Not cooling,7.9,3802.69,"Found unit not cooling, replaced capacitor, tested ok"
+H116-FREEZER2,H116,2026-07-27,Emergency Repair,Water leak,,2428.69,
+C123-RTU2,C123,2026-07-27,Preventive Maintenance,Scheduled PM,,193.65,"PM complete, no issues"
+H243-FREEZER1,H243,2026-07-27,Preventive Maintenance,Scheduled PM,,250.32,"Checked charge ok, belts ok"
+D136-FREEZER1,D136,2026-07-28,Preventive Maintenance,Scheduled PM,,253.87,
+H300-SPLIT1,H300,2026-07-28,Preventive Maintenance,Scheduled PM,,291.83,"PM complete, no issues"
+H300-RTU3,H300,2026-07-28,Preventive Maintenance,Scheduled PM,,255.27,"PM complete, no issues"
+C123-RTU1,C123,2026-08-02,Repair,Compressor failure,,3903.31,"Compressor locked out, replaced start kit then comp"
+V203-PKG1,v203,2026-08-02,Emergency Repair,Refrigerant leak,12.0,12647.16,"Low charge, leak at coil, added refrigerant"
+H300-CASE1,H300,2026-08-02,Repair,Not cooling,6.3,1204.63,"Found unit not cooling, replaced capacitor, tested ok"
+D292-CASE3,D292,2026-08-03,Emergency Repair,Refrigerant leak,1.9,1740.39,
+H243-FREEZER2,H243,2026-08-03,Repair,Not cooling,16.2,3086.33,
+D136-RTU1,D136,2026-08-04,Preventive Maintenance,Scheduled PM,,167.42,"Checked charge ok, belts ok"
+D345-RTU1,D345,2026-08-04,Preventive Maintenance,Scheduled PM,,153.15,"Filters changed, coils cleaned"
+H116-COOLER2,H116,2026-08-05,Preventive Maintenance,Scheduled PM,,144.75,"Checked charge ok, belts ok"
+C303-CASE2,C303,2026-08-05,Emergency Repair,Not cooling,,1299.82,no cooling. capacitor bad. repl
+D292-CASE1,D292,2026-08-06,Preventive Maintenance,Scheduled PM,,194.33,"Checked charge ok, belts ok"
+V203-RTU2,V203,2026-08-06,Preventive Maintenance,Scheduled PM,,237.36,
+H116-RTU2,H116,2026-08-07,Repair,Not cooling,,1583.14,
+H333-RTU2,H333,2026-08-07,Preventive Maintenance,Scheduled PM,,182.37,"Checked charge ok, belts ok"
+D125-RTU2,D125,2026-08-07,Preventive Maintenance,Scheduled PM,,189.11,"PM complete, no issues"
+P166-RTU1,P166,2026-08-07,Preventive Maintenance,Scheduled PM,,358.07,"Checked charge ok, belts ok"
+D345-COOLER1,D345,2026-08-07,Repair,Compressor failure,,6770.47,
+V307-SPLIT1,V307,2026-08-07,Preventive Maintenance,Scheduled PM,,318.0,
+C113-RTU1,C113,2026-08-08,Preventive Maintenance,Scheduled PM,,173.59,"Checked charge ok, belts ok"
+C123-COOLER1,C123,2026-08-08,Preventive Maintenance,Scheduled PM,,159.34,"Checked charge ok, belts ok"
+D129-CASE3,D129,2026-08-08,Emergency Repair,Not cooling,,3047.09,
+D129-COOLER1,D129,2026-08-08,Preventive Maintenance,Scheduled PM,,252.2,
+D321-CASE5,D321,2026-08-08,Repair,Frozen coil,,3306.9,Evap coil frozen - dirty filters
+H300-COOLER1,H300,2026-08-08,Preventive Maintenance,Scheduled PM,,206.88,
+H333-CASE1,H333,2026-08-09,Repair,Compressor failure,,4323.68,
+D292-FREEZER1,D292,2026-08-12,Preventive Maintenance,Scheduled PM,,214.96,"Filters changed, coils cleaned"
+D274-SPLIT1,D274,2026-08-12,Preventive Maintenance,Scheduled PM,,323.94,
+D274-ICE1,D274,2026-08-12,Repair,Not cooling,4.5,1156.69,"Found unit not cooling, replaced condenser coil, tested ok"
+D274-ICE1,D274,2026-08-12,Preventive Maintenance,Scheduled PM,,214.41,
+H274-PKG1,H274,2026-08-12,Preventive Maintenance,Scheduled PM,,310.6,
+D136-PKG1,D136,2026-08-14,Leak Repair,Refrigerant leak,16.3,2238.83,
+D136-ICE1,D136,2026-08-14,Preventive Maintenance,Scheduled PM,,355.35,"Checked charge ok, belts ok"
+,D393,2026-08-14,Repair,Fan motor failure,,1238.15,"Fan motor noisy then failed, replaced"
+H243-COOLER1,H243,2026-08-14,Emergency Repair,Frozen coil,,655.1,Evap coil frozen - dirty filters
+D296-RTU2,D296,2026-08-15,Repair,Not cooling,,571.78,
+H300-COOLER2,H300,2026-08-16,Preventive Maintenance,Scheduled PM,,220.93,"Filters changed, coils cleaned"
+D321-CASE4,D321,2026-08-18,Repair,Controls / thermostat,,,"Controller fault, reset and replaced sensor"
+H116-SPLIT1,H116,2026-08-19,Preventive Maintenance,Scheduled PM,,161.33,
+UNKNOWN,D212,2026-08-19,Preventive Maintenance,Scheduled PM,,163.1,"Filters changed, coils cleaned"
+D345-ICE1,D345,2026-08-19,Preventive Maintenance,Scheduled PM,,151.72,
+D211-COOLER1,D211,2026-08-20,Preventive Maintenance,Scheduled PM,,328.39,"Filters changed, coils cleaned"
+H333FREEZER2,H333,2026-08-20,Emergency Repair,Controls / thermostat,,1199.32,
+D212-COOLER1,D212,2026-08-20,Emergency Repair,Controls / thermostat,,823.58,
+D345-CASE3,D345,2026-08-20,Emergency Repair,Frozen coil,,3967.15,"Coil iced up, defrosted, checked airflow"
+D211-ICE1,D211,2026-08-21,Repair,Fan motor failure,,1092.13,evap fan motor repl
+H333-FREEZER1,H333,2026-08-21,Repair,Water leak,,1615.77,"Drain line clogged, cleared"
+C235-COOLER1,C235,2026-08-21,Preventive Maintenance,Scheduled PM,,262.13,
+V222-RTU1,V222,2026-08-21,Preventive Maintenance,Scheduled PM,,363.48,"PM complete, no issues"
+C303-RTU1,C303,2026-08-22,Preventive Maintenance,Scheduled PM,,276.63,"Checked charge ok, belts ok"
+D125-FREEZER1,D125,2026-08-22,Preventive Maintenance,Scheduled PM,,170.34,"Filters changed, coils cleaned"
+D125-RTU3,D125,2026-08-22,Preventive Maintenance,Scheduled PM,,286.34,
+H243-COOLER1,H243,2026-08-22,Preventive Maintenance,Scheduled PM,,311.94,
+D321-FREEZER1,D321,2026-08-24,Preventive Maintenance,Scheduled PM,,244.86,"Filters changed, coils cleaned"
+H274-FREEZER1,H274,2026-08-25,Repair,Frozen coil,,,Evap coil frozen - dirty filters
+C123-RTU1,C123,2026-08-26,Preventive Maintenance,Scheduled PM,,368.88,
+D296-CASE2,D296,2026-08-26,Repair,Frozen coil,,2010.97,Evap coil frozen - dirty filters
+H274-ICE1,H274,2026-08-26,Preventive Maintenance,Scheduled PM,,232.05,
+D212-SPLIT1,D212,2026-08-26,Preventive Maintenance,Scheduled PM,,211.0,
+D393-RTU1,D393,2026-08-27,Preventive Maintenance,Scheduled PM,,318.66,
+D393-CASE5,D393,2026-08-27,Repair,Not cooling,1.7,3074.84,no cooling. contactor bad. repl
+H333-COOLER1,H333,2026-08-28,Leak Repair,Refrigerant leak,16.3,3119.38,"Low charge, leak at coil, added refrigerant"
+C303-ICE1,C303,2026-08-28,Preventive Maintenance,Scheduled PM,,192.77,"Checked charge ok, belts ok"
+D274-CASE3,D274,2026-08-28,Emergency Repair,Not cooling,,5905.81,no cooling. capacitor bad. repl
+D211-FREEZER1,D211,2026-09-01,Emergency Repair,Not cooling,,3325.29,
+V235-PKG1,V235,2026-09-01,Preventive Maintenance,Scheduled PM,,307.98,
+D292-CASE3,D292,2026-09-01,Repair,Water leak,,2526.93,"Condensate leak, replaced pan"
+D129-PKG1,D129,2026-09-02,Preventive Maintenance,Scheduled PM,,348.86,"PM complete, no issues"
+D125-COOLER1,D125,2026-09-02,Repair,Fan motor failure,,1059.82,"Fan motor noisy then failed, replaced"
+C380-CASE2,C380,2026-09-04,Repair,Not cooling,,2180.35,
+D129-CASE4,D129,2026-09-04,Repair,Controls / thermostat,,710.73,"Controller fault, reset and replaced sensor"
+H274-FREEZER1,H274,2026-09-04,Preventive Maintenance,Scheduled PM,,303.08,"Filters changed, coils cleaned"
+H243-PKG2,H243,2026-09-04,Repair,Controls / thermostat,,862.97,
+C113-ICE1,C113,2026-09-05,Preventive Maintenance,Scheduled PM,,322.87,"Checked charge ok, belts ok"
+V237-RTU1,V237,2026-09-05,Preventive Maintenance,Scheduled PM,,269.51,"Checked charge ok, belts ok"
+V258-SPLIT1,V258,2026-09-05,Preventive Maintenance,Scheduled PM,,182.51,"Filters changed, coils cleaned"
+H116CASE1,H116,2026-09-06,Repair,Fan motor failure,,916.87,"Fan motor noisy then failed, replaced"
+D136-FREEZER1,D136,2026-09-06,Emergency Repair,Refrigerant leak,17.1,21213.36,Leak check - found at fittings. recharge
+D129-ICE1,d129,2026-09-06,Repair,Not cooling,13.7,975.87,
+D125-COOLER1,D125,2026-09-06,Preventive Maintenance,Scheduled PM,,379.7,"PM complete, no issues"
+D393-FREEZER1,D393,2026-09-06,Repair,Water leak,,1649.51,"Condensate leak, replaced pan"
+D321-CASE1,D321,2026-09-06,Repair,Fan motor failure,,700.8,"Fan motor noisy then failed, replaced"
+C218-ICE1,C218,2026-09-07,Preventive Maintenance,Scheduled PM,,142.17,"Checked charge ok, belts ok"
+D393-ICE1,D393,2026-09-08,Repair,Fan motor failure,,389.75,evap fan motor repl
+H333-COOLER1,H333,2026-09-09,Preventive Maintenance,Scheduled PM,,,"PM complete, no issues"
+D296-PKG1,D296,2026-09-09,Preventive Maintenance,Scheduled PM,,183.72,"Filters changed, coils cleaned"
+D292-COOLER1,D292,2026-09-09,Preventive Maintenance,Scheduled PM,,271.21,"Filters changed, coils cleaned"
+H243-CASE1,H243,2026-09-09,Repair,Fan motor failure,,1299.13,evap fan motor repl
+D212-COOLER1,D212,2026-09-09,Preventive Maintenance,Scheduled PM,,210.5,"Filters changed, coils cleaned"
+D125-RTU1,D125,2026-09-10,Preventive Maintenance,Scheduled PM,,366.73,"Filters changed, coils cleaned"
+C218-COOLER1,C218,2026-09-10,Preventive Maintenance,Scheduled PM,,236.79,
+C374-PKG1,c374,2026-09-11,Preventive Maintenance,Scheduled PM,,375.23,"Checked charge ok, belts ok"
+H274-COOLER2,H274,2026-09-11,Preventive Maintenance,Scheduled PM,,229.32,"Checked charge ok, belts ok"
+V307-SPLIT1,V307,2026-09-13,Emergency Repair,Not cooling,,2445.28,Not cooling - checked charge and capacitor
+D292-COOLER1,D292,2026-09-15,Emergency Repair,Refrigerant leak,1.2,5196.44,Leak check - found at fittings. recharge
+H274-PKG2,H274,2026-09-15,Preventive Maintenance,Scheduled PM,,313.02,
+H333-FREEZER2,H333,2026-09-16,Preventive Maintenance,Scheduled PM,,202.26,"Checked charge ok, belts ok"
+D321-SPLIT1,D321,2026-09-17,Preventive Maintenance,Scheduled PM,,148.76,"PM complete, no issues"
+H243-COOLER1,H243,2026-09-17,Repair,Controls / thermostat,,843.33,
+H300-FREEZER2,H300,2026-09-17,Preventive Maintenance,Scheduled PM,,166.4,"Checked charge ok, belts ok"
+D125SPLIT1,D125,2026-09-20,Preventive Maintenance,Scheduled PM,,221.92,"PM complete, no issues"
+V203-RTU1,V203,2026-09-20,Preventive Maintenance,Scheduled PM,,145.5,"PM complete, no issues"
+D212-RTU2,D212,2026-09-20,Preventive Maintenance,Scheduled PM,,364.41,"Checked charge ok, belts ok"
+H116-PKG1,h116,2026-09-22,Preventive Maintenance,Scheduled PM,,359.15,"Filters changed, coils cleaned"
+H333-COOLER1,H333,2026-09-22,Leak Repair,Refrigerant leak,13.2,4024.8,
+H116-RTU2,H116,2026-09-24,Preventive Maintenance,Scheduled PM,,201.19,"Checked charge ok, belts ok"
+D296-FREEZER1,D296,2026-09-24,Preventive Maintenance,Scheduled PM,,300.75,"Checked charge ok, belts ok"
+H243-PKG1,H243,2026-09-24,Preventive Maintenance,Scheduled PM,,318.33,"Filters changed, coils cleaned"
+D211-ICE1,D211,2026-09-25,Preventive Maintenance,Scheduled PM,,158.67,
+UNKNOWN,D393,2026-09-25,Preventive Maintenance,Scheduled PM,,264.01,"Checked charge ok, belts ok"
+D345-RTU2,D345,2026-09-25,Preventive Maintenance,Scheduled PM,,362.69,"Checked charge ok, belts ok"
+H243-RTU1,H243,2026-09-26,Preventive Maintenance,Scheduled PM,,288.29,"PM complete, no issues"
+H300-COOLER2,H300,2026-09-26,Repair,Fan motor failure,,792.91,
+D211-RTU1,D211,2026-09-27,Preventive Maintenance,Scheduled PM,,347.43,"Filters changed, coils cleaned"
+C303-COOLER1,C303,2026-09-27,Preventive Maintenance,Scheduled PM,,373.36,"PM complete, no issues"
+D296-RTU1,D296,2026-09-27,Preventive Maintenance,Scheduled PM,,290.75,"Filters changed, coils cleaned"
+D321-RTU1,D321,2026-09-27,Preventive Maintenance,Scheduled PM,,379.38,"PM complete, no issues"
+D136-PKG1,D136,2026-09-28,Preventive Maintenance,Scheduled PM,,311.78,
+H243-PKG2,H243,2026-10-01,Repair,Frozen coil,,1078.2,
+H116-RTU3,H116,2026-10-02,Preventive Maintenance,Scheduled PM,,260.54,
+D393-SPLIT1,D393,2026-10-02,Preventive Maintenance,Scheduled PM,,373.47,"PM complete, no issues"
+H243-FREEZER2,H243,2026-10-02,Preventive Maintenance,Scheduled PM,,253.17,"PM complete, no issues"
+V235-PKG1,V235,2026-10-03,Repair,Not cooling,3.9,781.42,Not cooling - checked charge and condenser coil
+D345-COOLER1,D345,2026-10-03,Preventive Maintenance,Scheduled PM,,301.82,"PM complete, no issues"
+H333-PKG1,H333,2026-10-04,Preventive Maintenance,Scheduled PM,,292.19,"Checked charge ok, belts ok"
+D125-COOLER1,D125,2026-10-04,Emergency Repair,Not cooling,,1710.92,no cooling. fan blade bad. repl
+D296-RTU2,D296,2026-10-04,Preventive Maintenance,Scheduled PM,,171.36,"Filters changed, coils cleaned"
+H243-RTU2,H243,2026-10-06,Preventive Maintenance,Scheduled PM,,187.51,
+D321-CASE2,D321,2026-10-08,Leak Repair,Refrigerant leak,1.9,3389.38,
+H243-FREEZER1,H243,2026-10-08,Repair,Water leak,,414.97,
+H243-RTU2,H243,2026-10-08,Leak Repair,Refrigerant leak,2.1,4419.56,"Low charge, leak at coil, added refrigerant"
+H333-CASE1,H333,2026-10-09,Repair,Not cooling,3.5,1071.44,"Found unit not cooling, replaced contactor, tested ok"
+D393-CASE5,D393,2026-10-10,Preventive Maintenance,Scheduled PM,,233.11,"PM complete, no issues"
+h243-case2,H243,2026-10-11,Preventive Maintenance,Scheduled PM,,361.88,"Filters changed, coils cleaned"
+H300-FREEZER1,H300,2026-10-12,Preventive Maintenance,Scheduled PM,,215.36,"Checked charge ok, belts ok"
+D212-CASE3,D212,2026-10-12,Preventive Maintenance,Scheduled PM,,164.61,"Checked charge ok, belts ok"
+UNKNOWN,C380,2026-10-13,Preventive Maintenance,Scheduled PM,,275.88,"PM complete, no issues"
+D211-CASE1,D211,2026-10-16,Preventive Maintenance,Scheduled PM,,162.44,"Checked charge ok, belts ok"
+H274-SPLIT1,H274,2026-10-17,Preventive Maintenance,Scheduled PM,,280.54,"PM complete, no issues"
+H333-RTU1,H333,2026-10-18,Preventive Maintenance,Scheduled PM,,247.87,"PM complete, no issues"
+H300-CASE1,H300,2026-10-19,Preventive Maintenance,Scheduled PM,,334.5,"Checked charge ok, belts ok"
+H333-COOLER1,H333,2026-10-20,Repair,Not cooling,4.8,1275.96,Not cooling - checked charge and pressure switch
+C303-ICE1,C303,2026-10-20,Repair,Not cooling,,425.84,"Found unit not cooling, replaced capacitor, tested ok"
+C218-RTU1,C218,2026-10-20,Preventive Maintenance,Scheduled PM,,182.49,"Checked charge ok, belts ok"
+D345-COOLER1,D345,2026-10-20,Emergency Repair,Fan motor failure,,1361.06,Replaced condenser fan motor
+,D345,2026-10-20,Preventive Maintenance,Scheduled PM,,277.42,
+C123-COOLER1,C123,2026-10-21,Repair,Not cooling,,1561.21,"Found unit not cooling, replaced contactor, tested ok"
+D212-ICE1,D212,2026-10-21,Preventive Maintenance,Scheduled PM,,229.06,"Checked charge ok, belts ok"
+C123-RTU2,C123,2026-10-22,Preventive Maintenance,Scheduled PM,,289.68,"PM complete, no issues"
+D136-RTU1,D136,2026-10-22,Preventive Maintenance,Scheduled PM,,371.62,"Filters changed, coils cleaned"
+C123-RTU2,C123,2026-10-22,Preventive Maintenance,Scheduled PM,,289.68,"PM complete, no issues"
+C123-CASE2,C123,2026-10-24,Preventive Maintenance,Scheduled PM,,312.61,
+D136-RTU3,D136,2026-10-24,Repair,Not cooling,,1984.93,Not cooling - checked charge and capacitor
+C374-CASE2,C374,2026-10-24,Preventive Maintenance,Scheduled PM,,221.2,
+H333-COOLER2,H333,2026-10-26,Preventive Maintenance,Scheduled PM,,368.98,"Filters changed, coils cleaned"
+D129-CASE2,D129,2026-10-26,Preventive Maintenance,Scheduled PM,,304.54,"PM complete, no issues"
+D274-FREEZER1,D274,2026-10-26,Preventive Maintenance,Scheduled PM,,236.31,"Filters changed, coils cleaned"
+D125-CASE1,D125,2026-10-27,Preventive Maintenance,Scheduled PM,,224.76,"PM complete, no issues"
+H274-COOLER1,h274,2026-10-27,Preventive Maintenance,Scheduled PM,,306.91,"PM complete, no issues"
+H300-CASE2,H300,2026-10-27,Preventive Maintenance,Scheduled PM,,196.24,"Checked charge ok, belts ok"
+H300-RTU2,H300,2026-10-27,Preventive Maintenance,Scheduled PM,,347.24,"PM complete, no issues"
+H300-RTU3,H300,2026-10-27,Preventive Maintenance,Scheduled PM,,271.77,"PM complete, no issues"
+D345-RTU1,D345,2026-10-27,Preventive Maintenance,Scheduled PM,,214.0,
+D211-ICE1,D211,01/06/2026,Preventive Maintenance,Scheduled PM,,373.55,"Checked charge ok, belts ok"
+H243-CASE1,H243,01/06/2026,Preventive Maintenance,Scheduled PM,,155.41,"PM complete, no issues"
+D129-RTU1,D129,01/15/2026,Preventive Maintenance,Scheduled PM,,214.36,"Checked charge ok, belts ok"
+D125-WH1,D125,01/19/2026,Repair,Water leak,,780.07,"Fitting leak, repaired"
+H300-FREEZER1,H300,01/20/2026,Preventive Maintenance,Scheduled PM,,210.28,"Checked charge ok, belts ok"
+H274-FREEZER2,H274,01/26/2026,Preventive Maintenance,Scheduled PM,,278.29,"Filters changed, coils cleaned"
+D136-FREEZER1,D136,02/11/2026,Preventive Maintenance,Scheduled PM,,355.03,"Filters changed, coils cleaned"
+D393-ICE1,D393,02/28/2026,Preventive Maintenance,Scheduled PM,,235.92,
+H300-RTU1,H300,03/03/2026,Preventive Maintenance,Scheduled PM,,362.97,"Checked charge ok, belts ok"
+V203-PKG1,V203,03/25/2026,Preventive Maintenance,Scheduled PM,,238.62,
+V237-RTU1,V237,03/26/2026,Preventive Maintenance,Scheduled PM,,300.07,
+H243-RTU2,H243,04/08/2026,Preventive Maintenance,Scheduled PM,,313.28,"PM complete, no issues"
+H116-RTU2,H116,04/12/2026,Repair,Water leak,,552.79,"Condensate leak, replaced pan"
+D393-FREEZER1,D393,04/28/2026,Preventive Maintenance,Scheduled PM,,312.6,"PM complete, no issues"
+P166-PKG1,P166,05/12/2026,Preventive Maintenance,Scheduled PM,,323.43,"Checked charge ok, belts ok"
+D296WH1,D296,05/13/2026,Repair,Water leak,,1216.8,Replaced valve
+D274-SPLIT1,D274,05/15/2026,Preventive Maintenance,Scheduled PM,,364.83,"Filters changed, coils cleaned"
+D345-CASE3,D345,05/19/2026,Repair,Not cooling,7.2,5226.08,
+D393-CASE1,D393,05/21/2026,Preventive Maintenance,Scheduled PM,,209.64,"Checked charge ok, belts ok"
+D393-ICE1,D393,05/26/2026,Preventive Maintenance,Scheduled PM,,286.99,"PM complete, no issues"
+H274-PKG1,H274,05/26/2026,Preventive Maintenance,Scheduled PM,,255.27,
+C123-CASE1,C123,06/03/2026,Repair,Not cooling,,2144.55,
+D345-CASE1,D345,06/09/2026,Leak Repair,Refrigerant leak,2.0,2790.42,Leak check - found at fittings. recharge
+C303-CASE2,C303,06/10/2026,Preventive Maintenance,Scheduled PM,,205.36,"Filters changed, coils cleaned"
+H116-COOLER2,H116,06/12/2026,Repair,Controls / thermostat,,826.71,Faulty defrost control
+C380-CASE1,C380,06/13/2026,Preventive Maintenance,Scheduled PM,,327.32,"Filters changed, coils cleaned"
+C235-CASE2,C235,06/13/2026,Preventive Maintenance,Scheduled PM,,377.33,"PM complete, no issues"
+H243-FREEZER2,H243,06/18/2026,Repair,Controls / thermostat,,549.06,Faulty defrost control
+C123-CASE1,C123,06/25/2026,Preventive Maintenance,Scheduled PM,,306.0,"Checked charge ok, belts ok"
+H116-COOLER1,H116,06/27/2026,Preventive Maintenance,Scheduled PM,,207.22,"PM complete, no issues"
+H243-RTU3,H243,07/15/2026,Preventive Maintenance,Scheduled PM,,375.48,"Filters changed, coils cleaned"
+C380-RTU1,C380,07/22/2026,Preventive Maintenance,Scheduled PM,,240.56,"Filters changed, coils cleaned"
+D129-FREEZER1,D129,08/16/2026,Preventive Maintenance,Scheduled PM,,199.18,"Filters changed, coils cleaned"
+H116-ICE1,H116,08/17/2026,Preventive Maintenance,Scheduled PM,,347.5,"Filters changed, coils cleaned"
+C374-COOLER1,C374,09/02/2026,Preventive Maintenance,Scheduled PM,,340.79,"Checked charge ok, belts ok"
+C374-RTU1,C374,09/22/2026,Preventive Maintenance,Scheduled PM,,345.32,
+V203-PKG1,V203,10/03/2026,Preventive Maintenance,Scheduled PM,,146.08,"PM complete, no issues"
+H243-RTU3,H243,10/12/2026,Preventive Maintenance,Scheduled PM,,248.34,"Checked charge ok, belts ok"
+D292-RTU1,d292,10/13/2026,Preventive Maintenance,Scheduled PM,,301.22,"PM complete, no issues"
+H243-PKG2,H243,10/15/2026,Preventive Maintenance,Scheduled PM,,250.25,
+D274-SPLIT1,D274,10/24/2026,Emergency Repair,Frozen coil,,1136.97,
+H300-SPLIT1,H300,10/24/2026,Preventive Maintenance,Scheduled PM,,225.38,"PM complete, no issues"
+,H243,10/26/2026,Preventive Maintenance,Scheduled PM,,170.72,"PM complete, no issues"

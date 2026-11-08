@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState, type FormEvent, type ReactNode, type RefObject } from 'react'
 import {
+  decisionTitle,
   getAsset,
   getAssets,
   getCalls,
@@ -7,6 +8,9 @@ import {
   getPortfolio,
   getSavings,
   getWorkOrders,
+  runPipeline,
+  runSampleData,
+  setDecisionStatus,
 } from './api'
 import penguinLogo from './assets/Pengu.jpg'
 import type {
@@ -55,6 +59,11 @@ const DRIVER_LABELS: Record<string, string> = {
   hot_days_next_7: 'Hot days in the forecast',
   peak_100f: 'Forecast peak of 100°F or more',
   field_report_negative: 'Manager reported a problem',
+  refrigerant_recharges: 'Refrigerant recharges (likely leak)',
+  repair_frequency: 'Repair calls, last 90 days',
+  pm_overdue: 'Preventive maintenance overdue',
+  heat_forecast: 'Hot days in the forecast',
+  no_history_cap: 'No work-order history on file',
 }
 
 const NAV_ITEMS: Array<{ id: Screen; label: string; icon: string }> = [
@@ -83,10 +92,13 @@ function fileSize(size: number): string {
   return `${(size / (1024 * 1024)).toFixed(1)} MB`
 }
 
-function percent(probability: number | null): string {
-  if (probability === null || !Number.isFinite(probability)) return '—'
-  if (probability > 0 && probability < 0.005) return '<1%'
-  return `${Math.round(probability * 100)}%`
+function indexText(safetyIndex: number | null | undefined): string {
+  return safetyIndex === null || safetyIndex === undefined ? '—' : String(safetyIndex)
+}
+
+function bandText(band: string | null | undefined): string {
+  if (!band || band === 'unknown') return 'Needs data'
+  return `${band[0].toUpperCase()}${band.slice(1)}`
 }
 
 function relativeTime(timestamp: string): string {
@@ -222,7 +234,7 @@ function App() {
 
   const assets = data?.assets ?? EMPTY_ASSETS
   const sortedAssets = useMemo(
-    () => [...assets].sort((a, b) => (b.prob ?? -1) - (a.prob ?? -1)),
+    () => [...assets].sort((a, b) => (a.safety_index ?? 1000) - (b.safety_index ?? 1000)),
     [assets],
   )
   const filteredAssets = useMemo(() => {
@@ -423,7 +435,7 @@ function App() {
           })}
         </nav>
         <div className="sidebar-bottom">
-          <div className="monitoring-status"><span />CSV data loaded</div>
+          <div className="monitoring-status"><span />Live data · SiteSignal API</div>
           <button className="theme-button" type="button" onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}>
             <Icon>{theme === 'light' ? '◐' : '☼'}</Icon>
             <span>{theme === 'light' ? 'Dark mode' : 'Light mode'}</span>
@@ -444,7 +456,7 @@ function App() {
               <button type="button" onClick={logOut}>Log out</button>
             </div>
           )}
-          <p className="sidebar-footer">PenguinRE · Source CSVs</p>
+          <p className="sidebar-footer">PenguinRE · SiteSignal API</p>
         </div>
       </aside>
 
@@ -452,7 +464,7 @@ function App() {
         <header className="topbar">
           <div className="breadcrumb"><span>Workspace</span><span>/</span><strong>{pageTitle}</strong></div>
           <div className="topbar-right">
-            <span className="refresh-indicator"><span /> CSV source · latest record {shortDate(data?.portfolio.latest_service_date ?? null)}</span>
+            <span className="refresh-indicator"><span /> Database · latest record {shortDate(data?.portfolio.latest_service_date ?? null)}</span>
             <span className="topbar-avatar">{profile.name.charAt(0).toUpperCase()}</span>
           </div>
         </header>
@@ -489,6 +501,7 @@ function App() {
                   workOrders={data?.workOrders ?? []}
                   onBack={() => setScreen(previousScreen)}
                   onOpenMachine={(id) => openMachine(id, 'detail')}
+                  onChanged={() => void refreshData()}
                 />
               )}
               {screen === 'detail' && !selectedAsset && !error && (
@@ -518,6 +531,7 @@ function App() {
                   })}
                   onRemoveFile={(fileToRemove) => setImportFiles((current) => current.filter((file) => file !== fileToRemove))}
                   onClearFiles={() => setImportFiles([])}
+                  onPipelineDone={() => { setImportFiles([]); void refreshData() }}
                 />
               )}
             </>
@@ -574,7 +588,7 @@ function OverviewScreen({
           <p className="attention-description">
             {attentionAssets.length === 0
               ? 'No equipment is currently rated high or medium risk.'
-              : `${attentionAssets.length} high- or medium-risk ${attentionAssets.length === 1 ? 'asset' : 'assets'}, sorted by estimated 30-day failure risk.`}
+              : `${attentionAssets.length} high- or medium-risk ${attentionAssets.length === 1 ? 'asset' : 'assets'}, sorted by Safety Index, least safe first.`}
           </p>
           {attentionAssets.length > 0 && (
             <div className="attention-counts">
@@ -596,8 +610,8 @@ function OverviewScreen({
                     <small>Last service: {shortDate(asset.last_service_date)}</small>
                   </span>
                   <span className="attention-risk">
-                    <small className={`attention-tier ${asset.tier}`}>{asset.tier === 'high' ? 'High Risk' : 'Medium Risk'}</small>
-                    {percent(asset.prob)}<small>30-day failure chance</small>
+                    <small className={`attention-tier ${asset.tier}`}>{bandText(asset.band)}</small>
+                    {indexText(asset.safety_index)}<small>Safety Index (100 = safest)</small>
                   </span>
                   <span className="row-chevron" aria-hidden="true">›</span>
                 </button>
@@ -610,10 +624,10 @@ function OverviewScreen({
       <section className="panel last-sweep-panel">
         <div className="sweep-status-icon" aria-hidden="true">✦</div>
         <div className="sweep-summary">
-          <span>Risk estimate basis</span>
-          <strong>Age and matched maintenance history; forecast weather and field reports are not included in the CSV files.</strong>
+          <span>Safety Index basis</span>
+          <strong>Equipment age, work-order history and the 7-day National Weather Service forecast. An uncalibrated triage score, not a failure probability.</strong>
         </div>
-        <span className="sweep-time">30-day horizon</span>
+        <span className="sweep-time">Updated each pipeline run</span>
       </section>
     </>
   )
@@ -638,7 +652,7 @@ function MachinesScreen({
 }) {
   return (
     <>
-      <PageHeader title="Equipment" description="Browse source equipment records and risk estimates where the model has enough data." actions={<span className="count-chip">{total} assets</span>} />
+      <PageHeader title="Equipment" description="Every machine with its Safety Index (100 = safest). ‘Needs data’ means the score could not be computed, not that it is safe." actions={<span className="count-chip">{total} assets</span>} />
       <section className="panel table-panel">
         <div className="table-toolbar">
           <div className="filter-chips" aria-label="Filter by risk">
@@ -658,14 +672,14 @@ function MachinesScreen({
         ) : (
           <div className="table-scroll">
             <table className="data-table">
-              <thead><tr><th>Equipment</th><th>Site</th><th>City</th><th>Risk</th><th>Level</th><th>Risk basis / data status</th><th>Installed</th><th>Service spend</th></tr></thead>
+              <thead><tr><th>Equipment</th><th>Site</th><th>City</th><th>Safety Index</th><th>Level</th><th>Risk basis / data status</th><th>Installed</th><th>Service spend</th></tr></thead>
               <tbody>
                 {assets.map((asset) => (
                   <tr key={asset.id} className="clickable-row" onClick={() => onOpenMachine(asset.id)}>
                     <td><button className="table-link" type="button" onClick={(event) => { event.stopPropagation(); onOpenMachine(asset.id) }}>{machineName(asset)}<small>{asset.id}</small></button></td>
                     <td>{asset.site_name}</td>
                     <td>{asset.city}</td>
-                    <td className="risk-percent">{percent(asset.prob)}</td>
+                    <td className="risk-percent">{indexText(asset.safety_index)}</td>
                     <td><RiskBadge tier={asset.tier} /></td>
                     <td className="reason-cell">{asset.main_reason}</td>
                     <td>{shortDate(asset.install_date)}</td>
@@ -683,7 +697,7 @@ function MachinesScreen({
 }
 
 function RiskChart({ detail }: { detail: AssetDetail }) {
-  const { risk_history: history } = detail
+  const history = detail.risk_history.filter((point) => point.safety_index !== null)
   const width = 720
   const height = 220
   const left = 44
@@ -692,31 +706,70 @@ function RiskChart({ detail }: { detail: AssetDetail }) {
   const bottom = 34
   const plotWidth = width - left - right
   const plotHeight = height - top - bottom
-  const y = (prob: number) => top + (1 - Math.min(Math.max(prob, 0), 0.5) / 0.5) * plotHeight
-  const x = (index: number) => left + (history.length <= 1 ? plotWidth / 2 : (index / (history.length - 1)) * plotWidth)
-  const line = history.map((point, index) => `${x(index)},${y(point.prob)}`).join(' ')
-  const highY = y(0.2)
-  const mediumY = y(0.08)
+  const y = (index: number) => top + (1 - Math.min(Math.max(index, 0), 100) / 100) * plotHeight
+  const x = (i: number) => left + (history.length <= 1 ? plotWidth / 2 : (i / (history.length - 1)) * plotWidth)
+  const line = history.map((point, i) => `${x(i)},${y(point.safety_index ?? 0)}`).join(' ')
 
-  if (history.length === 0) return <EmptyState>Historical risk snapshots are not included in the CSV data.</EmptyState>
+  if (history.length === 0) return <EmptyState>No Safety Index history yet for this machine.</EmptyState>
 
   return (
-    <svg className="risk-chart" viewBox={`0 0 ${width} ${height}`} role="img" aria-label="Machine failure risk over the last 30 days">
-      {[0, 0.1, 0.2, 0.3, 0.4, 0.5].map((tick) => (
+    <svg className="risk-chart" viewBox={`0 0 ${width} ${height}`} role="img" aria-label="Safety Index over time">
+      {[0, 25, 50, 75, 100].map((tick) => (
         <g key={tick}>
           <line x1={left} x2={width - right} y1={y(tick)} y2={y(tick)} className="chart-gridline" />
-          <text x={left - 8} y={y(tick) + 4} textAnchor="end" className="chart-axis-label">{Math.round(tick * 100)}%</text>
+          <text x={left - 8} y={y(tick) + 4} textAnchor="end" className="chart-axis-label">{tick}</text>
         </g>
       ))}
-      <line x1={left} x2={width - right} y1={highY} y2={highY} className="chart-threshold high-threshold" />
-      <text x={width - right - 4} y={highY - 5} textAnchor="end" className="chart-threshold-label high-label">High 20%</text>
-      <line x1={left} x2={width - right} y1={mediumY} y2={mediumY} className="chart-threshold medium-threshold" />
-      <text x={width - right - 4} y={mediumY - 5} textAnchor="end" className="chart-threshold-label medium-label">Medium 8%</text>
+      <line x1={left} x2={width - right} y1={y(30)} y2={y(30)} className="chart-threshold high-threshold" />
+      <text x={width - right - 4} y={y(30) + 14} textAnchor="end" className="chart-threshold-label high-label">Critical below 30</text>
+      <line x1={left} x2={width - right} y1={y(50)} y2={y(50)} className="chart-threshold medium-threshold" />
+      <text x={width - right - 4} y={y(50) - 5} textAnchor="end" className="chart-threshold-label medium-label">Poor below 50</text>
       <polyline points={line} className="chart-line" />
-      {history.map((point, index) => <circle key={point.date} cx={x(index)} cy={y(point.prob)} r="3.5" className="chart-point"><title>{shortDate(point.date)}: {percent(point.prob)}</title></circle>)}
+      {history.map((point, i) => <circle key={`${point.date}-${i}`} cx={x(i)} cy={y(point.safety_index ?? 0)} r="3.5" className="chart-point"><title>{shortDate(point.date)}: {indexText(point.safety_index)}</title></circle>)}
       <text x={left} y={height - 8} className="chart-axis-label">{shortDate(history[0].date)}</text>
       <text x={width - right} y={height - 8} textAnchor="end" className="chart-axis-label">{shortDate(history[history.length - 1].date)}</text>
     </svg>
+  )
+}
+
+function DecisionPanel({ detail, onChanged }: { detail: AssetDetail; onChanged: () => void }) {
+  const decision = detail.decision
+  const [busy, setBusy] = useState(false)
+  const [message, setMessage] = useState('')
+  if (!decision) return null
+  const act = async (action: 'approve' | 'reject' | 'done') => {
+    setBusy(true)
+    setMessage('')
+    try {
+      await setDecisionStatus(decision.id, action)
+      onChanged()
+    } catch (actionError) {
+      setMessage(actionError instanceof Error ? actionError.message : 'Could not update the decision.')
+    } finally {
+      setBusy(false)
+    }
+  }
+  return (
+    <section className="panel decision-panel">
+      <div className="section-heading">
+        <div><p className="overline">PROPOSED ACTION · {decision.status.replace('_', ' ').toUpperCase()}</p><h2>{decisionTitle(decision)}</h2></div>
+        <span className="source-label">{decision.source === 'llm' ? 'Nemotron, rules checked in code' : 'Decided by rule'}</span>
+      </div>
+      <p className="muted">{decision.reason}</p>
+      {decision.tasks.length > 0 && <ul className="decision-tasks">{decision.tasks.map((task) => <li key={task}>{task}</li>)}</ul>}
+      <div className="decision-flags">
+        {decision.requires_human_review && <span className="decision-flag warn">Needs human review</span>}
+        {!decision.agreement && <span className="decision-flag warn">Model runs disagreed: safer option chosen</span>}
+      </div>
+      <div className="decision-actions">
+        {decision.status === 'pending_review' && <>
+          <button className="primary-button" type="button" disabled={busy} onClick={() => void act('approve')}>Approve</button>
+          <button className="secondary-button" type="button" disabled={busy} onClick={() => void act('reject')}>Reject</button>
+        </>}
+        {decision.status === 'approved' && <button className="primary-button" type="button" disabled={busy} onClick={() => void act('done')}>Mark done</button>}
+        {message && <span className="error-text">{message}</span>}
+      </div>
+    </section>
   )
 }
 
@@ -726,12 +779,14 @@ function MachineDetailScreen({
   workOrders,
   onBack,
   onOpenMachine,
+  onChanged,
 }: {
   detail: AssetDetail
   asset?: Asset
   workOrders: WorkOrder[]
   onBack: () => void
   onOpenMachine: (id: string) => void
+  onChanged: () => void
 }) {
   const { risk_now: risk } = detail
   const assetWorkOrders = workOrders.filter((order) => order.asset_id === detail.asset.id)
@@ -741,8 +796,8 @@ function MachineDetailScreen({
       <PageHeader title={`${machineName(detail.asset)} · ${detail.asset.site_name}`} description={`${detail.asset.city} · ${detail.asset.site_type}`} actions={<RiskBadge tier={risk.tier} />} />
       <section className="detail-hero panel">
         <div className="hero-risk">
-          <span className="overline">30-DAY FAILURE RISK</span>
-          <strong>{percent(risk.prob)}</strong>
+          <span className="overline">SAFETY INDEX (100 = SAFEST)</span>
+          <strong>{indexText(risk.safety_index)}</strong>
           <RiskBadge tier={risk.tier} />
         </div>
         <div className="hero-divider" />
@@ -752,12 +807,13 @@ function MachineDetailScreen({
           <div><span>Age</span><strong>{risk.age_years === null ? 'Not available' : `${risk.age_years.toFixed(1)} years`}</strong></div>
           <div><span>Hours</span><strong>{detail.asset.open_hours ?? 'Not provided'}</strong></div>
         </div>
-        <div className="multiplier-chip">{risk.multiplier === null ? 'Risk unavailable' : `x${risk.multiplier.toFixed(1)} risk`}</div>
+        <div className="multiplier-chip">{`${bandText(risk.band)} · confidence ${risk.confidence.toFixed(2)}`}</div>
       </section>
+      <DecisionPanel detail={detail} onChanged={onChanged} />
 
       <section className="detail-grid">
         <article className="panel detail-panel chart-panel">
-          <div className="section-heading"><div><p className="overline">30-DAY TREND</p><h2>Failure risk history</h2></div><span className="current-risk">{percent(risk.prob)} estimated</span></div>
+          <div className="section-heading"><div><p className="overline">HISTORY</p><h2>Safety Index over time</h2></div><span className="current-risk">{indexText(risk.safety_index)} now</span></div>
           <RiskChart detail={detail} />
         </article>
 
@@ -773,8 +829,8 @@ function MachineDetailScreen({
         </article>
 
         <article className="panel detail-panel forecast-panel">
-          <div className="section-heading"><div><p className="overline">WEATHER</p><h2>7-day forecast</h2></div><span className="muted">Source data unavailable</span></div>
-          {detail.forecast.length === 0 ? <EmptyState>Weather forecasts are not included in the imported files.</EmptyState> : (
+          <div className="section-heading"><div><p className="overline">WEATHER</p><h2>7-day forecast</h2></div><span className="muted">National Weather Service</span></div>
+          {detail.forecast.length === 0 ? <EmptyState>No forecast for this site (missing coordinates or outside the US).</EmptyState> : (
             <div className="forecast-list">
               {detail.forecast.map((day) => (
                 <div className="forecast-day" key={day.date}><span>{shortDate(day.date)}</span><span className="weather-symbol" aria-hidden="true">{day.max_f >= 90 ? '☀' : '◒'}</span><strong>{day.max_f}°F</strong></div>
@@ -927,6 +983,7 @@ function DataNotesScreen({
   onFilesSelected,
   onRemoveFile,
   onClearFiles,
+  onPipelineDone,
 }: {
   portfolio: Portfolio
   savings: Savings
@@ -935,16 +992,40 @@ function DataNotesScreen({
   onFilesSelected: (files: File[]) => void
   onRemoveFile: (file: File) => void
   onClearFiles: () => void
+  onPipelineDone: () => void
 }) {
+  const [running, setRunning] = useState(false)
+  const [status, setStatus] = useState('')
+  const [failed, setFailed] = useState(false)
+  const STEP_TEXT: Record<string, string> = { extract: 'Reading files (Nemotron)', load: 'Saving', weather: 'Fetching weather', score: 'Scoring', decide: 'Deciding actions (Nemotron)' }
+  const run = async (useDemo: boolean) => {
+    setRunning(true)
+    setFailed(false)
+    setStatus('Starting…')
+    try {
+      const job = useDemo
+        ? await runSampleData((j) => setStatus(j.step ? `${STEP_TEXT[j.step] ?? j.step}…` : 'Starting…'))
+        : await runPipeline(files, (j) => setStatus(j.step ? `${STEP_TEXT[j.step] ?? j.step}…` : 'Starting…'))
+      const extract = job.steps.extract ?? {}
+      const decide = job.steps.decide ?? {}
+      setStatus(`Done in ${job.seconds_total ?? '?'}s: ${String(extract.sites ?? 0)} sites, ${String(extract.assets ?? 0)} machines, ${String(extract.work_orders ?? 0)} work orders read; ${String(extract.rejected ?? 0)} rows rejected; ${String(decide.decisions ?? 0)} actions proposed.`)
+      onPipelineDone()
+    } catch (runError) {
+      setFailed(true)
+      setStatus(runError instanceof Error ? runError.message : 'The pipeline run failed.')
+    } finally {
+      setRunning(false)
+    }
+  }
   return (
     <>
-      <PageHeader title="Data notes & import" description="Review the current source data and prepare files for import." />
+      <PageHeader title="Data notes & import" description="Upload your sites, equipment and work-order files, or run the bundled demo portfolio." />
       <section className="demo-grid">
         <article className="panel demo-card import-data-card">
           <span className="demo-icon" aria-hidden="true">⇧</span>
           <p className="overline">IMPORT DATA</p>
           <h2>Select files to import</h2>
-          <p>Choose one or more files in any format. Data organization and Gemini processing will be added separately.</p>
+          <p>CSV or Excel, messy is fine. Name files with “sites”, “assets” and “work_orders”; any you leave out are taken from what is already loaded. Weather is fetched automatically.</p>
           <input
             ref={inputRef}
             id="import-files"
@@ -973,13 +1054,17 @@ function DataNotesScreen({
               ))}
             </ul>
           )}
-          <p className="import-note" role="status">Files stay in this browser and aren’t uploaded or processed yet.</p>
+          <div className="import-file-actions">
+            <button className="primary-button" type="button" disabled={running || files.length === 0} onClick={() => void run(false)}>Run analysis</button>
+            <button className="secondary-button" type="button" disabled={running} onClick={() => void run(true)}>Use demo data (30 sites)</button>
+          </div>
+          <p className={`import-note ${failed ? 'error-text' : ''}`} role="status">{status || 'Nothing has been run yet in this session.'}</p>
         </article>
         <article className="panel demo-card">
           <span className="demo-icon" aria-hidden="true">▤</span>
           <p className="overline">IMPORTED DATA</p>
           <h2>Source file coverage</h2>
-          <p>{portfolio.sites.toLocaleString()} sites, {portfolio.machines.toLocaleString()} equipment records, and {portfolio.service_records.toLocaleString()} service-history rows are loaded directly from the repository CSV files.</p>
+          <p>{portfolio.sites.toLocaleString()} sites, {portfolio.machines.toLocaleString()} equipment records, and {portfolio.service_records.toLocaleString()} service-history rows are loaded in the database.</p>
           <div className="demo-last-run"><span>Supported risk inputs</span><strong>{portfolio.supported_assets.toLocaleString()} assets have both a supported equipment category and an installation date.</strong></div>
           <div className="demo-last-run"><span>Invoice totals</span><strong>{savings.records_with_invoice_total.toLocaleString()} of {savings.total_service_records.toLocaleString()} service records include an invoice amount.</strong></div>
         </article>
@@ -987,10 +1072,10 @@ function DataNotesScreen({
         <article className="panel demo-card">
           <span className="demo-icon" aria-hidden="true">ⓘ</span>
           <p className="overline">LIMITATIONS</p>
-          <h2>Fields not present in the CSVs</h2>
-          <p>Square footage, opening hours, weather forecasts, risk snapshots, savings estimates, agent-created work orders, manager messages, and service calls are not in these files.</p>
-          <div className="demo-last-run"><span>Risk estimates</span><strong>Calculated from installation age and matched service history using the backend’s documented model. Its life estimates and coefficients are demo assumptions, not validated predictions. Weather and field-report terms are omitted.</strong></div>
-          <div className="demo-last-run"><span>Not a live backend</span><strong>No database, messaging, or phone integration is active in this CSV-backed view.</strong></div>
+          <h2>What the scores are, and aren’t</h2>
+          <p>Equipment types other than rooftop units, walk-in coolers/freezers and water heaters are not scored; rows that can’t be trusted are rejected with a reason.</p>
+          <div className="demo-last-run"><span>Safety Index</span><strong>0–100 from equipment age, work-order history and the weather forecast. The weights are expert judgement, not fitted to failure data; it is a triage score, not a probability.</strong></div>
+          <div className="demo-last-run"><span>Actions</span><strong>Proposed by Nemotron within rules enforced in code, and stored for human review. Nothing is sent or executed automatically.</strong></div>
         </article>
       </section>
     </>

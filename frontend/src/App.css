@@ -2471,3 +2471,15 @@
     font-size: 8px;
   }
 }
+
+/* Proposed-action panel and run controls (Safety Index backend) */
+.decision-panel { margin-bottom: 20px; }
+.decision-tasks { margin: 8px 0 12px 18px; padding: 0; }
+.decision-tasks li { margin: 2px 0; }
+.decision-flags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
+.decision-flag { font-size: 12px; padding: 2px 8px; border-radius: 999px; background: rgba(127, 127, 127, 0.12); }
+.decision-flag.warn { color: #b42318; }
+.decision-actions { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.secondary-button { font: inherit; padding: 8px 14px; border-radius: 8px; border: 1px solid currentColor; background: transparent; color: inherit; cursor: pointer; opacity: 0.9; }
+.secondary-button:disabled, .primary-button:disabled { opacity: 0.5; cursor: not-allowed; }
+.error-text { color: #b42318; }

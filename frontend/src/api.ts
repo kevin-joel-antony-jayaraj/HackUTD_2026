@@ -1,499 +1,313 @@
-import assetsCsv from '../../sitesignal-backend/samples/assets.csv?raw'
-import sitesCsv from '../../sitesignal-backend/samples/sites.csv?raw'
-import workOrdersCsv from '../../sitesignal-backend/samples/work_orders.csv?raw'
+// Data layer for the dashboard: everything comes from the SiteSignal Safety API (safety-pipeline/api).
+// The API runs the pipeline (Nemotron extraction -> weather -> Safety Index -> decisions) and stores results
+// in Postgres. This file only fetches and reshapes them into the types the screens already use.
+//
+// Note on scores: the backend produces a Safety Index (0-100, 100 = safest), an uncalibrated triage score.
+// It is NOT a failure probability, so `prob` is always null and the screens show `safety_index` instead.
 import type {
   Asset,
   AssetDetail,
   Call,
+  Decision,
   Driver,
   Message,
+  PipelineJob,
   Portfolio,
+  RiskTier,
+  SafetyBand,
   Savings,
   ServiceRecord,
   WorkOrder,
 } from './types'
 
-export const API_BASE = 'http://localhost:8000'
+export const API_BASE: string = import.meta.env.VITE_API_BASE || 'http://localhost:8000'
 
-interface SiteRow {
-  id: string
-  name: string
-  category: string
-  city: string
-  region: string
-  refrigerated: boolean
-  latitude: number | null
-  longitude: number | null
-}
-
-interface AssetRow {
-  id: string
-  siteId: string
-  rawType: string
-  type: string
-  installDate: string | null
-  manufacturer: string
-  model: string
-  refrigerant: string
-}
-
-interface WorkOrderRow {
-  sourceRow: number
-  assetId: string
-  siteId: string
-  date: string
-  type: string
-  problem: string
-  refrigerantCharge: number | null
-  invoiceTotal: number | null
-  notes: string
-}
-
-interface AssetFeatures {
-  calls90d: number
-  refrigerantRecharges180d: number
-  repeatIssue: boolean
-  daysSinceLastRepair: number | null
-  pmOverdueMonths: number
-}
-
-const DAY_MS = 24 * 60 * 60 * 1000
-const HIGH_RISK_THRESHOLD = 0.2
-const MEDIUM_RISK_THRESHOLD = 0.08
-const MEDIAN_LIFE_YEARS: Record<string, number> = {
-  rtu: 15,
-  walk_in_cooler: 15,
-  water_heater: 10,
-}
-const WEIGHTS: Record<string, number> = {
-  calls_90d: 0.35,
-  refrigerant_recharges_180d: 0.6,
-  repeat_issue: 0.4,
-  recent_repair: 0.25,
-  pm_overdue_months: 0.1,
-  hot_days_next_7: 0.2,
-  peak_100f: 0.3,
-  field_report_negative: 0.8,
-}
-
-function parseCsv(source: string): string[][] {
-  const rows: string[][] = []
-  let row: string[] = []
-  let cell = ''
-  let quoted = false
-
-  for (let index = 0; index < source.length; index += 1) {
-    const character = source[index]
-    if (quoted) {
-      if (character === '"' && source[index + 1] === '"') {
-        cell += '"'
-        index += 1
-      } else if (character === '"') {
-        quoted = false
-      } else {
-        cell += character
-      }
-    } else if (character === '"' && cell.length === 0) {
-      quoted = true
-    } else if (character === ',') {
-      row.push(cell)
-      cell = ''
-    } else if (character === '\n' || character === '\r') {
-      if (character === '\r' && source[index + 1] === '\n') index += 1
-      row.push(cell)
-      if (row.some((value) => value.length > 0)) rows.push(row)
-      row = []
-      cell = ''
-    } else {
-      cell += character
-    }
+async function api<T>(path: string, init?: RequestInit): Promise<T> {
+  let res: Response
+  try {
+    res = await fetch(`${API_BASE}${path}`, init)
+  } catch {
+    throw new Error(`Cannot reach the SiteSignal API at ${API_BASE}. Is the backend running?`)
   }
+  const body = await res.json().catch(() => ({}))
+  if (!res.ok) throw new Error((body as { detail?: string }).detail || `${res.status} ${res.statusText}`)
+  return body as T
+}
 
-  if (cell.length > 0 || row.length > 0) {
-    row.push(cell)
-    if (row.some((value) => value.length > 0)) rows.push(row)
+export function tierFromBand(band: SafetyBand | null | undefined): RiskTier {
+  if (band === 'critical' || band === 'poor') return 'high'
+  if (band === 'fair') return 'medium'
+  if (band === 'good') return 'low'
+  return null
+}
+
+// ---------------------------------------------------------------- raw API shapes
+interface ApiAsset {
+  asset_id: string; site_id: string; asset_type: string; safety_index: number | null; band: SafetyBand
+  confidence: number; constraints: string[]; top_driver: string | null; site_name: string; site_type: string
+  city: string | null; install_date: string | null; make: string | null; model: string | null
+  refrigerant: string | null; last_service_date: string | null; service_spend_usd: number
+  decision_id: number | null; decision_action: string | null; decision_urgency: string | null
+  decision_status: string | null
+}
+
+interface ApiServiceRecord {
+  id: number; asset_id: string; site_id: string; asset_type: string; site_name: string; city: string | null
+  opened_at: string; kind: string; issue_category: string | null; refrigerant_added: boolean
+  cost_usd: number | null; note: string | null
+}
+
+interface ApiPortfolio {
+  sites: number; assets: number; work_orders: number; rejected_rows: number
+  assets_by_band: Partial<Record<SafetyBand, number>>
+  decisions_by_status: Record<string, number>
+  revenue_per_day_at_poor_or_critical_sites_usd: number
+  latest_run: { as_of: string; created_at: string } | null
+}
+
+interface ApiScore {
+  safety_index: number | null; band: SafetyBand; confidence: number; constraints: string[]; data_gaps: string[]
+  drivers: Array<{ factor: string; points_lost: number; why: string }>
+  inputs: { age_years: number | null }
+}
+
+interface ApiAssetDetail {
+  asset: { asset_id: string; site_id: string; asset_type: string; install_date: string | null; make: string | null
+           model: string | null; refrigerant: string | null; site_name: string }
+  score: ApiScore | null
+  score_history: Array<{ scored_at: string; safety_index: number | null; band: SafetyBand; confidence: number }>
+  work_orders: Array<{ opened_at: string; kind: string; issue_category: string | null; refrigerant_added: boolean
+                       cost_usd: number | null; note: string | null }>
+  forecast: Array<{ forecast_date: string; max_temp_f: number }>
+  decision: Decision | null
+}
+
+// ---------------------------------------------------------------- reshaping
+function toServiceRecord(r: ApiServiceRecord): ServiceRecord {
+  return {
+    source_row: r.id,
+    asset_id: r.asset_id,
+    site_id: r.site_id,
+    machine_name: r.asset_id,
+    site_name: r.site_name,
+    city: r.city ?? '',
+    date: r.opened_at,
+    work_type: r.kind,
+    problem: (r.issue_category ?? '').replaceAll('_', ' '),
+    refrigerant_charge: null,
+    invoice_total_usd: r.cost_usd,
+    tech_notes: r.note ?? (r.refrigerant_added ? 'Refrigerant added' : ''),
   }
+}
+
+function toAsset(a: ApiAsset): Asset {
+  return {
+    id: a.asset_id,
+    site_id: a.site_id,
+    site_name: a.site_name,
+    site_type: a.site_type,
+    city: a.city ?? '',
+    asset_type: a.asset_type,
+    install_date: a.install_date,
+    prob: null,
+    tier: tierFromBand(a.band),
+    main_reason: a.top_driver ?? (a.band === 'unknown' ? 'Install date missing: needs data before it can be scored' : 'No risk drivers'),
+    last_service_date: a.last_service_date,
+    historical_service_spend_usd: Math.round((a.service_spend_usd ?? 0) * 100) / 100,
+    drivers: a.top_driver ? [a.top_driver] : [],
+    safety_index: a.safety_index,
+    band: a.band,
+    confidence: a.confidence,
+    constraints: a.constraints ?? [],
+    decision_id: a.decision_id,
+    decision_action: a.decision_action,
+    decision_urgency: a.decision_urgency,
+    decision_status: a.decision_status,
+  }
+}
+
+let recordsCache: { at: number; rows: ApiServiceRecord[] } | null = null
+async function allRecords(): Promise<ApiServiceRecord[]> {
+  if (recordsCache && Date.now() - recordsCache.at < 2000) return recordsCache.rows
+  const rows = await api<ApiServiceRecord[]>('/service-records?limit=20000')
+  recordsCache = { at: Date.now(), rows }
   return rows
 }
 
-function recordsFromCsv(source: string): Array<Record<string, string>> {
-  const [headers, ...rows] = parseCsv(source)
-  if (!headers) throw new Error('The imported portfolio CSV is empty.')
-  return rows.map((row) => Object.fromEntries(headers.map((header, index) => [header, row[index] ?? ''])))
-}
-
-function numberValue(value: string): number | null {
-  if (!value.trim()) return null
-  const parsed = Number(value.replace(/[$,]/g, ''))
-  return Number.isFinite(parsed) ? parsed : null
-}
-
-function parseDate(value: string): string | null {
-  const input = value.trim()
-  if (!input) return null
-  if (/^\d{4}$/.test(input)) return `${input}-07-01`
-  if (/^\d{4}-\d{2}$/.test(input)) return `${input}-01`
-  if (/^\d{4}-\d{2}-\d{2}$/.test(input)) return input
-  const monthFirst = input.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/)
-  if (monthFirst) {
-    return `${monthFirst[3]}-${monthFirst[1].padStart(2, '0')}-${monthFirst[2].padStart(2, '0')}`
-  }
-  return null
-}
-
-function dateNumber(value: string): number {
-  return Date.parse(`${value}T00:00:00Z`)
-}
-
-function ageDays(date: string, today: string): number {
-  return Math.floor((dateNumber(today) - dateNumber(date)) / DAY_MS)
-}
-
-function assetType(value: string): string {
-  const type = value.toLowerCase()
-  if (['rtu', 'rooftop', 'roof top', 'packaged unit', 'package unit', ' a/c', 'a/c', 'hvac'].some((term) => type.includes(term))) {
-    return 'rtu'
-  }
-  if (['walk-in', 'walk in', 'cooler', 'freezer', 'refrigeration'].some((term) => type.includes(term))) {
-    return 'walk_in_cooler'
-  }
-  if (['water heater', 'boiler', 'hot water'].some((term) => type.includes(term))) return 'water_heater'
-  return value
-}
-
-function workKind(value: string): 'repair' | 'emergency' | 'pm' | 'inspection' {
-  const type = value.toLowerCase()
-  if (['emergency', 'urgent', 'after hours', 'p1', 'critical'].some((term) => type.includes(term))) return 'emergency'
-  if (['pm', 'preventive', 'preventative', 'maintenance', 'filter', 'scheduled'].some((term) => type.includes(term))) return 'pm'
-  if (['inspection', 'inspect', 'survey'].some((term) => type.includes(term))) return 'inspection'
-  return 'repair'
-}
-
-function issueCategory(problem: string, notes: string): string | null {
-  const text = `${problem} ${notes}`.toLowerCase()
-  if (['warm', 'not cool', 'no cool', 'not cold', 'blowing hot'].some((term) => text.includes(term))) return 'not_cooling'
-  if (['leak', 'low charge', 'low refrigerant'].some((term) => text.includes(term))) return 'leak'
-  if (['short cycl', 'cycling'].some((term) => text.includes(term))) return 'short_cycling'
-  if (text.includes('capacitor')) return 'capacitor'
-  if (text.includes('compressor')) return 'compressor'
-  if (['not holding temp', 'cooler temp', 'temp high'].some((term) => text.includes(term))) return 'cooler_temp'
-  if (['noise', 'loud', 'rattl', 'squeal'].some((term) => text.includes(term))) return 'noise'
-  if (['water', 'drain', 'drip'].some((term) => text.includes(term))) return 'water'
-  return null
-}
-
-function riskTier(probability: number | null): Asset['tier'] {
-  if (probability === null) return null
-  if (probability >= HIGH_RISK_THRESHOLD) return 'high'
-  if (probability >= MEDIUM_RISK_THRESHOLD) return 'medium'
-  return 'low'
-}
-
-const sites = recordsFromCsv(sitesCsv).map((row): SiteRow => ({
-  id: row['Store Number'].trim().toUpperCase(),
-  name: row['Store Name'],
-  category: row.Category,
-  city: row.City,
-  region: row.Market,
-  refrigerated: row.Refrigerated.toLowerCase() === 'y',
-  latitude: numberValue(row.Latitude),
-  longitude: numberValue(row.Longitude),
-}))
-const sitesById = new Map(sites.map((site) => [site.id, site]))
-
-const sourceAssets = recordsFromCsv(assetsCsv).map((row): AssetRow => ({
-  id: row['Asset Tag'].trim().toUpperCase(),
-  siteId: row.Store.trim().toUpperCase(),
-  rawType: row['Equipment Type'],
-  type: assetType(row['Equipment Type']),
-  installDate: parseDate(row.Installed),
-  manufacturer: row.Manufacturer,
-  model: row.Model,
-  refrigerant: row.Refrigerant,
-}))
-const assetsById = new Map(sourceAssets.map((asset) => [asset.id, asset]))
-
-const serviceHistory = recordsFromCsv(workOrdersCsv).flatMap((row, index): WorkOrderRow[] => {
-  const date = parseDate(row['Service Date'])
-  const id = row['Equipment ID'].trim().toUpperCase()
-  const siteId = row.Store.trim().toUpperCase()
-  if (!date) return []
-  return [{
-    sourceRow: index + 2,
-    assetId: id,
-    siteId,
-    date,
-    type: row['Work Type'],
-    problem: row.Problem,
-    refrigerantCharge: numberValue(row['Refrigerant Charge']),
-    invoiceTotal: numberValue(row['Invoice Total']),
-    notes: row['Tech Notes'],
-  }]
-})
-
-const today = new Date().toISOString().slice(0, 10)
-const assetHistory = new Map<string, WorkOrderRow[]>()
-for (const record of serviceHistory) {
-  if (!assetsById.has(record.assetId)) continue
-  const rows = assetHistory.get(record.assetId) ?? []
-  rows.push(record)
-  assetHistory.set(record.assetId, rows)
-}
-
-function featuresFor(asset: AssetRow): AssetFeatures {
-  const records = (assetHistory.get(asset.id) ?? []).filter((row) => row.date <= today)
-  const repairRecords = records.filter((row) => {
-    const kind = workKind(row.type)
-    return kind === 'repair' || kind === 'emergency'
-  })
-  const recentRepairs = repairRecords.filter((row) => ageDays(row.date, today) < 90)
-  const repeatingIssues = new Set<string>()
-  const issueCounts = new Map<string, number>()
-  for (const row of recentRepairs) {
-    const category = issueCategory(row.problem, row.notes)
-    if (category) issueCounts.set(category, (issueCounts.get(category) ?? 0) + 1)
-  }
-  for (const [category, count] of issueCounts) {
-    if (count >= 2) repeatingIssues.add(category)
-  }
-
-  const pmRecords = records
-    .filter((row) => workKind(row.type) === 'pm')
-    .sort((a, b) => b.date.localeCompare(a.date))
-  const daysSincePm = pmRecords[0] ? ageDays(pmRecords[0].date, today) : 0
-
-  return {
-    calls90d: recentRepairs.length,
-    refrigerantRecharges180d: records.filter((row) =>
-      ageDays(row.date, today) < 180 &&
-      ((row.refrigerantCharge !== null && row.refrigerantCharge > 0) || /\b(added|topped off|top off|recharg\w*|charged)\b.*refrig|refrig\w*\s+(added|charge)/i.test(row.notes)),
-    ).length,
-    repeatIssue: repeatingIssues.size > 0,
-    daysSinceLastRepair: repairRecords[0]
-      ? ageDays(repairRecords.reduce((latest, row) => row.date > latest ? row.date : latest, repairRecords[0].date), today)
-      : null,
-    pmOverdueMonths: pmRecords.length ? Math.max(0, Math.round(((daysSincePm - 90) / 30) * 10) / 10) : 0,
-  }
-}
-
-function calculateRisk(asset: AssetRow): { prob: number | null; age: number | null; multiplier: number | null; drivers: Driver[] } {
-  const medianLife = MEDIAN_LIFE_YEARS[asset.type]
-  if (!asset.installDate || !medianLife) return { prob: null, age: null, multiplier: null, drivers: [] }
-
-  const features = featuresFor(asset)
-  const age = Math.max(ageDays(asset.installDate, today) / 365.25, 0)
-  const shape = 3
-  const scale = medianLife / Math.pow(Math.log(2), 1 / shape)
-  const baseSurvival = Math.exp(Math.pow(age / scale, shape) - Math.pow((age + 30 / 365.25) / scale, shape))
-  const terms: Record<string, number> = {
-    calls_90d: WEIGHTS.calls_90d * features.calls90d,
-    refrigerant_recharges_180d: WEIGHTS.refrigerant_recharges_180d * features.refrigerantRecharges180d,
-    repeat_issue: WEIGHTS.repeat_issue * Number(features.repeatIssue),
-    recent_repair: WEIGHTS.recent_repair * Number(features.daysSinceLastRepair !== null && features.daysSinceLastRepair < 30),
-    pm_overdue_months: WEIGHTS.pm_overdue_months * Math.min(features.pmOverdueMonths, 12),
-    hot_days_next_7: 0,
-    peak_100f: 0,
-    field_report_negative: 0,
-  }
-  const multiplier = Math.exp(Math.min(Object.values(terms).reduce((sum, value) => sum + value, 0), 8))
-  const probability = 1 - Math.pow(baseSurvival, multiplier)
-  const drivers: Driver[] = [{
-    factor: 'age',
-    value: Math.round(age * 10) / 10,
-    detail: `${age.toFixed(1)} yrs vs ${medianLife}-yr median life`,
-  }]
-  for (const [factor, logHazard] of Object.entries(terms).sort((a, b) => b[1] - a[1])) {
-    if (logHazard <= 0) continue
-    const detail = factor === 'calls_90d'
-      ? `${features.calls90d} repair or emergency records in the last 90 days`
-      : factor === 'refrigerant_recharges_180d'
-        ? `${features.refrigerantRecharges180d} recorded refrigerant charges in the last 180 days`
-        : factor === 'repeat_issue'
-          ? 'The same issue appeared at least twice in recent service history'
-          : factor === 'recent_repair'
-            ? `A repair was recorded ${features.daysSinceLastRepair} days ago`
-            : `${features.pmOverdueMonths} months beyond the 90-day PM interval`
-    drivers.push({
-      factor,
-      value: factor === 'calls_90d' ? features.calls90d
-        : factor === 'refrigerant_recharges_180d' ? features.refrigerantRecharges180d
-          : factor === 'repeat_issue' ? features.repeatIssue
-            : factor === 'recent_repair' ? true : features.pmOverdueMonths,
-      detail,
-      log_hazard: logHazard,
-      multiplier: Math.round(Math.exp(logHazard) * 100) / 100,
-    })
-  }
-  return { prob: Math.round(probability * 10_000) / 10_000, age: Math.round(age * 100) / 100, multiplier: Math.round(multiplier * 1000) / 1000, drivers }
-}
-
-function machineName(asset: AssetRow): string {
-  const label = asset.type === 'rtu'
-    ? 'Rooftop AC'
-    : asset.type === 'walk_in_cooler'
-      ? 'Walk-in cooler'
-      : asset.type === 'water_heater'
-        ? 'Water heater'
-        : asset.rawType
-  const suffix = asset.id.match(/(?:RTU|WIC|WH)(\d+)$/i)?.[1]
-  return suffix ? `${label} ${suffix}` : label
-}
-
-function toServiceRecord(row: WorkOrderRow): ServiceRecord {
-  const asset = assetsById.get(row.assetId)
-  const site = sitesById.get(row.siteId)
-  return {
-    source_row: row.sourceRow,
-    asset_id: row.assetId,
-    site_id: row.siteId,
-    machine_name: asset ? machineName(asset) : row.assetId,
-    site_name: site?.name ?? row.siteId,
-    city: site?.city ?? '',
-    date: row.date,
-    work_type: row.type,
-    problem: row.problem,
-    refrigerant_charge: row.refrigerantCharge,
-    invoice_total_usd: row.invoiceTotal,
-    tech_notes: row.notes,
-  }
-}
-
-const serviceRecords = serviceHistory.map(toServiceRecord).sort((a, b) => b.date.localeCompare(a.date))
-const scoredAssets: Asset[] = sourceAssets.map((asset) => {
-  const site = sitesById.get(asset.siteId)
-  if (!site) throw new Error(`Asset ${asset.id} references missing site ${asset.siteId}.`)
-  const risk = calculateRisk(asset)
-  const primaryDriver = risk.drivers.find((driver) => driver.factor !== 'age' && (driver.log_hazard ?? 0) > 0)
-  const records = assetHistory.get(asset.id) ?? []
-  const lastService = records.reduce<string | null>((latest, row) => (
-    row.date <= today && (!latest || row.date > latest) ? row.date : latest
-  ), null)
-  const spend = records.reduce((sum, row) => sum + (row.invoiceTotal !== null && row.invoiceTotal >= 0 ? row.invoiceTotal : 0), 0)
-  const mainReason = risk.prob === null
-    ? asset.installDate ? 'Risk model does not support this equipment type' : 'Installation date not provided'
-    : primaryDriver ? primaryDriver.detail ?? 'Additional factors from service history'
-      : 'Age-based estimate; no additional risk factors in the available records'
-  return {
-    id: asset.id,
-    site_id: asset.siteId,
-    site_name: site.name,
-    site_type: site.category,
-    city: site.city,
-    asset_type: asset.type,
-    install_date: asset.installDate,
-    prob: risk.prob,
-    tier: riskTier(risk.prob),
-    main_reason: mainReason,
-    last_service_date: lastService,
-    historical_service_spend_usd: Math.round(spend * 100) / 100,
-    drivers: risk.drivers.map((driver) => driver.factor),
-  }
-})
-
-const assetsByIdForDetails = new Map(scoredAssets.map((asset) => [asset.id, asset]))
-
-function detailFor(id: string): AssetDetail | null {
-  const summary = assetsByIdForDetails.get(id)
-  const source = assetsById.get(id)
-  if (!summary || !source) return null
-  const site = sitesById.get(source.siteId)
-  if (!site) throw new Error(`Asset ${id} references missing site ${source.siteId}.`)
-  const risk = calculateRisk(source)
-  const history = (assetHistory.get(id) ?? [])
-    .slice()
-    .sort((a, b) => b.date.localeCompare(a.date))
-    .map(toServiceRecord)
-  return {
-    asset: {
-      id,
-      asset_type: source.type,
-      install_date: source.installDate,
-      site_name: site.name,
-      site_type: site.category,
-      city: site.city,
-      square_feet: null,
-      open_hours: null,
-      manufacturer: source.manufacturer,
-      model: source.model,
-      refrigerant: source.refrigerant,
-    },
-    risk_now: {
-      prob: risk.prob,
-      tier: riskTier(risk.prob),
-      age_years: risk.age,
-      multiplier: risk.multiplier,
-      drivers: risk.drivers,
-    },
-    risk_history: [],
-    forecast: [],
-    historical_service_spend_usd: summary.historical_service_spend_usd,
-    service_record_count: history.length,
-    work_order_history: history,
-    work_orders: [],
-  }
-}
-
-const invoiceRecords = serviceHistory.filter((record) => record.invoiceTotal !== null && record.invoiceTotal >= 0)
-const totalInvoiceSpend = invoiceRecords.reduce((sum, record) => sum + (record.invoiceTotal ?? 0), 0)
-const portfolio: Portfolio = {
-  sites: sites.length,
-  machines: sourceAssets.length,
-  supported_assets: scoredAssets.filter((asset) => asset.prob !== null).length,
-  high_risk_count: scoredAssets.filter((asset) => asset.tier === 'high').length,
-  medium_risk_count: scoredAssets.filter((asset) => asset.tier === 'medium').length,
-  service_records: serviceHistory.length,
-  latest_service_date: serviceHistory.reduce<string | null>((latest, record) => (
-    record.date <= today && (!latest || record.date > latest) ? record.date : latest
-  ), null),
-}
-const savings: Savings = {
-  historical_service_spend_usd: Math.round(totalInvoiceSpend * 100) / 100,
-  records_with_invoice_total: invoiceRecords.length,
-  total_service_records: serviceHistory.length,
-}
-
-const copy = <T>(value: T): T => structuredClone(value)
-
+// ---------------------------------------------------------------- reads used by the screens
 export async function getPortfolio(): Promise<Portfolio> {
-  return copy(portfolio)
+  const [p, records] = await Promise.all([api<ApiPortfolio>('/portfolio'), allRecords()])
+  const b = p.assets_by_band ?? {}
+  return {
+    sites: p.sites,
+    machines: p.assets,
+    supported_assets: p.assets - (b.unknown ?? 0),
+    high_risk_count: (b.critical ?? 0) + (b.poor ?? 0),
+    medium_risk_count: b.fair ?? 0,
+    service_records: p.work_orders,
+    latest_service_date: records[0]?.opened_at ?? null,
+  }
 }
 
 export async function getSavings(): Promise<Savings> {
-  return copy(savings)
+  const records = await allRecords()
+  const paid = records.filter((r) => r.cost_usd !== null && r.cost_usd >= 0)
+  return {
+    historical_service_spend_usd: Math.round(paid.reduce((sum, r) => sum + (r.cost_usd ?? 0), 0) * 100) / 100,
+    records_with_invoice_total: paid.length,
+    total_service_records: records.length,
+  }
 }
 
 export async function getAssets(): Promise<Asset[]> {
-  return copy(scoredAssets)
+  return (await api<ApiAsset[]>('/assets')).map(toAsset)
 }
 
 export async function getAsset(id: string): Promise<AssetDetail | null> {
-  return copy(detailFor(id))
+  let d: ApiAssetDetail
+  try {
+    d = await api<ApiAssetDetail>(`/assets/${encodeURIComponent(id)}`)
+  } catch {
+    return null
+  }
+  const s = d.score
+  const history = d.work_orders.map((w, i) => toServiceRecord({
+    id: i + 1, asset_id: d.asset.asset_id, site_id: d.asset.site_id, asset_type: d.asset.asset_type,
+    site_name: d.asset.site_name, city: null, opened_at: w.opened_at, kind: w.kind,
+    issue_category: w.issue_category, refrigerant_added: w.refrigerant_added, cost_usd: w.cost_usd, note: w.note,
+  }))
+  const drivers: Driver[] = (s?.drivers ?? []).map((x) => ({ factor: x.factor, detail: x.why, value: x.points_lost }))
+  return {
+    asset: {
+      id: d.asset.asset_id,
+      asset_type: d.asset.asset_type,
+      install_date: d.asset.install_date,
+      site_name: d.asset.site_name,
+      site_type: '',
+      city: '',
+      square_feet: null,
+      open_hours: null,
+      manufacturer: d.asset.make ?? '',
+      model: d.asset.model ?? '',
+      refrigerant: d.asset.refrigerant ?? '',
+    },
+    risk_now: {
+      prob: null,
+      tier: tierFromBand(s?.band),
+      safety_index: s?.safety_index ?? null,
+      band: s?.band ?? 'unknown',
+      confidence: s?.confidence ?? 0,
+      constraints: s?.constraints ?? [],
+      data_gaps: s?.data_gaps ?? [],
+      age_years: s?.inputs?.age_years ?? null,
+      multiplier: null,
+      drivers,
+    },
+    risk_history: d.score_history.map((h) => ({ date: h.scored_at.slice(0, 10), prob: 0, safety_index: h.safety_index })),
+    forecast: d.forecast.map((f) => ({ date: f.forecast_date, max_f: f.max_temp_f })),
+    historical_service_spend_usd: Math.round(d.work_orders.reduce((sum, w) => sum + (w.cost_usd && w.cost_usd > 0 ? w.cost_usd : 0), 0) * 100) / 100,
+    service_record_count: history.length,
+    work_order_history: history,
+    work_orders: [],
+    decision: d.decision,
+  }
 }
 
 export async function getWorkOrders(): Promise<WorkOrder[]> {
-  return copy(serviceRecords)
+  return (await allRecords()).map(toServiceRecord)
 }
 
+export async function getDecisions(): Promise<Decision[]> {
+  return api<Decision[]>('/decisions')
+}
+
+const ACTION_TEXT: Record<string, string> = {
+  create_work_order: 'Create work order', request_data: 'Request data', monitor: 'Monitor', no_action: 'No action',
+}
+const URGENCY_TEXT: Record<string, string> = { today: 'today', '48h': 'within 48h', this_week: 'this week', none: '' }
+
+export function decisionTitle(d: Pick<Decision, 'action' | 'urgency'>): string {
+  return `${ACTION_TEXT[d.action] ?? d.action} ${URGENCY_TEXT[d.urgency] ?? ''}`.trim()
+}
+
+// The activity feed shows proposed actions awaiting review (nothing is sent automatically).
 export async function getMessages(): Promise<Message[]> {
-  return []
+  const ds = await getDecisions()
+  return ds
+    .filter((d) => d.action !== 'no_action')
+    .map((d) => ({
+      id: `decision-${d.id}`,
+      recipient: `${d.asset_id} · ${d.status.replace('_', ' ')}`,
+      time: new Date().toISOString(),
+      text: `${decisionTitle(d)}. ${d.reason}`,
+      dry_run: true,
+    }))
 }
 
 export async function getCalls(): Promise<Call[]> {
   return []
 }
 
+// ---------------------------------------------------------------- actions
 export async function approveWorkOrder(id: string): Promise<null> {
-  throw new Error(`Work order approval is unavailable for historical CSV record ${id}.`)
+  await api(`/decisions/${encodeURIComponent(id)}/approve`, { method: 'POST' })
+  return null
 }
 
 export async function holdWorkOrder(id: string): Promise<null> {
-  throw new Error(`Work order hold is unavailable for historical CSV record ${id}.`)
+  await api(`/decisions/${encodeURIComponent(id)}/reject`, { method: 'POST' })
+  return null
+}
+
+export async function setDecisionStatus(id: number, action: 'approve' | 'reject' | 'done'): Promise<void> {
+  await api(`/decisions/${id}/${action}`, { method: 'POST' })
+}
+
+async function waitForJob(jobId: string, onProgress?: (job: PipelineJob) => void): Promise<PipelineJob> {
+  for (;;) {
+    const job = await api<PipelineJob>(`/pipeline/jobs/${jobId}`)
+    onProgress?.(job)
+    if (job.status !== 'running') {
+      if (job.status === 'failed') throw new Error(job.error || 'The pipeline run failed.')
+      return job
+    }
+    await new Promise((resolve) => setTimeout(resolve, 1000))
+  }
+}
+
+// Files are matched to their kind by name: "*site*" -> sites, "*asset*"/"*equipment*" -> assets,
+// "*work*"/"*order*"/"*service*" -> work orders. Missing kinds are taken from what is already stored.
+export function kindForFile(name: string): 'sites' | 'assets' | 'work_orders' | null {
+  const n = name.toLowerCase()
+  if (/work|order|service|repair|invoice/.test(n)) return 'work_orders'
+  if (/asset|equipment|unit/.test(n)) return 'assets'
+  if (/site|store|location/.test(n)) return 'sites'
+  return null
+}
+
+export async function runPipeline(files: File[], onProgress?: (job: PipelineJob) => void): Promise<PipelineJob> {
+  const form = new FormData()
+  for (const file of files) {
+    const kind = kindForFile(file.name)
+    if (!kind) throw new Error(`Can't tell what "${file.name}" contains. Name it with "sites", "assets" or "work_orders".`)
+    form.append(kind, file)
+  }
+  const { job_id } = await api<{ job_id: string }>('/pipeline/run', { method: 'POST', body: form })
+  return waitForJob(job_id, onProgress)
+}
+
+export async function runSampleData(onProgress?: (job: PipelineJob) => void): Promise<PipelineJob> {
+  const { job_id } = await api<{ job_id: string }>('/pipeline/run-sample', { method: 'POST' })
+  return waitForJob(job_id, onProgress)
 }
 
 export async function runSweep(): Promise<{ finished_at: string; summary: string }> {
-  throw new Error('Agent sweeps are not available in the CSV-backed dashboard.')
+  const { job_id } = await api<{ job_id: string }>('/pipeline/run', { method: 'POST', body: new FormData() })
+  const job = await waitForJob(job_id)
+  const d = job.steps.decide ?? {}
+  return { finished_at: new Date().toISOString(), summary: `Re-scored and re-decided: ${String(d.decisions ?? 0)} decisions in ${job.seconds_total ?? '?'}s` }
 }
 
 export async function simulateText(_text: string): Promise<Message> {
-  throw new Error('Manager messages are not included in the imported CSV data.')
+  throw new Error('Manager text messages are not part of this backend.')
 }

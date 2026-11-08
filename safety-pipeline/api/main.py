@@ -75,9 +75,29 @@ def admin(authorization: str | None = Header(default=None)):
         raise HTTPException(401, "missing or wrong admin token")
 
 
+_SCHEMA_LOCK = threading.Lock()
+_SCHEMA_READY = False
+
+
 def ensure_schema():
-    with psycopg.connect(dsn()) as conn:
-        conn.execute((ROOT / "db" / "safety_schema.sql").read_text())
+    """Apply the schema once per process. It recreates a view, so running it while other requests read
+    that view deadlocks; never call it per request."""
+    global _SCHEMA_READY
+    with _SCHEMA_LOCK:
+        if _SCHEMA_READY:
+            return
+        with psycopg.connect(dsn()) as conn:
+            conn.execute((ROOT / "db" / "safety_schema.sql").read_text())
+        _SCHEMA_READY = True
+
+
+@app.on_event("startup")
+def _startup():
+    if os.environ.get("DATABASE_URL"):
+        try:
+            ensure_schema()
+        except Exception as e:                      # the API still starts; /health reports the database error
+            print(f"schema not applied at startup: {e}")
 
 
 def bundle_from_db() -> dict:
@@ -250,8 +270,9 @@ async def pipeline_run(sites: UploadFile | None = File(default=None), assets: Up
 
 @app.post("/pipeline/run-sample", dependencies=[Depends(admin)])
 def pipeline_run_sample():
-    """Run the full pipeline on the bundled messy sample files (for live demos)."""
-    return start_job({k: SAMPLES / f"{k}.csv" for k in KINDS}, None, "sample data")
+    """Run the full pipeline on the bundled 30-site demo portfolio (samples/demo; falls back to samples/)."""
+    folder = SAMPLES / "demo" if (SAMPLES / "demo" / "sites.csv").exists() else SAMPLES
+    return start_job({k: folder / f"{k}.csv" for k in KINDS}, None, f"sample data ({folder.name})")
 
 
 @app.get("/pipeline/jobs/{job_id}")
@@ -305,9 +326,25 @@ def portfolio():
 
 @app.get("/assets")
 def assets(band: str | None = None):
-    rows = q("""SELECT w.*, s.name AS site_name, s.lat, s.lon, s.city FROM asset_worklist w
-                JOIN sites s USING (site_id)""" + (" WHERE w.band = %s" if band else ""), (band,) if band else ())
-    return rows
+    return q("""SELECT w.*, s.name AS site_name, s.type AS site_type, s.lat, s.lon, s.city,
+                       a.install_date, a.make, a.model, a.refrigerant,
+                       (SELECT max(opened_at) FROM work_order_history h WHERE h.asset_id = w.asset_id) AS last_service_date,
+                       (SELECT coalesce(sum(cost_usd), 0) FROM work_order_history h
+                         WHERE h.asset_id = w.asset_id AND cost_usd > 0) AS service_spend_usd,
+                       d.id AS decision_id, d.action AS decision_action, d.urgency AS decision_urgency,
+                       d.status AS decision_status
+                FROM asset_worklist w JOIN sites s USING (site_id) JOIN assets a USING (asset_id)
+                LEFT JOIN latest_decisions d ON d.asset_id = w.asset_id""" + (" WHERE w.band = %s" if band else ""),
+             (band,) if band else ())
+
+
+@app.get("/service-records")
+def service_records(limit: int = 500):
+    """Work-order history across the portfolio, newest first (the UI's work-order screen)."""
+    return q("""SELECT h.id, h.asset_id, a.site_id, a.asset_type, s.name AS site_name, s.city, h.opened_at, h.kind,
+                       h.issue_category, h.refrigerant_added, h.cost_usd, h.note, h.flags
+                FROM work_order_history h JOIN assets a USING (asset_id) JOIN sites s USING (site_id)
+                ORDER BY h.opened_at DESC, h.id DESC LIMIT %s""", (limit,))
 
 
 @app.get("/assets/{asset_id}")
