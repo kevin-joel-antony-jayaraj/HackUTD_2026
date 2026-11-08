@@ -107,7 +107,7 @@ const toDriver = (d: ApiDriver): Driver =>
 
 // Gemini writes run summaries in Markdown; the dashboard shows plain text
 const plainText = (md: string) =>
-  md.replace(/[*_`#]+/g, '').replace(/^\s*[-•]\s+/gm, '').replace(/\n{2,}/g, '\n').trim()
+  md.replace(/\*\*|[*`#]/g, '').replace(/^\s*[-•]\s+/gm, '').replace(/\n{2,}/g, '\n').trim()
 
 const toStatus = (s: string): WorkOrderStatus => (s === 'done' ? 'completed' : (s as WorkOrderStatus))
 
@@ -242,17 +242,53 @@ export const getWorkOrders = () =>
     }))
   }, mock.getWorkOrders)
 
+interface InboundResult {
+  registered?: string; ignored?: string; recorded?: string; skipped?: string
+  asset_id?: string | null; working?: boolean; summary?: string
+}
+
+// What PenguinRE did with a manager's text, in one line
+function outcome(r: InboundResult | null): string {
+  if (!r) return 'being handled'
+  if (r.registered) return 'phone linked as the manager'
+  if (r.ignored) return `not understood (${r.ignored})`
+  if (r.recorded) return r.asset_id ? `noted for ${r.asset_id}${r.working ? ', reported working' : ''}` : 'noted, no machine matched'
+  if (r.summary) {
+    const text = plainText(r.summary)
+      .replace(/^Gemini unavailable \([^)]*\); finished with the scripted planner\.\s*/, '')
+      .replace(/^Run summary:\s*/, '')
+    if (/already open/i.test(text) && !/escalat|created/i.test(text)) return 'risk updated; work order already open'
+    const lines = text.split('\n').map((l) => l.trim()).filter((l) => l && !/^summary\b|:$/i.test(l))
+    const best = lines.find((l) => /escalat|approved|on.hold|created|WO-\d+/i.test(l)) || lines[0] || 'handled'
+    return best.slice(0, 180)
+  }
+  return 'handled'
+}
+
 export const getMessages = () =>
   live<Message[]>(async () => {
-    const rows = await request<{ id: number; recipient_name: string | null; to_key: string; created_at: string
-                                 text: string; dry_run: boolean; sent: boolean; error: string | null }[]>('/messages')
-    return rows.map((m) => ({
+    const [rows, replies] = await Promise.all([
+      request<{ id: number; recipient_name: string | null; to_key: string; created_at: string
+                text: string; dry_run: boolean; sent: boolean; error: string | null }[]>('/messages'),
+      request<{ message_id: string; text: string; result: InboundResult | null; received_at: string }[]>('/inbound'),
+    ])
+    const sent: Message[] = rows.map((m) => ({
       id: `MSG-${m.id}`,
       recipient: m.recipient_name || m.to_key,
       time: m.created_at,
       text: m.error && !m.sent && !m.dry_run ? `${m.text} (not delivered: ${m.error})` : m.text,
       dry_run: m.dry_run,
     }))
+    const received: Message[] = replies
+      .filter((r) => !r.result?.skipped)
+      .map((r) => ({
+        id: `IN-${r.message_id}`,
+        recipient: 'Manager reply',
+        time: r.received_at,
+        text: `"${r.text.trim()}" → ${outcome(r.result)}`,
+        dry_run: false,
+      }))
+    return [...sent, ...received].sort((a, b) => b.time.localeCompare(a.time))
   }, mock.getMessages)
 
 export const getCalls = () =>

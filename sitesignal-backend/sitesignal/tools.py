@@ -94,6 +94,18 @@ class Toolbox:
             self.texts_sent += 1
         return res
 
+    def _deadline(self, urgency: str, do_by: str) -> str:
+        """Keep the model's date only if it fits the urgency: today, within 2 days, or within the week."""
+        from datetime import date, timedelta
+        latest = {"today": 0, "48h": 2, "this_week": 7}.get(urgency, 7)
+        earliest = 1 if urgency == "this_week" else 0
+        try:
+            d = date.fromisoformat(str(do_by)[:10])
+        except ValueError:
+            d = self.s.today + timedelta(days=latest)
+        d = min(max(d, self.s.today + timedelta(days=earliest)), self.s.today + timedelta(days=latest))
+        return d.isoformat()
+
     # ---- tools -----------------------------------------------------------
     def list_flagged_assets(self, min_tier: str):
         rows = []
@@ -145,6 +157,9 @@ class Toolbox:
         facts, r, t = self._risk(asset_id)
         if TIER_RANK[t] < TIER_RANK["medium"]:
             return {"error": f"blocked: asset is {t} risk (p={r.prob}); add it to the dashboard instead"}
+        if t == "high" and urgency == "this_week":
+            urgency = "48h"
+        do_by = self._deadline(urgency, do_by)
         try:
             wo_id = self.s.create_work_order(
                 asset_id=asset_id, site_id=facts.site_id, prob=r.prob, tier=t, urgency=urgency,

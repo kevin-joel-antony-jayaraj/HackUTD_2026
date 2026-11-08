@@ -19,7 +19,7 @@ import urllib.request
 from .tools import DECLARATIONS, Toolbox
 
 MODEL = os.environ.get("GEMINI_MODEL", "gemini-3.8-flash")
-FALLBACK_MODELS = [m.strip() for m in os.environ.get("GEMINI_FALLBACK_MODELS", "gemini-3.7-flash,gemini-3.5-flash").split(",")
+FALLBACK_MODELS = [m.strip() for m in os.environ.get("GEMINI_FALLBACK_MODELS", "gemini-3.7-flash,gemini-3.5-flash,gemini-flash-lite-latest,gemini-3.1-flash-lite").split(",")
                    if m.strip()]
 RETRYABLE_HTTP = {429, 500, 502, 503, 504}
 API = "https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent"

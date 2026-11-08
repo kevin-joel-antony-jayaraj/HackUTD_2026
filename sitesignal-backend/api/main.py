@@ -104,6 +104,12 @@ def calls(limit: int = 100):
     return services.recent(db, "calls", limit)
 
 
+@app.get("/inbound")
+def inbound(limit: int = 100):
+    """Texts received from managers and what PenguinRE did with each (result)."""
+    return services.recent(db, "inbound_messages", limit)
+
+
 @app.get("/field-reports")
 def field_reports(limit: int = 100):
     return services.recent(db, "field_reports", limit)

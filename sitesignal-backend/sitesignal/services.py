@@ -176,7 +176,7 @@ def set_work_order_status(db, wo_id: str, status: str, note: str) -> dict | None
 
 
 def recent(db, table: str, limit: int = 100) -> list[dict]:
-    order = {"messages": "id", "calls": "id", "dashboard_entries": "id", "agent_runs": "run_id",
+    order = {"messages": "id", "calls": "id", "inbound_messages": "received_at", "dashboard_entries": "id", "agent_runs": "run_id",
              "import_quarantine": "id", "field_reports": "id"}[table]
     return _clean(db.query(f"SELECT * FROM {table} ORDER BY {order} DESC LIMIT %s", (limit,)))
 
