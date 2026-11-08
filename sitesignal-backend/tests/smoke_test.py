@@ -40,6 +40,7 @@ def check(label, cond, detail=""):
 def main():
     db = get_db()
     seed(db, date.today())
+    db.query("TRUNCATE contacts, inbound_messages")  # seed keeps these across demo resets; tests start clean
 
     # --- data import (messy sample files) -----------------------------------
     r1 = importer.import_file(db, "sites", (ROOT / "samples/sites.csv").read_bytes(), "sites.csv")
