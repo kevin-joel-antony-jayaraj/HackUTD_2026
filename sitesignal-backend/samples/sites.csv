@@ -1,5 +1,61 @@
 Store Number,Store Name,Category,City,Market,Refrigerated,Daily Revenue,Latitude,Longitude
-D101,Plano Market,grocery,Plano,Dallas,Y,"$14,000",33.0198,-96.6989
-D102,Richardson Branch,bank branch,Richardson,Dallas,N,"$5,000",32.9483,-96.7299
-H201,Katy Clinic,clinic,Katy,Houston,no,"$8,500",29.7858,-95.8245
-,Unknown Store,retail,Austin,,N,,,
+C113,Convenience Mesa #113,Convenience,Mesa,Phoenix,Y,5402.48,33.25625,-111.90447
+H116,Hypermarket Richardson #116,Hypermarket,Richardson,Dallas-Fort Worth,Y,27706.53,32.85375,-97.13142
+C380,Convenience Sugar Land #380,Convenience,Sugar Land,Houston,Y,8616.53,29.82249,-95.1534
+D211,Discount Marietta #211,Discount Grocery,Marietta,Atlanta,Y,18239.46,33.47155,-84.47405
+C123,Convenience San Antonio #123,Convenience,San Antonio,San Antonio,Y,4416.2,29.75118,-98.57503
+D136,Discount Richardson #136,Discount Grocery,Richardson,Dallas-Fort Worth,Y,16042.9,33.04115,-96.46034
+H333,Hypermarket New Braunfels #333,Hypermarket,New Braunfels,San Antonio,Y,36345.5,29.18386,-98.59131
+C374,Convenience San Antonio #374,Convenience,San Antonio,San Antonio,Y,4904.04,29.39358,-98.65104
+D129,Discount Dallas #129,Discount Grocery,Dallas,Dallas-Fort Worth,Y,24551.9,33.06353,-96.86918
+C303,Convenience Decatur #303,Convenience,Decatur,Atlanta,Y,7544.89,33.7212,-84.55458
+C235,Convenience Glendale #235,Convenience,Glendale,Phoenix,Y,7276.87,33.72848,-112.14042
+D125,Discount Mesa #125,Discount Grocery,Mesa,Phoenix,Y,29021.89,33.53921,-111.86554
+D296,Discount Round Rock #296,Discount Grocery,Round Rock,Austin,Y,18315.71,30.29038,-97.41025
+V237,Dollar Tempe #237,Dollar Variety,Tempe,Phoenix,N,7342.56,33.17809,-112.11566
+V235,Dollar Atlanta #235,Dollar Variety,Atlanta,Atlanta,N,5670.7,33.75538,-84.66551
+D292,Discount Phoenix #292,Discount Grocery,Phoenix,Phoenix,Y,13593.1,33.51926,-112.07798
+V258,Dollar Richardson #258,Dollar Variety,Richardson,Dallas-Fort Worth,N,8837.34,33.11461,-96.48714
+P166,Pharmacy San Antonio #166,Pharmacy,San Antonio,San Antonio,N,9957.99,29.25554,-98.2293
+V203,Dollar New Braunfels #203,Dollar Variety,New Braunfels,San Antonio,N,5991.72,29.7666,-98.38509
+D274,Discount Irving #274,Discount Grocery,Irving,Dallas-Fort Worth,Y,19483.44,32.66108,-96.99585
+C218,Convenience Dallas #218,Convenience,Dallas,Dallas-Fort Worth,Y,6631.0,33.10174,-97.1004
+D393,Discount Austin #393,Discount Grocery,Austin,Austin,Y,22804.17,30.46923,-97.52475
+D321,Discount Sugar Land #321,Discount Grocery,Sugar Land,Houston,Y,13679.38,29.73692,-95.20965
+H274,Hypermarket Phoenix #274,Hypermarket,Phoenix,Phoenix,Y,22706.74,33.27406,-112.28685
+H243,Hypermarket Houston #243,Hypermarket,Houston,Houston,Y,39684.79,29.72019,-95.11706
+V222,Dollar Fort Worth #222,Dollar Variety,Fort Worth,Dallas-Fort Worth,N,7364.73,32.83695,-96.54474
+H300,Hypermarket Fort Worth #300,Hypermarket,Fort Worth,Dallas-Fort Worth,Y,40384.43,32.69967,-96.66239
+D212,Discount Decatur #212,Discount Grocery,Decatur,Atlanta,Y,12375.65,33.91502,-84.69733
+D345,Discount Pflugerville #345,Discount Grocery,Pflugerville,Austin,Y,19819.86,30.0302,-97.41745
+V307,Dollar Irving #307,Dollar Variety,Irving,Dallas-Fort Worth,N,7917.56,32.67235,-96.73384
+C390,Convenience Round Rock #390,Convenience,Round Rock,Austin,Y,6583.42,30.06298,-97.58867
+D138,Discount Irving #138,Discount Grocery,Irving,Dallas-Fort Worth,Y,21244.16,33.19892,-96.45273
+D236,Discount Plano #236,Discount Grocery,Plano,Dallas-Fort Worth,Y,16704.5,33.1166,-96.53451
+V371,Dollar Irving #371,Dollar Variety,Irving,Dallas-Fort Worth,N,8078.25,32.70957,-96.68563
+D155,Discount Mesa #155,Discount Grocery,Mesa,Phoenix,Y,17558.17,33.29064,-111.99662
+H127,Hypermarket Fort Worth #127,Hypermarket,Fort Worth,Dallas-Fort Worth,Y,37004.08,33.08054,-97.11914
+C183,Convenience Glendale #183,Convenience,Glendale,Phoenix,Y,8187.36,33.49263,-112.34169
+D290,Discount Austin #290,Discount Grocery,Austin,Austin,Y,16319.42,30.22085,-98.06072
+V208,Dollar San Antonio #208,Dollar Variety,San Antonio,San Antonio,N,10072.19,29.31758,-98.44808
+V191,Dollar Atlanta #191,Dollar Variety,Atlanta,Atlanta,N,4918.51,33.52555,-84.09286
+V228,Dollar Garland #228,Dollar Variety,Garland,Dallas-Fort Worth,N,8103.86,32.57567,-96.53948
+D217,Discount Garland #217,Discount Grocery,Garland,Dallas-Fort Worth,Y,16216.26,32.63519,-96.92022
+H361,Hypermarket Pasadena #361,Hypermarket,Pasadena,Houston,Y,46660.06,30.06747,-95.63926
+D323,Discount Pasadena #323,Discount Grocery,Pasadena,Houston,Y,17624.23,29.71548,-95.03103
+V198,Dollar Garland #198,Dollar Variety,Garland,Dallas-Fort Worth,N,8215.2,32.80524,-96.78606
+H270,Hypermarket San Antonio #270,Hypermarket,San Antonio,San Antonio,Y,31198.13,29.57383,-98.62977
+H307,Hypermarket San Antonio #307,Hypermarket,San Antonio,San Antonio,Y,32894.5,29.20429,-98.37455
+C308,Convenience Austin #308,Convenience,Austin,Austin,Y,7837.63,30.13271,-97.94287
+H210,Hypermarket Pflugerville #210,Hypermarket,Pflugerville,Austin,Y,31347.02,30.03878,-98.03064
+P221,Pharmacy San Antonio #221,Pharmacy,San Antonio,San Antonio,N,8777.67,29.63459,-98.73685
+V138,Dollar Katy #138,Dollar Variety,Katy,Houston,N,6883.8,29.91284,-95.45122
+P213,Pharmacy Garland #213,Pharmacy,Garland,Dallas-Fort Worth,N,9539.7,32.86257,-97.11485
+H338,Hypermarket New Braunfels #338,Hypermarket,New Braunfels,San Antonio,Y,32844.27,29.73503,-98.216
+P381,Pharmacy Katy #381,Pharmacy,Katy,Houston,N,7321.09,29.93056,-95.38773
+P242,Pharmacy Glendale #242,Pharmacy,Glendale,Phoenix,N,10174.57,33.53872,-112.22778
+D377,Discount Richardson #377,Discount Grocery,Richardson,Dallas-Fort Worth,Y,19243.49,32.66188,-96.66424
+H378,Hypermarket Houston #378,Hypermarket,Houston,Houston,Y,50276.55,29.55478,-95.4259
+H104,Hypermarket Marietta #104,Hypermarket,Marietta,Atlanta,Y,36362.98,33.92743,-84.14259
+P380,Pharmacy Mesa #380,Pharmacy,Mesa,Phoenix,N,7398.86,33.44176,-112.22895
+D340,Discount Decatur #340,Discount Grocery,Decatur,Atlanta,Y,18289.68,33.77389,-84.10515
