@@ -31,6 +31,22 @@ uvicorn api.main:app --reload        # API + Photon webhook + scheduler, docs at
 No keys yet? `BRAIN=mock` swaps Gemini for a scripted stand-in, and `PHOTON_SEND=0`
 (the default) logs texts instead of sending them.
 
+To use a Nemotron-compatible endpoint instead of Gemini, set:
+
+```bash
+export BRAIN=nemotron
+export NEMOTRON_API_KEY=...
+export NEMOTRON_MODEL=nvidia/nemotron-3.5-lightning-30b-a3b
+export NEMOTRON_BASE_URL=https://integrate.api.nvidia.com/v1
+```
+
+The agent will query Postgres through the same tool schema and convert the model response
+back into the function-calling format the rest of the app expects. Nemotron reasoning is
+enabled for its decisions, while the app consumes tool calls and the concise final summary
+instead of exposing the model's reasoning trace. Portfolio sweeps prefetch candidate snapshots
+in one batch, use parallel tool calls, and keep a smaller reasoning budget to reduce API
+round trips without dropping candidate assets or truncating the source data.
+
 ## What runs where
 
 | Piece | File | What it does |

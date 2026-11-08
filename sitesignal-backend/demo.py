@@ -43,8 +43,11 @@ def main():
         site = aid.split("-")[0]
         handle_inbound(f"JOIN site {site}", f"space-{site}", "agent-1", tb)
 
-    print(f"Brain: {'mock' if os.environ.get('BRAIN') == 'mock' else 'Gemini'}  "
-          f"thresholds high={HIGH} medium={MEDIUM}\n")
+    brain_setting = os.environ.get("BRAIN", "").lower()
+    brain_name = ("mock" if brain_setting == "mock" else
+                  "Nemotron" if brain_setting == "nemotron" or os.environ.get("NEMOTRON_API_KEY")
+                  or os.environ.get("NVIDIA_API_KEY") else "Gemini")
+    print(f"Brain: {brain_name}  thresholds high={HIGH} medium={MEDIUM}\n")
 
     res = run_agent("Run today's risk sweep for the portfolio.", tb)
     print("SWEEP:", res["summary"][:500], "\n")

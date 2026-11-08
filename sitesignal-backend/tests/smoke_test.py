@@ -10,18 +10,20 @@ import hashlib
 import hmac
 import json
 import os
+import sys
 import time
 from datetime import date, datetime
 from pathlib import Path
 from zoneinfo import ZoneInfo
+
+ROOT = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(ROOT))
 
 from seed import seed
 from sitesignal import importer, scheduler, services, weather
 from sitesignal.photon_inbound import extract_message, handle_webhook_event, verify_signature
 from sitesignal.store import Store
 from sitesignal.tools import Toolbox
-
-ROOT = Path(__file__).resolve().parent.parent
 
 
 def get_db():

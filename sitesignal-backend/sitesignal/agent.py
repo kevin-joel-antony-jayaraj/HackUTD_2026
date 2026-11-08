@@ -1,17 +1,19 @@
-"""The agent loop: Gemini 3.8 Flash is the brain, tools.py are its hands.
+"""The agent loop: Gemini or Nemotron is the brain, tools.py are its hands.
 
 Loop: send the conversation + tool declarations -> Gemini replies with function
 calls -> run them -> send results back -> repeat until Gemini answers in text
 (its run summary) or the step limit hits.
 
-Uses Gemini's native REST API (generateContent) with the standard library only.
-The model's reply is appended to the conversation exactly as returned, which keeps
-Gemini 3's thought signatures intact across tool calls.
+Uses native REST APIs with the standard library only. Gemini replies are appended
+verbatim to preserve thought signatures; Nemotron reasoning stays internal to the
+provider while tool calls are translated to the common agent format.
 """
 from __future__ import annotations
 
 import json
 import os
+import uuid
+from urllib.error import HTTPError
 import urllib.request
 
 from .tools import DECLARATIONS, Toolbox
@@ -66,6 +68,174 @@ class GeminiBrain:
         with urllib.request.urlopen(req, timeout=90) as resp:
             data = json.loads(resp.read())
         return data["candidates"][0]["content"]
+
+
+class NemotronBrain:
+    """OpenAI-compatible NVIDIA NIM endpoint wrapper. It converts the internal
+    Gemini-style message schema into OpenAI chat-completions messages, then converts
+    the model response back to the Gemini-style format that the loop expects."""
+
+    def __init__(self, model: str | None = None, base_url: str | None = None):
+        self.model = model or os.environ.get(
+            "NEMOTRON_MODEL", "nvidia/nemotron-3.5-lightning-30b-a3b")
+        self.base_url = (base_url or os.environ.get("NEMOTRON_BASE_URL") or
+                         "https://integrate.api.nvidia.com/v1").rstrip("/")
+        self.key = os.environ.get("NEMOTRON_API_KEY") or os.environ.get("NVIDIA_API_KEY")
+        if not self.key:
+            raise RuntimeError("NEMOTRON_API_KEY or NVIDIA_API_KEY is required")
+
+    @staticmethod
+    def _is_initial_sweep(contents: list[dict]) -> bool:
+        if len(contents) != 1 or contents[0].get("role") != "user":
+            return False
+        task = NemotronBrain._parts_text(contents[0].get("parts", []))
+        return not task.startswith("EVENT")
+
+    @staticmethod
+    def _schema_to_tool(tool: dict) -> dict:
+        def normalize_schema(value):
+            if isinstance(value, dict):
+                normalized = {key: normalize_schema(item) for key, item in value.items()}
+                schema_type = normalized.get("type")
+                if isinstance(schema_type, str):
+                    normalized["type"] = schema_type.lower()
+                return normalized
+            if isinstance(value, list):
+                return [normalize_schema(item) for item in value]
+            return value
+
+        return {
+            "type": "function",
+            "function": {
+                "name": tool["name"],
+                "description": tool.get("description", ""),
+                "parameters": normalize_schema(
+                    tool.get("parameters", {"type": "object", "properties": {}, "required": []})
+                ),
+            },
+        }
+
+    @staticmethod
+    def _parts_text(parts: list[dict]) -> str:
+        return "\n".join(p.get("text", "") for p in parts if "text" in p).strip()
+
+    @classmethod
+    def _messages_from_contents(cls, contents: list[dict]) -> list[dict]:
+        messages: list[dict] = []
+        for item in contents:
+            parts = item.get("parts", [])
+            role = item.get("role", "user")
+            text = cls._parts_text(parts)
+            tool_calls = []
+            for p in parts:
+                call = p.get("functionCall")
+                if not call:
+                    continue
+                fc = call if isinstance(call, dict) else {}
+                tool_calls.append({
+                    "id": p.get("id") or str(uuid.uuid4()),
+                    "type": "function",
+                    "function": {
+                        "name": fc.get("name"),
+                        "arguments": json.dumps(fc.get("args", {}), default=str),
+                    },
+                })
+            if role == "model":
+                assistant_message = {
+                    "role": "assistant",
+                    "content": text or None,
+                    "tool_calls": tool_calls or None,
+                }
+                reasoning = next((p["reasoningContent"] for p in parts
+                                  if p.get("reasoningContent")), None)
+                if reasoning:
+                    assistant_message["reasoning_content"] = reasoning
+                messages.append(assistant_message)
+                continue
+            function_responses = [p for p in parts if "functionResponse" in p]
+            if function_responses:
+                for fr in function_responses:
+                    response = fr["functionResponse"]
+                    messages.append({
+                        "role": "tool",
+                        "tool_call_id": response.get("id") or str(uuid.uuid4()),
+                        "name": response.get("name"),
+                        "content": json.dumps(response.get("response", {}), default=str),
+                    })
+                continue
+            messages.append({"role": "user", "content": text or ""})
+        return messages
+
+    def next(self, contents: list[dict]) -> dict:
+        system_prompt = (
+            SYSTEM_PROMPT
+            + "\n\nUse your reasoning internally to choose actions, but do not output a reasoning "
+            "trace or merely restate these rules. For a portfolio sweep, immediately call "
+            "list_flagged_assets. You may return multiple independent tool calls in one response. "
+            "Do not serialize independent asset work one asset at a time. To reduce round trips, "
+            "batch independent get_risk_snapshot calls "
+            "for all listed assets without an open work order. After reviewing those snapshots, "
+            "batch independent create_work_order calls for high-risk assets and the required "
+            "check-in/dashboard calls for medium-risk assets. After work orders are created, batch "
+            "their notify_service_manager calls. Continue until all listed assets are handled, then "
+            "provide only a concise summary."
+        )
+        payload = {
+            "model": self.model,
+            "messages": [{"role": "system", "content": system_prompt}] + self._messages_from_contents(contents),
+            "tools": [self._schema_to_tool(t) for t in DECLARATIONS],
+            "tool_choice": (
+                {"type": "function", "function": {"name": "list_flagged_assets"}}
+                if self._is_initial_sweep(contents) else "auto"
+            ),
+            "parallel_tool_calls": True,
+            "temperature": 0,
+            "max_tokens": 4096,
+            "chat_template_kwargs": {"enable_thinking": True},
+            "reasoning_budget": 256,
+        }
+        req = urllib.request.Request(
+            f"{self.base_url}/chat/completions",
+            data=json.dumps(payload, default=str).encode(),
+            headers={"Authorization": f"Bearer {self.key}", "Content-Type": "application/json"},
+        )
+        try:
+            print(f"Waiting for Nemotron ({self.model})...", flush=True)
+            with urllib.request.urlopen(req, timeout=90) as resp:
+                data = json.loads(resp.read())
+        except HTTPError as exc:
+            details = exc.read().decode("utf-8", errors="replace").strip()
+            raise RuntimeError(
+                f"Nemotron API returned HTTP {exc.code} for model {self.model}: "
+                f"{details or exc.reason}"
+            ) from exc
+        message = data["choices"][0]["message"]
+        content = message.get("content")
+        tool_calls = message.get("tool_calls", []) or []
+        if not content and not tool_calls:
+            finish_reason = data["choices"][0].get("finish_reason", "unknown")
+            raise RuntimeError(
+                f"Nemotron returned neither text nor tool calls (finish_reason={finish_reason}); "
+                "the agent cannot continue this run."
+            )
+        reply_parts: list[dict] = []
+        reasoning = message.get("reasoning_content")
+        if reasoning:
+            reply_parts.append({"reasoningContent": reasoning})
+        if content:
+            reply_parts.append({"text": content})
+        for tool_call in tool_calls:
+            function = tool_call.get("function", {})
+            args = function.get("arguments", "")
+            try:
+                parsed = json.loads(args) if isinstance(args, str) else args
+            except json.JSONDecodeError:
+                parsed = {"raw": args}
+            reply_parts.append({
+                "functionCall": {"name": function.get("name"), "args": parsed},
+                "id": tool_call.get("id"),
+            })
+        return {"role": "model", "parts": reply_parts}
 
 
 class MockBrain:
@@ -169,7 +339,14 @@ class MockBrain:
 
 # ---------------------------------------------------------------------------
 def run_agent(task: str, toolbox: Toolbox, brain=None, max_steps: int = 40) -> dict:
-    brain = brain or (MockBrain() if os.environ.get("BRAIN") == "mock" else GeminiBrain())
+    brain_name = os.environ.get("BRAIN", "gemini").lower()
+    if brain is None:
+        if brain_name == "mock":
+            brain = MockBrain()
+        elif brain_name == "nemotron" or os.environ.get("NEMOTRON_API_KEY") or os.environ.get("NVIDIA_API_KEY"):
+            brain = NemotronBrain()
+        else:
+            brain = GeminiBrain()
     toolbox.run_id = toolbox.s.start_run(task[:500])
     toolbox.texts_sent, toolbox.checked_in = 0, set()  # limits are per run
     contents = [{"role": "user", "parts": [{"text": task}]}]
@@ -183,13 +360,45 @@ def run_agent(task: str, toolbox: Toolbox, brain=None, max_steps: int = 40) -> d
             summary = " ".join(p.get("text", "") for p in reply.get("parts", [])).strip()
             break
         responses = []
+        tool_results = []
         for c in calls:
             result = toolbox.call(c["name"], c.get("args", {}))
+            tool_results.append((c, result))
             fr = {"name": c["name"], "response": {"result": result}}
             if "id" in c:
                 fr["id"] = c["id"]
             responses.append({"functionResponse": fr})
         contents.append({"role": "user", "parts": responses})
+        if isinstance(brain, NemotronBrain) and not task.startswith("EVENT"):
+            flagged = [
+                asset for call, result in tool_results
+                if call["name"] == "list_flagged_assets"
+                for asset in result.get("assets", [])
+                if not asset.get("open_work_order")
+            ]
+            if flagged:
+                snapshot_calls = []
+                snapshot_responses = []
+                for asset in flagged:
+                    call_id = str(uuid.uuid4())
+                    snapshot_calls.append({
+                        "functionCall": {
+                            "name": "get_risk_snapshot",
+                            "args": {"asset_id": asset["asset_id"]},
+                        },
+                        "id": call_id,
+                    })
+                    snapshot = toolbox.call(
+                        "get_risk_snapshot", {"asset_id": asset["asset_id"]})
+                    snapshot_responses.append({
+                        "functionResponse": {
+                            "name": "get_risk_snapshot",
+                            "response": {"result": snapshot},
+                            "id": call_id,
+                        }
+                    })
+                contents.append({"role": "model", "parts": snapshot_calls})
+                contents.append({"role": "user", "parts": snapshot_responses})
     safety = safety_net(toolbox) if not task.startswith("EVENT") else []
     summary = summary or "stopped at step limit"
     toolbox.s.finish_run(toolbox.run_id, summary, steps)
