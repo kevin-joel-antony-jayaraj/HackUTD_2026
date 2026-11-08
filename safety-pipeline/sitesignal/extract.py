@@ -27,6 +27,21 @@ import urllib.error
 import urllib.request
 from datetime import date, datetime
 
+def _load_dotenv() -> None:
+    """Read safety-pipeline/.env (git-ignored) so the server's key is picked up without exporting it.
+    Values already set in the environment win. The key stays on the server; it is never sent to browsers."""
+    path = os.path.join(os.path.dirname(__file__), "..", ".env")
+    if not os.path.exists(path):
+        return
+    for line in open(path):
+        line = line.strip()
+        if line and not line.startswith("#") and "=" in line:
+            k, v = line.split("=", 1)
+            os.environ.setdefault(k.strip(), v.strip().strip('"').strip("'"))
+
+
+_load_dotenv()
+
 API_URL = os.environ.get("NVIDIA_API_URL", "https://integrate.api.nvidia.com/v1/chat/completions")
 MODEL = os.environ.get("NEMOTRON_MODEL", "nvidia/nemotron-3-ultra-550b-a55b")
 FALLBACK_MODEL = os.environ.get("NEMOTRON_FALLBACK_MODEL", "nvidia/nemotron-3.5-lightning-30b-a3b")
@@ -141,7 +156,7 @@ def call_nemotron(system: str, user: str, retries: int = 3) -> str:
     """Try MODEL, then FALLBACK_MODEL if the first keeps failing (5xx / timeout)."""
     key = os.environ.get("NVIDIA_API_KEY")
     if not key:
-        raise RuntimeError("Set NVIDIA_API_KEY (get one at build.nvidia.com) to call Nemotron.")
+        raise RuntimeError("NVIDIA_API_KEY is not set. Put it in safety-pipeline/.env (see .env.example).")
     last = None
     for model in dict.fromkeys([MODEL, FALLBACK_MODEL]):   # de-duplicated, order kept
         body = {

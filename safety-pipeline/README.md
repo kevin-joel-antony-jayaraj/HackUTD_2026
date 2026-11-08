@@ -36,10 +36,16 @@ SELECT context FROM llm_site_context WHERE site_id = 'D101';   -- what the decis
 
 ## Re-run the pipeline on new data
 
-Needs `NVIDIA_API_KEY` (from build.nvidia.com) for the two Nemotron steps.
+The two Nemotron steps need an NVIDIA key **on the server only**. Website visitors never need one.
 
 ```bash
-export NVIDIA_API_KEY=...
+cp .env.example .env      # then put the key in .env; it's git-ignored, never commit it
+```
+
+The code reads `.env` automatically. Never put the key in frontend code or in a committed file:
+this repo is public.
+
+```bash
 python -m sitesignal.extract all samples/sites.csv samples/assets.csv samples/work_orders.csv -o out/bundle.json
 python -m sitesignal.weather_nws out/bundle.json -o out/weather.json
 python -m sitesignal.safety_index out/bundle.json --weather out/weather.json -o out/safety.json
