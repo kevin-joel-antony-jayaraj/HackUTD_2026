@@ -23,6 +23,7 @@ import threading
 import time
 import traceback
 import uuid
+from concurrent.futures import ThreadPoolExecutor
 from datetime import date, datetime
 from decimal import Decimal
 from pathlib import Path
@@ -149,13 +150,19 @@ def run_pipeline(job: dict, files: dict[str, Path]):
         _step(job, "weather")
         portfolio = bundle_from_db()
         weather, failed = {}, []
-        for s in portfolio["sites"]:
-            if s.get("lat") is None or s.get("lon") is None:
-                continue
+        located = [s for s in portfolio["sites"] if s.get("lat") is not None and s.get("lon") is not None]
+
+        def fetch(site):
             try:
-                weather[s["site_id"]] = weather_nws.forecast_highs(s["lat"], s["lon"])
+                return site["site_id"], weather_nws.forecast_highs(site["lat"], site["lon"]), None
             except Exception as e:
-                failed.append({"site_id": s["site_id"], "error": str(e)[:200]})
+                return site["site_id"], None, str(e)[:200]
+        with ThreadPoolExecutor(max_workers=8) as pool:           # NWS is free; 8 at a time is polite
+            for sid, temps, err in pool.map(fetch, located):
+                if err:
+                    failed.append({"site_id": sid, "error": err})
+                else:
+                    weather[sid] = temps
         _done(job, "weather", sites=len(weather), failed=failed)
 
         # 4. score the whole portfolio and store the run

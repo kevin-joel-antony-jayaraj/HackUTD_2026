@@ -17,6 +17,7 @@ Open-Meteo (weather.py), so the three model inputs are work orders + assets (+ s
 from __future__ import annotations
 
 import argparse
+import http.client
 import io
 import json
 import os
@@ -168,7 +169,9 @@ def call_nemotron(system: str, user: str, retries: int = 3) -> str:
             try:
                 with _NEMOTRON_SLOTS, urllib.request.urlopen(req, timeout=170) as resp:
                     return _read_stream(resp)
-            except (urllib.error.HTTPError, urllib.error.URLError, TimeoutError) as e:
+            # OSError covers dropped connections mid-stream (ConnectionResetError, BrokenPipe) as well as
+            # URLError/HTTPError/timeouts; HTTPException covers truncated responses (IncompleteRead).
+            except (OSError, http.client.HTTPException) as e:
                 last = e
                 if isinstance(e, urllib.error.HTTPError) and e.code in (400, 401, 403, 404):
                     raise RuntimeError(f"Nemotron request failed: HTTP {e.code} {e.read()[:300]!r}") from e
