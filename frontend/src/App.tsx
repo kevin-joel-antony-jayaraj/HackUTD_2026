@@ -279,6 +279,10 @@ function App() {
     })
   }
 
+  const skipLogin = () => {
+    setProfile({ company: 'Demo Company', name: 'Demo User', email: 'demo@penguinre.com' })
+  }
+
   const logOut = () => {
     setAccountMenuOpen(false)
     setProfile(null)
@@ -396,6 +400,9 @@ function App() {
                 {loginStep === 'company' ? 'Continue' : 'Open dashboard'} <span aria-hidden="true">→</span>
               </button>
             </div>
+            <button className="login-skip-button" type="button" onClick={skipLogin}>
+              Skip for demo
+            </button>
           </form>
         </section>
       </main>

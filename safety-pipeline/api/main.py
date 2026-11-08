@@ -42,7 +42,7 @@ SAMPLES = ROOT / "samples"
 KINDS = ("sites", "assets", "work_orders")
 
 app = FastAPI(title="SiteSignal Safety API", version="1.0")
-app.add_middleware(CORSMiddleware, allow_origins=os.environ.get("FRONTEND_ORIGINS", "*").split(","),
+app.add_middleware(CORSMiddleware, allow_origins=(os.environ.get("FRONTEND_ORIGINS") or "*").split(","),
                    allow_methods=["*"], allow_headers=["*"])
 
 
