@@ -943,7 +943,7 @@ function DataNotesScreen({
           />
           <div className="import-file-actions">
             <button className="primary-button" type="button" aria-controls="import-files" onClick={() => inputRef.current?.click()}>
-              Choose Files <span aria-hidden="true">＋</span>
+              Choose File <span aria-hidden="true">＋</span>
             </button>
             {files.length > 0 && <span className="import-file-count">{files.length} {files.length === 1 ? 'file' : 'files'} selected</span>}
             {files.length > 0 && <button className="text-button" type="button" onClick={onClearFiles}>Clear all</button>}
