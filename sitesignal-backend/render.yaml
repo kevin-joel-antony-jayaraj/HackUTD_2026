@@ -1,0 +1,33 @@
+# Render Blueprint: one web service runs the API, the Photon webhook and the scheduler.
+# Database lives on Tiger Data; paste its connection string as DATABASE_URL.
+services:
+  - type: web
+    name: sitesignal-api
+    runtime: python
+    plan: free               # sleeps after ~15 min idle; open /health a minute before judging to wake it
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn api.main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /health
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.7
+      - key: DATABASE_URL
+        sync: false
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: PHOTON_API_KEY
+        sync: false
+      - key: PHOTON_PROJECT_ID
+        sync: false
+      - key: PHOTON_WEBHOOK_SECRET
+        sync: false
+      - key: ADMIN_TOKEN
+        generateValue: true
+      - key: PHOTON_SEND
+        value: "0"
+      - key: SCHEDULER
+        value: "on"
+      - key: SWEEP_TIME
+        value: "06:00"
+      - key: FRONTEND_ORIGIN
+        value: "*"

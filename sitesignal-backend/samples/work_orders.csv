@@ -1,0 +1,10 @@
+Equipment ID,Store,Service Date,Work Type,Problem,Refrigerant Charge,Invoice Total,Tech Notes
+D101-RTU1,D101,2026-10-02,Service Call,AC blowing warm,,$450,Found low charge. Added refrigerant 3 lbs.
+D101 RTU 1,D101,2026-10-20,Emergency,not cooling,yes,$900,leak suspected at coil; recharged
+D101-RTU1,D101,2026-10-20,Emergency,not cooling,yes,$900,leak suspected at coil; recharged
+D101-COOLER1,D101,2026-09-15,Repair,cooler not holding temp,,$350,replaced fan motor
+D101-COOLER1,D101,2026-05-01,PM,filter,,$120,quarterly PM
+H201-RTU1,H201,2026-10-28,Service,short cycling,no,-$200,replaced contactor
+D102-RTU1,D102,2027-03-01,Repair,noise,,$200,future date typo
+ZZZ-UNIT-9,H201,2026-10-01,Repair,noise,,$150,unknown unit
+H201-RTU1,H201,,Repair,warm,,$150,missing date

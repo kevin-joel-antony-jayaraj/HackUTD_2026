@@ -1,0 +1,5 @@
+Store Number,Store Name,Category,City,Market,Refrigerated,Daily Revenue,Latitude,Longitude
+D101,Plano Market,grocery,Plano,Dallas,Y,"$14,000",33.0198,-96.6989
+D102,Richardson Branch,bank branch,Richardson,Dallas,N,"$5,000",32.9483,-96.7299
+H201,Katy Clinic,clinic,Katy,Houston,no,"$8,500",29.7858,-95.8245
+,Unknown Store,retail,Austin,,N,,,

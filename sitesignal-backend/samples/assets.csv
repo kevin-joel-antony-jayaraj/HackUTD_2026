@@ -1,0 +1,8 @@
+Asset Tag,Store,Equipment Type,Installed,Manufacturer,Model,Serial,Refrigerant
+D101-RTU1,D101,Rooftop Unit,2011-04-12,Carrier,48TC,4811G20412,R-410A
+D101-COOLER1,d101,Walk-in Cooler,2009,Heatcraft,PTN,,R-22
+D102-RTU1,D102,Packaged Unit,2019-06-01,Trane,YSC,,R-410A
+H201-RTU1,H201,A/C,2008-08-20,Lennox,LGA,,R-22
+H201-WH1,H201,Water Heater,2016-01-15,AO Smith,BTH,,
+X999-RTU1,X999,Rooftop Unit,2015-01-01,Carrier,,,
+H201-MYSTERY,H201,Elevator,2012-01-01,,,,

@@ -1,0 +1,51 @@
+"""Photon 2.0 messaging: the agent's only way to reach people.
+
+Photon's Beta docs show replying into an existing conversation ("space") with
+`photon.projects.send_message(...)`, using an incoming message's `space.id` and
+`receivedBy.id`. Starting a brand-new conversation isn't documented, so people
+register first by texting the Photon number:
+    "JOIN dallas"      -> service manager for the dallas region
+    "JOIN site S010"   -> site manager for site S010
+Their conversation ids are stored in the `contacts` table (no phone numbers).
+
+VERIFY the send_message argument names against Photon's Beta SDK reference
+before the demo. They are isolated in `_send_text`.
+"""
+from __future__ import annotations
+
+import os
+
+
+def _send_text(space_id: str, agent_id: str, text: str, idempotency_key: str) -> None:
+    from photon_api import Photon  # pip install photonhq-api
+    from photon_api.models import SendMessageHeader, SendTextContent  # verify import path
+
+    photon = Photon(api_key=os.environ["PHOTON_API_KEY"])  # verify constructor
+    photon.projects.send_message(
+        os.environ["PHOTON_PROJECT_ID"],
+        spaceId=space_id,
+        senderId=agent_id,
+        content=SendTextContent(type="text", format="plain", text=text),
+        headers=SendMessageHeader.model_validate({"idempotency-key": idempotency_key}),
+    )
+
+
+def send(store, kind: str, key: str, text: str, idempotency_key: str, dry_run: bool = True) -> dict:
+    """kind = 'region' (service manager) or 'site' (site manager)."""
+    if store.message_exists(idempotency_key):
+        return {"sent": False, "reason": "duplicate: this message was already sent"}
+    contact = store.contact(kind, key or "")
+    if contact is None:
+        res = {"sent": False, "reason": f"no registered {kind} contact for '{key}'"}
+    elif dry_run:
+        res = {"sent": False, "dry_run": True, "to": contact["name"], "text": text}
+    else:
+        try:
+            _send_text(contact["space_id"], contact["agent_id"], text, idempotency_key)
+            res = {"sent": True, "to": contact["name"]}
+        except Exception as e:  # log and let the agent see the failure
+            res = {"sent": False, "to": contact["name"], "reason": f"send failed: {e}"}
+    store.log_message(kind=kind, to_key=key, recipient_name=res.get("to"), text=text,
+                      sent=res.get("sent", False), dry_run=res.get("dry_run", False),
+                      error=res.get("reason"), idempotency_key=idempotency_key)
+    return res
