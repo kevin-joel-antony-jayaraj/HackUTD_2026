@@ -22,7 +22,6 @@ interface SiteRow {
   city: string
   region: string
   refrigerated: boolean
-  dailyRevenue: number
   latitude: number | null
   longitude: number | null
 }
@@ -197,7 +196,6 @@ const sites = recordsFromCsv(sitesCsv).map((row): SiteRow => ({
   city: row.City,
   region: row.Market,
   refrigerated: row.Refrigerated.toLowerCase() === 'y',
-  dailyRevenue: numberValue(row['Daily Revenue']) ?? 0,
   latitude: numberValue(row.Latitude),
   longitude: numberValue(row.Longitude),
 }))
@@ -444,7 +442,6 @@ const portfolio: Portfolio = {
   high_risk_count: scoredAssets.filter((asset) => asset.tier === 'high').length,
   medium_risk_count: scoredAssets.filter((asset) => asset.tier === 'medium').length,
   service_records: serviceHistory.length,
-  daily_revenue_usd: Math.round(sites.reduce((sum, site) => sum + site.dailyRevenue, 0) * 100) / 100,
   latest_service_date: serviceHistory.reduce<string | null>((latest, record) => (
     record.date <= today && (!latest || record.date > latest) ? record.date : latest
   ), null),

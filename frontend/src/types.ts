@@ -7,7 +7,6 @@ export interface Portfolio {
   high_risk_count: number
   medium_risk_count: number
   service_records: number
-  daily_revenue_usd: number
   latest_service_date: string | null
 }
 

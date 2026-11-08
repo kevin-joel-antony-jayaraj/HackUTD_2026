@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useRef, useState, type FormEvent, type ReactNode } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState, type FormEvent, type ReactNode, type RefObject } from 'react'
 import {
   getAsset,
   getAssets,
@@ -59,7 +59,7 @@ const DRIVER_LABELS: Record<string, string> = {
 
 const NAV_ITEMS: Array<{ id: Screen; label: string; icon: string }> = [
   { id: 'overview', label: 'Overview', icon: '⌂' },
-  { id: 'machines', label: 'Machines', icon: '▦' },
+  { id: 'machines', label: 'Equipment', icon: '▦' },
   { id: 'work-orders', label: 'Service history', icon: '☷' },
   { id: 'activity', label: 'Activity', icon: '◷' },
   { id: 'data-notes', label: 'Data notes', icon: 'ⓘ' },
@@ -75,6 +75,12 @@ const CURRENCY = new Intl.NumberFormat('en-US', {
 
 function money(amount: number | null): string {
   return amount === null ? 'Not provided' : CURRENCY.format(amount)
+}
+
+function fileSize(size: number): string {
+  if (size < 1024) return `${size} B`
+  if (size < 1024 * 1024) return `${(size / 1024).toFixed(1)} KB`
+  return `${(size / (1024 * 1024)).toFixed(1)} MB`
 }
 
 function percent(probability: number | null): string {
@@ -169,6 +175,7 @@ function App() {
   const [loginEmail, setLoginEmail] = useState('')
   const [loginError, setLoginError] = useState('')
   const [accountMenuOpen, setAccountMenuOpen] = useState(false)
+  const [importFiles, setImportFiles] = useState<File[]>([])
   const [screen, setScreen] = useState<Screen>('overview')
   const [previousScreen, setPreviousScreen] = useState<Screen>('machines')
   const [selectedAssetId, setSelectedAssetId] = useState<string | null>(null)
@@ -181,6 +188,7 @@ function App() {
   const [search, setSearch] = useState('')
   const selectedAssetIdRef = useRef(selectedAssetId)
   const detailRequestId = useRef(0)
+  const importInputRef = useRef<HTMLInputElement>(null)
 
   const refreshData = useCallback(async () => {
     try {
@@ -296,7 +304,7 @@ function App() {
   const pageTitle = screen === 'overview'
     ? 'Overview'
     : screen === 'machines'
-      ? 'Machines'
+      ? 'Equipment'
       : screen === 'work-orders'
       ? 'Service history'
         : screen === 'activity'
@@ -494,7 +502,24 @@ function App() {
                 />
               )}
               {screen === 'activity' && <ActivityScreen items={activities} />}
-              {screen === 'data-notes' && data && <DataNotesScreen portfolio={data.portfolio} savings={data.savings} />}
+              {screen === 'data-notes' && data && (
+                <DataNotesScreen
+                  portfolio={data.portfolio}
+                  savings={data.savings}
+                  files={importFiles}
+                  inputRef={importInputRef}
+                  onFilesSelected={(selectedFiles) => setImportFiles((current) => {
+                    const filesByKey = new Map(current.map((file) => [`${file.name}:${file.size}:${file.lastModified}`, file]))
+                    selectedFiles.forEach((file) => {
+                      const key = `${file.name}:${file.size}:${file.lastModified}`
+                      if (!filesByKey.has(key)) filesByKey.set(key, file)
+                    })
+                    return Array.from(filesByKey.values())
+                  })}
+                  onRemoveFile={(fileToRemove) => setImportFiles((current) => current.filter((file) => file !== fileToRemove))}
+                  onClearFiles={() => setImportFiles([])}
+                />
+              )}
             </>
           )}
         </div>
@@ -520,7 +545,6 @@ function OverviewScreen({
       <PageHeader title="Portfolio overview" description="Sites, equipment, and service history from the imported source files." actions={<span className="today-chip">{longDate(TODAY)}</span>} />
       <section className="stats-grid" aria-label="Portfolio summary">
         <StatCard label="Sites" value={portfolio.sites.toLocaleString()} note="Imported locations" icon="⌂" />
-        <StatCard label="Daily revenue" value={money(portfolio.daily_revenue_usd)} note="Sum of source site values" icon="$" />
         <StatCard label="Equipment assets" value={portfolio.machines.toLocaleString()} note={`${portfolio.supported_assets.toLocaleString()} supported by the risk model`} icon="▦" />
         <StatCard label="High risk" value={portfolio.high_risk_count.toLocaleString()} note="Calculated from age and repair history" icon="▲" />
         <StatCard label="Medium risk" value={portfolio.medium_risk_count.toLocaleString()} note="Calculated from age and repair history" icon="!" />
@@ -545,7 +569,7 @@ function OverviewScreen({
         <article className="panel attention-panel">
           <div className="section-heading">
             <div><p className="overline">PRIORITIZED QUEUE</p><h2>Needs attention</h2></div>
-            <button type="button" className="text-button" onClick={onViewMachines}>View machines <span>→</span></button>
+            <button type="button" className="text-button" onClick={onViewMachines}>View equipment <span>→</span></button>
           </div>
           {attentionAssets.length === 0 ? (
             <EmptyState>No high- or medium-risk machines need attention.</EmptyState>
@@ -599,7 +623,7 @@ function MachinesScreen({
 }) {
   return (
     <>
-      <PageHeader title="Machines" description="Browse source equipment records and risk estimates where the model has enough data." actions={<span className="count-chip">{total} assets</span>} />
+      <PageHeader title="Equipment" description="Browse source equipment records and risk estimates where the model has enough data." actions={<span className="count-chip">{total} assets</span>} />
       <section className="panel table-panel">
         <div className="table-toolbar">
           <div className="filter-chips" aria-label="Filter by risk">
@@ -880,11 +904,62 @@ function ActivityScreen({ items }: { items: ActivityItem[] }) {
   )
 }
 
-function DataNotesScreen({ portfolio, savings }: { portfolio: Portfolio; savings: Savings }) {
+function DataNotesScreen({
+  portfolio,
+  savings,
+  files,
+  inputRef,
+  onFilesSelected,
+  onRemoveFile,
+  onClearFiles,
+}: {
+  portfolio: Portfolio
+  savings: Savings
+  files: File[]
+  inputRef: RefObject<HTMLInputElement | null>
+  onFilesSelected: (files: File[]) => void
+  onRemoveFile: (file: File) => void
+  onClearFiles: () => void
+}) {
   return (
     <>
-      <PageHeader title="Data notes" description="What is included in the imported source data and how this dashboard interprets it." />
+      <PageHeader title="Data notes & import" description="Review the current source data and prepare files for import." />
       <section className="demo-grid">
+        <article className="panel demo-card import-data-card">
+          <span className="demo-icon" aria-hidden="true">⇧</span>
+          <p className="overline">IMPORT DATA</p>
+          <h2>Select files to import</h2>
+          <p>Choose one or more files in any format. Data organization and Gemini processing will be added separately.</p>
+          <input
+            ref={inputRef}
+            id="import-files"
+            type="file"
+            multiple
+            hidden
+            onChange={(event) => {
+              onFilesSelected(Array.from(event.currentTarget.files ?? []))
+              event.currentTarget.value = ''
+            }}
+          />
+          <div className="import-file-actions">
+            <button className="primary-button" type="button" aria-controls="import-files" onClick={() => inputRef.current?.click()}>
+              Choose files <span aria-hidden="true">＋</span>
+            </button>
+            {files.length > 0 && <span className="import-file-count">{files.length} {files.length === 1 ? 'file' : 'files'} selected</span>}
+            {files.length > 0 && <button className="text-button" type="button" onClick={onClearFiles}>Clear all</button>}
+          </div>
+          {files.length > 0 && (
+            <ul className="import-file-list" aria-label="Selected files">
+              {files.map((file) => (
+                <li key={`${file.name}:${file.size}:${file.lastModified}`}>
+                  <span><strong>{file.name}</strong><small>{fileSize(file.size)}</small></span>
+                  <button type="button" aria-label={`Remove ${file.name}`} onClick={() => onRemoveFile(file)}>×</button>
+                </li>
+              ))}
+            </ul>
+          )}
+          <p className="import-note" role="status">Files stay in this browser and aren’t uploaded or processed yet.</p>
+        </article>
         <article className="panel demo-card">
           <span className="demo-icon" aria-hidden="true">▤</span>
           <p className="overline">IMPORTED DATA</p>
