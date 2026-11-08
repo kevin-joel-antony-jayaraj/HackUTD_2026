@@ -1,0 +1,247 @@
+{
+  "sites": [
+    {
+      "site_id": "D101",
+      "name": "Plano Market",
+      "type": "grocery",
+      "city": "Plano",
+      "region_id": "dallas",
+      "has_refrigeration": true,
+      "revenue_per_day_usd": 14000.0,
+      "lat": 33.0198,
+      "lon": -96.6989,
+      "flags": []
+    },
+    {
+      "site_id": "D102",
+      "name": "Richardson Branch",
+      "type": "bank branch",
+      "city": "Richardson",
+      "region_id": "dallas",
+      "has_refrigeration": false,
+      "revenue_per_day_usd": 5000.0,
+      "lat": 32.9483,
+      "lon": -96.7299,
+      "flags": []
+    },
+    {
+      "site_id": "H201",
+      "name": "Katy Clinic",
+      "type": "clinic",
+      "city": "Katy",
+      "region_id": "houston",
+      "has_refrigeration": false,
+      "revenue_per_day_usd": 8500.0,
+      "lat": 29.7858,
+      "lon": -95.8245,
+      "flags": []
+    }
+  ],
+  "assets": [
+    {
+      "asset_id": "D101-RTU1",
+      "site_id": "D101",
+      "asset_type": "rtu",
+      "install_date": "2011-04-12",
+      "install_date_estimated": false,
+      "make": "Carrier",
+      "model": "48TC",
+      "serial_number": "4811G20412",
+      "refrigerant": "R-410A",
+      "pm_interval_days": 90,
+      "flags": []
+    },
+    {
+      "asset_id": "D101-COOLER1",
+      "site_id": "D101",
+      "asset_type": "walk_in_cooler",
+      "install_date": "2009-07-01",
+      "install_date_estimated": true,
+      "make": "Heatcraft",
+      "model": "PTN",
+      "serial_number": null,
+      "refrigerant": "R-22",
+      "pm_interval_days": 90,
+      "flags": []
+    },
+    {
+      "asset_id": "D102-RTU1",
+      "site_id": "D102",
+      "asset_type": "rtu",
+      "install_date": "2019-06-01",
+      "install_date_estimated": false,
+      "make": "Trane",
+      "model": "YSC",
+      "serial_number": null,
+      "refrigerant": "R-410A",
+      "pm_interval_days": 90,
+      "flags": []
+    },
+    {
+      "asset_id": "H201-RTU1",
+      "site_id": "H201",
+      "asset_type": "rtu",
+      "install_date": "2008-08-20",
+      "install_date_estimated": false,
+      "make": "Lennox",
+      "model": "LGA",
+      "serial_number": null,
+      "refrigerant": "R-22",
+      "pm_interval_days": 90,
+      "flags": []
+    },
+    {
+      "asset_id": "H201-WH1",
+      "site_id": "H201",
+      "asset_type": "water_heater",
+      "install_date": "2016-01-15",
+      "install_date_estimated": false,
+      "make": "AO Smith",
+      "model": "BTH",
+      "serial_number": null,
+      "refrigerant": null,
+      "pm_interval_days": 90,
+      "flags": []
+    }
+  ],
+  "work_orders": [
+    {
+      "asset_id": "D101-RTU1",
+      "opened_at": "2026-10-02",
+      "kind": "repair",
+      "issue_category": "not_cooling",
+      "refrigerant_added": true,
+      "cost_usd": 450.0,
+      "note": "Found low charge. Added refrigerant 3 lbs.",
+      "source": "work_orders.csv",
+      "flags": []
+    },
+    {
+      "asset_id": "D101-RTU1",
+      "opened_at": "2026-10-20",
+      "kind": "emergency",
+      "issue_category": "not_cooling",
+      "refrigerant_added": true,
+      "cost_usd": 900.0,
+      "note": "leak suspected at coil; recharged",
+      "source": "work_orders.csv",
+      "flags": []
+    },
+    {
+      "asset_id": "D101-COOLER1",
+      "opened_at": "2026-09-15",
+      "kind": "repair",
+      "issue_category": "cooler_temp",
+      "refrigerant_added": false,
+      "cost_usd": 350.0,
+      "note": "replaced fan motor",
+      "source": "work_orders.csv",
+      "flags": []
+    },
+    {
+      "asset_id": "D101-COOLER1",
+      "opened_at": "2026-05-01",
+      "kind": "pm",
+      "issue_category": "other",
+      "refrigerant_added": false,
+      "cost_usd": 120.0,
+      "note": "quarterly PM",
+      "source": "work_orders.csv",
+      "flags": []
+    },
+    {
+      "asset_id": "H201-RTU1",
+      "opened_at": "2026-10-28",
+      "kind": "repair",
+      "issue_category": "short_cycling",
+      "refrigerant_added": false,
+      "cost_usd": -200.0,
+      "note": "replaced contactor",
+      "source": "work_orders.csv",
+      "flags": [
+        {
+          "warning": "negative cost -200.0 kept as-is (possible credit/refund); check before totalling spend",
+          "raw": -200.0
+        }
+      ]
+    }
+  ],
+  "rejected": [
+    {
+      "source": "sites.csv",
+      "raw": ",Unknown Store,retail,Austin,,N,,,",
+      "reason": "model: missing site_id"
+    },
+    {
+      "source": "assets.csv",
+      "raw": "H201-MYSTERY,H201,Elevator,2012-01-01,,,,",
+      "reason": "model: Unsupported equipment type: Elevator"
+    },
+    {
+      "source": "samples/assets.csv",
+      "raw": {
+        "asset_id": "X999-RTU1",
+        "site_id": "X999",
+        "asset_type": "rtu",
+        "install_date": "2015-01-01",
+        "install_date_estimated": false,
+        "make": "Carrier",
+        "model": null,
+        "serial_number": null,
+        "refrigerant": null,
+        "pm_interval_days": 90,
+        "flags": []
+      },
+      "reason": "unknown site_id X999"
+    },
+    {
+      "source": "work_orders.csv",
+      "raw": "H201-RTU1,H201,,Repair,warm,,$150,missing date",
+      "reason": "model: missing service date"
+    },
+    {
+      "source": "work_orders.csv",
+      "raw": {
+        "asset_id": "D102-RTU1",
+        "opened_at": "2027-03-01",
+        "kind": "repair",
+        "issue_category": "noise",
+        "refrigerant_added": false,
+        "cost_usd": 200,
+        "note": "future date typo"
+      },
+      "reason": "date in the future"
+    },
+    {
+      "source": "work_orders.csv",
+      "raw": {
+        "asset_id": "ZZZ-UNIT-9",
+        "opened_at": "2026-10-01",
+        "kind": "repair",
+        "issue_category": "noise",
+        "refrigerant_added": false,
+        "cost_usd": 150,
+        "note": "unknown unit"
+      },
+      "reason": "asset 'ZZZ-UNIT-9' not in the asset list"
+    }
+  ],
+  "warnings": [
+    {
+      "source": "work_orders.csv",
+      "record": "H201-RTU1 2026-10-28",
+      "warning": "negative cost -200.0 kept as-is (possible credit/refund); check before totalling spend"
+    }
+  ],
+  "meta": {
+    "model": "nvidia/nemotron-3-ultra-550b-a55b",
+    "extracted_at": "2026-11-08T15:50:12",
+    "counts": {
+      "sites": 3,
+      "assets": 5,
+      "work_orders": 5,
+      "rejected": 6,
+      "warnings": 1
+    }
+  }
+}
