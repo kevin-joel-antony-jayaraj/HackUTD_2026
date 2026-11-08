@@ -14,7 +14,12 @@ before the demo. They are isolated in `_send_text`.
 """
 from __future__ import annotations
 
+import json
 import os
+import urllib.request
+import uuid
+
+from .contacts import PENDING
 
 
 def _send_text(space_id: str, agent_id: str, text: str, idempotency_key: str) -> None:
@@ -31,6 +36,26 @@ def _send_text(space_id: str, agent_id: str, text: str, idempotency_key: str) ->
     )
 
 
+def _photon_post(path: str, body: dict) -> dict:
+    url = f"https://api.photon.codes/v1/projects/{os.environ['PHOTON_PROJECT_ID']}{path}"
+    req = urllib.request.Request(url, data=json.dumps(body).encode(), headers={
+        "Authorization": f"Bearer {os.environ['PHOTON_API_KEY']}", "Content-Type": "application/json",
+        "idempotency-key": str(uuid.uuid4())})
+    with urllib.request.urlopen(req, timeout=30) as resp:
+        return json.loads(resp.read())
+
+
+def _open_conversation(phone: str) -> tuple[str, str]:
+    """Start a conversation with a phone number that hasn't texted us (MANAGER_PHONE).
+    Shapes from Photon's 2.0 launch blog example; VERIFY against the API reference.
+    Fallback if it fails: that phone texts "JOIN all" to the Photon number once."""
+    platform = os.environ.get("PHOTON_PLATFORM", "sms")
+    agent_id = os.environ["PHOTON_AGENT_USER_ID"]  # your agent's User on this platform (Photon dashboard)
+    user = _photon_post("/users", {"platform": platform, "handle": phone})
+    space = _photon_post("/spaces", {"platform": platform, "participantIds": [agent_id, user["id"]]})
+    return space["id"], agent_id
+
+
 def send(store, kind: str, key: str, text: str, idempotency_key: str, dry_run: bool = True) -> dict:
     """kind = 'region' (manager) or 'site' (site contact)."""
     if store.message_exists(idempotency_key):
@@ -42,6 +67,10 @@ def send(store, kind: str, key: str, text: str, idempotency_key: str, dry_run: b
         res = {"sent": False, "dry_run": True, "to": contact["name"], "text": text}
     else:
         try:
+            if contact["space_id"].startswith(PENDING):
+                space_id, agent_id = _open_conversation(contact["phone"])
+                store.set_space_for_phone(contact["phone"], space_id, agent_id)
+                contact = {**contact, "space_id": space_id, "agent_id": agent_id}
             _send_text(contact["space_id"], contact["agent_id"], text, idempotency_key)
             res = {"sent": True, "to": contact["name"]}
         except Exception as e:  # log and let the agent see the failure

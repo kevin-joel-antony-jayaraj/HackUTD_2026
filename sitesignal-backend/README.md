@@ -88,6 +88,13 @@ see what was rejected at `GET /import/quarantine`.
 
 ## People and Photon
 
+**Quickest demo setup:** put two numbers in `.env` and they're used for every region, no JOIN texts:
+`MANAGER_PHONE` (work-order texts, approvals, problem reports) and `SERVICE_WORKER_PHONE` (urgent
+calls). The first real text opens a Photon conversation with the manager's number, which needs
+`PHOTON_AGENT_USER_ID` (your agent's User id in Photon); the request shapes come from Photon's
+2.0 launch blog, so verify them. If it fails, text `JOIN all` from the manager's phone to the
+Photon number once. Without these variables, register people per region as below.
+
 1. In Photon's dashboard, point a webhook at `https://<your-api>/photon/webhook` and copy its
    `whsec_...` secret into `PHOTON_WEBHOOK_SECRET`. (No public URL yet? Run
    `python -m sitesignal.jobs poll` instead; it uses Photon's list_messages.)

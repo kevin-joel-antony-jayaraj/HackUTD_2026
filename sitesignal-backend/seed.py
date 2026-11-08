@@ -146,6 +146,9 @@ def seed(db, today: date, seed_value: int = 7) -> None:
                 _history(db, aid, today, rng.randint(200, 700), "repair", issue, False, note)
 
     _backfill_risk(db, today)
+    from sitesignal.contacts import apply_from_env
+    from sitesignal.store import Store
+    apply_from_env(Store(db))
 
 
 def _history(db, asset_id, today, days_ago, kind, issue, recharge, note) -> None:

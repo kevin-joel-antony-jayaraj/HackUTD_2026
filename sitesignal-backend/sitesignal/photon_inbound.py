@@ -100,7 +100,7 @@ def _list_received(since_iso: str, page_token: str | None):
 
     photon = Photon(api_key=os.environ["PHOTON_API_KEY"])
     kwargs = dict(createdSince=since_iso, direction="received", order="asc", pageSize=100,
-                  platform=os.environ.get("PHOTON_PLATFORM", "imessage"))
+                  platform=os.environ.get("PHOTON_PLATFORM", "sms"))
     if page_token:
         kwargs["pageToken"] = page_token
     page = photon.projects.list_messages(os.environ["PHOTON_PROJECT_ID"], **kwargs)

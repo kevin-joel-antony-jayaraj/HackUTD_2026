@@ -25,6 +25,11 @@ def handle_inbound(text: str, space_id: str, agent_id: str, tb: Toolbox, brain=N
     s, t = tb.s, text.strip()
 
     # 1. Registration: "JOIN dallas" (manager), "JOIN tech dallas" (service worker), "JOIN site S010"
+    if re.fullmatch(r"JOIN\s+all", t, re.I):
+        regions = [r["region_id"] for r in s.db.query("SELECT region_id FROM regions")]
+        for region in regions:
+            s.upsert_contact("region", region, f"{region.title()} manager", space_id, agent_id)
+        return {"registered": "region", "keys": regions}
     if m := re.fullmatch(r"JOIN\s+(?:tech|worker|technician)\s+(\w+)", t, re.I):
         s.upsert_contact("worker", m.group(1), f"{m.group(1).title()} service worker", space_id, agent_id)
         return {"registered": "worker", "key": m.group(1)}
@@ -50,7 +55,7 @@ def handle_inbound(text: str, space_id: str, agent_id: str, tb: Toolbox, brain=N
 
     # 3. A report about equipment: from the region's manager (who names the site) or a site contact
     if contact["kind"] == "region":
-        site_id = _which_site(s, contact["key"], t)
+        site_id = _which_site(s, s.regions_for_space(space_id) or [contact["key"]], t)
         if site_id is None:
             return {"ignored": "couldn't tell which site the message is about; name the site or its area"}
     else:
@@ -72,12 +77,12 @@ def handle_inbound(text: str, space_id: str, agent_id: str, tb: Toolbox, brain=N
     return result
 
 
-def _which_site(s, region_id: str, text: str) -> str | None:
+def _which_site(s, regions: list[str], text: str) -> str | None:
     """The site a manager's text is about: its ID, or the most specific match on its name or city.
     Ambiguous (e.g. just "Houston" with two Houston sites) -> None."""
     low = text.lower()
     best, best_len = [], 0
-    for site in s.region_sites(region_id):
+    for site in (site for region in regions for site in s.region_sites(region)):
         if re.search(rf"\b{site['site_id'].lower()}\b", low):
             return site["site_id"]
         words = [w for w in site["name"].lower().split() if w not in GENERIC_NAME_WORDS]

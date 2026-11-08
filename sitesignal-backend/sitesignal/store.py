@@ -38,6 +38,25 @@ class Store:
         rows = self.db.query("SELECT site_id FROM assets WHERE asset_id = %s", (asset_id,))
         return rows[0]["site_id"] if rows else None
 
+    def upsert_phone_contact(self, kind, key, name, phone, space_id, agent_id) -> None:
+        """Register a contact by phone; an already-open conversation for the same phone is kept."""
+        self.db.query(
+            "INSERT INTO contacts (kind, key, name, space_id, agent_id, phone) VALUES (%s, lower(%s), %s, %s, %s, %s) "
+            "ON CONFLICT (kind, key) DO UPDATE SET name = EXCLUDED.name, phone = EXCLUDED.phone, "
+            "space_id = CASE WHEN contacts.phone IS NOT DISTINCT FROM EXCLUDED.phone "
+            "                AND contacts.space_id NOT LIKE 'pending:%%' THEN contacts.space_id ELSE EXCLUDED.space_id END, "
+            "agent_id = CASE WHEN contacts.phone IS NOT DISTINCT FROM EXCLUDED.phone "
+            "                AND contacts.agent_id <> '' THEN contacts.agent_id ELSE EXCLUDED.agent_id END",
+            (kind, key, name, space_id, agent_id, phone))
+
+    def set_space_for_phone(self, phone: str, space_id: str, agent_id: str) -> None:
+        self.db.query("UPDATE contacts SET space_id = %s, agent_id = %s WHERE kind = 'region' AND phone = %s",
+                      (space_id, agent_id, phone))
+
+    def regions_for_space(self, space_id: str) -> list[str]:
+        return [r["key"] for r in self.db.query(
+            "SELECT key FROM contacts WHERE kind = 'region' AND space_id = %s ORDER BY key", (space_id,))]
+
     def region_sites(self, region_id: str) -> list[dict]:
         return self.db.query("SELECT site_id, name, city FROM sites WHERE region_id = lower(%s)", (region_id,))
 

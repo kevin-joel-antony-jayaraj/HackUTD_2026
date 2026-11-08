@@ -31,6 +31,8 @@ db: Database | None = None
 async def lifespan(_: FastAPI):
     global db
     db = Database()
+    from sitesignal.contacts import apply_from_env
+    apply_from_env(Store(db))
     task = asyncio.create_task(scheduler.loop(db)) if os.environ.get("SCHEDULER", "on") == "on" else None
     yield
     if task:
