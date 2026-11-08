@@ -121,7 +121,9 @@ def poll_forever(tb: Toolbox, interval_s: float = 2.0, brain=None) -> None:
                 for raw in messages:
                     m = extract_message(raw)
                     if m:
-                        print(m["text"][:80], "->", process_message(tb, m, brain))
+                        result = process_message(tb, m, brain)
+                        if "skipped" not in result:  # createdSince is inclusive: the newest message repeats
+                            print(m["text"][:80], "->", result)
                     created = raw.get("createdAt")
                     if created and str(created) > since:
                         since = str(created)
