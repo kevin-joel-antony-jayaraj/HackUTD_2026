@@ -12,3 +12,6 @@ frontend/dist/
 
 # OS
 .DS_Store
+
+# demo logs
+logs/
