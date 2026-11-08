@@ -1,4 +1,4 @@
--- SiteSignal schema. Works on plain Postgres 14+; on Tiger Data (TimescaleDB) the
+-- PenguinRE schema. Works on plain Postgres 14+; on Tiger Data (TimescaleDB) the
 -- time-series tables become hypertables automatically (see the DO block at the end).
 -- Run:  psql "$DATABASE_URL" -f db/schema.sql
 

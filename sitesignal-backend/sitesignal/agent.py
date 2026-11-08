@@ -19,7 +19,7 @@ from .tools import DECLARATIONS, Toolbox
 MODEL = os.environ.get("GEMINI_MODEL", "gemini-3.8-flash")
 API = "https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent"
 
-SYSTEM_PROMPT = """You are SiteSignal, the maintenance planner for a portfolio of small commercial
+SYSTEM_PROMPT = """You are PenguinRE, the maintenance planner for a portfolio of small commercial
 sites (stores, branches, clinics) that have no building sensors. You prevent equipment failures
 by acting on a failure-risk model that combines equipment age (Weibull curve), work-order
 history and the weather forecast into a probability of failure in the next 30 days.
@@ -27,12 +27,12 @@ history and the weather forecast into a probability of failure in the next 30 da
 How to work:
 1. Start a sweep with list_flagged_assets(min_tier="medium").
 2. For each flagged asset, read get_risk_snapshot before deciding anything.
-3. Decide per asset:
-   - high tier: create_work_order, then notify_service_manager with a short text that names the
-     site, the unit, the likely issue, the deadline and why (cite the probability and top drivers).
-   - medium tier: if the site holds refrigerated inventory or the forecast shows heat, ask the site
-     manager to confirm with text_site_manager, and add_to_dashboard as waiting_on_site.
-     Otherwise add_to_dashboard as watch.
+3. Decide per asset. Every medium or high asset gets a work order texted to its service manager:
+   create_work_order, then notify_service_manager with a short text that names the site, the unit,
+   the likely issue, the deadline and why (cite the probability and top drivers).
+   - high tier: urgency "48h". (The system also phones the service manager about the single
+     riskiest asset after your sweep; you don't need to do anything for that.)
+   - medium tier: urgency "this_week".
    - skip assets that already have an open work order (mention them in your summary).
 4. When an event arrives (a manager's reply or a field report), handle just that event:
    APPROVE/HOLD -> update_work_order; a "not working" report -> re-read the snapshot and act on
@@ -131,25 +131,16 @@ class MockBrain:
             hot = [d["date"] for d in res["forecast_next_7_days"] if d["max_f"] >= 95]
             leak = any(d["factor"] == "refrigerant_recharges_180d" for d in r["drivers"])
             issue = "probable refrigerant leak" if leak else "end-of-life wear"
-            if r["tier"] == "high":
+            if r["tier"] in ("high", "medium"):
                 self.pending[a["asset_id"]] = (s["name"], pct, issue, hot)
                 self.queue.append(self._call(
-                    "create_work_order", asset_id=a["asset_id"], urgency="48h", likely_issue=issue,
+                    "create_work_order", asset_id=a["asset_id"],
+                    urgency="48h" if r["tier"] == "high" else "this_week", likely_issue=issue,
                     tasks=(["leak check and repair", "clean condenser coil", "replace filter"] if leak
                            else ["full inspection", "check capacitor and contactor", "replace filter"]),
                     do_by=hot[0] if hot else res["forecast_next_7_days"][-1]["date"],
                     reason=f"{pct}% failure risk in 30 days; drivers: "
                            + ", ".join(d["factor"] for d in r["drivers"][:3])))
-            elif s["has_refrigerated_inventory"] or hot:
-                self.queue.append(self._call(
-                    "text_site_manager", site_id=s["site_id"], asset_id=a["asset_id"],
-                    question=f"Quick check on your {a['type'].replace('_', ' ')}: is it running and "
-                             f"cooling normally today? Reply Y or N"))
-                self.queue.append(self._call("add_to_dashboard", asset_id=a["asset_id"],
-                                             status="waiting_on_site", note=f"{pct}% risk, asked site to confirm"))
-            else:
-                self.queue.append(self._call("add_to_dashboard", asset_id=a["asset_id"], status="watch",
-                                             note=f"{pct}% risk, no heat or inventory exposure"))
         elif name == "create_work_order":
             aid = res["asset_id"]
             site, pct, issue, hot = self.pending[aid]
@@ -168,7 +159,7 @@ class MockBrain:
 
 
 # ---------------------------------------------------------------------------
-def run_agent(task: str, toolbox: Toolbox, brain=None, max_steps: int = 40) -> dict:
+def run_agent(task: str, toolbox: Toolbox, brain=None, max_steps: int = 60) -> dict:
     brain = brain or (MockBrain() if os.environ.get("BRAIN") == "mock" else GeminiBrain())
     toolbox.run_id = toolbox.s.start_run(task[:500])
     toolbox.texts_sent, toolbox.checked_in = 0, set()  # limits are per run
@@ -197,12 +188,12 @@ def run_agent(task: str, toolbox: Toolbox, brain=None, max_steps: int = 40) -> d
 
 
 def safety_net(tb: Toolbox) -> list[str]:
-    """After a sweep, no high-risk asset may be left without a work order.
+    """After a sweep, no medium- or high-risk asset may be left without a work order.
     Anything the agent missed is recorded for a human, not silently texted."""
     missed = []
     for aid, facts in tb.s.features().items():
         _, r, t = tb._risk(aid, facts)
-        if t == "high" and not tb.s.open_wo_for(aid):
-            tb.s.add_dashboard(aid, "needs_review", "high risk but agent created no work order", r.prob, t)
+        if t in ("high", "medium") and not tb.s.open_wo_for(aid):
+            tb.s.add_dashboard(aid, "needs_review", f"{t} risk but agent created no work order", r.prob, t)
             missed.append(aid)
     return missed

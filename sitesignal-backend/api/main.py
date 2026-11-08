@@ -1,4 +1,4 @@
-"""SiteSignal API (FastAPI).
+"""PenguinRE API (FastAPI).
 
     uvicorn api.main:app --reload            # local
 Docs at /docs once running.
@@ -37,7 +37,7 @@ async def lifespan(_: FastAPI):
         task.cancel()
 
 
-app = FastAPI(title="SiteSignal API", lifespan=lifespan)
+app = FastAPI(title="PenguinRE API", lifespan=lifespan)
 app.add_middleware(CORSMiddleware, allow_origins=os.environ.get("FRONTEND_ORIGIN", "*").split(","),
                    allow_methods=["*"], allow_headers=["*"])
 

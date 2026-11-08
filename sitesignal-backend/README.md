@@ -1,4 +1,4 @@
-# SiteSignal
+# PenguinRE
 
 Prevents equipment failures at small commercial sites with no building sensors.
 A risk model (Weibull age curve x work-order history x weather forecast) scores every

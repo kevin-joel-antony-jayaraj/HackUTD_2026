@@ -67,7 +67,7 @@ def build_script(asset: dict, site: dict, work_order_id: str | None) -> str:
     unit = ASSET_NAMES.get(asset["asset_type"], asset["asset_type"].replace("_", " "))
     reasons = [DRIVER_PHRASES[f] for f in asset["drivers"] if f in DRIVER_PHRASES][:2]
     where = site["name"] + (f" in {site['city']}" if site.get("city") else "")
-    script = (f"This is SiteSignal with an urgent maintenance alert. "
+    script = (f"This is PenguinRE with an urgent maintenance alert. "
               f"The {unit} at {where} has an estimated {pct} percent chance of failing in the next 30 days")
     script += f", because {' and '.join(reasons)}. " if reasons else ". "
     if work_order_id:
