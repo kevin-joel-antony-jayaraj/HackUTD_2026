@@ -575,7 +575,7 @@ function OverviewScreen({
       <section className="overview-lower">
         <article className="panel savings-panel">
           <div className="section-heading">
-            <div><p className="overline">SOURCE INVOICES</p><h2>Recorded service spend</h2></div>
+            <div><p className="overline">SOURCE INVOICES</p><h2>Estimated service spend</h2></div>
             <span className="savings-icon" aria-hidden="true">$</span>
           </div>
           <p className="savings-amount">{money(savings.historical_service_spend_usd)}</p>
