@@ -540,14 +540,14 @@ function OverviewScreen({
   onViewMachines: () => void
 }) {
   const { portfolio, savings } = data
+  const highRiskAssets = attentionAssets.filter((asset) => asset.tier === 'high').length
+  const mediumRiskAssets = attentionAssets.filter((asset) => asset.tier === 'medium').length
   return (
     <>
       <PageHeader title="Portfolio Overview" description="Sites, equipment, and service history from the imported source files." actions={<span className="today-chip">{longDate(TODAY)}</span>} />
       <section className="stats-grid" aria-label="Portfolio Summary">
         <StatCard label="Sites" value={portfolio.sites.toLocaleString()} note="Imported locations" icon="⌂" />
         <StatCard label="Equipment Assets" value={portfolio.machines.toLocaleString()} note={`${portfolio.supported_assets.toLocaleString()} supported by the risk model`} icon="▦" />
-        <StatCard label="High Risk" value={portfolio.high_risk_count.toLocaleString()} note="Calculated from age and repair history" icon="▲" />
-        <StatCard label="Medium Risk" value={portfolio.medium_risk_count.toLocaleString()} note="Calculated from age and repair history" icon="!" />
         <StatCard label="Service Records" value={portfolio.service_records.toLocaleString()} note={`Latest: ${shortDate(portfolio.latest_service_date)}`} icon="☷" />
       </section>
 
@@ -568,22 +568,37 @@ function OverviewScreen({
 
         <article className="panel attention-panel">
           <div className="section-heading">
-            <div><p className="overline">PRIORITIZED QUEUE</p><h2>Needs Attention</h2></div>
+            <div><p className="overline">EQUIPMENT RISK</p><h2>Needs Attention</h2></div>
             <button type="button" className="text-button" onClick={onViewMachines}>View Equipment <span>→</span></button>
           </div>
+          <p className="attention-description">
+            {attentionAssets.length === 0
+              ? 'No equipment is currently rated high or medium risk.'
+              : `${attentionAssets.length} high- or medium-risk ${attentionAssets.length === 1 ? 'asset' : 'assets'}, sorted by estimated 30-day failure risk.`}
+          </p>
+          {attentionAssets.length > 0 && (
+            <div className="attention-counts">
+              <span className="attention-count high"><span aria-hidden="true">▲</span> {highRiskAssets} high</span>
+              <span className="attention-count medium"><span aria-hidden="true">!</span> {mediumRiskAssets} medium</span>
+              <span className="attention-hint">Select an item for details</span>
+            </div>
+          )}
           {attentionAssets.length === 0 ? (
-            <EmptyState>No high- or medium-risk machines need attention.</EmptyState>
+            <EmptyState>Equipment rated low risk or with insufficient data is not listed here.</EmptyState>
           ) : (
             <div className="attention-list">
               {attentionAssets.slice(0, 5).map((asset) => (
                 <button className="attention-row" type="button" key={asset.id} onClick={() => onOpenMachine(asset.id)}>
-                  <span className={`attention-mark ${asset.tier || 'none'}`}>{asset.tier === 'high' ? '▲' : '!'}</span>
+                  <span className={`attention-mark ${asset.tier || 'none'}`} aria-label={`${asset.tier} risk`}>{asset.tier === 'high' ? '▲' : '!'}</span>
                   <span className="attention-main">
                     <strong>{machineName(asset)} <small>· {asset.site_name}</small></strong>
                     <span>{asset.main_reason}</span>
                     <small>Last service: {shortDate(asset.last_service_date)}</small>
                   </span>
-                  <span className="attention-risk">{percent(asset.prob)}<small>30-day risk</small></span>
+                  <span className="attention-risk">
+                    <small className={`attention-tier ${asset.tier}`}>{asset.tier === 'high' ? 'High Risk' : 'Medium Risk'}</small>
+                    {percent(asset.prob)}<small>30-day failure chance</small>
+                  </span>
                   <span className="row-chevron" aria-hidden="true">›</span>
                 </button>
               ))}
