@@ -60,7 +60,7 @@ const DRIVER_LABELS: Record<string, string> = {
 const NAV_ITEMS: Array<{ id: Screen; label: string; icon: string }> = [
   { id: 'overview', label: 'Overview', icon: '⌂' },
   { id: 'machines', label: 'Equipment', icon: '▦' },
-  { id: 'work-orders', label: 'Service history', icon: '☷' },
+  { id: 'work-orders', label: 'Service History', icon: '☷' },
   { id: 'activity', label: 'Activity', icon: '◷' },
   { id: 'data-notes', label: 'Data notes', icon: 'ⓘ' },
 ]
@@ -542,13 +542,13 @@ function OverviewScreen({
   const { portfolio, savings } = data
   return (
     <>
-      <PageHeader title="Portfolio overview" description="Sites, equipment, and service history from the imported source files." actions={<span className="today-chip">{longDate(TODAY)}</span>} />
-      <section className="stats-grid" aria-label="Portfolio summary">
+      <PageHeader title="Portfolio Overview" description="Sites, equipment, and service history from the imported source files." actions={<span className="today-chip">{longDate(TODAY)}</span>} />
+      <section className="stats-grid" aria-label="Portfolio Summary">
         <StatCard label="Sites" value={portfolio.sites.toLocaleString()} note="Imported locations" icon="⌂" />
-        <StatCard label="Equipment assets" value={portfolio.machines.toLocaleString()} note={`${portfolio.supported_assets.toLocaleString()} supported by the risk model`} icon="▦" />
-        <StatCard label="High risk" value={portfolio.high_risk_count.toLocaleString()} note="Calculated from age and repair history" icon="▲" />
-        <StatCard label="Medium risk" value={portfolio.medium_risk_count.toLocaleString()} note="Calculated from age and repair history" icon="!" />
-        <StatCard label="Service records" value={portfolio.service_records.toLocaleString()} note={`Latest: ${shortDate(portfolio.latest_service_date)}`} icon="☷" />
+        <StatCard label="Equipment Assets" value={portfolio.machines.toLocaleString()} note={`${portfolio.supported_assets.toLocaleString()} supported by the risk model`} icon="▦" />
+        <StatCard label="High Risk" value={portfolio.high_risk_count.toLocaleString()} note="Calculated from age and repair history" icon="▲" />
+        <StatCard label="Medium Risk" value={portfolio.medium_risk_count.toLocaleString()} note="Calculated from age and repair history" icon="!" />
+        <StatCard label="Service Records" value={portfolio.service_records.toLocaleString()} note={`Latest: ${shortDate(portfolio.latest_service_date)}`} icon="☷" />
       </section>
 
       <section className="overview-lower">
@@ -568,8 +568,8 @@ function OverviewScreen({
 
         <article className="panel attention-panel">
           <div className="section-heading">
-            <div><p className="overline">PRIORITIZED QUEUE</p><h2>Needs attention</h2></div>
-            <button type="button" className="text-button" onClick={onViewMachines}>View equipment <span>→</span></button>
+            <div><p className="overline">PRIORITIZED QUEUE</p><h2>Needs Attention</h2></div>
+            <button type="button" className="text-button" onClick={onViewMachines}>View Equipment <span>→</span></button>
           </div>
           {attentionAssets.length === 0 ? (
             <EmptyState>No high- or medium-risk machines need attention.</EmptyState>
@@ -835,7 +835,7 @@ function WorkOrdersScreen({
 
   return (
     <>
-      <PageHeader title="Service history" description="Historical maintenance records imported from the work-order CSV." actions={<span className="count-chip">{workOrders.length.toLocaleString()} records</span>} />
+      <PageHeader title="Service History" description="Historical maintenance records imported from the work-order CSV." actions={<span className="count-chip">{workOrders.length.toLocaleString()} records</span>} />
       <section className="panel table-panel">
         {workOrders.length === 0 ? <EmptyState>No service history is available in the source files.</EmptyState> : (
           <>
@@ -943,7 +943,7 @@ function DataNotesScreen({
           />
           <div className="import-file-actions">
             <button className="primary-button" type="button" aria-controls="import-files" onClick={() => inputRef.current?.click()}>
-              Choose files <span aria-hidden="true">＋</span>
+              Choose Files <span aria-hidden="true">＋</span>
             </button>
             {files.length > 0 && <span className="import-file-count">{files.length} {files.length === 1 ? 'file' : 'files'} selected</span>}
             {files.length > 0 && <button className="text-button" type="button" onClick={onClearFiles}>Clear all</button>}

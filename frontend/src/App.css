@@ -52,6 +52,7 @@
   font-size: 27px;
   font-weight: 720;
   letter-spacing: -0.8px;
+  text-transform: capitalize;
 }
 
 .login-title-accent {
@@ -602,6 +603,7 @@
   font-weight: 700;
   letter-spacing: -0.8px;
   line-height: 1.2;
+  text-transform: capitalize;
 }
 
 .page-header > div > p:last-child {
@@ -657,6 +659,7 @@
   color: var(--text-secondary);
   font-size: 10px;
   font-weight: 550;
+  text-transform: capitalize;
 }
 
 .stat-heading .nav-icon {
@@ -710,6 +713,7 @@
   font-size: 14px;
   font-weight: 680;
   letter-spacing: -0.25px;
+  text-transform: capitalize;
 }
 
 .savings-icon,
@@ -1891,14 +1895,22 @@
 
 .import-data-card {
   min-height: 0;
+  display: flex;
+  flex-direction: column;
   grid-column: 1 / -1;
 }
 
 .import-file-actions {
   display: flex;
   align-items: center;
+  justify-content: flex-start;
   flex-wrap: wrap;
   gap: 10px;
+}
+
+.demo-card.import-data-card > p:not(.overline):not(.import-note) {
+  min-height: 0;
+  margin-bottom: 8px;
 }
 
 .import-file-count,
@@ -1907,8 +1919,10 @@
   font-size: 9px;
 }
 
-.import-note {
-  margin: 12px 0 0;
+.import-data-card > .import-note {
+  min-height: 0;
+  margin: 8px 0 0;
+  text-align: left;
 }
 
 .import-file-list {
@@ -1984,9 +1998,10 @@
   color: var(--text);
   font-size: 16px;
   font-weight: 680;
+  text-transform: capitalize;
 }
 
-.demo-card > p:not(.overline) {
+.demo-card > p:not(.overline):not(.import-note) {
   min-height: 50px;
   margin: 0 0 16px;
   color: var(--text-secondary);
