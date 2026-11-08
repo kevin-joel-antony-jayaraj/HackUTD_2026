@@ -35,7 +35,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse
 
 from sitesignal import decide as decide_mod
-from sitesignal import extract, load_pg, safety_index, weather_nws
+from sitesignal import extract, fast_extract, load_pg, safety_index, weather_nws
 
 ROOT = Path(__file__).resolve().parent.parent
 SAMPLES = ROOT / "samples"
@@ -112,18 +112,29 @@ def run_pipeline(job: dict, files: dict[str, Path]):
         ensure_schema()
         new = {"sites": [], "assets": [], "work_orders": [], "rejected": [], "warnings": []}
 
-        # 1. extract (only the kinds that were uploaded), validated against the DB as well as this upload
+        # 1. extract (only the kinds that were uploaded), validated against the DB as well as this upload.
+        #    Tabular files: one Nemotron call per file maps the columns (all files in parallel), code converts
+        #    every row. Free-text files: row-by-row reading (slower).
         _step(job, "extract", files=sorted(files))
         if files:
             if not os.environ.get("NVIDIA_API_KEY"):
                 raise RuntimeError("NVIDIA_API_KEY is not set on the server, so uploaded files cannot be read.")
             db = bundle_from_db()
+            tab = {k: p for k, p in files.items() if fast_extract.is_tabular(str(p))}
+            with ThreadPoolExecutor(max_workers=3) as pool:
+                plans = dict(zip(tab, pool.map(lambda kp: fast_extract.plan(kp[0], str(kp[1])), tab.items())))
+
+            def read(kind, ctx=None):
+                if kind in plans:
+                    return fast_extract.apply(kind, str(files[kind]), plans[kind], ctx)
+                return extract.extract_file(kind, str(files[kind]), ctx)
+
             if "sites" in files:
-                r = extract.extract_file("sites", str(files["sites"]))
+                r = read("sites")
                 new["sites"], new["rejected"], new["warnings"] = r["rows"], r["rejected"], r["warnings"]
             known_sites = {s["site_id"] for s in db["sites"]} | {s["site_id"] for s in new["sites"]}
             if "assets" in files:
-                r = extract.extract_file("assets", str(files["assets"]))
+                r = read("assets")
                 for a in r["rows"]:   # foreign key: an asset must belong to a known site
                     if a["site_id"] in known_sites:
                         new["assets"].append(a)
@@ -135,9 +146,10 @@ def run_pipeline(job: dict, files: dict[str, Path]):
                 known_assets = [a["asset_id"] for a in db["assets"]] + [a["asset_id"] for a in new["assets"]]
                 if not known_assets:
                     raise RuntimeError("No assets known yet: upload the asset list before work orders.")
-                r = extract.extract_file("work_orders", str(files["work_orders"]), {"asset_ids": known_assets})
+                r = read("work_orders", {"asset_ids": known_assets})
                 new["work_orders"] = r["rows"]
                 new["rejected"] += r["rejected"]; new["warnings"] += r["warnings"]
+            job["column_mappings"] = {k: v.get("columns") for k, v in plans.items()}
         _done(job, "extract", **{k: len(v) for k, v in new.items()})
 
         # 2. load the new rows
@@ -151,19 +163,25 @@ def run_pipeline(job: dict, files: dict[str, Path]):
         portfolio = bundle_from_db()
         weather, failed = {}, []
         located = [s for s in portfolio["sites"] if s.get("lat") is not None and s.get("lon") is not None]
+        fresh = q("""SELECT site_id, array_agg(max_temp_f ORDER BY forecast_date) AS temps FROM weather_forecasts
+                     WHERE forecast_date >= current_date AND fetched_at > now() - interval '6 hours'
+                     GROUP BY site_id HAVING count(*) >= 5""")
+        for r in fresh:                                           # forecasts barely change within hours: reuse
+            weather[r["site_id"]] = [float(t) for t in r["temps"]][:7]
+        located = [s for s in located if s["site_id"] not in weather]
 
         def fetch(site):
             try:
                 return site["site_id"], weather_nws.forecast_highs(site["lat"], site["lon"]), None
             except Exception as e:
                 return site["site_id"], None, str(e)[:200]
-        with ThreadPoolExecutor(max_workers=8) as pool:           # NWS is free; 8 at a time is polite
+        with ThreadPoolExecutor(max_workers=20) as pool:          # NWS is free and fast
             for sid, temps, err in pool.map(fetch, located):
                 if err:
                     failed.append({"site_id": sid, "error": err})
                 else:
                     weather[sid] = temps
-        _done(job, "weather", sites=len(weather), failed=failed)
+        _done(job, "weather", sites=len(weather), reused=len(fresh), failed=failed)
 
         # 4. score the whole portfolio and store the run
         _step(job, "score")

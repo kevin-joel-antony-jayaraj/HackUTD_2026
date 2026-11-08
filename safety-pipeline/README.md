@@ -41,11 +41,16 @@ are at http://localhost:8000/docs.
 | `POST /admin/reset` | Empty all tables (for demos). |
 | `GET /health` | Database and Nemotron key status. |
 
-**Speed:** almost all the time is spent waiting on Nemotron. File chunks and sites run in parallel,
-capped by `NEMOTRON_MAX_CONCURRENCY` (default 4) so the key's rate limit isn't exceeded. Rate-limit
-errors (429) back off and retry. Sites where every machine has only one allowed action are decided by
-code without a model call. The demo page shows the ranking as soon as scoring finishes, before the
-decisions are done.
+**Speed:** measured at 14–23 seconds from upload to stored decisions for 30 sites (110 machines,
+152 work orders). The run makes about 11 Nemotron calls, whatever the file size:
+- **Extraction:** one call per tabular file maps the columns (`fast_extract.py`), and code converts and
+  validates every row. Free-text files fall back to row-by-row reading, which is slower.
+- **Decisions:** machines with only one allowed action, and healthy, well-documented ones, are decided
+  by code. The rest go to Nemotron in batches of 25, two independent runs per batch, all at once. The
+  model answers in a compact code format (`[i, "W", "T", 1]`), and code writes all the text.
+- **Rate limit:** never more than `NEMOTRON_RPM` requests per minute (default 35). The pipeline waits
+  instead of triggering 429 errors. NVIDIA doesn't publish the limit in its responses; the commonly
+  cited free tier is 40 per minute.
 
 Without an NVIDIA key, uploads stop with a clear error. Re-scoring still works, and decisions use the
 rule-based defaults.
@@ -93,6 +98,7 @@ python -m sitesignal.decide            # add --dry-run to print without saving
 
 | File | Role |
 |---|---|
+| `sitesignal/fast_extract.py` | Tabular files: one Nemotron call maps the columns; code converts and validates every row. |
 | `sitesignal/extract.py` | Nemotron (`nemotron-3-ultra-550b-a55b`, falls back to `nemotron-3.5-lightning-30b-a3b`) reads messy input. Code validates every row: enums, dates, IDs, foreign keys, dedupe. Bad rows go to `rejected` with a reason. Every change made while cleaning is kept in the row's `flags`, with the original value. Negative costs are kept, since they may be credits, and flagged. |
 | `sitesignal/weather_nws.py` | 7-day forecast highs per site from the US National Weather Service (free, no key). |
 | `sitesignal/safety_index.py` | Score from 0 to 100, where 100 is safest. Every point lost is tied to a named driver. `confidence` is separate from the score. Missing install date gives `unknown`, never "safe". No work-order history caps the score at 85. Constraints such as `DO_NOT_DEFER_WITHOUT_HUMAN_REVIEW` are computed in code. |

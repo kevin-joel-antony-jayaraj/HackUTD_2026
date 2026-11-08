@@ -37,7 +37,30 @@ CHUNK_ROWS = int(os.environ.get("EXTRACT_CHUNK_ROWS", "25"))
 EXTRACT_CONCURRENCY = int(os.environ.get("EXTRACT_CONCURRENCY", "4"))      # chunks of one file read in parallel
 # Hard cap on simultaneous Nemotron requests across the whole process (all threads), so parallel
 # extraction and parallel site decisions cannot exceed the key's rate limit. Tune to your NVIDIA tier.
-_NEMOTRON_SLOTS = threading.BoundedSemaphore(int(os.environ.get("NEMOTRON_MAX_CONCURRENCY", "4")))
+_NEMOTRON_SLOTS = threading.BoundedSemaphore(int(os.environ.get("NEMOTRON_MAX_CONCURRENCY", "10")))
+
+
+class _RateLimiter:
+    """Never send more than `rpm` Nemotron requests in any 60-second window (all threads together).
+    Waiting here is how we avoid 429 'Too Many Requests' instead of bouncing off it. NVIDIA does not
+    return rate-limit headers; 35/min sits under the commonly cited 40/min free-tier limit."""
+
+    def __init__(self, rpm: int):
+        self.rpm, self.sent, self.lock = rpm, [], threading.Lock()
+
+    def wait(self):
+        while True:
+            with self.lock:
+                now = time.monotonic()
+                self.sent = [t for t in self.sent if now - t < 60]
+                if len(self.sent) < self.rpm:
+                    self.sent.append(now)
+                    return
+                pause = 60 - (now - self.sent[0]) + 0.05
+            time.sleep(pause)
+
+
+_RATE = _RateLimiter(int(os.environ.get("NEMOTRON_RPM", "35")))
 
 ASSET_TYPES = {"rtu", "walk_in_cooler", "water_heater"}
 WO_KINDS = {"repair", "emergency", "pm", "inspection"}
@@ -166,6 +189,7 @@ def call_nemotron(system: str, user: str, retries: int = 3) -> str:
             req = urllib.request.Request(
                 API_URL, data=json.dumps(body).encode(),
                 headers={"Authorization": f"Bearer {key}", "Content-Type": "application/json"})
+            _RATE.wait()                                   # stay under the per-minute limit
             try:
                 with _NEMOTRON_SLOTS, urllib.request.urlopen(req, timeout=170) as resp:
                     return _read_stream(resp)
