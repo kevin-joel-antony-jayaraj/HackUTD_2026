@@ -49,6 +49,9 @@ class Store:
             "                AND contacts.agent_id <> '' THEN contacts.agent_id ELSE EXCLUDED.agent_id END",
             (kind, key, name, space_id, agent_id, phone))
 
+    def has_phone_contact(self, phone: str) -> bool:
+        return bool(self.db.query("SELECT 1 FROM contacts WHERE kind = 'region' AND phone = %s", (phone,)))
+
     def set_space_for_phone(self, phone: str, space_id: str, agent_id: str) -> None:
         self.db.query("UPDATE contacts SET space_id = %s, agent_id = %s WHERE kind = 'region' AND phone = %s",
                       (space_id, agent_id, phone))

@@ -20,7 +20,7 @@ texts each region's manager and calls its service worker; everything lives in **
 ```bash
 pip install -r requirements.txt
 cp .env.example .env            # fill in DATABASE_URL, GEMINI_API_KEY, Photon keys, ADMIN_TOKEN
-export $(grep -v '^#' .env | xargs)
+                                # (.env is loaded automatically; no export needed)
 
 python -m sitesignal.jobs schema     # create tables (safe to rerun)
 python -m sitesignal.jobs seed       # demo portfolio: 12 fictional sites, 51 machines, 4 troubled

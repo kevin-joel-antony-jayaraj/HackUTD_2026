@@ -21,7 +21,7 @@ GENERIC_NAME_WORDS = {"bank", "branch", "clinic", "family", "market", "retail", 
 NEGATIVE = re.compile(r"\b(n|no|not|\w+n['’]t|isnt|wont|cant|doesnt|didnt|arent|wasnt|warm|broken|leak\w*|nois\w*|loud|dead|off|down|fail\w*)\b", re.I)
 
 
-def handle_inbound(text: str, space_id: str, agent_id: str, tb: Toolbox, brain=None) -> dict:
+def handle_inbound(text: str, space_id: str, agent_id: str, tb: Toolbox, brain=None, handle: str = "") -> dict:
     s, t = tb.s, text.strip()
 
     # 1. Registration: "JOIN dallas" (manager), "JOIN tech dallas" (service worker), "JOIN site S010"
@@ -43,6 +43,12 @@ def handle_inbound(text: str, space_id: str, agent_id: str, tb: Toolbox, brain=N
         return {"registered": "region", "key": m.group(1)}
 
     contact = s.contact_by_space(space_id)
+    if contact is None and handle and s.has_phone_contact(handle):
+        # first text from a hardcoded MANAGER_PHONE: this conversation is now theirs for every region
+        s.set_space_for_phone(handle, space_id, agent_id)
+        contact = s.contact_by_space(space_id)
+        if re.fullmatch(r"(JOIN\s+all|hi|hello|hey|ok|start)\W*", text.strip(), re.I):
+            return {"registered": "region", "linked_phone": handle}
     if contact is None:
         return {"ignored": "sender not registered"}
 

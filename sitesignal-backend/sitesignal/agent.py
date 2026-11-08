@@ -12,11 +12,16 @@ from __future__ import annotations
 
 import json
 import os
+import time
+import urllib.error
 import urllib.request
 
 from .tools import DECLARATIONS, Toolbox
 
 MODEL = os.environ.get("GEMINI_MODEL", "gemini-3.8-flash")
+FALLBACK_MODELS = [m.strip() for m in os.environ.get("GEMINI_FALLBACK_MODELS", "gemini-3.7-flash,gemini-3.5-flash").split(",")
+                   if m.strip()]
+RETRYABLE_HTTP = {429, 500, 502, 503, 504}
 API = "https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent"
 
 SYSTEM_PROMPT = """You are PenguinRE, the maintenance planner for a portfolio of small commercial
@@ -50,9 +55,18 @@ Rules:
 
 
 # ---------------------------------------------------------------------------
+class BrainUnavailable(Exception):
+    pass
+
+
 class GeminiBrain:
+    """Tries GEMINI_MODEL, then GEMINI_FALLBACK_MODELS, retrying busy/slow responses. The first model
+    that answers is kept for the whole run: thought signatures don't carry across models."""
+
     def __init__(self, model: str = MODEL):
-        self.model, self.key = model, os.environ["GEMINI_API_KEY"]
+        self.models = [model] + [m for m in FALLBACK_MODELS if m != model]
+        self.model: str | None = None
+        self.key = os.environ["GEMINI_API_KEY"]
 
     def next(self, contents: list[dict]) -> dict:
         body = {
@@ -62,12 +76,25 @@ class GeminiBrain:
             "toolConfig": {"functionCallingConfig": {"mode": "AUTO"}},
             "generationConfig": {"thinkingConfig": {"thinkingLevel": "low"}},
         }
-        req = urllib.request.Request(
-            API.format(model=self.model), data=json.dumps(body, default=str).encode(),
-            headers={"x-goog-api-key": self.key, "Content-Type": "application/json"})
-        with urllib.request.urlopen(req, timeout=90) as resp:
-            data = json.loads(resp.read())
-        return data["candidates"][0]["content"]
+        payload = json.dumps(body, default=str).encode()
+        last = "no model tried"
+        for model in [self.model] if self.model else self.models:
+            for attempt in range(2):
+                req = urllib.request.Request(API.format(model=model), data=payload,
+                                             headers={"x-goog-api-key": self.key, "Content-Type": "application/json"})
+                try:
+                    with urllib.request.urlopen(req, timeout=45) as resp:
+                        data = json.loads(resp.read())
+                    self.model = model
+                    return data["candidates"][0]["content"]
+                except urllib.error.HTTPError as e:
+                    last = f"{model}: HTTP {e.code}"
+                    if e.code not in RETRYABLE_HTTP:
+                        break
+                except (TimeoutError, urllib.error.URLError) as e:
+                    last = f"{model}: {type(e).__name__}"
+                time.sleep(2 * (attempt + 1))
+        raise BrainUnavailable(last)
 
 
 class MockBrain:
@@ -169,10 +196,17 @@ def run_agent(task: str, toolbox: Toolbox, brain=None, max_steps: int = 100) -> 
     toolbox.run_id = toolbox.s.start_run(task[:500])
     toolbox.texts_sent, toolbox.checked_in = 0, set()  # limits are per run
     contents = [{"role": "user", "parts": [{"text": task}]}]
-    summary, steps = None, 0
+    summary, steps, fallback = None, 0, None
     while steps < max_steps:
         steps += 1
-        reply = brain.next(contents)
+        try:
+            reply = brain.next(contents)
+        except BrainUnavailable as e:
+            # Keep the demo running: restart the plan with the scripted planner. Tools are idempotent
+            # (one open work order per asset, deduplicated texts), so nothing is done twice.
+            fallback = f"Gemini unavailable ({e}); finished with the scripted planner."
+            brain, contents = MockBrain(), contents[:1]
+            continue
         contents.append(reply)  # verbatim: keeps thought signatures
         calls = [p["functionCall"] for p in reply.get("parts", []) if "functionCall" in p]
         if not calls:
@@ -188,8 +222,11 @@ def run_agent(task: str, toolbox: Toolbox, brain=None, max_steps: int = 100) -> 
         contents.append({"role": "user", "parts": responses})
     safety = safety_net(toolbox) if not task.startswith("EVENT") else []
     summary = summary or "stopped at step limit"
+    if fallback:
+        summary = f"{fallback} {summary}"
     toolbox.s.finish_run(toolbox.run_id, summary, steps)
-    return {"run_id": toolbox.run_id, "summary": summary, "steps": steps, "safety_net": safety}
+    used = "scripted" if isinstance(brain, MockBrain) else getattr(brain, "model", None) or "custom"
+    return {"run_id": toolbox.run_id, "summary": summary, "steps": steps, "safety_net": safety, "brain": used}
 
 
 def safety_net(tb: Toolbox) -> list[str]:

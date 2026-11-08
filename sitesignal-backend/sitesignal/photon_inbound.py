@@ -66,11 +66,12 @@ def extract_message(event: dict) -> dict | None:
         return None
     text = _get(msg, "content", "text") or msg.get("text")
     space_id = _get(msg, "space", "id") or msg.get("spaceId")
-    agent_id = _get(msg, "receivedBy", "id") or msg.get("receivedById")
+    agent_id = _get(msg, "receivedBy", "id") or msg.get("receivedById") or os.environ.get("PHOTON_AGENT_USER_ID")
     msg_id = msg.get("id") or event.get("id")
     if not (text and space_id and msg_id):
         return None
-    return {"id": str(msg_id), "text": str(text), "space_id": str(space_id), "agent_id": str(agent_id or "")}
+    return {"id": str(msg_id), "text": str(text), "space_id": str(space_id), "agent_id": str(agent_id or ""),
+            "handle": str(_get(msg, "sentBy", "handle") or "")}
 
 
 def process_message(tb: Toolbox, m: dict, brain=None) -> dict:
@@ -79,7 +80,7 @@ def process_message(tb: Toolbox, m: dict, brain=None) -> dict:
                        "ON CONFLICT DO NOTHING RETURNING message_id", (m["id"], m["space_id"], m["text"]))
     if not claimed:
         return {"skipped": "already processed"}
-    result = handle_inbound(m["text"], m["space_id"], m["agent_id"], tb, brain)
+    result = handle_inbound(m["text"], m["space_id"], m["agent_id"], tb, brain, m.get("handle", ""))
     db.query("UPDATE inbound_messages SET result = %s::jsonb WHERE message_id = %s",
              (json.dumps(result, default=str), m["id"]))
     return result
@@ -94,18 +95,17 @@ def handle_webhook_event(tb: Toolbox, event: dict, brain=None) -> dict:
 
 # ---------------------------------------------------------------- poller
 def _list_received(since_iso: str, page_token: str | None):
-    """VERIFY argument names against Photon's Beta SDK (documented query params:
-    createdSince, direction, order, pageSize, platform, nextPageToken)."""
-    from photon_api import Photon  # pip install photonhq-api
+    from photon_api import rpc_generated as R
+    from .photon_notify import client, platform
 
-    photon = Photon(api_key=os.environ["PHOTON_API_KEY"])
-    kwargs = dict(createdSince=since_iso, direction="received", order="asc", pageSize=100,
-                  platform=os.environ.get("PHOTON_PLATFORM", "sms"))
+    query = {"createdSince": since_iso, "direction": "received", "order": "asc", "pageSize": 100,
+             "platform": platform()}
     if page_token:
-        kwargs["pageToken"] = page_token
-    page = photon.projects.list_messages(os.environ["PHOTON_PROJECT_ID"], **kwargs)
-    data = page.model_dump() if hasattr(page, "model_dump") else page
-    return data.get("messages") or data.get("data") or [], data.get("nextPageToken")
+        query["pageToken"] = page_token
+    page = client().projects.list_messages(R.ListMessagesInput.model_validate(
+        {"path": {"id": os.environ["PHOTON_PROJECT_ID"]}, "query": query}))
+    data = page.model_dump(mode="json", by_alias=True, exclude_unset=True)
+    return data.get("items") or data.get("messages") or [], data.get("nextPageToken")
 
 
 def poll_forever(tb: Toolbox, interval_s: float = 2.0, brain=None) -> None:

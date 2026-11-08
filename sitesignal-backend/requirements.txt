@@ -6,3 +6,4 @@ pandas>=2.1
 openpyxl>=3.1
 python-multipart>=0.0.9
 photonhq-api
+python-dotenv>=1.0
