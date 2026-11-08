@@ -63,7 +63,7 @@ def seed(db, today: date, n_sites: int = 40, seed_value: int = 7) -> None:
                          (aid, (today - timedelta(days=rng.randint(3, 85))).isoformat(),
                           "emergency" if rng.random() < 0.3 else "repair",
                           issue if troubled else rng.choice(list(NOTES)),
-                          k < recharges, rng.choice([180, 350, 900]), NOTES[issue]))
+                          k < recharges, None, NOTES[issue]))  # no costs: demo uses national averages
             # last preventive maintenance: recent for most, overdue for some
             last_pm = rng.choice([20, 45, 80, 150, 240])
             db.query("INSERT INTO work_order_history (asset_id, opened_at, kind, note, source) "

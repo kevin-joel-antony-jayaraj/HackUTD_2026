@@ -7,7 +7,7 @@ low-risk site, spam a manager, or pick its own recipient.
 from __future__ import annotations
 
 import os
-from . import photon_notify
+from . import costs, photon_notify
 from .risk_model import score_asset, tier
 from .snapshot import build_snapshot
 from .store import Store
@@ -115,8 +115,11 @@ class Toolbox:
         facts, r, _ = self._risk(asset_id)
         site = self.s.site(facts.site_id)
         site["region"] = site.get("region_id")
+        cost = None if r.insufficient_data else costs.compare(
+            costs.cost_basis(self.s.db), facts.asset_type, r.prob, site.get("revenue_per_day_usd"),
+            site.get("has_refrigeration", False))
         return build_snapshot(facts, r, site, self.s.recent_work_orders(asset_id),
-                              self.s.forecast(facts.site_id), HIGH, MEDIUM)
+                              self.s.forecast(facts.site_id), HIGH, MEDIUM, cost)
 
     def get_field_reports(self, site_id: str):
         return {"reports": self.s.field_reports(site_id)}

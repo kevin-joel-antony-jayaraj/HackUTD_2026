@@ -36,7 +36,7 @@ No keys yet? `BRAIN=mock` swaps Gemini for a scripted stand-in, and `PHOTON_SEND
 | Piece | File | What it does |
 |---|---|---|
 | Risk model | `sitesignal/risk_model.py` | Probability of failure in 30 days + the drivers |
-| Cost comparison | `sitesignal/costs.py` | Preventive visit vs. emergency failure (repair + lost revenue + spoiled stock) per machine, expected savings, and the portfolio savings counter (`/savings`). All dollar figures are demo assumptions |
+| Cost comparison | `sitesignal/costs.py` | Preventive visit vs. emergency failure (repair + lost revenue + spoiled stock) per machine, expected savings, and the portfolio savings counter (`/savings`). Visit and repair costs are the medians of the portfolio's own invoices once 5+ exist per machine type (upload via `/import/work_orders`), otherwise cited national figures (DOE/FEMP, trade and cost guides; quotes and URLs in `costs.SOURCES`). Downtime, revenue lost and spoiled stock are stated assumptions |
 | Agent | `sitesignal/agent.py`, `tools.py` | Gemini 3.8 Flash calling 8 tools in a loop, guardrails in code |
 | Scheduler | `sitesignal/scheduler.py` | Inside the API: 06:00 Central -> weather refresh + agent sweep; every 30 min -> rescore all assets (no texts) |
 | Data import | `sitesignal/importer.py` | Messy CSV/XLSX -> clean rows; loose column matching, fuzzy asset IDs, recharge detection from notes, duplicates skipped, bad rows quarantined |
