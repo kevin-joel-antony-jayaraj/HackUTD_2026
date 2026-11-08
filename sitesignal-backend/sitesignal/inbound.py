@@ -56,8 +56,9 @@ def handle_inbound(text: str, space_id: str, agent_id: str, tb: Toolbox, brain=N
         return {"ignored": "service workers get calls; reports and approvals come from the manager"}
 
     # 2. Manager approving or holding a work order
-    if contact["kind"] == "region" and (m := re.search(r"\b(APPROVE|HOLD)\s+(WO-\d+)", t, re.I)):
-        return run_agent(f"EVENT manager replied: {m.group(1).upper()} {m.group(2).upper()}", tb, brain)
+    # tolerate "W0" (zero), a missing dash and extra spaces: "approve wo 2", "APPROVE W0-0002"
+    if contact["kind"] == "region" and (m := re.search(r"\b(APPROVE|HOLD)\s+W[O0]\s*-?\s*(\d+)", t, re.I)):
+        return run_agent(f"EVENT manager replied: {m.group(1).upper()} WO-{int(m.group(2)):04d}", tb, brain)
 
     # 3. A report about equipment: from the region's manager (who names the site) or a site contact
     if contact["kind"] == "region":
