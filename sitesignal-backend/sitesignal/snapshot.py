@@ -8,6 +8,7 @@ from __future__ import annotations
 
 from datetime import datetime, timezone
 
+from .costs import compare
 from .risk_model import AssetFacts, RiskResult, tier
 
 
@@ -42,6 +43,8 @@ def build_snapshot(facts: AssetFacts, risk: RiskResult, site: dict,
             "drivers": risk.drivers,
             "insufficient_data": risk.insufficient_data,
         },
+        "cost": None if risk.insufficient_data else compare(
+            facts.asset_type, risk.prob, site.get("revenue_per_day_usd"), site.get("has_refrigeration", False)),
         "recent_work_orders": recent_work_orders[-5:],  # newest last, short notes
         "forecast_next_7_days": forecast[:7],           # [{date, max_f}]
         "field_report_negative": facts.field_report_negative,

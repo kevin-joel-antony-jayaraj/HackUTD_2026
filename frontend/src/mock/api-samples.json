@@ -1,0 +1,634 @@
+[
+  {
+    "method": "GET",
+    "path": "/portfolio",
+    "description": "Top-of-dashboard totals: sites, machines, machines per risk level, work orders per status, texts today, last agent run, the risk thresholds, and the savings counter.",
+    "needs_admin_token": false,
+    "use_on_screen": "Summary tiles and savings counter",
+    "example_response": {
+      "sites": 40,
+      "assets": 98,
+      "assets_by_tier": {
+        "medium": 14,
+        "high": 11,
+        "low": 71
+      },
+      "work_orders_by_status": {
+        "approved": 3,
+        "on_hold": 1,
+        "pending_approval": 21
+      },
+      "texts_today": 25,
+      "quarantined_rows": 0,
+      "last_run": {
+        "run_id": 1,
+        "trigger": "Run today's risk sweep for the portfolio.",
+        "summary": "Run summary: created WO-0001 for S023-RTU1; created WO-0002 for S002-RTU1; texted Austin service manager; texted Dallas service manager; created WO-0003 for S019-WALK_IN_COOLER3; texted Austin service manager; created WO-0004 for S009-RTU2; created WO-0005 for S009-RTU1; texted Austin service manager; texted Austin service manager; created WO-0006 for S021-RTU2; texted Dallas service manager; created WO-0007 for S006-RTU2; created WO-0008 for S026-RTU1; texted Houston service manager; texted Houston service manager; created WO-0009 for S034-RTU2; texted Dallas service manager; created WO-0010 for S032-RTU1; created WO-0011 for S026-WALK_IN_COOLER3; texted Houston service manager; texted Austin service manager; created WO-0012 for S006-RTU1; texted Houston service manager; created WO-0013 for S003-RTU1; created WO-0014 for S036-WALK_IN_COOLER3; texted Houston service manager; texted Austin service manager; created WO-0015 for S007-WALK_IN_COOLER3; texted Austin service manager; created WO-0016 for S008-RTU2; created WO-0017 for S022-RTU2; texted Austin service manager; texted Dallas service manager; created WO-0018 for S021-RTU1; texted Dallas service manager; created WO-0019 for S036-RTU2; created WO-0020 for S029-WALK_IN_COOLER3; texted Dallas service manager; texted Houston service manager; created WO-0021 for S012-RTU2; texted Dallas service manager; created WO-0022 for S005-RTU2; created WO-0023 for S004-RTU2; texted Houston service manager; texted Dallas service manager; created WO-0024 for S035-WALK_IN_COOLER3; texted Dallas service manager; created WO-0025 for S035-RTU2; texted Dallas service manager",
+        "finished_at": "2026-11-08T07:53:44.671940-06:00"
+      },
+      "thresholds": {
+        "high": 0.2,
+        "medium": 0.08
+      },
+      "savings": {
+        "savings_secured_usd": 13326,
+        "work_orders_secured": 3,
+        "preventive_spend_secured_usd": 1300,
+        "savings_pending_usd": 22557,
+        "work_orders_pending": 21,
+        "preventive_spend_pending_usd": 9200,
+        "exposure_usd": 79989,
+        "exposure_unaddressed_usd": 22011
+      }
+    }
+  },
+  {
+    "method": "GET",
+    "path": "/savings",
+    "description": "Savings counter on its own, plus the cost assumptions. Secured = approved work orders, pending = awaiting approval, exposure = expected emergency cost over the next 30 days if nothing is done.",
+    "needs_admin_token": false,
+    "use_on_screen": "Savings counter, 'how we calculate this' tooltip",
+    "example_response": {
+      "savings_secured_usd": 13326,
+      "work_orders_secured": 3,
+      "preventive_spend_secured_usd": 1300,
+      "savings_pending_usd": 22557,
+      "work_orders_pending": 21,
+      "preventive_spend_pending_usd": 9200,
+      "exposure_usd": 79989,
+      "exposure_unaddressed_usd": 22011,
+      "assumptions": {
+        "note": "Demo assumptions, not sourced figures",
+        "prevention_rate": 0.8,
+        "profiles": {
+          "rtu": {
+            "preventive_visit_usd": 450,
+            "emergency_repair_usd": 4200,
+            "downtime_days": 1.5,
+            "revenue_lost_share": 0.5,
+            "inventory_loss_usd": 0.0
+          },
+          "walk_in_cooler": {
+            "preventive_visit_usd": 400,
+            "emergency_repair_usd": 3500,
+            "downtime_days": 1.0,
+            "revenue_lost_share": 0.2,
+            "inventory_loss_usd": 6000
+          },
+          "water_heater": {
+            "preventive_visit_usd": 250,
+            "emergency_repair_usd": 1800,
+            "downtime_days": 0.5,
+            "revenue_lost_share": 0.0,
+            "inventory_loss_usd": 0.0
+          }
+        }
+      }
+    }
+  },
+  {
+    "method": "GET",
+    "path": "/assets?tier=high&limit=100",
+    "description": "Machines sorted by failure risk, riskiest first. tier is optional (high, medium, low). Each row has its cost comparison.",
+    "needs_admin_token": false,
+    "use_on_screen": "Machine table / map (lat, lon)",
+    "example_response": [
+      {
+        "asset_id": "S023-RTU1",
+        "asset_type": "rtu",
+        "site_id": "S023",
+        "site_name": "Store 023",
+        "region_id": "dallas",
+        "lat": 32.5559,
+        "lon": -97.0199,
+        "prob": 0.8481,
+        "tier": "high",
+        "drivers": [
+          {
+            "value": 17.9,
+            "detail": "17.9 yrs vs 15-yr median life",
+            "factor": "age",
+            "base_prob": 0.0162
+          },
+          {
+            "factor": "calls_90d",
+            "log_hazard": 1.4,
+            "multiplier": 4.06
+          },
+          {
+            "factor": "refrigerant_recharges_180d",
+            "log_hazard": 1.2,
+            "multiplier": 3.32
+          },
+          {
+            "factor": "hot_days_next_7",
+            "log_hazard": 1.0,
+            "multiplier": 2.72
+          },
+          {
+            "factor": "repeat_issue",
+            "log_hazard": 0.4,
+            "multiplier": 1.49
+          },
+          {
+            "factor": "peak_100f",
+            "log_hazard": 0.3,
+            "multiplier": 1.35
+          },
+          {
+            "factor": "recent_repair",
+            "log_hazard": 0.25,
+            "multiplier": 1.28
+          },
+          {
+            "factor": "pm_overdue_months",
+            "log_hazard": 0.2,
+            "multiplier": 1.22
+          }
+        ],
+        "scored_at": "2026-11-08T07:53:44.601018-06:00",
+        "open_work_order": "WO-0001",
+        "cost": {
+          "preventive_cost_usd": 450,
+          "emergency_cost_usd": 8700,
+          "emergency_breakdown": {
+            "repair_usd": 4200,
+            "lost_revenue_usd": 4500,
+            "inventory_loss_usd": 0
+          },
+          "expected_loss_if_ignored_usd": 7378,
+          "expected_savings_usd": 5453,
+          "worth_acting_now": true
+        }
+      },
+      {
+        "asset_id": "S002-RTU1",
+        "asset_type": "rtu",
+        "site_id": "S002",
+        "site_name": "Store 002",
+        "region_id": "austin",
+        "lat": 30.2939,
+        "lon": -97.9586,
+        "prob": 0.6857,
+        "tier": "high",
+        "drivers": [
+          {
+            "value": 15.5,
+            "detail": "15.5 yrs vs 15-yr median life",
+            "factor": "age",
+            "base_prob": 0.0122
+          },
+          {
+            "factor": "calls_90d",
+            "log_hazard": 1.4,
+            "multiplier": 4.06
+          },
+          {
+            "factor": "refrigerant_recharges_180d",
+            "log_hazard": 1.2,
+            "multiplier": 3.32
+          },
+          {
+            "factor": "hot_days_next_7",
+            "log_hazard": 1.0,
+            "multiplier": 2.72
+          },
+          {
+            "factor": "repeat_issue",
+            "log_hazard": 0.4,
+            "multiplier": 1.49
+          },
+          {
+            "factor": "peak_100f",
+            "log_hazard": 0.3,
+            "multiplier": 1.35
+          },
+          {
+            "factor": "recent_repair",
+            "log_hazard": 0.25,
+            "multiplier": 1.28
+          }
+        ],
+        "scored_at": "2026-11-08T07:53:44.590849-06:00",
+        "open_work_order": "WO-0002",
+        "cost": {
+          "preventive_cost_usd": 450,
+          "emergency_cost_usd": 6450,
+          "emergency_breakdown": {
+            "repair_usd": 4200,
+            "lost_revenue_usd": 2250,
+            "inventory_loss_usd": 0
+          },
+          "expected_loss_if_ignored_usd": 4423,
+          "expected_savings_usd": 3088,
+          "worth_acting_now": true
+        }
+      }
+    ]
+  },
+  {
+    "method": "GET",
+    "path": "/assets/{asset_id}",
+    "description": "One machine in full: details, current risk and why, risk history, repair history, 7-day forecast, field reports, its work orders and cost comparison.",
+    "needs_admin_token": false,
+    "use_on_screen": "Machine detail panel",
+    "example_response": {
+      "asset": {
+        "asset_id": "S023-RTU1",
+        "site_id": "S023",
+        "asset_type": "rtu",
+        "install_date": "2008-12-11",
+        "install_date_estimated": false,
+        "make": null,
+        "model": null,
+        "serial_number": null,
+        "refrigerant": "R-22",
+        "pm_interval_days": 90,
+        "site_name": "Store 023",
+        "region_id": "dallas"
+      },
+      "risk_now": {
+        "prob": 0.8481,
+        "base_prob": 0.0162,
+        "multiplier": 115.584,
+        "tier": "high",
+        "drivers": [
+          {
+            "factor": "age",
+            "value": 17.9,
+            "detail": "17.9 yrs vs 15-yr median life",
+            "base_prob": 0.0162
+          },
+          {
+            "factor": "calls_90d",
+            "log_hazard": 1.4,
+            "multiplier": 4.06
+          },
+          {
+            "factor": "refrigerant_recharges_180d",
+            "log_hazard": 1.2,
+            "multiplier": 3.32
+          },
+          {
+            "factor": "hot_days_next_7",
+            "log_hazard": 1.0,
+            "multiplier": 2.72
+          },
+          {
+            "factor": "repeat_issue",
+            "log_hazard": 0.4,
+            "multiplier": 1.49
+          },
+          {
+            "factor": "peak_100f",
+            "log_hazard": 0.3,
+            "multiplier": 1.35
+          },
+          {
+            "factor": "recent_repair",
+            "log_hazard": 0.25,
+            "multiplier": 1.28
+          },
+          {
+            "factor": "pm_overdue_months",
+            "log_hazard": 0.2,
+            "multiplier": 1.22
+          }
+        ],
+        "age_years": 17.91
+      },
+      "cost": {
+        "preventive_cost_usd": 450,
+        "emergency_cost_usd": 8700,
+        "emergency_breakdown": {
+          "repair_usd": 4200,
+          "lost_revenue_usd": 4500,
+          "inventory_loss_usd": 0
+        },
+        "expected_loss_if_ignored_usd": 7378,
+        "expected_savings_usd": 5453,
+        "worth_acting_now": true
+      },
+      "risk_history": [
+        {
+          "scored_at": "2026-11-08T07:53:44.601018-06:00",
+          "prob": 0.8481,
+          "tier": "high"
+        },
+        {
+          "scored_at": "2026-11-08T07:53:44.579336-06:00",
+          "prob": 0.8481,
+          "tier": "high"
+        }
+      ],
+      "work_order_history": [
+        {
+          "date": "2026-09-22",
+          "kind": "repair",
+          "issue": "capacitor",
+          "refrigerant_added": false,
+          "note": "replaced run capacitor"
+        },
+        {
+          "date": "2026-09-24",
+          "kind": "repair",
+          "issue": "capacitor",
+          "refrigerant_added": true,
+          "note": "replaced run capacitor"
+        },
+        {
+          "date": "2026-11-05",
+          "kind": "emergency",
+          "issue": "capacitor",
+          "refrigerant_added": true,
+          "note": "replaced run capacitor"
+        }
+      ],
+      "forecast": [
+        {
+          "date": "2026-11-08",
+          "max_f": 90.6
+        },
+        {
+          "date": "2026-11-09",
+          "max_f": 90.4
+        },
+        {
+          "date": "2026-11-10",
+          "max_f": 101.9
+        },
+        {
+          "date": "2026-11-11",
+          "max_f": 104.0
+        },
+        {
+          "date": "2026-11-12",
+          "max_f": 103.5
+        },
+        {
+          "date": "2026-11-13",
+          "max_f": 98.6
+        },
+        {
+          "date": "2026-11-14",
+          "max_f": 97.5
+        }
+      ],
+      "field_reports": [],
+      "work_orders": [
+        {
+          "id": "WO-0001",
+          "asset_id": "S023-RTU1",
+          "site_id": "S023",
+          "prob": 0.8481,
+          "tier": "high",
+          "urgency": "48h",
+          "likely_issue": "probable refrigerant leak",
+          "tasks": [
+            "leak check and repair",
+            "clean condenser coil",
+            "replace filter"
+          ],
+          "do_by": "2026-11-10",
+          "reason": "85% failure risk in 30 days; drivers: age, calls_90d, refrigerant_recharges_180d",
+          "status": "approved",
+          "status_note": "demo",
+          "notified": true,
+          "created_at": "2026-11-08T07:53:44.632380-06:00",
+          "updated_at": "2026-11-08T07:53:44.676035-06:00"
+        }
+      ]
+    }
+  },
+  {
+    "method": "GET",
+    "path": "/work-orders?status=pending_approval",
+    "description": "Work orders, newest first. status is optional (pending_approval, approved, on_hold, cancelled, done). Each has its cost comparison.",
+    "needs_admin_token": false,
+    "use_on_screen": "Work order list with Approve / Hold",
+    "example_response": [
+      {
+        "id": "WO-0025",
+        "asset_id": "S035-RTU2",
+        "site_id": "S035",
+        "prob": 0.0869,
+        "tier": "medium",
+        "urgency": "this_week",
+        "likely_issue": "end-of-life wear",
+        "tasks": [
+          "full inspection",
+          "check capacitor and contactor",
+          "replace filter"
+        ],
+        "do_by": "2026-11-10",
+        "reason": "9% failure risk in 30 days; drivers: age, hot_days_next_7, calls_90d",
+        "status": "pending_approval",
+        "status_note": null,
+        "notified": true,
+        "created_at": "2026-11-08T07:53:44.666118-06:00",
+        "updated_at": "2026-11-08T07:53:44.666668-06:00",
+        "site_name": "Store 035",
+        "region_id": "dallas",
+        "asset_type": "rtu",
+        "cost": {
+          "preventive_cost_usd": 450,
+          "emergency_cost_usd": 13200,
+          "emergency_breakdown": {
+            "repair_usd": 4200,
+            "lost_revenue_usd": 9000,
+            "inventory_loss_usd": 0
+          },
+          "expected_loss_if_ignored_usd": 1147,
+          "expected_savings_usd": 468,
+          "worth_acting_now": true
+        }
+      },
+      {
+        "id": "WO-0024",
+        "asset_id": "S035-WALK_IN_COOLER3",
+        "site_id": "S035",
+        "prob": 0.0898,
+        "tier": "medium",
+        "urgency": "this_week",
+        "likely_issue": "end-of-life wear",
+        "tasks": [
+          "full inspection",
+          "check capacitor and contactor",
+          "replace filter"
+        ],
+        "do_by": "2026-11-10",
+        "reason": "9% failure risk in 30 days; drivers: age, hot_days_next_7, pm_overdue_months",
+        "status": "pending_approval",
+        "status_note": null,
+        "notified": true,
+        "created_at": "2026-11-08T07:53:44.665141-06:00",
+        "updated_at": "2026-11-08T07:53:44.665742-06:00",
+        "site_name": "Store 035",
+        "region_id": "dallas",
+        "asset_type": "walk_in_cooler",
+        "cost": {
+          "preventive_cost_usd": 400,
+          "emergency_cost_usd": 11900,
+          "emergency_breakdown": {
+            "repair_usd": 3500,
+            "lost_revenue_usd": 2400,
+            "inventory_loss_usd": 6000
+          },
+          "expected_loss_if_ignored_usd": 1069,
+          "expected_savings_usd": 455,
+          "worth_acting_now": true
+        }
+      }
+    ]
+  },
+  {
+    "method": "GET",
+    "path": "/messages?limit=100",
+    "description": "Every text sent (or logged, when sending is off) to service and site managers, newest first.",
+    "needs_admin_token": false,
+    "use_on_screen": "Activity feed",
+    "example_response": [
+      {
+        "id": 25,
+        "kind": "region",
+        "to_key": "dallas",
+        "recipient_name": "Dallas service manager",
+        "text": "[WO-0025] Store 035: S035-RTU2 has a 9% chance of failing in 30 days (end-of-life wear). Preventive visit needed before 2026-11-10's heat. Reply APPROVE WO-0025 or HOLD WO-0025",
+        "sent": false,
+        "dry_run": true,
+        "error": null,
+        "idempotency_key": "WO-0025",
+        "created_at": "2026-11-08T07:53:44.666579-06:00"
+      },
+      {
+        "id": 24,
+        "kind": "region",
+        "to_key": "dallas",
+        "recipient_name": "Dallas service manager",
+        "text": "[WO-0024] Store 035: S035-WALK_IN_COOLER3 has a 9% chance of failing in 30 days (end-of-life wear). Preventive visit needed before 2026-11-10's heat. Reply APPROVE WO-0024 or HOLD WO-0024",
+        "sent": false,
+        "dry_run": true,
+        "error": null,
+        "idempotency_key": "WO-0024",
+        "created_at": "2026-11-08T07:53:44.665657-06:00"
+      }
+    ]
+  },
+  {
+    "method": "GET",
+    "path": "/calls?limit=100",
+    "description": "Every phone call placed (or logged) about the riskiest machine, newest first.",
+    "needs_admin_token": false,
+    "use_on_screen": "Activity feed",
+    "example_response": [
+      {
+        "id": 1,
+        "asset_id": "S023-RTU1",
+        "work_order_id": "WO-0001",
+        "region_id": "dallas",
+        "recipient_name": "Dallas service manager",
+        "script": "This is PenguinRE with an urgent maintenance alert. The rooftop A C unit at Store 023 in Dallas has an estimated 85 percent chance of failing in the next 30 days, because it is near the end of its service life and repeated service calls in the last 90 days. Work order WO 0001 is waiting for you. Reply APPROVE or HOLD to the text we sent.",
+        "called": false,
+        "dry_run": true,
+        "call_sid": null,
+        "error": null,
+        "idempotency_key": "call-S023-RTU1-20261108",
+        "created_at": "2026-11-08T07:53:44.675684-06:00"
+      }
+    ]
+  },
+  {
+    "method": "GET",
+    "path": "/runs?limit=20",
+    "description": "Agent sweeps, newest first, with the agent's plain-text summary.",
+    "needs_admin_token": false,
+    "use_on_screen": "'Last sweep' status",
+    "example_response": [
+      {
+        "run_id": 1,
+        "trigger": "Run today's risk sweep for the portfolio.",
+        "summary": "Run summary: created WO-0001 for S023-RTU1; created WO-0002 for S002-RTU1; texted Austin service manager; texted Dallas service manager; created WO-0003 for S01 ...",
+        "steps": 28,
+        "started_at": "2026-11-08T07:53:44.587784-06:00",
+        "finished_at": "2026-11-08T07:53:44.671940-06:00"
+      }
+    ]
+  },
+  {
+    "method": "GET",
+    "path": "/field-reports?limit=100",
+    "description": "Condition reports texted in by site managers, newest first.",
+    "needs_admin_token": false,
+    "use_on_screen": "Activity feed",
+    "example_response": [
+      {
+        "id": 1,
+        "site_id": "S010",
+        "asset_id": "S010-RTU1",
+        "text": "N, unit is blowing warm air",
+        "working": false,
+        "received_at": "2026-11-08T09:12:00-06:00"
+      }
+    ]
+  },
+  {
+    "method": "POST",
+    "path": "/work-orders/{wo_id}/approve",
+    "description": "Approve a work order from the dashboard (same as the manager texting APPROVE).",
+    "needs_admin_token": true,
+    "request_body": {
+      "note": "optional"
+    },
+    "example_response": {
+      "id": "WO-0005",
+      "status": "approved"
+    }
+  },
+  {
+    "method": "POST",
+    "path": "/work-orders/{wo_id}/hold",
+    "description": "Put a work order on hold.",
+    "needs_admin_token": true,
+    "request_body": {
+      "note": "optional"
+    },
+    "example_response": {
+      "id": "WO-0005",
+      "status": "on_hold"
+    }
+  },
+  {
+    "method": "POST",
+    "path": "/jobs/sweep",
+    "description": "Run the agent sweep now instead of waiting for 06:00. Runs in the background; poll /runs for the result.",
+    "needs_admin_token": true,
+    "example_response": {
+      "started": true,
+      "check": "/runs"
+    }
+  },
+  {
+    "method": "POST",
+    "path": "/jobs/call-riskiest",
+    "description": "Call the service manager about the riskiest machine now (demo button).",
+    "needs_admin_token": true,
+    "example_response": {
+      "called": false,
+      "asset_id": "S023-RTU1",
+      "region": "dallas",
+      "script": "This is PenguinRE with an urgent maintenance alert. The rooftop A C unit at Store 023 in Dallas has an estimated 85 percent chance of failing in the next 30 days, because it is near the end of its service life and repeated service calls in the last 90 days. Work order WO 0001 is waiting for you. Reply APPROVE or HOLD to the text we sent.",
+      "to": "Dallas service manager",
+      "dry_run": true
+    }
+  },
+  {
+    "method": "POST",
+    "path": "/admin/reset-demo",
+    "description": "Wipe and reload the demo portfolio.",
+    "needs_admin_token": true,
+    "example_response": {
+      "seeded": true,
+      "scored": 96
+    }
+  }
+]

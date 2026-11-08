@@ -36,6 +36,7 @@ No keys yet? `BRAIN=mock` swaps Gemini for a scripted stand-in, and `PHOTON_SEND
 | Piece | File | What it does |
 |---|---|---|
 | Risk model | `sitesignal/risk_model.py` | Probability of failure in 30 days + the drivers |
+| Cost comparison | `sitesignal/costs.py` | Preventive visit vs. emergency failure (repair + lost revenue + spoiled stock) per machine, expected savings, and the portfolio savings counter (`/savings`). All dollar figures are demo assumptions |
 | Agent | `sitesignal/agent.py`, `tools.py` | Gemini 3.8 Flash calling 8 tools in a loop, guardrails in code |
 | Scheduler | `sitesignal/scheduler.py` | Inside the API: 06:00 Central -> weather refresh + agent sweep; every 30 min -> rescore all assets (no texts) |
 | Data import | `sitesignal/importer.py` | Messy CSV/XLSX -> clean rows; loose column matching, fuzzy asset IDs, recharge detection from notes, duplicates skipped, bad rows quarantined |
@@ -48,7 +49,7 @@ No keys yet? `BRAIN=mock` swaps Gemini for a scripted stand-in, and `PHOTON_SEND
 
 ## API
 
-Reads (open): `GET /health`, `/portfolio`, `/assets?tier=high`, `/assets/{id}`, `/work-orders`,
+Reads (open): `GET /health`, `/portfolio`, `/savings`, `/assets?tier=high`, `/assets/{id}`, `/work-orders`,
 `/dashboard`, `/messages`, `/calls`, `/field-reports`, `/runs`, `/runs/{id}/audit`, `/import/quarantine`
 
 Actions (`Authorization: Bearer $ADMIN_TOKEN`):
@@ -57,6 +58,8 @@ Actions (`Authorization: Bearer $ADMIN_TOKEN`):
 `/photon/simulate` (fake an incoming text for demos)
 
 Photon: `POST /photon/webhook` (needs `PHOTON_WEBHOOK_SECRET`)
+
+Example responses for every endpoint, as a JSON list: `frontend/src/mock/api-samples.json`.
 
 ## Importing real data
 

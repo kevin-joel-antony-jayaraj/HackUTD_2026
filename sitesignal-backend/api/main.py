@@ -64,6 +64,11 @@ def portfolio():
     return services.portfolio(db)
 
 
+@app.get("/savings")
+def savings():
+    return services.savings(db)
+
+
 @app.get("/assets")
 def assets(tier: Literal["high", "medium", "low"] | None = None, limit: int = 100):
     return services.assets_list(db, tier, min(limit, 500))

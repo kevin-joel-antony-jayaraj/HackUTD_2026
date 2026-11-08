@@ -9,7 +9,7 @@ from .agent import run_agent
 from .risk_model import score_asset, tier
 from .store import Store
 from .tools import HIGH, MEDIUM, Toolbox
-from . import photon_call, weather
+from . import costs, photon_call, weather
 
 _sweep_lock = threading.Lock()
 
@@ -72,11 +72,46 @@ def portfolio(db) -> dict:
         "quarantined_rows": db.query("SELECT count(*) AS n FROM import_quarantine")[0]["n"],
         "last_run": last[0] if last else None,
         "thresholds": {"high": HIGH, "medium": MEDIUM},
+        "savings": savings(db, include_assumptions=False),
     }
+
+
+def _with_cost(rows: list[dict]) -> list[dict]:
+    for r in rows:
+        r["cost"] = costs.compare(r["asset_type"], r.get("prob"), r.pop("revenue_per_day_usd", None),
+                                  r.pop("has_refrigeration", False))
+    return rows
+
+
+def savings(db, include_assumptions: bool = True) -> dict:
+    """The savings counter. Secured = approved or done work orders; pending = awaiting approval.
+    Exposure = expected emergency cost over the next 30 days across every scored machine
+    if nothing were done; unaddressed = the part with no open work order."""
+    wos = _with_cost(_clean(db.query(
+        "SELECT w.status, w.prob, a.asset_type, s.revenue_per_day_usd, s.has_refrigeration "
+        "FROM work_orders w JOIN assets a ON a.asset_id = w.asset_id JOIN sites s ON s.site_id = w.site_id")))
+    out = {}
+    for name, statuses in (("secured", ("approved", "done")), ("pending", ("pending_approval",))):
+        picked = [w["cost"] for w in wos if w["status"] in statuses and w["cost"]]
+        out[f"savings_{name}_usd"] = sum(c["expected_savings_usd"] for c in picked)
+        out[f"work_orders_{name}"] = len(picked)
+        out[f"preventive_spend_{name}_usd"] = sum(c["preventive_cost_usd"] for c in picked)
+    assets = _with_cost(_clean(db.query(
+        f"SELECT a.asset_type, r.prob, s.revenue_per_day_usd, s.has_refrigeration, "
+        f"EXISTS (SELECT 1 FROM work_orders w WHERE w.asset_id = a.asset_id "
+        f"        AND w.status IN ('pending_approval','approved')) AS covered "
+        f"FROM assets a JOIN sites s USING (site_id) JOIN ({LATEST_RISK}) r USING (asset_id)")))
+    out["exposure_usd"] = sum(a["cost"]["expected_loss_if_ignored_usd"] for a in assets if a["cost"])
+    out["exposure_unaddressed_usd"] = sum(a["cost"]["expected_loss_if_ignored_usd"]
+                                          for a in assets if a["cost"] and not a["covered"])
+    if include_assumptions:
+        out["assumptions"] = costs.ASSUMPTIONS
+    return out
 
 
 def assets_list(db, tier_filter: str | None = None, limit: int = 100) -> list[dict]:
     sql = (f"SELECT a.asset_id, a.asset_type, a.site_id, s.name AS site_name, s.region_id, s.lat, s.lon, "
+           f"s.revenue_per_day_usd, s.has_refrigeration, "
            f"r.prob, r.tier, r.drivers, r.scored_at, w.id AS open_work_order "
            f"FROM assets a JOIN sites s USING (site_id) LEFT JOIN ({LATEST_RISK}) r USING (asset_id) "
            f"LEFT JOIN work_orders w ON w.asset_id = a.asset_id AND w.status IN ('pending_approval','approved') ")
@@ -86,22 +121,26 @@ def assets_list(db, tier_filter: str | None = None, limit: int = 100) -> list[di
         params.append(tier_filter)
     sql += "ORDER BY r.prob DESC NULLS LAST LIMIT %s"
     params.append(limit)
-    return _clean(db.query(sql, params))
+    return _with_cost(_clean(db.query(sql, params)))
 
 
 def asset_detail(db, asset_id: str) -> dict | None:
     store = Store(db)
-    a = db.query("SELECT a.*, s.name AS site_name, s.region_id FROM assets a JOIN sites s USING (site_id) "
+    a = db.query("SELECT a.*, s.name AS site_name, s.region_id, s.revenue_per_day_usd, s.has_refrigeration "
+                 "FROM assets a JOIN sites s USING (site_id) "
                  "WHERE asset_id = %s", (asset_id,))
     if not a:
         return None
     facts = store.features(asset_id)[asset_id]
     r = score_asset(facts, store.today)
+    asset = _clean(a)[0]
+    site_money = (asset.pop("revenue_per_day_usd"), asset.pop("has_refrigeration"))
     return {
-        "asset": _clean(a)[0],
+        "asset": asset,
         "risk_now": {"prob": r.prob, "base_prob": r.base_prob, "multiplier": r.hazard_multiplier,
                      "tier": "unknown" if r.insufficient_data else tier(r.prob, HIGH, MEDIUM),
                      "drivers": r.drivers, "age_years": r.age_years},
+        "cost": None if r.insufficient_data else costs.compare(asset["asset_type"], r.prob, *site_money),
         "risk_history": _clean(db.query("SELECT scored_at, prob, tier FROM risk_scores WHERE asset_id = %s "
                                         "ORDER BY scored_at DESC LIMIT 60", (asset_id,))),
         "work_order_history": store.recent_work_orders(asset_id, n=20),
@@ -113,12 +152,14 @@ def asset_detail(db, asset_id: str) -> dict | None:
 
 
 def work_orders(db, status: str | None = None) -> list[dict]:
-    sql = "SELECT w.*, s.name AS site_name, s.region_id FROM work_orders w JOIN sites s USING (site_id) "
+    sql = ("SELECT w.*, s.name AS site_name, s.region_id, a.asset_type, s.revenue_per_day_usd, "
+           "s.has_refrigeration FROM work_orders w JOIN sites s USING (site_id) "
+           "JOIN assets a ON a.asset_id = w.asset_id ")
     params: list = []
     if status:
         sql += "WHERE w.status = %s "
         params.append(status)
-    return _clean(db.query(sql + "ORDER BY w.created_at DESC LIMIT 200", params))
+    return _with_cost(_clean(db.query(sql + "ORDER BY w.created_at DESC LIMIT 200", params)))
 
 
 def set_work_order_status(db, wo_id: str, status: str, note: str) -> dict | None:
