@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState, type FormEvent, type ReactNode } from 'react'
 import {
-  approveWorkOrder,
   getAsset,
   getAssets,
   getCalls,
@@ -8,9 +7,6 @@ import {
   getPortfolio,
   getSavings,
   getWorkOrders,
-  holdWorkOrder,
-  runSweep,
-  simulateText,
 } from './api'
 import penguinLogo from './assets/Pengu.jpg'
 import type {
@@ -26,7 +22,7 @@ import type {
 } from './types'
 import './App.css'
 
-type Screen = 'overview' | 'machines' | 'detail' | 'work-orders' | 'activity' | 'demo'
+type Screen = 'overview' | 'machines' | 'detail' | 'work-orders' | 'activity' | 'data-notes'
 type Theme = 'light' | 'dark'
 
 interface DashboardData {
@@ -36,6 +32,12 @@ interface DashboardData {
   workOrders: WorkOrder[]
   messages: Message[]
   calls: Call[]
+}
+
+interface Profile {
+  company: string
+  name: string
+  email: string
 }
 
 const MACHINE_LABELS: Record<string, string> = {
@@ -58,9 +60,9 @@ const DRIVER_LABELS: Record<string, string> = {
 const NAV_ITEMS: Array<{ id: Screen; label: string; icon: string }> = [
   { id: 'overview', label: 'Overview', icon: '⌂' },
   { id: 'machines', label: 'Machines', icon: '▦' },
-  { id: 'work-orders', label: 'Work orders', icon: '☷' },
+  { id: 'work-orders', label: 'Service history', icon: '☷' },
   { id: 'activity', label: 'Activity', icon: '◷' },
-  { id: 'demo', label: 'Demo controls', icon: '⚙' },
+  { id: 'data-notes', label: 'Data notes', icon: 'ⓘ' },
 ]
 const TODAY = new Date()
 const EMPTY_ASSETS: Asset[] = []
@@ -71,8 +73,8 @@ const CURRENCY = new Intl.NumberFormat('en-US', {
   maximumFractionDigits: 0,
 })
 
-function money(amount: number): string {
-  return CURRENCY.format(amount)
+function money(amount: number | null): string {
+  return amount === null ? 'Not provided' : CURRENCY.format(amount)
 }
 
 function percent(probability: number | null): string {
@@ -84,17 +86,14 @@ function percent(probability: number | null): string {
 function relativeTime(timestamp: string): string {
   const date = new Date(timestamp)
   if (Number.isNaN(date.getTime())) return 'Time unavailable'
-  const seconds = Math.max(0, Math.floor((Date.now() - date.getTime()) / 1000))
-  if (seconds < 60) return 'Just now'
-  const minutes = Math.floor(seconds / 60)
-  if (minutes < 60) return `${minutes} min ago`
+  const minutes = Math.max(0, Math.floor((Date.now() - date.getTime()) / 60_000))
+  if (minutes < 60) return minutes === 0 ? 'Just now' : `${minutes} min ago`
   const hours = Math.floor(minutes / 60)
-  if (hours < 24) return `${hours} hr ago`
-  const days = Math.floor(hours / 24)
-  return days === 1 ? 'Yesterday' : `${days} days ago`
+  return hours < 24 ? `${hours} hr ago` : `${Math.floor(hours / 24)} days ago`
 }
 
-function shortDate(date: string): string {
+function shortDate(date: string | null): string {
+  if (!date) return 'Not provided'
   const parsed = new Date(`${date}T12:00:00`)
   return Number.isNaN(parsed.getTime())
     ? 'Date unavailable'
@@ -163,6 +162,13 @@ function PageHeader({ title, description, actions }: { title: string; descriptio
 }
 
 function App() {
+  const [profile, setProfile] = useState<Profile | null>(null)
+  const [loginStep, setLoginStep] = useState<'company' | 'contact'>('company')
+  const [loginCompany, setLoginCompany] = useState('')
+  const [loginName, setLoginName] = useState('')
+  const [loginEmail, setLoginEmail] = useState('')
+  const [loginError, setLoginError] = useState('')
+  const [accountMenuOpen, setAccountMenuOpen] = useState(false)
   const [screen, setScreen] = useState<Screen>('overview')
   const [previousScreen, setPreviousScreen] = useState<Screen>('machines')
   const [selectedAssetId, setSelectedAssetId] = useState<string | null>(null)
@@ -173,10 +179,6 @@ function App() {
   const [theme, setTheme] = useState<Theme>('light')
   const [riskFilter, setRiskFilter] = useState<'all' | 'high' | 'medium' | 'low'>('all')
   const [search, setSearch] = useState('')
-  const [simulatedText, setSimulatedText] = useState('')
-  const [actionMessage, setActionMessage] = useState('')
-  const [actionError, setActionError] = useState('')
-  const [busyAction, setBusyAction] = useState('')
   const selectedAssetIdRef = useRef(selectedAssetId)
   const detailRequestId = useRef(0)
 
@@ -205,13 +207,10 @@ function App() {
   }, [])
 
   useEffect(() => {
+    if (!profile) return undefined
     const initialLoad = window.setTimeout(() => void refreshData(), 0)
-    const timer = window.setInterval(() => void refreshData(), 15_000)
-    return () => {
-      window.clearTimeout(initialLoad)
-      window.clearInterval(timer)
-    }
-  }, [refreshData])
+    return () => window.clearTimeout(initialLoad)
+  }, [profile, refreshData])
 
   const assets = data?.assets ?? EMPTY_ASSETS
   const sortedAssets = useMemo(
@@ -238,6 +237,42 @@ function App() {
     ...(data?.calls ?? []).map((item) => ({ ...item, kind: 'call' as const })),
   ].sort((a, b) => new Date(b.time).getTime() - new Date(a.time).getTime()), [data])
 
+  const continueLogin = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+    setLoginError('')
+    if (loginStep === 'company') {
+      if (!loginCompany.trim()) {
+        setLoginError('Enter your company name to continue.')
+        return
+      }
+      setLoginStep('contact')
+      return
+    }
+    if (!loginName.trim() || !loginEmail.trim()) {
+      setLoginError('Enter your name and company email to continue.')
+      return
+    }
+    setProfile({
+      company: loginCompany.trim(),
+      name: loginName.trim(),
+      email: loginEmail.trim(),
+    })
+  }
+
+  const logOut = () => {
+    setAccountMenuOpen(false)
+    setProfile(null)
+    setLoginStep('company')
+    setLoginCompany('')
+    setLoginName('')
+    setLoginEmail('')
+    setLoginError('')
+    setScreen('overview')
+    setSelectedAssetId(null)
+    selectedAssetIdRef.current = null
+    setSelectedAsset(null)
+  }
+
   const openMachine = (id: string, from: Screen) => {
     const requestId = ++detailRequestId.current
     selectedAssetIdRef.current = id
@@ -258,66 +293,94 @@ function App() {
       })
   }
 
-  const changeWorkOrder = async (id: string, action: 'approve' | 'hold') => {
-    setBusyAction(id)
-    setActionError('')
-    setActionMessage('')
-    try {
-      const result = action === 'approve' ? await approveWorkOrder(id) : await holdWorkOrder(id)
-      if (!result) throw new Error(`Work order ${id} could not be ${action === 'approve' ? 'approved' : 'put on hold'}.`)
-      setActionMessage(`${id} ${action === 'approve' ? 'approved' : 'put on hold'}.`)
-      await refreshData()
-    } catch (actionFailure) {
-      setActionError(actionFailure instanceof Error ? actionFailure.message : 'Work order update failed.')
-    } finally {
-      setBusyAction('')
-    }
-  }
-
-  const submitSweep = async () => {
-    setBusyAction('sweep')
-    setActionError('')
-    setActionMessage('')
-    try {
-      const result = await runSweep()
-      setActionMessage(`Sweep complete: ${result.summary}`)
-      await refreshData()
-    } catch (actionFailure) {
-      setActionError(actionFailure instanceof Error ? actionFailure.message : 'The sweep could not be started.')
-    } finally {
-      setBusyAction('')
-    }
-  }
-
-  const submitSimulatedText = async (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
-    if (!simulatedText.trim()) return
-    setBusyAction('text')
-    setActionError('')
-    setActionMessage('')
-    try {
-      await simulateText(simulatedText.trim())
-      setActionMessage('Simulated manager text received. No messages were sent externally.')
-      setSimulatedText('')
-      await refreshData()
-    } catch (actionFailure) {
-      setActionError(actionFailure instanceof Error ? actionFailure.message : 'The text could not be simulated.')
-    } finally {
-      setBusyAction('')
-    }
-  }
-
   const pageTitle = screen === 'overview'
     ? 'Overview'
     : screen === 'machines'
       ? 'Machines'
       : screen === 'work-orders'
-        ? 'Work orders'
+      ? 'Service history'
         : screen === 'activity'
           ? 'Activity'
-          : screen === 'demo'
-            ? 'Demo controls'
+          : screen === 'data-notes'
+            ? 'Data notes'
             : machineName(assets.find((asset) => asset.id === selectedAssetId) || { id: selectedAssetId || '', asset_type: '' })
+
+  if (!profile) {
+    return (
+      <main className="login-page">
+        <section className="login-card" aria-labelledby="login-title">
+          <div className="login-brand">
+            <img className="login-logo" src={penguinLogo} alt="PenguinRE logo" />
+          </div>
+          <div className="login-intro">
+            <p className="login-eyebrow">Preventing operational failures for the 90% that get ignored</p>
+            <h1 id="login-title">
+              {loginStep === 'company'
+                ? <>Welcome to Penguin<span className="login-title-accent">RE</span></>
+                : 'A little about you'}
+            </h1>
+            <p>{loginStep === 'company' ? 'Connect to your company’s workspace to access shared data' : `Set up your profile for ${loginCompany.trim()}.`}</p>
+          </div>
+          <div className="login-progress" aria-label={`Step ${loginStep === 'company' ? '1' : '2'} of 2`}>
+            <span className="complete" />
+            <span className={loginStep === 'contact' ? 'complete' : ''} />
+          </div>
+          <p className="login-step-label">STEP {loginStep === 'company' ? '1' : '2'} OF 2</p>
+          <form className="login-form" onSubmit={continueLogin}>
+            {loginStep === 'company' ? (
+              <label>
+                <span>Company name</span>
+                <input
+                  autoComplete="organization"
+                  autoFocus
+                  placeholder="e.g. CBRE"
+                  value={loginCompany}
+                  onChange={(event) => setLoginCompany(event.target.value)}
+                  required
+                />
+              </label>
+            ) : (
+              <>
+                <label>
+                  <span>Your name</span>
+                  <input
+                    autoComplete="name"
+                    autoFocus
+                    placeholder="e.g. Jordan Lee"
+                    value={loginName}
+                    onChange={(event) => setLoginName(event.target.value)}
+                    required
+                  />
+                </label>
+                <label>
+                  <span>Company email</span>
+                  <input
+                    autoComplete="email"
+                    type="email"
+                    placeholder="you@company.com"
+                    value={loginEmail}
+                    onChange={(event) => setLoginEmail(event.target.value)}
+                    required
+                  />
+                </label>
+              </>
+            )}
+            {loginError && <p className="login-error" role="alert">{loginError}</p>}
+            <div className="login-actions">
+              {loginStep === 'contact' && (
+                <button className="login-back-button" type="button" onClick={() => { setLoginError(''); setLoginStep('company') }}>
+                  Back
+                </button>
+              )}
+              <button className="login-continue-button" type="submit">
+                {loginStep === 'company' ? 'Continue' : 'Open dashboard'} <span aria-hidden="true">→</span>
+              </button>
+            </div>
+          </form>
+        </section>
+      </main>
+    )
+  }
 
   return (
     <div className="app-shell" data-theme={theme}>
@@ -328,7 +391,7 @@ function App() {
         </a>
         <div className="workspace-switcher">
           <span className="workspace-avatar">P</span>
-          <span><strong>PenguinRE Demo</strong><small>Operations workspace</small></span>
+          <span><strong>{profile.company}</strong><small>Imported portfolio</small></span>
           <span className="workspace-chevron" aria-hidden="true">⌄</span>
         </div>
         <p className="sidebar-label">WORKSPACE</p>
@@ -343,30 +406,37 @@ function App() {
                 aria-current={active ? 'page' : undefined}
                 onClick={() => {
                   setScreen(item.id)
-                  setActionError('')
-                  setActionMessage('')
                 }}
               >
                 <Icon>{item.icon}</Icon>
                 <span>{item.label}</span>
-                {item.id === 'work-orders' && (data?.portfolio.work_orders_awaiting_approval ?? 0) > 0 && (
-                  <span className="nav-count">{data?.portfolio.work_orders_awaiting_approval}</span>
-                )}
               </button>
             )
           })}
         </nav>
         <div className="sidebar-bottom">
-          <div className="monitoring-status"><span />Monitoring active</div>
+          <div className="monitoring-status"><span />CSV data loaded</div>
           <button className="theme-button" type="button" onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}>
             <Icon>{theme === 'light' ? '◐' : '☼'}</Icon>
             <span>{theme === 'light' ? 'Dark mode' : 'Light mode'}</span>
           </button>
-          <div className="sidebar-user">
-            <span className="user-avatar">O</span>
-            <span><strong>Operations team</strong><small>Facilities manager</small></span>
-          </div>
-          <p className="sidebar-footer">PenguinRE · Demo data</p>
+          <button
+            className="sidebar-user"
+            type="button"
+            aria-expanded={accountMenuOpen}
+            aria-controls="account-menu"
+            onClick={() => setAccountMenuOpen((open) => !open)}
+          >
+            <span className="user-avatar">{profile.name.charAt(0).toUpperCase()}</span>
+            <span><strong>{profile.name}</strong><small>{profile.email}</small></span>
+            <span className="workspace-chevron" aria-hidden="true">{accountMenuOpen ? '⌃' : '⌄'}</span>
+          </button>
+          {accountMenuOpen && (
+            <div className="account-menu" id="account-menu">
+              <button type="button" onClick={logOut}>Log out</button>
+            </div>
+          )}
+          <p className="sidebar-footer">PenguinRE · Source CSVs</p>
         </div>
       </aside>
 
@@ -374,18 +444,13 @@ function App() {
         <header className="topbar">
           <div className="breadcrumb"><span>Workspace</span><span>/</span><strong>{pageTitle}</strong></div>
           <div className="topbar-right">
-            <span className="refresh-indicator"><span /> Updated every 15 seconds</span>
-            <button type="button" className="refresh-button" onClick={() => void refreshData()} aria-label="Refresh dashboard">
-              <span aria-hidden="true">↻</span>
-            </button>
-            <span className="topbar-avatar">O</span>
+            <span className="refresh-indicator"><span /> CSV source · latest record {shortDate(data?.portfolio.latest_service_date ?? null)}</span>
+            <span className="topbar-avatar">{profile.name.charAt(0).toUpperCase()}</span>
           </div>
         </header>
 
         <div className="page-content">
           {error && <div className="error-banner" role="alert"><strong>Data unavailable</strong><span>{error}</span><button type="button" onClick={() => void refreshData()}>Retry</button></div>}
-          {actionMessage && <div className="success-banner" role="status">{actionMessage}<button type="button" aria-label="Dismiss message" onClick={() => setActionMessage('')}>×</button></div>}
-          {actionError && <div className="error-banner" role="alert"><strong>Action failed</strong><span>{actionError}</span><button type="button" onClick={() => setActionError('')}>Dismiss</button></div>}
           {loading && !data ? (
             <EmptyState>Loading dashboard data…</EmptyState>
           ) : (
@@ -424,23 +489,12 @@ function App() {
               {screen === 'work-orders' && data && (
                 <WorkOrdersScreen
                   workOrders={data.workOrders}
-                  busyAction={busyAction}
-                  onApprove={(id) => void changeWorkOrder(id, 'approve')}
-                  onHold={(id) => void changeWorkOrder(id, 'hold')}
+                  assetIds={new Set(assets.map((asset) => asset.id))}
                   onOpenMachine={(id) => openMachine(id, 'work-orders')}
                 />
               )}
               {screen === 'activity' && <ActivityScreen items={activities} />}
-              {screen === 'demo' && (
-                <DemoScreen
-                  lastRun={data?.portfolio.last_run ?? null}
-                  busyAction={busyAction}
-                  simulatedText={simulatedText}
-                  onTextChange={setSimulatedText}
-                  onRunSweep={() => void submitSweep()}
-                  onSimulateText={(event) => void submitSimulatedText(event)}
-                />
-              )}
+              {screen === 'data-notes' && data && <DataNotesScreen portfolio={data.portfolio} savings={data.savings} />}
             </>
           )}
         </div>
@@ -463,30 +517,29 @@ function OverviewScreen({
   const { portfolio, savings } = data
   return (
     <>
-      <PageHeader title="Good morning" description="Here’s the latest across your equipment portfolio." actions={<span className="today-chip">{longDate(TODAY)}</span>} />
+      <PageHeader title="Portfolio overview" description="Sites, equipment, and service history from the imported source files." actions={<span className="today-chip">{longDate(TODAY)}</span>} />
       <section className="stats-grid" aria-label="Portfolio summary">
-        <StatCard label="Sites" value={portfolio.sites.toLocaleString()} note="Active commercial locations" icon="⌂" />
-        <StatCard label="Square feet" value={portfolio.square_feet.toLocaleString()} note="Across managed sites" icon="▱" />
-        <StatCard label="Machines monitored" value={portfolio.machines.toLocaleString()} note="Across all active locations" icon="▦" />
-        <StatCard label="High risk" value={portfolio.high_risk_count.toLocaleString()} note="Requires immediate attention" icon="▲" />
-        <StatCard label="Medium risk" value={portfolio.medium_risk_count.toLocaleString()} note="Keep a close watch" icon="!" />
-        <StatCard label="Awaiting approval" value={portfolio.work_orders_awaiting_approval.toLocaleString()} note="Work orders need a decision" icon="☷" />
-        <StatCard label="Texts sent today" value={portfolio.texts_sent_today.toLocaleString()} note="Regional manager updates" icon="↗" />
+        <StatCard label="Sites" value={portfolio.sites.toLocaleString()} note="Imported locations" icon="⌂" />
+        <StatCard label="Daily revenue" value={money(portfolio.daily_revenue_usd)} note="Sum of source site values" icon="$" />
+        <StatCard label="Equipment assets" value={portfolio.machines.toLocaleString()} note={`${portfolio.supported_assets.toLocaleString()} supported by the risk model`} icon="▦" />
+        <StatCard label="High risk" value={portfolio.high_risk_count.toLocaleString()} note="Calculated from age and repair history" icon="▲" />
+        <StatCard label="Medium risk" value={portfolio.medium_risk_count.toLocaleString()} note="Calculated from age and repair history" icon="!" />
+        <StatCard label="Service records" value={portfolio.service_records.toLocaleString()} note={`Latest: ${shortDate(portfolio.latest_service_date)}`} icon="☷" />
       </section>
 
       <section className="overview-lower">
         <article className="panel savings-panel">
           <div className="section-heading">
-            <div><p className="overline">PORTFOLIO IMPACT</p><h2>Money protected by acting early</h2></div>
+            <div><p className="overline">SOURCE INVOICES</p><h2>Recorded service spend</h2></div>
             <span className="savings-icon" aria-hidden="true">$</span>
           </div>
-          <p className="savings-amount">{money(savings.savings_secured_usd)}</p>
-          <p className="savings-caption">Saved by approved work orders</p>
+          <p className="savings-amount">{money(savings.historical_service_spend_usd)}</p>
+          <p className="savings-caption">Invoice total across imported service records</p>
           <div className="savings-details">
-            <div><span className="detail-dot pending-dot" /><span><strong>{money(savings.savings_pending_usd)}</strong><small>More if pending work orders are approved</small></span></div>
-            <div><span className="detail-dot exposure-dot" /><span><strong>{money(savings.exposure_usd)}</strong><small>Expected emergency cost in the next 30 days if nothing is done</small></span></div>
+            <div><span className="detail-dot pending-dot" /><span><strong>{savings.records_with_invoice_total.toLocaleString()}</strong><small>Records with an invoice total</small></span></div>
+            <div><span className="detail-dot exposure-dot" /><span><strong>{(savings.total_service_records - savings.records_with_invoice_total).toLocaleString()}</strong><small>Records without an invoice total</small></span></div>
           </div>
-          <div className="savings-footnote">Based on estimated preventive and emergency repair costs.</div>
+          <div className="savings-footnote">Historical spend is not a savings or future-cost estimate.</div>
         </article>
 
         <article className="panel attention-panel">
@@ -504,7 +557,7 @@ function OverviewScreen({
                   <span className="attention-main">
                     <strong>{machineName(asset)} <small>· {asset.site_name}</small></strong>
                     <span>{asset.main_reason}</span>
-                    <small>{asset.open_work_order ? `Work order ${asset.open_work_order}` : 'No open work order'}</small>
+                    <small>Last service: {shortDate(asset.last_service_date)}</small>
                   </span>
                   <span className="attention-risk">{percent(asset.prob)}<small>30-day risk</small></span>
                   <span className="row-chevron" aria-hidden="true">›</span>
@@ -518,10 +571,10 @@ function OverviewScreen({
       <section className="panel last-sweep-panel">
         <div className="sweep-status-icon" aria-hidden="true">✦</div>
         <div className="sweep-summary">
-          <span>Last agent sweep</span>
-          <strong>{portfolio.last_run?.summary || 'No agent sweep has run yet.'}</strong>
+          <span>Risk estimate basis</span>
+          <strong>Age and matched maintenance history; forecast weather and field reports are not included in the CSV files.</strong>
         </div>
-        <span className="sweep-time">{portfolio.last_run ? relativeTime(portfolio.last_run.finished_at) : 'Not run'}</span>
+        <span className="sweep-time">30-day horizon</span>
       </section>
     </>
   )
@@ -546,7 +599,7 @@ function MachinesScreen({
 }) {
   return (
     <>
-      <PageHeader title="Machines" description="Monitor machine health across every site." actions={<span className="count-chip">{total} machines</span>} />
+      <PageHeader title="Machines" description="Browse source equipment records and risk estimates where the model has enough data." actions={<span className="count-chip">{total} assets</span>} />
       <section className="panel table-panel">
         <div className="table-toolbar">
           <div className="filter-chips" aria-label="Filter by risk">
@@ -566,7 +619,7 @@ function MachinesScreen({
         ) : (
           <div className="table-scroll">
             <table className="data-table">
-              <thead><tr><th>Machine</th><th>Site</th><th>City</th><th>Risk</th><th>Level</th><th>Main reason</th><th>Work order</th><th>Expected savings</th></tr></thead>
+              <thead><tr><th>Equipment</th><th>Site</th><th>City</th><th>Risk</th><th>Level</th><th>Risk basis / data status</th><th>Installed</th><th>Service spend</th></tr></thead>
               <tbody>
                 {assets.map((asset) => (
                   <tr key={asset.id} className="clickable-row" onClick={() => onOpenMachine(asset.id)}>
@@ -576,15 +629,15 @@ function MachinesScreen({
                     <td className="risk-percent">{percent(asset.prob)}</td>
                     <td><RiskBadge tier={asset.tier} /></td>
                     <td className="reason-cell">{asset.main_reason}</td>
-                    <td>{asset.open_work_order ? <span className="work-order-link">{asset.open_work_order}</span> : <span className="muted">—</span>}</td>
-                    <td className="money-cell">{money(asset.expected_savings_usd)}</td>
+                    <td>{shortDate(asset.install_date)}</td>
+                    <td className="money-cell">{money(asset.historical_service_spend_usd)}</td>
                   </tr>
                 ))}
               </tbody>
             </table>
           </div>
         )}
-        <div className="table-footer">Showing {assets.length} of {total} machines <span>Sorted by highest failure risk</span></div>
+        <div className="table-footer">Showing {assets.length} of {total} assets <span>Risk estimates use source install dates and repair history</span></div>
       </section>
     </>
   )
@@ -606,7 +659,7 @@ function RiskChart({ detail }: { detail: AssetDetail }) {
   const highY = y(0.2)
   const mediumY = y(0.08)
 
-  if (history.length === 0) return <EmptyState>No risk history available for this machine.</EmptyState>
+  if (history.length === 0) return <EmptyState>Historical risk snapshots are not included in the CSV data.</EmptyState>
 
   return (
     <svg className="risk-chart" viewBox={`0 0 ${width} ${height}`} role="img" aria-label="Machine failure risk over the last 30 days">
@@ -641,12 +694,12 @@ function MachineDetailScreen({
   onBack: () => void
   onOpenMachine: (id: string) => void
 }) {
-  const { risk_now: risk, cost_comparison: costs } = detail
+  const { risk_now: risk } = detail
   const assetWorkOrders = workOrders.filter((order) => order.asset_id === detail.asset.id)
   return (
     <>
       <button type="button" className="back-button" onClick={onBack}>← Back</button>
-      <PageHeader title={`${machineName(detail.asset)} · ${detail.asset.site_name}`} description={`${detail.asset.city} · ${detail.asset.site_type} · ${detail.asset.square_feet.toLocaleString()} sq ft`} actions={<RiskBadge tier={risk.tier} />} />
+      <PageHeader title={`${machineName(detail.asset)} · ${detail.asset.site_name}`} description={`${detail.asset.city} · ${detail.asset.site_type}`} actions={<RiskBadge tier={risk.tier} />} />
       <section className="detail-hero panel">
         <div className="hero-risk">
           <span className="overline">30-DAY FAILURE RISK</span>
@@ -657,15 +710,15 @@ function MachineDetailScreen({
         <div className="asset-facts">
           <div><span>Machine</span><strong>{detail.asset.id}</strong></div>
           <div><span>Installed</span><strong>{shortDate(detail.asset.install_date)}</strong></div>
-          <div><span>Age</span><strong>{risk.age_years.toFixed(1)} years</strong></div>
-          <div><span>Hours</span><strong>{detail.asset.open_hours}</strong></div>
+          <div><span>Age</span><strong>{risk.age_years === null ? 'Not available' : `${risk.age_years.toFixed(1)} years`}</strong></div>
+          <div><span>Hours</span><strong>{detail.asset.open_hours ?? 'Not provided'}</strong></div>
         </div>
-        <div className="multiplier-chip">{risk.multiplier.toFixed(1)}x risk</div>
+        <div className="multiplier-chip">{risk.multiplier === null ? 'Risk unavailable' : `x${risk.multiplier.toFixed(1)} risk`}</div>
       </section>
 
       <section className="detail-grid">
         <article className="panel detail-panel chart-panel">
-          <div className="section-heading"><div><p className="overline">30-DAY TREND</p><h2>Failure risk history</h2></div><span className="current-risk">{percent(risk.prob)} today</span></div>
+          <div className="section-heading"><div><p className="overline">30-DAY TREND</p><h2>Failure risk history</h2></div><span className="current-risk">{percent(risk.prob)} estimated</span></div>
           <RiskChart detail={detail} />
         </article>
 
@@ -681,8 +734,8 @@ function MachineDetailScreen({
         </article>
 
         <article className="panel detail-panel forecast-panel">
-          <div className="section-heading"><div><p className="overline">WEATHER</p><h2>7-day forecast</h2></div><span className="muted">Daily high</span></div>
-          {detail.forecast.length === 0 ? <EmptyState>No forecast data available.</EmptyState> : (
+          <div className="section-heading"><div><p className="overline">WEATHER</p><h2>7-day forecast</h2></div><span className="muted">Source data unavailable</span></div>
+          {detail.forecast.length === 0 ? <EmptyState>Weather forecasts are not included in the imported files.</EmptyState> : (
             <div className="forecast-list">
               {detail.forecast.map((day) => (
                 <div className="forecast-day" key={day.date}><span>{shortDate(day.date)}</span><span className="weather-symbol" aria-hidden="true">{day.max_f >= 90 ? '☀' : '◒'}</span><strong>{day.max_f}°F</strong></div>
@@ -692,35 +745,33 @@ function MachineDetailScreen({
         </article>
 
         <article className="panel detail-panel cost-panel">
-          <div className="section-heading"><div><p className="overline">COST COMPARISON</p><h2>Acting early protects your budget</h2></div><span className="source-label">Source: {costs.cost_source}</span></div>
-          <div className="cost-comparison">
-            <div><span>Preventive repair</span><strong>{money(costs.preventive_cost_usd)}</strong></div>
-            <span className="cost-vs">vs</span>
-            <div><span>Emergency failure</span><strong className="emergency-cost">{money(costs.emergency_cost_usd)}</strong></div>
-          </div>
-          <div className="breakdown-row"><span>Repair</span><strong>{money(costs.emergency_breakdown.repair)}</strong></div>
-          <div className="breakdown-row"><span>Lost revenue</span><strong>{money(costs.emergency_breakdown.lost_revenue)}</strong></div>
-          <div className="breakdown-row"><span>Spoiled stock</span><strong>{money(costs.emergency_breakdown.spoiled_stock)}</strong></div>
-          <div className="expected-savings"><span>Expected savings</span><strong>{money(costs.expected_savings_usd)}</strong></div>
-          <div className={`worth-acting ${costs.worth_acting_now ? 'yes' : 'no'}`}>{costs.worth_acting_now ? '✓ Worth acting now' : '○ Monitor for now'}</div>
+          <div className="section-heading"><div><p className="overline">SERVICE COSTS</p><h2>Historical invoice totals</h2></div><span className="source-label">Source: service records</span></div>
+          <div className="expected-savings"><span>Recorded spend</span><strong>{money(detail.historical_service_spend_usd)}</strong></div>
+          <div className="breakdown-row"><span>Service records</span><strong>{detail.service_record_count.toLocaleString()}</strong></div>
+          <p className="muted">The source contains no preventive-versus-emergency cost comparison or savings estimate.</p>
         </article>
 
         <article className="panel detail-panel history-panel">
-          <div className="section-heading"><div><p className="overline">SERVICE RECORD</p><h2>Repair history</h2></div></div>
-          {detail.work_order_history.length === 0 ? <EmptyState>No repair history on file.</EmptyState> : (
+          <div className="section-heading"><div><p className="overline">SERVICE RECORD</p><h2>Imported maintenance history</h2></div></div>
+          {detail.work_order_history.length === 0 ? <EmptyState>No service history is linked to this equipment ID.</EmptyState> : (
             <div className="timeline-list">
-              {detail.work_order_history.map((record, index) => (
-                <div className="timeline-row" key={`${record.date}-${index}`}><span className="timeline-dot" /><div><strong>{record.issue}</strong><span>{record.kind} · {shortDate(record.date)}</span><p>{record.note}</p></div></div>
+              {detail.work_order_history.slice(0, 30).map((record) => (
+                <div className="timeline-row" key={record.source_row}><span className="timeline-dot" /><div><strong>{record.problem || record.work_type}</strong><span>{record.work_type} · {shortDate(record.date)}</span><p>{record.tech_notes || 'No technician note in source.'}</p></div></div>
               ))}
             </div>
           )}
         </article>
 
         <article className="panel detail-panel asset-orders-panel">
-          <div className="section-heading"><div><p className="overline">FOLLOW-UP</p><h2>This machine’s work orders</h2></div></div>
-          {assetWorkOrders.length === 0 ? <EmptyState>No work orders for this machine.</EmptyState> : (
+          <div className="section-heading"><div><p className="overline">EQUIPMENT DETAILS</p><h2>Manufacturer and model</h2></div></div>
+          <div className="breakdown-row"><span>Manufacturer</span><strong>{detail.asset.manufacturer || 'Not provided'}</strong></div>
+          <div className="breakdown-row"><span>Model</span><strong>{detail.asset.model || 'Not provided'}</strong></div>
+          <div className="breakdown-row"><span>Refrigerant</span><strong>{detail.asset.refrigerant || 'Not provided'}</strong></div>
+          <div className="breakdown-row"><span>Floor area</span><strong>Not provided</strong></div>
+          <div className="section-heading service-record-heading"><div><p className="overline">MAINTENANCE</p><h2>Records for this machine</h2></div></div>
+          {assetWorkOrders.length === 0 ? <EmptyState>No service records are linked to this equipment ID.</EmptyState> : (
             <div className="compact-orders">
-              {assetWorkOrders.map((order) => <div key={order.id}><strong>{order.id}</strong><span>{order.likely_issue}</span><RiskBadge tier={order.tier} /><small>{tierLabel(order.tier)} · {shortDate(order.do_by)} · {order.status.replaceAll('_', ' ')}</small></div>)}
+              {assetWorkOrders.slice(0, 10).map((record) => <div key={record.source_row}><strong>{record.work_type}</strong><span>{record.problem || 'No problem specified'}</span><small>{shortDate(record.date)} · Invoice {money(record.invoice_total_usd)}</small></div>)}
             </div>
           )}
           {asset && asset.id !== detail.asset.id && <button className="text-button" type="button" onClick={() => onOpenMachine(asset.id)}>Open machine</button>}
@@ -732,52 +783,73 @@ function MachineDetailScreen({
 
 function WorkOrdersScreen({
   workOrders,
-  busyAction,
-  onApprove,
-  onHold,
+  assetIds,
   onOpenMachine,
 }: {
   workOrders: WorkOrder[]
-  busyAction: string
-  onApprove: (id: string) => void
-  onHold: (id: string) => void
+  assetIds: ReadonlySet<string>
   onOpenMachine: (id: string) => void
 }) {
-  const pendingCount = workOrders.filter((order) => order.status === 'pending_approval').length
+  const [search, setSearch] = useState('')
+  const [page, setPage] = useState(0)
+  const pageSize = 50
+  const filteredRecords = useMemo(() => {
+    const query = search.trim().toLowerCase()
+    if (!query) return workOrders
+    return workOrders.filter((record) => [
+      record.asset_id,
+      record.site_name,
+      record.city,
+      record.work_type,
+      record.problem,
+      record.tech_notes,
+      record.date,
+    ].join(' ').toLowerCase().includes(query))
+  }, [search, workOrders])
+  const pageCount = Math.max(1, Math.ceil(filteredRecords.length / pageSize))
+  const visibleRecords = filteredRecords.slice(page * pageSize, (page + 1) * pageSize)
+
   return (
     <>
-      <PageHeader title="Work orders" description="Review agent recommendations and track planned maintenance." actions={<span className="count-chip">{pendingCount} awaiting approval</span>} />
+      <PageHeader title="Service history" description="Historical maintenance records imported from the work-order CSV." actions={<span className="count-chip">{workOrders.length.toLocaleString()} records</span>} />
       <section className="panel table-panel">
-        {workOrders.length === 0 ? <EmptyState>No work orders have been created.</EmptyState> : (
-          <div className="table-scroll">
-            <table className="data-table work-orders-table">
-              <thead><tr><th>Work order</th><th>Machine / site</th><th>Risk</th><th>Urgency</th><th>Likely issue / tasks</th><th>Do by</th><th>Status</th><th>Expected savings</th><th>Actions</th></tr></thead>
+        {workOrders.length === 0 ? <EmptyState>No service history is available in the source files.</EmptyState> : (
+          <>
+            <div className="table-toolbar history-toolbar">
+              <label className="search-control">
+                <span aria-hidden="true">⌕</span>
+                <input type="search" value={search} onChange={(event) => { setSearch(event.target.value); setPage(0) }} placeholder="Search equipment, site, problem, or notes" />
+              </label>
+              <div className="pagination-controls">
+                <button type="button" className="hold-button" disabled={page === 0} onClick={() => setPage(page - 1)}>Previous</button>
+                <span>Page {page + 1} of {pageCount}</span>
+                <button type="button" className="hold-button" disabled={page + 1 >= pageCount} onClick={() => setPage(page + 1)}>Next</button>
+              </div>
+            </div>
+            {visibleRecords.length === 0 ? <EmptyState>No service records match this search.</EmptyState> : <div className="table-scroll">
+              <table className="data-table work-orders-table">
+              <thead><tr><th>Source row</th><th>Equipment / site</th><th>Service type</th><th>Problem</th><th>Refrigerant charge</th><th>Service date</th><th>Invoice total</th><th>Technician notes</th></tr></thead>
               <tbody>
-                {workOrders.map((order) => (
-                  <tr key={order.id}>
-                    <td><strong>{order.id}</strong></td>
-                    <td><button className="table-link" type="button" onClick={() => onOpenMachine(order.asset_id)}>{order.machine_name}<small>{order.site} · {order.city}</small></button></td>
-                    <td><RiskBadge tier={order.tier} /></td>
-                    <td><span className={`urgency urgency-${order.urgency}`}>{order.urgency === '48h' ? 'Within 48 hours' : order.urgency === 'this_week' ? 'This week' : 'Today'}</span></td>
-                    <td className="order-tasks"><strong>{order.likely_issue}</strong><small>{order.tasks.join(' · ')}</small></td>
-                    <td>{shortDate(order.do_by)}</td>
-                    <td><span className={`status-pill status-${order.status}`}>{order.status.replaceAll('_', ' ')}</span></td>
-                    <td className="money-cell">{money(order.expected_savings_usd)}</td>
-                    <td>
-                      {order.status === 'pending_approval' ? (
-                        <div className="row-actions">
-                          <button type="button" className="approve-button" disabled={busyAction === order.id} onClick={() => onApprove(order.id)}>{busyAction === order.id ? '…' : 'Approve'}</button>
-                          <button type="button" className="hold-button" disabled={busyAction === order.id} onClick={() => onHold(order.id)}>Hold</button>
-                        </div>
-                      ) : <span className="muted">—</span>}
-                    </td>
+                {visibleRecords.map((order) => (
+                  <tr key={order.source_row}>
+                    <td><strong>CSV row {order.source_row}</strong></td>
+                    <td>{assetIds.has(order.asset_id)
+                      ? <button className="table-link" type="button" onClick={() => onOpenMachine(order.asset_id)}>{order.machine_name}<small>{order.site_name} · {order.city}</small></button>
+                      : <span>{order.machine_name}<small className="table-subtext">{order.site_name} · equipment record unmatched</small></span>}</td>
+                    <td>{order.work_type}</td>
+                    <td>{order.problem || 'Not specified'}</td>
+                    <td>{order.refrigerant_charge === null ? '—' : order.refrigerant_charge}</td>
+                    <td>{shortDate(order.date)}</td>
+                    <td className="money-cell">{money(order.invoice_total_usd)}</td>
+                    <td className="reason-cell">{order.tech_notes || '—'}</td>
                   </tr>
                 ))}
               </tbody>
-            </table>
-          </div>
+              </table>
+            </div>}
+          </>
         )}
-        <div className="table-footer">{workOrders.length} work orders <span>Approvals update simulated savings</span></div>
+        <div className="table-footer">Showing {filteredRecords.length ? page * pageSize + 1 : 0}–{Math.min((page + 1) * pageSize, filteredRecords.length)} of {filteredRecords.length.toLocaleString()} matching records <span>These are historical records, not pending work orders</span></div>
       </section>
     </>
   )
@@ -786,9 +858,9 @@ function WorkOrdersScreen({
 function ActivityScreen({ items }: { items: ActivityItem[] }) {
   return (
     <>
-      <PageHeader title="Activity" description="Messages to regional managers and calls to service workers." />
+      <PageHeader title="Activity" description="Communication records are not included in the imported source data." />
       <section className="panel activity-panel">
-        {items.length === 0 ? <EmptyState>No messages or calls have been logged.</EmptyState> : (
+        {items.length === 0 ? <EmptyState>Messages and calls are not included in the imported CSV files.</EmptyState> : (
           <div className="activity-feed">
             {items.map((item) => (
               <article className="activity-item" key={`${item.kind}-${item.id}`}>
@@ -808,47 +880,29 @@ function ActivityScreen({ items }: { items: ActivityItem[] }) {
   )
 }
 
-function DemoScreen({
-  lastRun,
-  busyAction,
-  simulatedText,
-  onTextChange,
-  onRunSweep,
-  onSimulateText,
-}: {
-  lastRun: Portfolio['last_run']
-  busyAction: string
-  simulatedText: string
-  onTextChange: (value: string) => void
-  onRunSweep: () => void
-  onSimulateText: (event: FormEvent<HTMLFormElement>) => void
-}) {
+function DataNotesScreen({ portfolio, savings }: { portfolio: Portfolio; savings: Savings }) {
   return (
     <>
-      <PageHeader title="Demo controls" description="Try the agent workflow with safe, local mock data." />
+      <PageHeader title="Data notes" description="What is included in the imported source data and how this dashboard interprets it." />
       <section className="demo-grid">
         <article className="panel demo-card">
-          <span className="demo-icon" aria-hidden="true">✦</span>
-          <p className="overline">AGENT</p>
-          <h2>Run a portfolio sweep</h2>
-          <p>Re-check machine risk, summarize findings, and update the latest sweep record. This demo does not contact anyone.</p>
-          <button type="button" className="primary-button" disabled={busyAction === 'sweep'} onClick={onRunSweep}>{busyAction === 'sweep' ? 'Running sweep…' : 'Run sweep now'} <span>→</span></button>
-          <div className="demo-last-run"><span>Last run</span><strong>{lastRun ? `${relativeTime(lastRun.finished_at)} · ${lastRun.summary}` : 'No sweep run yet.'}</strong></div>
+          <span className="demo-icon" aria-hidden="true">▤</span>
+          <p className="overline">IMPORTED DATA</p>
+          <h2>Source file coverage</h2>
+          <p>{portfolio.sites.toLocaleString()} sites, {portfolio.machines.toLocaleString()} equipment records, and {portfolio.service_records.toLocaleString()} service-history rows are loaded directly from the repository CSV files.</p>
+          <div className="demo-last-run"><span>Supported risk inputs</span><strong>{portfolio.supported_assets.toLocaleString()} assets have both a supported equipment category and an installation date.</strong></div>
+          <div className="demo-last-run"><span>Invoice totals</span><strong>{savings.records_with_invoice_total.toLocaleString()} of {savings.total_service_records.toLocaleString()} service records include an invoice amount.</strong></div>
         </article>
 
         <article className="panel demo-card">
-          <span className="demo-icon" aria-hidden="true">↗</span>
-          <p className="overline">SIMULATOR</p>
-          <h2>Simulate a manager text</h2>
-          <p>Test an incoming field report or an approval reply. Try “Katy clinic has no hot water again” or “APPROVE WO-0003”.</p>
-          <form className="simulate-form" onSubmit={onSimulateText}>
-            <label htmlFor="simulate-message">Incoming message</label>
-            <textarea id="simulate-message" rows={4} value={simulatedText} onChange={(event) => onTextChange(event.target.value)} placeholder="Type a message from a site or regional manager…" />
-            <button type="submit" className="primary-button" disabled={!simulatedText.trim() || busyAction === 'text'}>{busyAction === 'text' ? 'Simulating…' : 'Simulate text'} <span>→</span></button>
-          </form>
+          <span className="demo-icon" aria-hidden="true">ⓘ</span>
+          <p className="overline">LIMITATIONS</p>
+          <h2>Fields not present in the CSVs</h2>
+          <p>Square footage, opening hours, weather forecasts, risk snapshots, savings estimates, agent-created work orders, manager messages, and service calls are not in these files.</p>
+          <div className="demo-last-run"><span>Risk estimates</span><strong>Calculated from installation age and matched service history using the backend’s documented model. Its life estimates and coefficients are demo assumptions, not validated predictions. Weather and field-report terms are omitted.</strong></div>
+          <div className="demo-last-run"><span>Not a live backend</span><strong>No database, messaging, or phone integration is active in this CSV-backed view.</strong></div>
         </article>
       </section>
-      <p className="demo-notice">All actions in this demo update local mock data only. No texts or phone calls are sent.</p>
     </>
   )
 }
