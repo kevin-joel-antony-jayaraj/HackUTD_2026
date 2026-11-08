@@ -14,7 +14,7 @@ from .store import Store
 
 HIGH = float(os.environ.get("RISK_HIGH", 0.20))
 MEDIUM = float(os.environ.get("RISK_MEDIUM", 0.08))
-MAX_TEXTS_PER_RUN = int(os.environ.get("MAX_TEXTS_PER_RUN", 15))
+MAX_TEXTS_PER_RUN = int(os.environ.get("MAX_TEXTS_PER_RUN", 30))
 TIER_RANK = {"unknown": -1, "low": 0, "medium": 1, "high": 2}
 
 S, O, A, I, N, B = "STRING", "OBJECT", "ARRAY", "INTEGER", "NUMBER", "BOOLEAN"
@@ -107,7 +107,7 @@ class Toolbox:
                              "top_drivers": [d["factor"] for d in r.drivers[:3]],
                              "open_work_order": wo["id"] if wo else None})
         rows.sort(key=lambda x: -x["prob"])
-        return {"count": len(rows), "assets": rows[:15]}
+        return {"count": len(rows), "assets": rows[:MAX_TEXTS_PER_RUN]}
 
     def get_risk_snapshot(self, asset_id: str):
         if not self.s.asset_site(asset_id):

@@ -159,7 +159,7 @@ class MockBrain:
 
 
 # ---------------------------------------------------------------------------
-def run_agent(task: str, toolbox: Toolbox, brain=None, max_steps: int = 60) -> dict:
+def run_agent(task: str, toolbox: Toolbox, brain=None, max_steps: int = 100) -> dict:
     brain = brain or (MockBrain() if os.environ.get("BRAIN") == "mock" else GeminiBrain())
     toolbox.run_id = toolbox.s.start_run(task[:500])
     toolbox.texts_sent, toolbox.checked_in = 0, set()  # limits are per run
