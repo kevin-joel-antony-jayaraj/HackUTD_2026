@@ -241,6 +241,7 @@ $$;
 
 -- Phone calls (photon_call.py). Phone is optional: only needed for managers who get calls.
 ALTER TABLE contacts ADD COLUMN IF NOT EXISTS phone text;
+ALTER TABLE sites ADD COLUMN IF NOT EXISTS square_feet integer;
 
 CREATE TABLE IF NOT EXISTS calls (                  -- every call attempt, real or dry run
     id               bigserial PRIMARY KEY,

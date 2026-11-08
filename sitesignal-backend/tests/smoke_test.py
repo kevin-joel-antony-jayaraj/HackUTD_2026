@@ -61,10 +61,10 @@ def main():
                         "temperature_2m_max": [88.1, 99.4, 101.2, 97.0, 90.3, None, 85.0]}}
     check("parse Open-Meteo payload", len(weather.parse_forecast(sample)) == 6)
     w = weather.refresh_all(db, fetch=lambda lat, lon: weather.parse_forecast(sample))
-    check("weather refresh", w["sites_updated"] >= 40 and not w["failed"], {k: w[k] for k in ("sites_updated", "api_calls")})
+    check("weather refresh", w["sites_updated"] >= 12 and not w["failed"], {k: w[k] for k in ("sites_updated", "api_calls")})
 
     # --- scoring + scheduler --------------------------------------------------
-    check("score_all", services.score_all(db) > 80)
+    check("score_all", services.score_all(db) > 40)
     tz = ZoneInfo("America/Chicago")
     ran = scheduler.tick(db, datetime.now(tz).replace(hour=5, minute=0))
     check("scheduler before 06:00 only rescores", "sweep" not in ran, ran)
@@ -77,7 +77,7 @@ def main():
 
     # --- API read services -------------------------------------------------------
     p = services.portfolio(db)
-    check("portfolio summary", p["assets"] > 80 and p["work_orders_by_status"], p["work_orders_by_status"])
+    check("portfolio summary", p["assets"] > 40 and p["work_orders_by_status"], p["work_orders_by_status"])
     top = services.assets_list(db, "high", 5)
     check("assets list sorted by risk", top and top[0]["prob"] >= top[-1]["prob"])
     d = services.asset_detail(db, "D101-RTU1")

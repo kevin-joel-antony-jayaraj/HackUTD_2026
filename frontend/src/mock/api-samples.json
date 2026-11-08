@@ -6,39 +6,39 @@
     "needs_admin_token": false,
     "use_on_screen": "Summary tiles and savings counter",
     "example_response": {
-      "sites": 40,
-      "assets": 91,
+      "sites": 12,
+      "square_feet": 143000,
+      "assets": 51,
       "assets_by_tier": {
-        "medium": 13,
-        "high": 9,
-        "low": 66
+        "high": 3,
+        "low": 47,
+        "medium": 1
       },
       "work_orders_by_status": {
-        "approved": 3,
-        "on_hold": 1,
-        "pending_approval": 18
+        "approved": 2,
+        "pending_approval": 2
       },
-      "texts_today": 22,
+      "texts_today": 5,
       "quarantined_rows": 0,
       "last_run": {
-        "run_id": 1,
-        "trigger": "Run today's risk sweep for the portfolio.",
-        "summary": "Run summary: created WO-0001 for S013-RTU2; created WO-0002 for S006-RTU1; texted Dallas service manager; texted Dallas service manager; created WO-0003 for S030-WALK_IN_COOLER3; texted Austin service manager; created WO-0004 for S004-RTU2; created WO-0005 for S029-RTU2; texted Dallas service manager; texted Austin service manager; created WO-0006 for S004-RTU1; texted Austin service manager; created WO-0007 for S010-RTU2; created WO-0008 for S010-WALK_IN_COOLER3; texted Austin service manager; texted Austin service manager; created WO-0009 for S027-RTU1; texted Austin service manager; created WO-0010 for S036-RTU1; created WO-0011 for S034-RTU1; texted Houston service manager; texted Houston service manager; created WO-0012 for S021-RTU2; texted Austin service manager; created WO-0013 for S033-WALK_IN_COOLER3; created WO-0014 for S032-RTU2; texted Austin service manager; texted Dallas service manager; created WO-0015 for S037-RTU1; texted Houston service manager; created WO-0016 for S013-RTU1; created WO-0017 for S025-RTU2; texted Austin service manager; texted Dallas service manager; created WO-0018 for S025-WALK_IN_COOLER3; texted Austin service manager; created WO-0019 for S038-RTU2; created WO-0020 for S019-RTU1; texted Houston service manager; texted Dallas service manager; created WO-0021 for S003-RTU2; texted Austin service manager; created WO-0022 for S038-RTU1; texted Dallas service manager",
-        "finished_at": "2026-11-08T08:08:37.817031-06:00"
+        "run_id": 3,
+        "trigger": "EVENT service manager replied: APPROVE WO-0002",
+        "summary": "Run summary: WO-0002 -> approved",
+        "finished_at": "2026-11-08T08:49:39.492662-06:00"
       },
       "thresholds": {
         "high": 0.2,
         "medium": 0.08
       },
       "savings": {
-        "savings_secured_usd": 12416,
-        "work_orders_secured": 3,
-        "preventive_spend_secured_usd": 780,
-        "savings_pending_usd": 21657,
-        "work_orders_pending": 18,
-        "preventive_spend_pending_usd": 4725,
-        "exposure_usd": 80577,
-        "exposure_unaddressed_usd": 24039
+        "savings_secured_usd": 2977,
+        "work_orders_secured": 2,
+        "preventive_spend_secured_usd": 515,
+        "savings_pending_usd": 920,
+        "work_orders_pending": 2,
+        "preventive_spend_pending_usd": 440,
+        "exposure_usd": 8499,
+        "exposure_unaddressed_usd": 1567
       }
     }
   },
@@ -49,14 +49,14 @@
     "needs_admin_token": false,
     "use_on_screen": "Savings counter and its 'how we calculate this' / sources panel",
     "example_response": {
-      "savings_secured_usd": 12416,
-      "work_orders_secured": 3,
-      "preventive_spend_secured_usd": 780,
-      "savings_pending_usd": 21657,
-      "work_orders_pending": 18,
-      "preventive_spend_pending_usd": 4725,
-      "exposure_usd": 80577,
-      "exposure_unaddressed_usd": 24039,
+      "savings_secured_usd": 2977,
+      "work_orders_secured": 2,
+      "preventive_spend_secured_usd": 515,
+      "savings_pending_usd": 920,
+      "work_orders_pending": 2,
+      "preventive_spend_pending_usd": 440,
+      "exposure_usd": 8499,
+      "exposure_unaddressed_usd": 1567,
       "cost_basis": {
         "prevention_rate": 0.7,
         "min_history_records": 5,
@@ -175,21 +175,84 @@
     "use_on_screen": "Machine table / map (lat, lon)",
     "example_response": [
       {
-        "asset_id": "S013-RTU2",
-        "asset_type": "rtu",
-        "site_id": "S013",
-        "site_name": "Store 013",
-        "region_id": "dallas",
-        "lat": 32.9776,
-        "lon": -96.9155,
-        "prob": 0.6856,
+        "asset_id": "S006-WATER_HEATER1",
+        "asset_type": "water_heater",
+        "site_id": "S006",
+        "site_name": "Katy Family Clinic",
+        "region_id": "houston",
+        "lat": 29.786,
+        "lon": -95.824,
+        "site_type": "clinic",
+        "city": "Katy",
+        "square_feet": 15100,
+        "prob": 0.2604,
         "tier": "high",
         "drivers": [
           {
-            "value": 18.5,
-            "detail": "18.5 yrs vs 15-yr median life",
+            "value": 12.0,
+            "detail": "12.0 yrs vs 10-yr median life",
             "factor": "age",
-            "base_prob": 0.0172
+            "base_prob": 0.0245
+          },
+          {
+            "factor": "calls_90d",
+            "log_hazard": 1.05,
+            "multiplier": 2.86
+          },
+          {
+            "factor": "field_report_negative",
+            "log_hazard": 0.8,
+            "multiplier": 2.23
+          },
+          {
+            "factor": "repeat_issue",
+            "log_hazard": 0.4,
+            "multiplier": 1.49
+          },
+          {
+            "factor": "recent_repair",
+            "log_hazard": 0.25,
+            "multiplier": 1.28
+          }
+        ],
+        "scored_at": "2026-11-08T08:49:39.481397-06:00",
+        "open_work_order": "WO-0003",
+        "cost": {
+          "preventive_cost_usd": 175,
+          "emergency_cost_usd": 1850,
+          "emergency_breakdown": {
+            "repair_usd": 1850,
+            "lost_revenue_usd": 0,
+            "inventory_loss_usd": 0
+          },
+          "expected_loss_if_ignored_usd": 482,
+          "expected_savings_usd": 162,
+          "worth_acting_now": true,
+          "cost_source": {
+            "preventive": "national_average",
+            "emergency_repair": "national_average"
+          }
+        }
+      },
+      {
+        "asset_id": "S005-WALK_IN_COOLER1",
+        "asset_type": "walk_in_cooler",
+        "site_id": "S005",
+        "site_name": "Montrose Market",
+        "region_id": "houston",
+        "lat": 29.745,
+        "lon": -95.39,
+        "site_type": "grocery",
+        "city": "Houston",
+        "square_feet": 5600,
+        "prob": 0.2363,
+        "tier": "high",
+        "drivers": [
+          {
+            "value": 16.0,
+            "detail": "16.0 yrs vs 15-yr median life",
+            "factor": "age",
+            "base_prob": 0.0129
           },
           {
             "factor": "refrigerant_recharges_180d",
@@ -202,110 +265,33 @@
             "multiplier": 2.86
           },
           {
-            "factor": "hot_days_next_7",
-            "log_hazard": 1.0,
-            "multiplier": 2.72
-          },
-          {
             "factor": "repeat_issue",
             "log_hazard": 0.4,
             "multiplier": 1.49
           },
           {
-            "factor": "peak_100f",
-            "log_hazard": 0.3,
-            "multiplier": 1.35
-          },
-          {
             "factor": "recent_repair",
             "log_hazard": 0.25,
             "multiplier": 1.28
-          }
-        ],
-        "scored_at": "2026-11-08T08:08:37.732304-06:00",
-        "open_work_order": "WO-0001",
-        "cost": {
-          "preventive_cost_usd": 265,
-          "emergency_cost_usd": 12925,
-          "emergency_breakdown": {
-            "repair_usd": 8425,
-            "lost_revenue_usd": 4500,
-            "inventory_loss_usd": 0
-          },
-          "expected_loss_if_ignored_usd": 8861,
-          "expected_savings_usd": 5938,
-          "worth_acting_now": true,
-          "cost_source": {
-            "preventive": "national_average",
-            "emergency_repair": "national_average"
-          }
-        }
-      },
-      {
-        "asset_id": "S006-RTU1",
-        "asset_type": "rtu",
-        "site_id": "S006",
-        "site_name": "Store 006",
-        "region_id": "dallas",
-        "lat": 32.5652,
-        "lon": -96.946,
-        "prob": 0.5607,
-        "tier": "high",
-        "drivers": [
-          {
-            "value": 10.2,
-            "detail": "10.2 yrs vs 15-yr median life",
-            "factor": "age",
-            "base_prob": 0.0053
-          },
-          {
-            "factor": "calls_90d",
-            "log_hazard": 1.4,
-            "multiplier": 4.06
-          },
-          {
-            "factor": "refrigerant_recharges_180d",
-            "log_hazard": 1.2,
-            "multiplier": 3.32
-          },
-          {
-            "factor": "hot_days_next_7",
-            "log_hazard": 1.0,
-            "multiplier": 2.72
           },
           {
             "factor": "pm_overdue_months",
-            "log_hazard": 0.5,
-            "multiplier": 1.65
-          },
-          {
-            "factor": "repeat_issue",
-            "log_hazard": 0.4,
-            "multiplier": 1.49
-          },
-          {
-            "factor": "peak_100f",
-            "log_hazard": 0.3,
-            "multiplier": 1.35
-          },
-          {
-            "factor": "recent_repair",
-            "log_hazard": 0.25,
-            "multiplier": 1.28
+            "log_hazard": 0.13,
+            "multiplier": 1.14
           }
         ],
-        "scored_at": "2026-11-08T08:08:37.728862-06:00",
-        "open_work_order": "WO-0002",
+        "scored_at": "2026-11-08T08:49:37.260324-06:00",
+        "open_work_order": "WO-0001",
         "cost": {
-          "preventive_cost_usd": 265,
-          "emergency_cost_usd": 10675,
+          "preventive_cost_usd": 250,
+          "emergency_cost_usd": 10395,
           "emergency_breakdown": {
-            "repair_usd": 8425,
-            "lost_revenue_usd": 2250,
-            "inventory_loss_usd": 0
+            "repair_usd": 1875,
+            "lost_revenue_usd": 2520,
+            "inventory_loss_usd": 6000
           },
-          "expected_loss_if_ignored_usd": 5985,
-          "expected_savings_usd": 3925,
+          "expected_loss_if_ignored_usd": 2456,
+          "expected_savings_usd": 1469,
           "worth_acting_now": true,
           "cost_source": {
             "preventive": "national_average",
@@ -323,35 +309,34 @@
     "use_on_screen": "Machine detail panel",
     "example_response": {
       "asset": {
-        "asset_id": "S013-RTU2",
-        "site_id": "S013",
-        "asset_type": "rtu",
-        "install_date": "2008-05-18",
+        "asset_id": "S006-WATER_HEATER1",
+        "site_id": "S006",
+        "asset_type": "water_heater",
+        "install_date": "2014-11-08",
         "install_date_estimated": false,
         "make": null,
         "model": null,
         "serial_number": null,
-        "refrigerant": "R-22",
+        "refrigerant": null,
         "pm_interval_days": 90,
-        "site_name": "Store 013",
-        "region_id": "dallas"
+        "site_name": "Katy Family Clinic",
+        "region_id": "houston",
+        "site_type": "clinic",
+        "city": "Katy",
+        "square_feet": 15100,
+        "open_hours": "8am-6pm Mon-Fri"
       },
       "risk_now": {
-        "prob": 0.6856,
-        "base_prob": 0.0172,
-        "multiplier": 66.686,
+        "prob": 0.2604,
+        "base_prob": 0.0245,
+        "multiplier": 12.182,
         "tier": "high",
         "drivers": [
           {
             "factor": "age",
-            "value": 18.5,
-            "detail": "18.5 yrs vs 15-yr median life",
-            "base_prob": 0.0172
-          },
-          {
-            "factor": "refrigerant_recharges_180d",
-            "log_hazard": 1.2,
-            "multiplier": 3.32
+            "value": 12.0,
+            "detail": "12.0 yrs vs 10-yr median life",
+            "base_prob": 0.0245
           },
           {
             "factor": "calls_90d",
@@ -359,9 +344,9 @@
             "multiplier": 2.86
           },
           {
-            "factor": "hot_days_next_7",
-            "log_hazard": 1.0,
-            "multiplier": 2.72
+            "factor": "field_report_negative",
+            "log_hazard": 0.8,
+            "multiplier": 2.23
           },
           {
             "factor": "repeat_issue",
@@ -369,28 +354,23 @@
             "multiplier": 1.49
           },
           {
-            "factor": "peak_100f",
-            "log_hazard": 0.3,
-            "multiplier": 1.35
-          },
-          {
             "factor": "recent_repair",
             "log_hazard": 0.25,
             "multiplier": 1.28
           }
         ],
-        "age_years": 18.48
+        "age_years": 12.0
       },
       "cost": {
-        "preventive_cost_usd": 265,
-        "emergency_cost_usd": 12925,
+        "preventive_cost_usd": 175,
+        "emergency_cost_usd": 1850,
         "emergency_breakdown": {
-          "repair_usd": 8425,
-          "lost_revenue_usd": 4500,
+          "repair_usd": 1850,
+          "lost_revenue_usd": 0,
           "inventory_loss_usd": 0
         },
-        "expected_loss_if_ignored_usd": 8861,
-        "expected_savings_usd": 5938,
+        "expected_loss_if_ignored_usd": 482,
+        "expected_savings_usd": 162,
         "worth_acting_now": true,
         "cost_source": {
           "preventive": "national_average",
@@ -399,91 +379,103 @@
       },
       "risk_history": [
         {
-          "scored_at": "2026-11-08T08:08:37.732304-06:00",
-          "prob": 0.6856,
+          "scored_at": "2026-11-08T08:49:39.481397-06:00",
+          "prob": 0.2604,
           "tier": "high"
         },
         {
-          "scored_at": "2026-11-08T08:08:37.701452-06:00",
-          "prob": 0.6856,
-          "tier": "high"
+          "scored_at": "2026-11-08T08:49:37.262234-06:00",
+          "prob": 0.1268,
+          "tier": "medium"
+        },
+        {
+          "scored_at": "2026-11-08T08:49:37.205937-06:00",
+          "prob": 0.1268,
+          "tier": "medium"
         }
       ],
       "work_order_history": [
         {
-          "date": "2026-10-14",
-          "kind": "emergency",
-          "issue": "short_cycling",
-          "refrigerant_added": true,
-          "note": "unit short cycling, replaced contactor"
+          "date": "2026-09-19",
+          "kind": "repair",
+          "issue": "no_hot_water",
+          "refrigerant_added": false,
+          "note": "no hot water in exam rooms, relit pilot"
         },
         {
-          "date": "2026-10-19",
+          "date": "2026-09-24",
           "kind": "pm",
           "issue": null,
           "refrigerant_added": false,
-          "note": "filter + coil service"
+          "note": "scheduled preventive maintenance"
         },
         {
-          "date": "2026-11-03",
+          "date": "2026-10-21",
           "kind": "repair",
-          "issue": "short_cycling",
+          "issue": "element",
           "refrigerant_added": false,
-          "note": "unit short cycling, replaced contactor"
+          "note": "replaced heating element"
         }
       ],
       "forecast": [
         {
           "date": "2026-11-08",
-          "max_f": 79.2
+          "max_f": 74.7
         },
         {
           "date": "2026-11-09",
-          "max_f": 81.6
+          "max_f": 65.4
         },
         {
           "date": "2026-11-10",
-          "max_f": 100.9
+          "max_f": 69.4
         },
         {
           "date": "2026-11-11",
-          "max_f": 97.8
+          "max_f": 72.1
         },
         {
           "date": "2026-11-12",
-          "max_f": 98.1
+          "max_f": 75.2
         },
         {
           "date": "2026-11-13",
-          "max_f": 97.0
+          "max_f": 62.1
         },
         {
           "date": "2026-11-14",
-          "max_f": 96.1
+          "max_f": 67.4
         }
       ],
-      "field_reports": [],
+      "field_reports": [
+        {
+          "asset_id": "S006-WATER_HEATER1",
+          "text": "Katy clinic has no hot water again",
+          "working": false,
+          "received_at": "2026-11-08 08:49:39.480221-06:00"
+        }
+      ],
       "work_orders": [
         {
-          "id": "WO-0001",
-          "asset_id": "S013-RTU2",
-          "site_id": "S013",
-          "prob": 0.6856,
+          "id": "WO-0003",
+          "asset_id": "S006-WATER_HEATER1",
+          "site_id": "S006",
+          "prob": 0.2604,
           "tier": "high",
           "urgency": "48h",
-          "likely_issue": "probable refrigerant leak",
+          "likely_issue": "end-of-life wear",
           "tasks": [
-            "leak check and repair",
-            "clean condenser coil",
+            "full inspection",
+            "check capacitor and contactor",
             "replace filter"
           ],
           "do_by": "2026-11-10",
-          "reason": "69% failure risk in 30 days; drivers: age, refrigerant_recharges_180d, calls_90d",
-          "status": "approved",
-          "status_note": "demo",
+          "reason": "26% failure risk in 30 days; drivers: age, calls_90d, field_report_negative",
+          "status": "pending_approval",
+          "status_note": null,
           "notified": true,
-          "created_at": "2026-11-08T08:08:37.782187-06:00",
-          "updated_at": "2026-11-08T08:08:37.822415-06:00"
+          "created_at": "2026-11-08T08:49:37.240470-06:00",
+          "updated_at": "2026-11-08T08:49:39.486138-06:00"
         }
       ]
     }
@@ -496,10 +488,10 @@
     "use_on_screen": "Work order list with Approve / Hold",
     "example_response": [
       {
-        "id": "WO-0022",
-        "asset_id": "S038-RTU1",
-        "site_id": "S038",
-        "prob": 0.0883,
+        "id": "WO-0004",
+        "asset_id": "S004-RTU1",
+        "site_id": "S004",
+        "prob": 0.0963,
         "tier": "medium",
         "urgency": "this_week",
         "likely_issue": "probable refrigerant leak",
@@ -509,25 +501,25 @@
           "replace filter"
         ],
         "do_by": "2026-11-14",
-        "reason": "9% failure risk in 30 days; drivers: age, calls_90d, refrigerant_recharges_180d",
+        "reason": "10% failure risk in 30 days; drivers: age, calls_90d, refrigerant_recharges_180d",
         "status": "pending_approval",
         "status_note": null,
         "notified": true,
-        "created_at": "2026-11-08T08:08:37.811694-06:00",
-        "updated_at": "2026-11-08T08:08:37.812419-06:00",
-        "site_name": "Store 038",
+        "created_at": "2026-11-08T08:49:37.243968-06:00",
+        "updated_at": "2026-11-08T08:49:37.245884-06:00",
+        "site_name": "Frisco Retail Store",
         "region_id": "dallas",
         "asset_type": "rtu",
         "cost": {
           "preventive_cost_usd": 265,
-          "emergency_cost_usd": 17425,
+          "emergency_cost_usd": 15175,
           "emergency_breakdown": {
             "repair_usd": 8425,
-            "lost_revenue_usd": 9000,
+            "lost_revenue_usd": 6750,
             "inventory_loss_usd": 0
           },
-          "expected_loss_if_ignored_usd": 1539,
-          "expected_savings_usd": 812,
+          "expected_loss_if_ignored_usd": 1461,
+          "expected_savings_usd": 758,
           "worth_acting_now": true,
           "cost_source": {
             "preventive": "national_average",
@@ -536,12 +528,12 @@
         }
       },
       {
-        "id": "WO-0021",
-        "asset_id": "S003-RTU2",
-        "site_id": "S003",
-        "prob": 0.0954,
-        "tier": "medium",
-        "urgency": "this_week",
+        "id": "WO-0003",
+        "asset_id": "S006-WATER_HEATER1",
+        "site_id": "S006",
+        "prob": 0.2604,
+        "tier": "high",
+        "urgency": "48h",
         "likely_issue": "end-of-life wear",
         "tasks": [
           "full inspection",
@@ -549,25 +541,25 @@
           "replace filter"
         ],
         "do_by": "2026-11-10",
-        "reason": "10% failure risk in 30 days; drivers: age, hot_days_next_7, pm_overdue_months",
+        "reason": "26% failure risk in 30 days; drivers: age, calls_90d, field_report_negative",
         "status": "pending_approval",
         "status_note": null,
         "notified": true,
-        "created_at": "2026-11-08T08:08:37.808938-06:00",
-        "updated_at": "2026-11-08T08:08:37.811267-06:00",
-        "site_name": "Store 003",
-        "region_id": "austin",
-        "asset_type": "rtu",
+        "created_at": "2026-11-08T08:49:37.240470-06:00",
+        "updated_at": "2026-11-08T08:49:39.486138-06:00",
+        "site_name": "Katy Family Clinic",
+        "region_id": "houston",
+        "asset_type": "water_heater",
         "cost": {
-          "preventive_cost_usd": 265,
-          "emergency_cost_usd": 17425,
+          "preventive_cost_usd": 175,
+          "emergency_cost_usd": 1850,
           "emergency_breakdown": {
-            "repair_usd": 8425,
-            "lost_revenue_usd": 9000,
+            "repair_usd": 1850,
+            "lost_revenue_usd": 0,
             "inventory_loss_usd": 0
           },
-          "expected_loss_if_ignored_usd": 1662,
-          "expected_savings_usd": 899,
+          "expected_loss_if_ignored_usd": 482,
+          "expected_savings_usd": 162,
           "worth_acting_now": true,
           "cost_source": {
             "preventive": "national_average",
@@ -585,51 +577,51 @@
     "use_on_screen": "Activity feed",
     "example_response": [
       {
-        "id": 22,
+        "id": 5,
+        "kind": "region",
+        "to_key": "houston",
+        "recipient_name": "Houston service manager",
+        "text": "[WO-0003] Katy Family Clinic: S006-WATER_HEATER1 has a 26% chance of failing in 30 days (end-of-life wear). Preventive visit needed this week. Reply APPROVE WO-0003 or HOLD WO-0003",
+        "sent": false,
+        "dry_run": true,
+        "error": null,
+        "idempotency_key": "WO-0003-high",
+        "created_at": "2026-11-08T08:49:39.485957-06:00"
+      },
+      {
+        "id": 4,
         "kind": "region",
         "to_key": "dallas",
         "recipient_name": "Dallas service manager",
-        "text": "[WO-0022] Store 038: S038-RTU1 has a 9% chance of failing in 30 days (probable refrigerant leak). Preventive visit needed this week. Reply APPROVE WO-0022 or HOLD WO-0022",
+        "text": "[WO-0004] Frisco Retail Store: S004-RTU1 has a 10% chance of failing in 30 days (probable refrigerant leak). Preventive visit needed this week. Reply APPROVE WO-0004 or HOLD WO-0004",
         "sent": false,
         "dry_run": true,
         "error": null,
-        "idempotency_key": "WO-0022",
-        "created_at": "2026-11-08T08:08:37.812320-06:00"
-      },
-      {
-        "id": 21,
-        "kind": "region",
-        "to_key": "austin",
-        "recipient_name": "Austin service manager",
-        "text": "[WO-0021] Store 003: S003-RTU2 has a 10% chance of failing in 30 days (end-of-life wear). Preventive visit needed before 2026-11-10's heat. Reply APPROVE WO-0021 or HOLD WO-0021",
-        "sent": false,
-        "dry_run": true,
-        "error": null,
-        "idempotency_key": "WO-0021",
-        "created_at": "2026-11-08T08:08:37.810809-06:00"
+        "idempotency_key": "WO-0004-medium",
+        "created_at": "2026-11-08T08:49:37.245684-06:00"
       }
     ]
   },
   {
     "method": "GET",
     "path": "/calls?limit=100",
-    "description": "Every phone call placed (or logged) about the riskiest machine, newest first.",
+    "description": "Every phone call placed (or logged) about high-risk machines, newest first.",
     "needs_admin_token": false,
     "use_on_screen": "Activity feed",
     "example_response": [
       {
-        "id": 1,
-        "asset_id": "S013-RTU2",
-        "work_order_id": "WO-0001",
-        "region_id": "dallas",
-        "recipient_name": "Dallas service manager",
-        "script": "This is PenguinRE with an urgent maintenance alert. The rooftop A C unit at Store 013 in Dallas has an estimated 69 percent chance of failing in the next 30 days, because it is near the end of its service life and refrigerant recharges, which suggest a leak. Work order WO 0001 is waiting for you. Reply APPROVE or HOLD to the text we sent.",
+        "id": 3,
+        "asset_id": "S006-WATER_HEATER1",
+        "work_order_id": "WO-0003",
+        "region_id": "houston",
+        "recipient_name": "Houston service manager",
+        "script": "This is PenguinRE with an urgent maintenance alert. The water heater at Katy Family Clinic in Katy has an estimated 26 percent chance of failing in the next 30 days, because it is near the end of its service life and repeated service calls in the last 90 days. Work order WO 0003 is waiting for you. Reply APPROVE or HOLD to the text we sent.",
         "called": false,
         "dry_run": true,
         "call_sid": null,
         "error": null,
-        "idempotency_key": "call-S013-RTU2-20261108",
-        "created_at": "2026-11-08T08:08:37.822057-06:00"
+        "idempotency_key": "call-S006-WATER_HEATER1-20261108",
+        "created_at": "2026-11-08T08:49:39.489123-06:00"
       }
     ]
   },
@@ -641,12 +633,12 @@
     "use_on_screen": "'Last sweep' status",
     "example_response": [
       {
-        "run_id": 1,
-        "trigger": "Run today's risk sweep for the portfolio.",
-        "summary": "Run summary: created WO-0001 for S013-RTU2; created WO-0002 for S006-RTU1; texted Dallas service manager; texted Dallas service manager; created WO-0003 for S03 ...",
-        "steps": 25,
-        "started_at": "2026-11-08T08:08:37.715402-06:00",
-        "finished_at": "2026-11-08T08:08:37.817031-06:00"
+        "run_id": 3,
+        "trigger": "EVENT service manager replied: APPROVE WO-0002",
+        "summary": "Run summary: WO-0002 -> approved ...",
+        "steps": 2,
+        "started_at": "2026-11-08T08:49:39.491828-06:00",
+        "finished_at": "2026-11-08T08:49:39.492662-06:00"
       }
     ]
   },
@@ -705,16 +697,35 @@
   },
   {
     "method": "POST",
-    "path": "/jobs/call-riskiest",
-    "description": "Call the service manager about the riskiest machine now (demo button).",
+    "path": "/jobs/call-urgent",
+    "description": "Call the region's manager now about each high-risk machine not yet called about today (demo button). Returns one result per call; an empty list means nothing new to call about.",
     "needs_admin_token": true,
+    "example_response": [
+      {
+        "called": false,
+        "asset_id": "S006-WATER_HEATER1",
+        "region": "houston",
+        "script": "This is PenguinRE with an urgent maintenance alert. The water heater at Katy Family Clinic in Katy has an estimated 26 percent chance of failing in the next 30 days, because it is near the end of its service life and repeated service calls in the last 90 days. Work order WO 0003 is waiting for you. Reply APPROVE or HOLD to the text we sent.",
+        "to": "Houston service manager",
+        "dry_run": true
+      }
+    ]
+  },
+  {
+    "method": "POST",
+    "path": "/photon/simulate",
+    "description": "Pretend a text arrived from a manager's phone (for demos without Photon). The manager can approve ('APPROVE WO-0003'), hold, or report a problem by naming the site ('Katy clinic has no hot water'); a report updates that machine's risk immediately and may create or escalate a work order and trigger a call.",
+    "needs_admin_token": true,
+    "request_body": {
+      "text": "Katy clinic has no hot water again",
+      "space_id": "<the manager's Photon space id>"
+    },
     "example_response": {
-      "called": false,
-      "asset_id": "S013-RTU2",
-      "region": "dallas",
-      "script": "This is PenguinRE with an urgent maintenance alert. The rooftop A C unit at Store 013 in Dallas has an estimated 69 percent chance of failing in the next 30 days, because it is near the end of its service life and refrigerant recharges, which suggest a leak. Work order WO 0001 is waiting for you. Reply APPROVE or HOLD to the text we sent.",
-      "to": "Dallas service manager",
-      "dry_run": true
+      "run_id": 2,
+      "summary": "Run summary: escalated WO-0003 (medium -> high) for S006-WATER_HEATER1; texted Houston service manager",
+      "steps": 4,
+      "safety_net": [],
+      "calls": []
     }
   },
   {
@@ -736,7 +747,7 @@
     "needs_admin_token": true,
     "example_response": {
       "seeded": true,
-      "scored": 96
+      "scored": 51
     }
   }
 ]

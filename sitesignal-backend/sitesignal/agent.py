@@ -30,8 +30,8 @@ How to work:
 3. Decide per asset. Every medium or high asset gets a work order texted to its service manager:
    create_work_order, then notify_service_manager with a short text that names the site, the unit,
    the likely issue, the deadline and why (cite the probability and top drivers).
-   - high tier: urgency "48h". (The system also phones the service manager about the single
-     riskiest asset after your sweep; you don't need to do anything for that.)
+   - high tier: urgency "48h". (The system also phones the manager about high-risk assets
+     after you finish; you don't need to do anything for that.)
    - medium tier: urgency "this_week".
    - skip assets that already have an open work order (mention them in your summary).
 4. When an event arrives (a manager's reply or a field report), handle just that event:
@@ -130,7 +130,8 @@ class MockBrain:
         elif name == "get_risk_snapshot":
             r, s, a = res["risk"], res["site"], res["asset"]
             pct = round(r["probability_fail_in_horizon"] * 100)
-            hot = [d["date"] for d in res["forecast_next_7_days"] if d["max_f"] >= 95]
+            days = res["forecast_next_7_days"]
+            hot = [d["date"] for d in days if d["max_f"] >= 95]
             leak = any(d["factor"] == "refrigerant_recharges_180d" for d in r["drivers"])
             issue = "probable refrigerant leak" if leak else "end-of-life wear"
             if r["tier"] in ("high", "medium"):
@@ -140,7 +141,7 @@ class MockBrain:
                     urgency="48h" if r["tier"] == "high" else "this_week", likely_issue=issue,
                     tasks=(["leak check and repair", "clean condenser coil", "replace filter"] if leak
                            else ["full inspection", "check capacitor and contactor", "replace filter"]),
-                    do_by=hot[0] if hot else res["forecast_next_7_days"][-1]["date"],
+                    do_by=min(hot[:1] + [days[2]["date"] if r["tier"] == "high" else days[-1]["date"]]),
                     reason=f"{pct}% failure risk in 30 days; drivers: "
                            + ", ".join(d["factor"] for d in r["drivers"][:3])))
         elif name == "create_work_order":
@@ -151,7 +152,9 @@ class MockBrain:
                 "notify_service_manager", work_order_id=res["work_order_id"],
                 message=f"{site}: {aid} has a {pct}% chance of failing in 30 days ({issue}). "
                         f"Preventive visit needed {when}."))
-            self.summary.append(f"created {res['work_order_id']} for {aid}")
+            done = f"escalated {res['work_order_id']} ({res['escalated']})" if res.get("escalated") else \
+                f"created {res['work_order_id']}"
+            self.summary.append(f"{done} for {aid}")
         elif name == "notify_service_manager":
             self.summary.append(f"texted {res.get('to')}")
         elif name == "text_site_manager":

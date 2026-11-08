@@ -6,7 +6,7 @@
     python -m sitesignal.jobs weather              # refresh forecasts
     python -m sitesignal.jobs score                # rescore all assets (no agent)
     python -m sitesignal.jobs sweep [--send]       # agent sweep (texts only with --send)
-    python -m sitesignal.jobs call [--send]        # call the service manager about the riskiest asset
+    python -m sitesignal.jobs call [--send]        # call the manager about each high-risk asset
     python -m sitesignal.jobs poll                 # Photon inbound poller (if not using the webhook)
 """
 from __future__ import annotations
@@ -43,7 +43,7 @@ def main(argv: list[str]) -> None:
     elif cmd == "sweep":
         out = services.run_sweep(db, dry_run="--send" not in argv)
     elif cmd == "call":
-        out = services.call_riskiest(db, dry_run="--send" not in argv)
+        out = services.call_urgent(db, dry_run="--send" not in argv)
     elif cmd == "poll":
         from .photon_inbound import poll_forever
         from .store import Store

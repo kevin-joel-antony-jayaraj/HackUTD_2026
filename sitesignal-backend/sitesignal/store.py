@@ -38,6 +38,9 @@ class Store:
         rows = self.db.query("SELECT site_id FROM assets WHERE asset_id = %s", (asset_id,))
         return rows[0]["site_id"] if rows else None
 
+    def region_sites(self, region_id: str) -> list[dict]:
+        return self.db.query("SELECT site_id, name, city FROM sites WHERE region_id = lower(%s)", (region_id,))
+
     def site_assets(self, site_id: str) -> list[dict]:
         return self.db.query("SELECT asset_id, asset_type FROM assets WHERE site_id = %s ORDER BY asset_id",
                              (site_id,))
@@ -137,6 +140,12 @@ class Store:
             raise ValueError("work order already open for this asset")
         return rows[0]["id"]
 
+    def escalate_work_order(self, wo_id: str, *, prob, tier, urgency, do_by, reason) -> None:
+        """Raise an open work order to a higher tier; notified resets so the new urgency gets texted."""
+        self.db.query("UPDATE work_orders SET prob = %s, tier = %s, urgency = %s, do_by = %s::date, reason = %s, "
+                      "notified = false, updated_at = now() WHERE id = %s",
+                      (prob, tier, urgency, do_by, reason, wo_id))
+
     def update_work_order(self, wo_id: str, status: str, note: str) -> None:
         self.db.query("UPDATE work_orders SET status = %s, status_note = %s, updated_at = now() WHERE id = %s",
                       (status, note, wo_id))
@@ -159,8 +168,10 @@ class Store:
             "VALUES (%s, %s, %s, %s, %s, %s, %s, %s) ON CONFLICT (idempotency_key) DO NOTHING",
             (kind, to_key, recipient_name, text, sent, dry_run, error, idempotency_key))
 
-    def call_exists(self, idempotency_key: str) -> bool:
-        return bool(self.db.query("SELECT 1 FROM calls WHERE idempotency_key = %s AND called", (idempotency_key,)))
+    def call_exists(self, idempotency_key: str, dry_run: bool) -> bool:
+        """A real call blocks repeats; in dry-run mode an earlier logged call does too."""
+        return bool(self.db.query("SELECT 1 FROM calls WHERE idempotency_key = %s AND (called OR dry_run = %s)",
+                                  (idempotency_key, dry_run)))
 
     def log_call(self, *, asset_id, work_order_id, region_id, recipient_name, script, called, dry_run,
                  call_sid, error, idempotency_key) -> None:

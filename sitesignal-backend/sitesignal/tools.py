@@ -44,7 +44,9 @@ DECLARATIONS = [
                          "question": {"type": S, "description": "Under 240 characters, ends with 'Reply Y or N'."}},
                         ["site_id", "asset_id", "question"])},
     {"name": "create_work_order",
-     "description": "Create a preventive work order for an asset. Status starts as pending_approval.",
+     "description": "Create a preventive work order for an asset. Status starts as pending_approval. "
+                    "If one is already open at a lower risk tier, it is escalated instead (new tier, urgency "
+                    "and deadline); then call notify_service_manager again with the new urgency.",
      "parameters": _obj({"asset_id": {"type": S},
                          "urgency": {"type": S, "enum": ["today", "48h", "this_week"]},
                          "likely_issue": {"type": S},
@@ -148,7 +150,13 @@ class Toolbox:
                 asset_id=asset_id, site_id=facts.site_id, prob=r.prob, tier=t, urgency=urgency,
                 likely_issue=likely_issue[:120], tasks=tasks[:6], do_by=do_by, reason=reason[:500])
         except ValueError:
-            return {"error": "work order already open", "work_order_id": self.s.open_wo_for(asset_id)["id"]}
+            wo = self.s.open_wo_for(asset_id)
+            if TIER_RANK[t] <= TIER_RANK.get(wo["tier"], -1):
+                return {"error": "work order already open", "work_order_id": wo["id"]}
+            self.s.escalate_work_order(wo["id"], prob=r.prob, tier=t, urgency=urgency, do_by=do_by,
+                                       reason=reason[:500])
+            return {"work_order_id": wo["id"], "asset_id": asset_id, "status": wo["status"],
+                    "escalated": f"{wo['tier']} -> {t}"}
         return {"work_order_id": wo_id, "asset_id": asset_id, "status": "pending_approval"}
 
     def notify_service_manager(self, work_order_id: str, message: str):
@@ -159,7 +167,7 @@ class Toolbox:
             return {"error": "service manager already notified for this work order"}
         region = self.s.site(wo["site_id"])["region_id"]
         text = f"[{work_order_id}] {message[:360]} Reply APPROVE {work_order_id} or HOLD {work_order_id}"
-        res = self._text("region", region, text, idem=work_order_id)
+        res = self._text("region", region, text, idem=f"{work_order_id}-{wo['tier']}")
         if res.get("sent") or res.get("dry_run"):
             self.s.mark_notified(work_order_id)
         return res

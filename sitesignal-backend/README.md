@@ -23,7 +23,7 @@ cp .env.example .env            # fill in DATABASE_URL, GEMINI_API_KEY, Photon k
 export $(grep -v '^#' .env | xargs)
 
 python -m sitesignal.jobs schema     # create tables (safe to rerun)
-python -m sitesignal.jobs seed       # synthetic demo portfolio (40 sites)
+python -m sitesignal.jobs seed       # demo portfolio: 12 fictional sites, 51 machines, 4 troubled
 python -m sitesignal.jobs weather    # real 7-day forecasts from Open-Meteo
 uvicorn api.main:app --reload        # API + Photon webhook + scheduler, docs at :8000/docs
 ```
@@ -42,7 +42,7 @@ No keys yet? `BRAIN=mock` swaps Gemini for a scripted stand-in, and `PHOTON_SEND
 | Data import | `sitesignal/importer.py` | Messy CSV/XLSX -> clean rows; loose column matching, fuzzy asset IDs, recharge detection from notes, duplicates skipped, bad rows quarantined |
 | Weather job | `sitesignal/weather.py` | Open-Meteo 7-day max temps per site (free, no key) |
 | Photon outbound | `sitesignal/photon_notify.py` | Sends texts into registered conversations, deduplicated |
-| Photon calls | `sitesignal/photon_call.py` | After each sweep, calls the region's service manager about the single riskiest high-tier asset (Twilio dials over Photon's SIP voice number; once per asset per day; `PHOTON_CALL=0` logs instead) |
+| Photon calls | `sitesignal/photon_call.py` | After each sweep and after any report that changes risk, calls the region's manager about each high-risk asset (riskiest first, up to `MAX_CALLS_PER_RUN`=3, once per asset per day; Twilio dials over Photon's SIP voice number; `PHOTON_CALL=0` logs instead) |
 | Photon inbound | `sitesignal/photon_inbound.py`, `inbound.py` | Webhook (signature-verified) or poller -> JOIN / APPROVE / HOLD / field reports -> agent |
 | API | `api/main.py` | FastAPI endpoints below |
 | Database | `db/schema.sql`, `sitesignal/store.py` | 16 tables, `asset_features()` SQL function, one-open-work-order and append-only-audit rules |
@@ -54,12 +54,27 @@ Reads (open): `GET /health`, `/portfolio`, `/savings`, `/assets?tier=high`, `/as
 
 Actions (`Authorization: Bearer $ADMIN_TOKEN`):
 `POST /work-orders/{id}/approve`, `/work-orders/{id}/hold`, `/jobs/sweep`, `/jobs/weather`,
-`/jobs/score`, `/jobs/call-riskiest`, `/contacts/region/{region}/phone`, `/import/{sites|assets|work_orders}` (file upload), `/admin/reset-demo`,
+`/jobs/score`, `/jobs/call-urgent`, `/contacts/region/{region}/phone`, `/import/{sites|assets|work_orders}` (file upload), `/admin/reset-demo`,
 `/photon/simulate` (fake an incoming text for demos)
 
 Photon: `POST /photon/webhook` (needs `PHOTON_WEBHOOK_SECRET`)
 
 Example responses for every endpoint, as a JSON list: `frontend/src/mock/api-samples.json`.
+
+## Demo portfolio (`seed.py`)
+
+12 fictional sites (bank branches, clinics, groceries, retail stores) in real Dallas, Houston and
+Austin neighborhoods. Square footage and weekly hours are the U.S. EIA CBECS 2018 averages for each
+building type (Table B15); equipment is sized from square footage (assumption: ~1 ton of cooling per
+350 sq ft, 10-ton rooftop units). Every machine has two years of maintenance history and 30 days of
+back-scored risk. Four are deliberately troubled:
+
+| Machine | Story | Risk |
+|---|---|---|
+| `S005-WALK_IN_COOLER1` Montrose Market | Leaking cooler: two refrigerant recharges, keeps losing temperature | High |
+| `S001-RTU2` Uptown Bank Branch | 21-year-old R-22 unit, short cycling, maintenance 7 months overdue | High |
+| `S006-WATER_HEATER1` Katy Family Clinic | 12-year-old heater past its expected life, repaired last month | Medium |
+| `S004-RTU1` Frisco Retail Store | 15-year-old unit with a slow refrigerant leak | Medium |
 
 ## Importing real data
 
@@ -76,8 +91,15 @@ see what was rejected at `GET /import/quarantine`.
 1. In Photon's dashboard, point a webhook at `https://<your-api>/photon/webhook` and copy its
    `whsec_...` secret into `PHOTON_WEBHOOK_SECRET`. (No public URL yet? Run
    `python -m sitesignal.jobs poll` instead; it uses Photon's list_messages.)
-2. Each service manager texts the Photon number `JOIN dallas` (their region); each site manager
-   texts `JOIN site S010`. No phone numbers are stored, only Photon conversation ids.
+2. One manager per region texts the Photon number `JOIN dallas` (or houston, austin). No phone
+   numbers are needed for texts, only Photon conversation ids. That manager:
+   - gets a text for every work order and replies `APPROVE WO-0003` or `HOLD WO-0003`;
+   - gets a phone call for every high-risk machine (see 4);
+   - can text a problem by naming the site or area, e.g. `Katy clinic has no hot water again` or
+     `Montrose cooler isn't cooling`. PenguinRE finds the machine, saves its new risk right away
+     (the dashboard updates), and the agent creates or escalates a work order. A message that
+     could mean two sites (just "Houston") is ignored rather than guessed.
+   (`JOIN site S010` still registers a site-level contact who can report on that site only.)
 3. Set `PHOTON_SEND=1` when you want real texts.
 4. Calls: after a service manager JOINs, set their number with `POST /contacts/region/dallas/phone`
    `{"phone": "+1..."}` (use a teammate's phone for demos). Fill in the `TWILIO_*` and `PHOTON_SIP_*`

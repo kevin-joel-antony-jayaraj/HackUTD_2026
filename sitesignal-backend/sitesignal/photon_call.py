@@ -1,7 +1,7 @@
-"""Phone call to the service manager about the single riskiest asset.
+"""Phone call to the region's manager about every high-risk asset.
 
-Texts go to every flagged asset; a call is the loud alarm, so it's reserved for the
-one high-tier asset with the highest failure probability, at most once per asset per day.
+Medium-risk assets get a texted work order; high-risk ones also get a call, at most once
+per asset per day and MAX_CALLS_PER_RUN per run, riskiest first.
 
 How the call is placed (Photon Beta voice cookbook for Twilio): our code asks Twilio's
 REST API to dial; Twilio routes the call over SIP through Photon's voice number, which
@@ -28,6 +28,7 @@ from .risk_model import MEDIAN_LIFE_YEARS, score_asset, tier
 from .tools import HIGH, MEDIUM
 
 TWILIO_CALLS = "https://api.twilio.com/2010-04-01/Accounts/{sid}/Calls.json"
+MAX_CALLS_PER_RUN = int(os.environ.get("MAX_CALLS_PER_RUN", 3))
 E164 = re.compile(r"^\+[1-9]\d{7,14}$")
 
 ASSET_NAMES = {"rtu": "rooftop A C unit", "walk_in_cooler": "walk-in cooler", "water_heater": "water heater"}
@@ -44,22 +45,18 @@ DRIVER_PHRASES = {
 }
 
 
-def riskiest_asset(store) -> dict | None:
-    """Highest-probability asset in the high tier, scored fresh, or None."""
-    best = None
-    for aid, facts in store.features().items():
+def urgent_assets(store) -> list[dict]:
+    """High-tier assets, scored fresh, riskiest first."""
+    out = []
+    for facts in store.features().values():
         r = score_asset(facts, store.today)
         if r.insufficient_data or tier(r.prob, HIGH, MEDIUM) != "high":
             continue
-        if best is None or r.prob > best[1].prob:
-            best = (facts, r)
-    if best is None:
-        return None
-    facts, r = best
-    old_age = r.age_years >= 0.8 * MEDIAN_LIFE_YEARS[facts.asset_type]
-    drivers = [d["factor"] for d in r.drivers if d["factor"] != "age" or old_age]
-    return {"asset_id": r.asset_id, "site_id": r.site_id, "asset_type": facts.asset_type,
-            "prob": r.prob, "drivers": drivers}
+        old_age = r.age_years >= 0.8 * MEDIAN_LIFE_YEARS[facts.asset_type]
+        drivers = [d["factor"] for d in r.drivers if d["factor"] != "age" or old_age]
+        out.append({"asset_id": r.asset_id, "site_id": r.site_id, "asset_type": facts.asset_type,
+                    "prob": r.prob, "drivers": drivers})
+    return sorted(out, key=lambda a: -a["prob"])
 
 
 def build_script(asset: dict, site: dict, work_order_id: str | None) -> str:
@@ -101,17 +98,21 @@ def _place_call(phone: str, script: str) -> str:
         return json.loads(resp.read())["sid"]
 
 
-def call_riskiest(store, dry_run: bool | None = None) -> dict:
+def call_urgent(store, dry_run: bool | None = None) -> list[dict]:
+    """Call about each high-risk asset not yet called about today. Returns one result per call."""
     if dry_run is None:
         dry_run = os.environ.get("PHOTON_CALL", "0") != "1"
-    asset = riskiest_asset(store)
-    if asset is None:
-        return {"called": False, "reason": "no high-risk asset"}
+    results = []
+    for asset in urgent_assets(store):
+        if len(results) >= MAX_CALLS_PER_RUN:
+            break
+        idem = f"call-{asset['asset_id']}-{store.today:%Y%m%d}"
+        if not store.call_exists(idem, dry_run):
+            results.append(_call(store, asset, idem, dry_run))
+    return results
 
-    idem = f"call-{asset['asset_id']}-{store.today:%Y%m%d}"
-    if store.call_exists(idem):
-        return {"called": False, "reason": "already called about this asset today", "asset_id": asset["asset_id"]}
 
+def _call(store, asset: dict, idem: str, dry_run: bool) -> dict:
     site = store.site(asset["site_id"])
     region = site["region_id"]
     wo = store.open_wo_for(asset["asset_id"])

@@ -44,14 +44,14 @@ def run_sweep(db, dry_run: bool | None = None, brain=None) -> dict:
         tb = Toolbox(Store(db), dry_run=dry_run)
         result = run_agent("Run today's risk sweep for the portfolio.", tb, brain)
         # after the agent, so the call can name its work order; a dry-run sweep never dials
-        result["call"] = call_riskiest(db, dry_run=True if dry_run else None)
+        result["calls"] = call_urgent(db, dry_run=True if dry_run else None)
         return result
     finally:
         _sweep_lock.release()
 
 
-def call_riskiest(db, dry_run: bool | None = None) -> dict:
-    return photon_call.call_riskiest(Store(db), dry_run)
+def call_urgent(db, dry_run: bool | None = None) -> list[dict]:
+    return photon_call.call_urgent(Store(db), dry_run)
 
 
 def refresh_weather(db) -> dict:
@@ -65,6 +65,7 @@ def portfolio(db) -> dict:
     last = db.query("SELECT run_id, trigger, summary, finished_at FROM agent_runs ORDER BY run_id DESC LIMIT 1")
     return {
         "sites": db.query("SELECT count(*) AS n FROM sites")[0]["n"],
+        "square_feet": db.query("SELECT coalesce(sum(square_feet), 0) AS n FROM sites")[0]["n"],
         "assets": db.query("SELECT count(*) AS n FROM assets")[0]["n"],
         "assets_by_tier": {r["tier"]: r["n"] for r in tiers},
         "work_orders_by_status": {r["status"]: r["n"] for r in wo},
@@ -113,7 +114,7 @@ def savings(db, include_basis: bool = True) -> dict:
 
 def assets_list(db, tier_filter: str | None = None, limit: int = 100) -> list[dict]:
     sql = (f"SELECT a.asset_id, a.asset_type, a.site_id, s.name AS site_name, s.region_id, s.lat, s.lon, "
-           f"s.revenue_per_day_usd, s.has_refrigeration, "
+           f"s.revenue_per_day_usd, s.has_refrigeration, s.type AS site_type, s.city, s.square_feet, "
            f"r.prob, r.tier, r.drivers, r.scored_at, w.id AS open_work_order "
            f"FROM assets a JOIN sites s USING (site_id) LEFT JOIN ({LATEST_RISK}) r USING (asset_id) "
            f"LEFT JOIN work_orders w ON w.asset_id = a.asset_id AND w.status IN ('pending_approval','approved') ")
@@ -128,7 +129,8 @@ def assets_list(db, tier_filter: str | None = None, limit: int = 100) -> list[di
 
 def asset_detail(db, asset_id: str) -> dict | None:
     store = Store(db)
-    a = db.query("SELECT a.*, s.name AS site_name, s.region_id, s.revenue_per_day_usd, s.has_refrigeration "
+    a = db.query("SELECT a.*, s.name AS site_name, s.region_id, s.type AS site_type, s.city, s.square_feet, "
+                 "s.open_hours, s.revenue_per_day_usd, s.has_refrigeration "
                  "FROM assets a JOIN sites s USING (site_id) "
                  "WHERE asset_id = %s", (asset_id,))
     if not a:

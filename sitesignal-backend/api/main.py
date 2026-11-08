@@ -149,9 +149,9 @@ def sweep(background: BackgroundTasks):
     return {"started": True, "check": "/runs"}
 
 
-@app.post("/jobs/call-riskiest", dependencies=[Depends(admin)])
-def call_riskiest_job():
-    return services.call_riskiest(db)
+@app.post("/jobs/call-urgent", dependencies=[Depends(admin)])
+def call_urgent_job():
+    return services.call_urgent(db)
 
 
 class PhoneBody(BaseModel):
