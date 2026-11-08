@@ -297,7 +297,7 @@ function App() {
     setActionMessage('')
     try {
       await simulateText(simulatedText.trim())
-      setActionMessage('Simulated manager text received. No messages were sent externally.')
+      setActionMessage('Manager text received. The agent is handling it; the dashboard will update shortly.')
       setSimulatedText('')
       await refreshData()
     } catch (actionFailure) {

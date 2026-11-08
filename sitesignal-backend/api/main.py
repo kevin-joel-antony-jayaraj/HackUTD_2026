@@ -218,7 +218,7 @@ async def photon_webhook(request: Request, background: BackgroundTasks):
 
 class SimulatedText(BaseModel):
     text: str
-    space_id: str
+    space_id: str | None = None  # default: the managers' conversation, as if texted from their phone
     agent_id: str = "demo-agent"
 
 
@@ -227,5 +227,11 @@ def simulate_text(msg: SimulatedText):
     """Pretend a text arrived (for demos without a phone). Same path as the webhook."""
     import uuid
     from sitesignal.photon_inbound import process_message
+    space_id = msg.space_id
+    if space_id is None:
+        rows = db.query("SELECT space_id FROM contacts WHERE kind = 'region' ORDER BY key LIMIT 1")
+        if not rows:
+            raise HTTPException(409, "no manager registered yet; text the Photon number from MANAGER_PHONE first")
+        space_id = rows[0]["space_id"]
     return process_message(toolbox(), {"id": f"sim-{uuid.uuid4()}", "text": msg.text,
-                                       "space_id": msg.space_id, "agent_id": msg.agent_id})
+                                       "space_id": space_id, "agent_id": msg.agent_id})

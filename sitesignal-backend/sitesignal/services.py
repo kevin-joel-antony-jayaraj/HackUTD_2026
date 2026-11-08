@@ -156,7 +156,7 @@ def asset_detail(db, asset_id: str) -> dict | None:
 
 
 def work_orders(db, status: str | None = None) -> list[dict]:
-    sql = ("SELECT w.*, s.name AS site_name, s.region_id, a.asset_type, s.revenue_per_day_usd, "
+    sql = ("SELECT w.*, s.name AS site_name, s.region_id, s.city, a.asset_type, s.revenue_per_day_usd, "
            "s.has_refrigeration FROM work_orders w JOIN sites s USING (site_id) "
            "JOIN assets a ON a.asset_id = w.asset_id ")
     params: list = []
