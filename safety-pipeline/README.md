@@ -41,16 +41,17 @@ are at http://localhost:8000/docs.
 | `POST /admin/reset` | Empty all tables (for demos). |
 | `GET /health` | Database and Nemotron key status. |
 
-**Speed:** measured at 14–23 seconds from upload to stored decisions for 30 sites (110 machines,
+**Speed:** measured at 14–24 seconds (six runs) from upload to stored decisions for 30 sites (110 machines,
 152 work orders). The run makes about 11 Nemotron calls, whatever the file size:
 - **Extraction:** one call per tabular file maps the columns (`fast_extract.py`), and code converts and
   validates every row. Free-text files fall back to row-by-row reading, which is slower.
 - **Decisions:** machines with only one allowed action, and healthy, well-documented ones, are decided
   by code. The rest go to Nemotron in batches of 25, two independent runs per batch, all at once. The
   model answers in a compact code format (`[i, "W", "T", 1]`), and code writes all the text.
-- **Rate limit:** never more than `NEMOTRON_RPM` requests per minute (default 35). The pipeline waits
-  instead of triggering 429 errors. NVIDIA doesn't publish the limit in its responses; the commonly
-  cited free tier is 40 per minute.
+- **Rate limit:** never more than `NEMOTRON_RPM` requests per minute (default 35). NVIDIA doesn't
+  report its limit. With 35, back-to-back runs started seconds apart occasionally got a 429, which
+  was retried automatically and still finished under 30s. Set `NEMOTRON_RPM=20` if you want no 429s at
+  all; repeat runs within the same minute then wait a few seconds instead.
 
 Without an NVIDIA key, uploads stop with a clear error. Re-scoring still works, and decisions use the
 rule-based defaults.

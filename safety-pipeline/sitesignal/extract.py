@@ -43,7 +43,7 @@ _NEMOTRON_SLOTS = threading.BoundedSemaphore(int(os.environ.get("NEMOTRON_MAX_CO
 class _RateLimiter:
     """Never send more than `rpm` Nemotron requests in any 60-second window (all threads together).
     Waiting here is how we avoid 429 'Too Many Requests' instead of bouncing off it. NVIDIA does not
-    return rate-limit headers; 35/min sits under the commonly cited 40/min free-tier limit."""
+    return rate-limit headers. Back-to-back runs at 35/min still saw occasional 429s (retried); lower it if needed."""
 
     def __init__(self, rpm: int):
         self.rpm, self.sent, self.lock = rpm, [], threading.Lock()
