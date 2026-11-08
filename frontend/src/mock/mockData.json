@@ -1,0 +1,3873 @@
+{
+  "_about": "PenguinRE mock data, captured from the real API running the demo portfolio. Keys match GET endpoints: portfolio=/portfolio, savings=/savings, assets=/assets, assetDetails[id]=/assets/{id}, workOrders=/work-orders, messages=/messages, calls=/calls, runs=/runs.",
+  "portfolio": {
+    "sites": 12,
+    "square_feet": 143000,
+    "assets": 51,
+    "assets_by_tier": {
+      "high": 3,
+      "low": 47,
+      "medium": 1
+    },
+    "work_orders_by_status": {
+      "approved": 1,
+      "pending_approval": 3
+    },
+    "texts_today": 5,
+    "quarantined_rows": 0,
+    "last_run": {
+      "run_id": 2,
+      "trigger": "EVENT field report: site S006 asset S006-WATER_HEATER1 reported not working: 'Katy clinic has no hot water again'",
+      "summary": "Run summary: escalated WO-0003 (medium -> high) for S006-WATER_HEATER1; texted Houston manager",
+      "finished_at": "2026-11-08T09:07:45.482990-06:00"
+    },
+    "thresholds": {
+      "high": 0.2,
+      "medium": 0.08
+    },
+    "savings": {
+      "savings_secured_usd": 1508,
+      "work_orders_secured": 1,
+      "preventive_spend_secured_usd": 265,
+      "savings_pending_usd": 2389,
+      "work_orders_pending": 3,
+      "preventive_spend_pending_usd": 690,
+      "exposure_usd": 8499,
+      "exposure_unaddressed_usd": 1567
+    }
+  },
+  "savings": {
+    "savings_secured_usd": 1508,
+    "work_orders_secured": 1,
+    "preventive_spend_secured_usd": 265,
+    "savings_pending_usd": 2389,
+    "work_orders_pending": 3,
+    "preventive_spend_pending_usd": 690,
+    "exposure_usd": 8499,
+    "exposure_unaddressed_usd": 1567,
+    "cost_basis": {
+      "prevention_rate": 0.7,
+      "min_history_records": 5,
+      "by_asset_type": {
+        "rtu": {
+          "values": {
+            "preventive_visit_usd": 265,
+            "emergency_repair_usd": 8425,
+            "downtime_days": 1.5,
+            "revenue_lost_share": 0.5,
+            "inventory_loss_usd": 0.0
+          },
+          "source": {
+            "preventive_visit_usd": "national_average",
+            "emergency_repair_usd": "national_average",
+            "downtime_days": "assumption",
+            "revenue_lost_share": "assumption",
+            "inventory_loss_usd": "assumption"
+          },
+          "history_records": {
+            "preventive_visit_usd": 0,
+            "emergency_repair_usd": 0
+          }
+        },
+        "walk_in_cooler": {
+          "values": {
+            "preventive_visit_usd": 250,
+            "emergency_repair_usd": 1875,
+            "downtime_days": 1.0,
+            "revenue_lost_share": 0.2,
+            "inventory_loss_usd": 6000
+          },
+          "source": {
+            "preventive_visit_usd": "national_average",
+            "emergency_repair_usd": "national_average",
+            "downtime_days": "assumption",
+            "revenue_lost_share": "assumption",
+            "inventory_loss_usd": "assumption"
+          },
+          "history_records": {
+            "preventive_visit_usd": 0,
+            "emergency_repair_usd": 0
+          }
+        },
+        "water_heater": {
+          "values": {
+            "preventive_visit_usd": 175,
+            "emergency_repair_usd": 1850,
+            "downtime_days": 0.5,
+            "revenue_lost_share": 0.0,
+            "inventory_loss_usd": 0.0
+          },
+          "source": {
+            "preventive_visit_usd": "national_average",
+            "emergency_repair_usd": "national_average",
+            "downtime_days": "assumption",
+            "revenue_lost_share": "assumption",
+            "inventory_loss_usd": "assumption"
+          },
+          "history_records": {
+            "preventive_visit_usd": 0,
+            "emergency_repair_usd": 0
+          }
+        }
+      },
+      "sources": {
+        "prevention_rate": {
+          "quote": "Elimination of breakdowns: 70% to 75% (predictive maintenance, sec. 5.4); preventive maintenance: estimated 12% to 18% cost savings over reactive (sec. 5.3)",
+          "source": "U.S. DOE Federal Energy Management Program, O&M Best Practices Guide, Release 3.0 (Aug 2010), https://www.energy.gov/eere/femp/articles/operations-and-maintenance-best-practices-guide-achieving-operational-efficiency"
+        },
+        "rtu": {
+          "preventive_visit_usd": {
+            "quote": "Rooftop Unit, Full PM, Quarterly: $180-$350 per unit (midpoint)",
+            "source": "Oxmaint, HVAC Maintenance Cost Breakdown for Commercial Buildings (Mar 2026), https://oxmaint.com/industries/facility-management/hvac-maintenance-cost-breakdown-for-commercial-buildings",
+            "cross_check": "$50 to $75 per ton annually recommended for PM; HPAC Engineering, What Owners Need to Know About Rooftop-Unit Maintenance (Oct 2014), https://www.hpac.com/air-conditioning/what-owners-need-know-about-rooftop-unit-maintenance"
+          },
+          "emergency_repair_usd": {
+            "quote": "Compressor failure: $8,000-$18,000 (low end) + after-hours dispatch fees averaging $250-$600 (midpoint)",
+            "source": "Oxmaint, HVAC Maintenance Cost Breakdown for Commercial Buildings (Mar 2026), https://oxmaint.com/industries/facility-management/hvac-maintenance-cost-breakdown-for-commercial-buildings"
+          }
+        },
+        "walk_in_cooler": {
+          "preventive_visit_usd": {
+            "quote": "Our flat fee for this comprehensive service is $250 for a walk-in cooler",
+            "source": "Same Day Appliance Repair, Commercial Walk-in Cooler Repair Cost (LA price list, undated), https://same-day-appliance-repair-03.pages.dev/price-list/commercial-walk-in-cooler-repair-cost"
+          },
+          "emergency_repair_usd": {
+            "quote": "Compressor part $500-$1,500 + compressor failure labor $300-$600 (midpoints) + HVAC after-hours dispatch (Oxmaint)",
+            "source": "Same Day Appliance Repair, Commercial Walk-in Cooler Repair Cost (LA price list, undated), https://same-day-appliance-repair-03.pages.dev/price-list/commercial-walk-in-cooler-repair-cost"
+          }
+        },
+        "water_heater": {
+          "preventive_visit_usd": {
+            "quote": "Flush/inspection: $100 to $250 (midpoint); residential figure",
+            "source": "Fixr, Water Heater Repair Cost (Aug 2025), https://www.fixr.com/costs/water-heater-repair"
+          },
+          "emergency_repair_usd": {
+            "quote": "Replacement around $1,700 national average + $100-$200 urgent-repair charge (midpoint); residential figures",
+            "source": "Inch Calculator, Water Heater Cost Guide (2026 prices), https://www.inchcalculator.com/water-heater-cost-guide/; Fixr, Water Heater Repair Cost (Aug 2025), https://www.fixr.com/costs/water-heater-repair"
+          }
+        },
+        "assumptions_without_source": [
+          "downtime_days",
+          "revenue_lost_share",
+          "inventory_loss_usd"
+        ]
+      }
+    }
+  },
+  "assets": [
+    {
+      "asset_id": "S006-WATER_HEATER1",
+      "asset_type": "water_heater",
+      "site_id": "S006",
+      "site_name": "Katy Family Clinic",
+      "region_id": "houston",
+      "lat": 29.786,
+      "lon": -95.824,
+      "site_type": "clinic",
+      "city": "Katy",
+      "square_feet": 15100,
+      "prob": 0.2604,
+      "tier": "high",
+      "drivers": [
+        {
+          "value": 12.0,
+          "detail": "12.0 yrs vs 10-yr median life",
+          "factor": "age",
+          "base_prob": 0.0245
+        },
+        {
+          "factor": "calls_90d",
+          "log_hazard": 1.05,
+          "multiplier": 2.86
+        },
+        {
+          "factor": "field_report_negative",
+          "log_hazard": 0.8,
+          "multiplier": 2.23
+        },
+        {
+          "factor": "repeat_issue",
+          "log_hazard": 0.4,
+          "multiplier": 1.49
+        }
+      ],
+      "scored_at": "2026-11-08T09:07:45.473348-06:00",
+      "open_work_order": "WO-0003",
+      "cost": {
+        "preventive_cost_usd": 175,
+        "emergency_cost_usd": 1850,
+        "emergency_breakdown": {
+          "repair_usd": 1850,
+          "lost_revenue_usd": 0,
+          "inventory_loss_usd": 0
+        },
+        "expected_loss_if_ignored_usd": 482,
+        "expected_savings_usd": 162,
+        "worth_acting_now": true,
+        "cost_source": {
+          "preventive": "national_average",
+          "emergency_repair": "national_average"
+        }
+      }
+    },
+    {
+      "asset_id": "S005-WALK_IN_COOLER1",
+      "asset_type": "walk_in_cooler",
+      "site_id": "S005",
+      "site_name": "Montrose Market",
+      "region_id": "houston",
+      "lat": 29.745,
+      "lon": -95.39,
+      "site_type": "grocery",
+      "city": "Houston",
+      "square_feet": 5600,
+      "prob": 0.2363,
+      "tier": "high",
+      "drivers": [
+        {
+          "value": 16.0,
+          "detail": "16.0 yrs vs 15-yr median life",
+          "factor": "age",
+          "base_prob": 0.0129
+        },
+        {
+          "factor": "refrigerant_recharges_180d",
+          "log_hazard": 1.2,
+          "multiplier": 3.32
+        },
+        {
+          "factor": "calls_90d",
+          "log_hazard": 1.05,
+          "multiplier": 2.86
+        },
+        {
+          "factor": "repeat_issue",
+          "log_hazard": 0.4,
+          "multiplier": 1.49
+        }
+      ],
+      "scored_at": "2026-11-08T09:07:42.465148-06:00",
+      "open_work_order": "WO-0001",
+      "cost": {
+        "preventive_cost_usd": 250,
+        "emergency_cost_usd": 10395,
+        "emergency_breakdown": {
+          "repair_usd": 1875,
+          "lost_revenue_usd": 2520,
+          "inventory_loss_usd": 6000
+        },
+        "expected_loss_if_ignored_usd": 2456,
+        "expected_savings_usd": 1469,
+        "worth_acting_now": true,
+        "cost_source": {
+          "preventive": "national_average",
+          "emergency_repair": "national_average"
+        }
+      }
+    },
+    {
+      "asset_id": "S001-RTU2",
+      "asset_type": "rtu",
+      "site_id": "S001",
+      "site_name": "Uptown Bank Branch",
+      "region_id": "dallas",
+      "lat": 32.799,
+      "lon": -96.802,
+      "site_type": "bank branch",
+      "city": "Dallas",
+      "square_feet": 14100,
+      "prob": 0.2188,
+      "tier": "high",
+      "drivers": [
+        {
+          "value": 21.0,
+          "detail": "21.0 yrs vs 15-yr median life",
+          "factor": "age",
+          "base_prob": 0.0222
+        },
+        {
+          "factor": "calls_90d",
+          "log_hazard": 1.05,
+          "multiplier": 2.86
+        },
+        {
+          "factor": "pm_overdue_months",
+          "log_hazard": 0.7,
+          "multiplier": 2.01
+        },
+        {
+          "factor": "repeat_issue",
+          "log_hazard": 0.4,
+          "multiplier": 1.49
+        }
+      ],
+      "scored_at": "2026-11-08T09:07:42.459473-06:00",
+      "open_work_order": "WO-0002",
+      "cost": {
+        "preventive_cost_usd": 265,
+        "emergency_cost_usd": 11575,
+        "emergency_breakdown": {
+          "repair_usd": 8425,
+          "lost_revenue_usd": 3150,
+          "inventory_loss_usd": 0
+        },
+        "expected_loss_if_ignored_usd": 2533,
+        "expected_savings_usd": 1508,
+        "worth_acting_now": true,
+        "cost_source": {
+          "preventive": "national_average",
+          "emergency_repair": "national_average"
+        }
+      }
+    },
+    {
+      "asset_id": "S004-RTU1",
+      "asset_type": "rtu",
+      "site_id": "S004",
+      "site_name": "Frisco Retail Store",
+      "region_id": "dallas",
+      "lat": 33.15,
+      "lon": -96.824,
+      "site_type": "retail",
+      "city": "Frisco",
+      "square_feet": 14800,
+      "prob": 0.0963,
+      "tier": "medium",
+      "drivers": [
+        {
+          "value": 15.0,
+          "detail": "15.0 yrs vs 15-yr median life",
+          "factor": "age",
+          "base_prob": 0.0114
+        },
+        {
+          "factor": "calls_90d",
+          "log_hazard": 0.7,
+          "multiplier": 2.01
+        },
+        {
+          "factor": "refrigerant_recharges_180d",
+          "log_hazard": 0.6,
+          "multiplier": 1.82
+        },
+        {
+          "factor": "repeat_issue",
+          "log_hazard": 0.4,
+          "multiplier": 1.49
+        }
+      ],
+      "scored_at": "2026-11-08T09:07:42.463917-06:00",
+      "open_work_order": "WO-0004",
+      "cost": {
+        "preventive_cost_usd": 265,
+        "emergency_cost_usd": 15175,
+        "emergency_breakdown": {
+          "repair_usd": 8425,
+          "lost_revenue_usd": 6750,
+          "inventory_loss_usd": 0
+        },
+        "expected_loss_if_ignored_usd": 1461,
+        "expected_savings_usd": 758,
+        "worth_acting_now": true,
+        "cost_source": {
+          "preventive": "national_average",
+          "emergency_repair": "national_average"
+        }
+      }
+    },
+    {
+      "asset_id": "S009-WATER_HEATER1",
+      "asset_type": "water_heater",
+      "site_id": "S009",
+      "site_name": "South Congress Market",
+      "region_id": "austin",
+      "lat": 30.25,
+      "lon": -97.749,
+      "site_type": "grocery",
+      "city": "Austin",
+      "square_feet": 6200,
+      "prob": 0.006,
+      "tier": "low",
+      "drivers": [
+        {
+          "value": 5.9,
+          "detail": "5.9 yrs vs 10-yr median life",
+          "factor": "age",
+          "base_prob": 0.006
+        }
+      ],
+      "scored_at": "2026-11-08T09:07:42.468181-06:00",
+      "open_work_order": null,
+      "cost": {
+        "preventive_cost_usd": 175,
+        "emergency_cost_usd": 1850,
+        "emergency_breakdown": {
+          "repair_usd": 1850,
+          "lost_revenue_usd": 0,
+          "inventory_loss_usd": 0
+        },
+        "expected_loss_if_ignored_usd": 11,
+        "expected_savings_usd": -167,
+        "worth_acting_now": false,
+        "cost_source": {
+          "preventive": "national_average",
+          "emergency_repair": "national_average"
+        }
+      }
+    },
+    {
+      "asset_id": "S006-RTU1",
+      "asset_type": "rtu",
+      "site_id": "S006",
+      "site_name": "Katy Family Clinic",
+      "region_id": "houston",
+      "lat": 29.786,
+      "lon": -95.824,
+      "site_type": "clinic",
+      "city": "Katy",
+      "square_feet": 15100,
+      "prob": 0.0057,
+      "tier": "low",
+      "drivers": [
+        {
+          "value": 10.6,
+          "detail": "10.6 yrs vs 15-yr median life",
+          "factor": "age",
+          "base_prob": 0.0057
+        }
+      ],
+      "scored_at": "2026-11-08T09:07:42.465839-06:00",
+      "open_work_order": null,
+      "cost": {
+        "preventive_cost_usd": 265,
+        "emergency_cost_usd": 17500,
+        "emergency_breakdown": {
+          "repair_usd": 8425,
+          "lost_revenue_usd": 9075,
+          "inventory_loss_usd": 0
+        },
+        "expected_loss_if_ignored_usd": 100,
+        "expected_savings_usd": -195,
+        "worth_acting_now": false,
+        "cost_source": {
+          "preventive": "national_average",
+          "emergency_repair": "national_average"
+        }
+      }
+    },
+    {
+      "asset_id": "S012-RTU1",
+      "asset_type": "rtu",
+      "site_id": "S012",
+      "site_name": "Las Colinas Bank Branch",
+      "region_id": "dallas",
+      "lat": 32.869,
+      "lon": -96.94,
+      "site_type": "bank branch",
+      "city": "Irving",
+      "square_feet": 13400,
+      "prob": 0.0055,
+      "tier": "low",
+      "drivers": [
+        {
+          "value": 10.4,
+          "detail": "10.4 yrs vs 15-yr median life",
+          "factor": "age",
+          "base_prob": 0.0055
+        }
+      ],
+      "scored_at": "2026-11-08T09:07:42.469566-06:00",
+      "open_work_order": null,
+      "cost": {
+        "preventive_cost_usd": 265,
+        "emergency_cost_usd": 11425,
+        "emergency_breakdown": {
+          "repair_usd": 8425,
+          "lost_revenue_usd": 3000,
+          "inventory_loss_usd": 0
+        },
+        "expected_loss_if_ignored_usd": 63,
+        "expected_savings_usd": -221,
+        "worth_acting_now": false,
+        "cost_source": {
+          "preventive": "national_average",
+          "emergency_repair": "national_average"
+        }
+      }
+    },
+    {
+      "asset_id": "S010-RTU4",
+      "asset_type": "rtu",
+      "site_id": "S010",
+      "site_name": "Round Rock Clinic",
+      "region_id": "austin",
+      "lat": 30.508,
+      "lon": -97.679,
+      "site_type": "clinic",
+      "city": "Round Rock",
+      "square_feet": 12300,
+      "prob": 0.0052,
+      "tier": "low",
+      "drivers": [
+        {
+          "value": 10.1,
+          "detail": "10.1 yrs vs 15-yr median life",
+          "factor": "age",
+          "base_prob": 0.0052
+        }
+      ],
+      "scored_at": "2026-11-08T09:07:42.468870-06:00",
+      "open_work_order": null,
+      "cost": {
+        "preventive_cost_usd": 265,
+        "emergency_cost_usd": 15850,
+        "emergency_breakdown": {
+          "repair_usd": 8425,
+          "lost_revenue_usd": 7425,
+          "inventory_loss_usd": 0
+        },
+        "expected_loss_if_ignored_usd": 82,
+        "expected_savings_usd": -207,
+        "worth_acting_now": false,
+        "cost_source": {
+          "preventive": "national_average",
+          "emergency_repair": "national_average"
+        }
+      }
+    },
+    {
+      "asset_id": "S004-RTU2",
+      "asset_type": "rtu",
+      "site_id": "S004",
+      "site_name": "Frisco Retail Store",
+      "region_id": "dallas",
+      "lat": 33.15,
+      "lon": -96.824,
+      "site_type": "retail",
+      "city": "Frisco",
+      "square_feet": 14800,
+      "prob": 0.0047,
+      "tier": "low",
+      "drivers": [
+        {
+          "value": 9.6,
+          "detail": "9.6 yrs vs 15-yr median life",
+          "factor": "age",
+          "base_prob": 0.0047
+        }
+      ],
+      "scored_at": "2026-11-08T09:07:42.464346-06:00",
+      "open_work_order": null,
+      "cost": {
+        "preventive_cost_usd": 265,
+        "emergency_cost_usd": 15175,
+        "emergency_breakdown": {
+          "repair_usd": 8425,
+          "lost_revenue_usd": 6750,
+          "inventory_loss_usd": 0
+        },
+        "expected_loss_if_ignored_usd": 71,
+        "expected_savings_usd": -215,
+        "worth_acting_now": false,
+        "cost_source": {
+          "preventive": "national_average",
+          "emergency_repair": "national_average"
+        }
+      }
+    },
+    {
+      "asset_id": "S001-RTU4",
+      "asset_type": "rtu",
+      "site_id": "S001",
+      "site_name": "Uptown Bank Branch",
+      "region_id": "dallas",
+      "lat": 32.799,
+      "lon": -96.802,
+      "site_type": "bank branch",
+      "city": "Dallas",
+      "square_feet": 14100,
+      "prob": 0.0045,
+      "tier": "low",
+      "drivers": [
+        {
+          "value": 9.4,
+          "detail": "9.4 yrs vs 15-yr median life",
+          "factor": "age",
+          "base_prob": 0.0045
+        }
+      ],
+      "scored_at": "2026-11-08T09:07:42.461242-06:00",
+      "open_work_order": null,
+      "cost": {
+        "preventive_cost_usd": 265,
+        "emergency_cost_usd": 11575,
+        "emergency_breakdown": {
+          "repair_usd": 8425,
+          "lost_revenue_usd": 3150,
+          "inventory_loss_usd": 0
+        },
+        "expected_loss_if_ignored_usd": 52,
+        "expected_savings_usd": -229,
+        "worth_acting_now": false,
+        "cost_source": {
+          "preventive": "national_average",
+          "emergency_repair": "national_average"
+        }
+      }
+    },
+    {
+      "asset_id": "S010-RTU1",
+      "asset_type": "rtu",
+      "site_id": "S010",
+      "site_name": "Round Rock Clinic",
+      "region_id": "austin",
+      "lat": 30.508,
+      "lon": -97.679,
+      "site_type": "clinic",
+      "city": "Round Rock",
+      "square_feet": 12300,
+      "prob": 0.0044,
+      "tier": "low",
+      "drivers": [
+        {
+          "value": 9.3,
+          "detail": "9.3 yrs vs 15-yr median life",
+          "factor": "age",
+          "base_prob": 0.0044
+        }
+      ],
+      "scored_at": "2026-11-08T09:07:42.468501-06:00",
+      "open_work_order": null,
+      "cost": {
+        "preventive_cost_usd": 265,
+        "emergency_cost_usd": 15850,
+        "emergency_breakdown": {
+          "repair_usd": 8425,
+          "lost_revenue_usd": 7425,
+          "inventory_loss_usd": 0
+        },
+        "expected_loss_if_ignored_usd": 70,
+        "expected_savings_usd": -216,
+        "worth_acting_now": false,
+        "cost_source": {
+          "preventive": "national_average",
+          "emergency_repair": "national_average"
+        }
+      }
+    },
+    {
+      "asset_id": "S010-WATER_HEATER1",
+      "asset_type": "water_heater",
+      "site_id": "S010",
+      "site_name": "Round Rock Clinic",
+      "region_id": "austin",
+      "lat": 30.508,
+      "lon": -97.679,
+      "site_type": "clinic",
+      "city": "Round Rock",
+      "square_feet": 12300,
+      "prob": 0.0042,
+      "tier": "low",
+      "drivers": [
+        {
+          "value": 4.9,
+          "detail": "4.9 yrs vs 10-yr median life",
+          "factor": "age",
+          "base_prob": 0.0042
+        }
+      ],
+      "scored_at": "2026-11-08T09:07:42.468984-06:00",
+      "open_work_order": null,
+      "cost": {
+        "preventive_cost_usd": 175,
+        "emergency_cost_usd": 1850,
+        "emergency_breakdown": {
+          "repair_usd": 1850,
+          "lost_revenue_usd": 0,
+          "inventory_loss_usd": 0
+        },
+        "expected_loss_if_ignored_usd": 8,
+        "expected_savings_usd": -170,
+        "worth_acting_now": false,
+        "cost_source": {
+          "preventive": "national_average",
+          "emergency_repair": "national_average"
+        }
+      }
+    },
+    {
+      "asset_id": "S011-RTU2",
+      "asset_type": "rtu",
+      "site_id": "S011",
+      "site_name": "Domain Retail Store",
+      "region_id": "austin",
+      "lat": 30.402,
+      "lon": -97.725,
+      "site_type": "retail",
+      "city": "Austin",
+      "square_feet": 12600,
+      "prob": 0.0039,
+      "tier": "low",
+      "drivers": [
+        {
+          "value": 8.7,
+          "detail": "8.7 yrs vs 15-yr median life",
+          "factor": "age",
+          "base_prob": 0.0039
+        }
+      ],
+      "scored_at": "2026-11-08T09:07:42.469221-06:00",
+      "open_work_order": null,
+      "cost": {
+        "preventive_cost_usd": 265,
+        "emergency_cost_usd": 14125,
+        "emergency_breakdown": {
+          "repair_usd": 8425,
+          "lost_revenue_usd": 5700,
+          "inventory_loss_usd": 0
+        },
+        "expected_loss_if_ignored_usd": 55,
+        "expected_savings_usd": -226,
+        "worth_acting_now": false,
+        "cost_source": {
+          "preventive": "national_average",
+          "emergency_repair": "national_average"
+        }
+      }
+    },
+    {
+      "asset_id": "S008-RTU4",
+      "asset_type": "rtu",
+      "site_id": "S008",
+      "site_name": "Sugar Land Retail Store",
+      "region_id": "houston",
+      "lat": 29.619,
+      "lon": -95.635,
+      "site_type": "retail",
+      "city": "Sugar Land",
+      "square_feet": 17000,
+      "prob": 0.0039,
+      "tier": "low",
+      "drivers": [
+        {
+          "value": 8.7,
+          "detail": "8.7 yrs vs 15-yr median life",
+          "factor": "age",
+          "base_prob": 0.0039
+        }
+      ],
+      "scored_at": "2026-11-08T09:07:42.467588-06:00",
+      "open_work_order": null,
+      "cost": {
+        "preventive_cost_usd": 265,
+        "emergency_cost_usd": 16225,
+        "emergency_breakdown": {
+          "repair_usd": 8425,
+          "lost_revenue_usd": 7800,
+          "inventory_loss_usd": 0
+        },
+        "expected_loss_if_ignored_usd": 63,
+        "expected_savings_usd": -221,
+        "worth_acting_now": false,
+        "cost_source": {
+          "preventive": "national_average",
+          "emergency_repair": "national_average"
+        }
+      }
+    },
+    {
+      "asset_id": "S009-WALK_IN_COOLER1",
+      "asset_type": "walk_in_cooler",
+      "site_id": "S009",
+      "site_name": "South Congress Market",
+      "region_id": "austin",
+      "lat": 30.25,
+      "lon": -97.749,
+      "site_type": "grocery",
+      "city": "Austin",
+      "square_feet": 6200,
+      "prob": 0.0038,
+      "tier": "low",
+      "drivers": [
+        {
+          "value": 8.7,
+          "detail": "8.7 yrs vs 15-yr median life",
+          "factor": "age",
+          "base_prob": 0.0038
+        }
+      ],
+      "scored_at": "2026-11-08T09:07:42.468063-06:00",
+      "open_work_order": null,
+      "cost": {
+        "preventive_cost_usd": 250,
+        "emergency_cost_usd": 10675,
+        "emergency_breakdown": {
+          "repair_usd": 1875,
+          "lost_revenue_usd": 2800,
+          "inventory_loss_usd": 6000
+        },
+        "expected_loss_if_ignored_usd": 41,
+        "expected_savings_usd": -222,
+        "worth_acting_now": false,
+        "cost_source": {
+          "preventive": "national_average",
+          "emergency_repair": "national_average"
+        }
+      }
+    },
+    {
+      "asset_id": "S005-RTU2",
+      "asset_type": "rtu",
+      "site_id": "S005",
+      "site_name": "Montrose Market",
+      "region_id": "houston",
+      "lat": 29.745,
+      "lon": -95.39,
+      "site_type": "grocery",
+      "city": "Houston",
+      "square_feet": 5600,
+      "prob": 0.0038,
+      "tier": "low",
+      "drivers": [
+        {
+          "value": 8.6,
+          "detail": "8.6 yrs vs 15-yr median life",
+          "factor": "age",
+          "base_prob": 0.0038
+        }
+      ],
+      "scored_at": "2026-11-08T09:07:42.464992-06:00",
+      "open_work_order": null,
+      "cost": {
+        "preventive_cost_usd": 265,
+        "emergency_cost_usd": 17875,
+        "emergency_breakdown": {
+          "repair_usd": 8425,
+          "lost_revenue_usd": 9450,
+          "inventory_loss_usd": 0
+        },
+        "expected_loss_if_ignored_usd": 68,
+        "expected_savings_usd": -217,
+        "worth_acting_now": false,
+        "cost_source": {
+          "preventive": "national_average",
+          "emergency_repair": "national_average"
+        }
+      }
+    },
+    {
+      "asset_id": "S008-RTU5",
+      "asset_type": "rtu",
+      "site_id": "S008",
+      "site_name": "Sugar Land Retail Store",
+      "region_id": "houston",
+      "lat": 29.619,
+      "lon": -95.635,
+      "site_type": "retail",
+      "city": "Sugar Land",
+      "square_feet": 17000,
+      "prob": 0.0035,
+      "tier": "low",
+      "drivers": [
+        {
+          "value": 8.2,
+          "detail": "8.2 yrs vs 15-yr median life",
+          "factor": "age",
+          "base_prob": 0.0035
+        }
+      ],
+      "scored_at": "2026-11-08T09:07:42.467705-06:00",
+      "open_work_order": null,
+      "cost": {
+        "preventive_cost_usd": 265,
+        "emergency_cost_usd": 16225,
+        "emergency_breakdown": {
+          "repair_usd": 8425,
+          "lost_revenue_usd": 7800,
+          "inventory_loss_usd": 0
+        },
+        "expected_loss_if_ignored_usd": 57,
+        "expected_savings_usd": -225,
+        "worth_acting_now": false,
+        "cost_source": {
+          "preventive": "national_average",
+          "emergency_repair": "national_average"
+        }
+      }
+    },
+    {
+      "asset_id": "S003-WALK_IN_COOLER1",
+      "asset_type": "walk_in_cooler",
+      "site_id": "S003",
+      "site_name": "Richardson Market",
+      "region_id": "dallas",
+      "lat": 32.948,
+      "lon": -96.73,
+      "site_type": "grocery",
+      "city": "Richardson",
+      "square_feet": 6800,
+      "prob": 0.0035,
+      "tier": "low",
+      "drivers": [
+        {
+          "value": 8.3,
+          "detail": "8.3 yrs vs 15-yr median life",
+          "factor": "age",
+          "base_prob": 0.0035
+        }
+      ],
+      "scored_at": "2026-11-08T09:07:42.463549-06:00",
+      "open_work_order": null,
+      "cost": {
+        "preventive_cost_usd": 250,
+        "emergency_cost_usd": 10955,
+        "emergency_breakdown": {
+          "repair_usd": 1875,
+          "lost_revenue_usd": 3080,
+          "inventory_loss_usd": 6000
+        },
+        "expected_loss_if_ignored_usd": 38,
+        "expected_savings_usd": -223,
+        "worth_acting_now": false,
+        "cost_source": {
+          "preventive": "national_average",
+          "emergency_repair": "national_average"
+        }
+      }
+    },
+    {
+      "asset_id": "S007-RTU1",
+      "asset_type": "rtu",
+      "site_id": "S007",
+      "site_name": "Galleria Bank Branch",
+      "region_id": "houston",
+      "lat": 29.739,
+      "lon": -95.463,
+      "site_type": "bank branch",
+      "city": "Houston",
+      "square_feet": 12100,
+      "prob": 0.0034,
+      "tier": "low",
+      "drivers": [
+        {
+          "value": 8.1,
+          "detail": "8.1 yrs vs 15-yr median life",
+          "factor": "age",
+          "base_prob": 0.0034
+        }
+      ],
+      "scored_at": "2026-11-08T09:07:42.466813-06:00",
+      "open_work_order": null,
+      "cost": {
+        "preventive_cost_usd": 265,
+        "emergency_cost_usd": 11125,
+        "emergency_breakdown": {
+          "repair_usd": 8425,
+          "lost_revenue_usd": 2700,
+          "inventory_loss_usd": 0
+        },
+        "expected_loss_if_ignored_usd": 38,
+        "expected_savings_usd": -239,
+        "worth_acting_now": false,
+        "cost_source": {
+          "preventive": "national_average",
+          "emergency_repair": "national_average"
+        }
+      }
+    },
+    {
+      "asset_id": "S011-RTU4",
+      "asset_type": "rtu",
+      "site_id": "S011",
+      "site_name": "Domain Retail Store",
+      "region_id": "austin",
+      "lat": 30.402,
+      "lon": -97.725,
+      "site_type": "retail",
+      "city": "Austin",
+      "square_feet": 12600,
+      "prob": 0.0032,
+      "tier": "low",
+      "drivers": [
+        {
+          "value": 7.9,
+          "detail": "7.9 yrs vs 15-yr median life",
+          "factor": "age",
+          "base_prob": 0.0032
+        }
+      ],
+      "scored_at": "2026-11-08T09:07:42.469454-06:00",
+      "open_work_order": null,
+      "cost": {
+        "preventive_cost_usd": 265,
+        "emergency_cost_usd": 14125,
+        "emergency_breakdown": {
+          "repair_usd": 8425,
+          "lost_revenue_usd": 5700,
+          "inventory_loss_usd": 0
+        },
+        "expected_loss_if_ignored_usd": 45,
+        "expected_savings_usd": -233,
+        "worth_acting_now": false,
+        "cost_source": {
+          "preventive": "national_average",
+          "emergency_repair": "national_average"
+        }
+      }
+    },
+    {
+      "asset_id": "S004-RTU3",
+      "asset_type": "rtu",
+      "site_id": "S004",
+      "site_name": "Frisco Retail Store",
+      "region_id": "dallas",
+      "lat": 33.15,
+      "lon": -96.824,
+      "site_type": "retail",
+      "city": "Frisco",
+      "square_feet": 14800,
+      "prob": 0.0032,
+      "tier": "low",
+      "drivers": [
+        {
+          "value": 8.0,
+          "detail": "8.0 yrs vs 15-yr median life",
+          "factor": "age",
+          "base_prob": 0.0032
+        }
+      ],
+      "scored_at": "2026-11-08T09:07:42.464499-06:00",
+      "open_work_order": null,
+      "cost": {
+        "preventive_cost_usd": 265,
+        "emergency_cost_usd": 15175,
+        "emergency_breakdown": {
+          "repair_usd": 8425,
+          "lost_revenue_usd": 6750,
+          "inventory_loss_usd": 0
+        },
+        "expected_loss_if_ignored_usd": 49,
+        "expected_savings_usd": -231,
+        "worth_acting_now": false,
+        "cost_source": {
+          "preventive": "national_average",
+          "emergency_repair": "national_average"
+        }
+      }
+    },
+    {
+      "asset_id": "S006-RTU2",
+      "asset_type": "rtu",
+      "site_id": "S006",
+      "site_name": "Katy Family Clinic",
+      "region_id": "houston",
+      "lat": 29.786,
+      "lon": -95.824,
+      "site_type": "clinic",
+      "city": "Katy",
+      "square_feet": 15100,
+      "prob": 0.0032,
+      "tier": "low",
+      "drivers": [
+        {
+          "value": 7.9,
+          "detail": "7.9 yrs vs 15-yr median life",
+          "factor": "age",
+          "base_prob": 0.0032
+        }
+      ],
+      "scored_at": "2026-11-08T09:07:42.465989-06:00",
+      "open_work_order": null,
+      "cost": {
+        "preventive_cost_usd": 265,
+        "emergency_cost_usd": 17500,
+        "emergency_breakdown": {
+          "repair_usd": 8425,
+          "lost_revenue_usd": 9075,
+          "inventory_loss_usd": 0
+        },
+        "expected_loss_if_ignored_usd": 56,
+        "expected_savings_usd": -226,
+        "worth_acting_now": false,
+        "cost_source": {
+          "preventive": "national_average",
+          "emergency_repair": "national_average"
+        }
+      }
+    },
+    {
+      "asset_id": "S002-RTU4",
+      "asset_type": "rtu",
+      "site_id": "S002",
+      "site_name": "Legacy Family Clinic",
+      "region_id": "dallas",
+      "lat": 33.077,
+      "lon": -96.822,
+      "site_type": "clinic",
+      "city": "Plano",
+      "square_feet": 13000,
+      "prob": 0.0029,
+      "tier": "low",
+      "drivers": [
+        {
+          "value": 7.6,
+          "detail": "7.6 yrs vs 15-yr median life",
+          "factor": "age",
+          "base_prob": 0.0029
+        }
+      ],
+      "scored_at": "2026-11-08T09:07:42.462633-06:00",
+      "open_work_order": null,
+      "cost": {
+        "preventive_cost_usd": 265,
+        "emergency_cost_usd": 16225,
+        "emergency_breakdown": {
+          "repair_usd": 8425,
+          "lost_revenue_usd": 7800,
+          "inventory_loss_usd": 0
+        },
+        "expected_loss_if_ignored_usd": 47,
+        "expected_savings_usd": -232,
+        "worth_acting_now": false,
+        "cost_source": {
+          "preventive": "national_average",
+          "emergency_repair": "national_average"
+        }
+      }
+    },
+    {
+      "asset_id": "S008-RTU2",
+      "asset_type": "rtu",
+      "site_id": "S008",
+      "site_name": "Sugar Land Retail Store",
+      "region_id": "houston",
+      "lat": 29.619,
+      "lon": -95.635,
+      "site_type": "retail",
+      "city": "Sugar Land",
+      "square_feet": 17000,
+      "prob": 0.0028,
+      "tier": "low",
+      "drivers": [
+        {
+          "value": 7.4,
+          "detail": "7.4 yrs vs 15-yr median life",
+          "factor": "age",
+          "base_prob": 0.0028
+        }
+      ],
+      "scored_at": "2026-11-08T09:07:42.467359-06:00",
+      "open_work_order": null,
+      "cost": {
+        "preventive_cost_usd": 265,
+        "emergency_cost_usd": 16225,
+        "emergency_breakdown": {
+          "repair_usd": 8425,
+          "lost_revenue_usd": 7800,
+          "inventory_loss_usd": 0
+        },
+        "expected_loss_if_ignored_usd": 45,
+        "expected_savings_usd": -233,
+        "worth_acting_now": false,
+        "cost_source": {
+          "preventive": "national_average",
+          "emergency_repair": "national_average"
+        }
+      }
+    },
+    {
+      "asset_id": "S006-RTU3",
+      "asset_type": "rtu",
+      "site_id": "S006",
+      "site_name": "Katy Family Clinic",
+      "region_id": "houston",
+      "lat": 29.786,
+      "lon": -95.824,
+      "site_type": "clinic",
+      "city": "Katy",
+      "square_feet": 15100,
+      "prob": 0.0027,
+      "tier": "low",
+      "drivers": [
+        {
+          "value": 7.3,
+          "detail": "7.3 yrs vs 15-yr median life",
+          "factor": "age",
+          "base_prob": 0.0027
+        }
+      ],
+      "scored_at": "2026-11-08T09:07:42.466122-06:00",
+      "open_work_order": null,
+      "cost": {
+        "preventive_cost_usd": 265,
+        "emergency_cost_usd": 17500,
+        "emergency_breakdown": {
+          "repair_usd": 8425,
+          "lost_revenue_usd": 9075,
+          "inventory_loss_usd": 0
+        },
+        "expected_loss_if_ignored_usd": 47,
+        "expected_savings_usd": -232,
+        "worth_acting_now": false,
+        "cost_source": {
+          "preventive": "national_average",
+          "emergency_repair": "national_average"
+        }
+      }
+    },
+    {
+      "asset_id": "S009-RTU2",
+      "asset_type": "rtu",
+      "site_id": "S009",
+      "site_name": "South Congress Market",
+      "region_id": "austin",
+      "lat": 30.25,
+      "lon": -97.749,
+      "site_type": "grocery",
+      "city": "Austin",
+      "square_feet": 6200,
+      "prob": 0.0024,
+      "tier": "low",
+      "drivers": [
+        {
+          "value": 6.9,
+          "detail": "6.9 yrs vs 15-yr median life",
+          "factor": "age",
+          "base_prob": 0.0024
+        }
+      ],
+      "scored_at": "2026-11-08T09:07:42.467949-06:00",
+      "open_work_order": null,
+      "cost": {
+        "preventive_cost_usd": 265,
+        "emergency_cost_usd": 18925,
+        "emergency_breakdown": {
+          "repair_usd": 8425,
+          "lost_revenue_usd": 10500,
+          "inventory_loss_usd": 0
+        },
+        "expected_loss_if_ignored_usd": 45,
+        "expected_savings_usd": -233,
+        "worth_acting_now": false,
+        "cost_source": {
+          "preventive": "national_average",
+          "emergency_repair": "national_average"
+        }
+      }
+    },
+    {
+      "asset_id": "S006-RTU4",
+      "asset_type": "rtu",
+      "site_id": "S006",
+      "site_name": "Katy Family Clinic",
+      "region_id": "houston",
+      "lat": 29.786,
+      "lon": -95.824,
+      "site_type": "clinic",
+      "city": "Katy",
+      "square_feet": 15100,
+      "prob": 0.0024,
+      "tier": "low",
+      "drivers": [
+        {
+          "value": 6.8,
+          "detail": "6.8 yrs vs 15-yr median life",
+          "factor": "age",
+          "base_prob": 0.0024
+        }
+      ],
+      "scored_at": "2026-11-08T09:07:42.466254-06:00",
+      "open_work_order": null,
+      "cost": {
+        "preventive_cost_usd": 265,
+        "emergency_cost_usd": 17500,
+        "emergency_breakdown": {
+          "repair_usd": 8425,
+          "lost_revenue_usd": 9075,
+          "inventory_loss_usd": 0
+        },
+        "expected_loss_if_ignored_usd": 42,
+        "expected_savings_usd": -236,
+        "worth_acting_now": false,
+        "cost_source": {
+          "preventive": "national_average",
+          "emergency_repair": "national_average"
+        }
+      }
+    },
+    {
+      "asset_id": "S009-RTU1",
+      "asset_type": "rtu",
+      "site_id": "S009",
+      "site_name": "South Congress Market",
+      "region_id": "austin",
+      "lat": 30.25,
+      "lon": -97.749,
+      "site_type": "grocery",
+      "city": "Austin",
+      "square_feet": 6200,
+      "prob": 0.0023,
+      "tier": "low",
+      "drivers": [
+        {
+          "value": 6.7,
+          "detail": "6.7 yrs vs 15-yr median life",
+          "factor": "age",
+          "base_prob": 0.0023
+        }
+      ],
+      "scored_at": "2026-11-08T09:07:42.467833-06:00",
+      "open_work_order": null,
+      "cost": {
+        "preventive_cost_usd": 265,
+        "emergency_cost_usd": 18925,
+        "emergency_breakdown": {
+          "repair_usd": 8425,
+          "lost_revenue_usd": 10500,
+          "inventory_loss_usd": 0
+        },
+        "expected_loss_if_ignored_usd": 44,
+        "expected_savings_usd": -235,
+        "worth_acting_now": false,
+        "cost_source": {
+          "preventive": "national_average",
+          "emergency_repair": "national_average"
+        }
+      }
+    },
+    {
+      "asset_id": "S003-WATER_HEATER1",
+      "asset_type": "water_heater",
+      "site_id": "S003",
+      "site_name": "Richardson Market",
+      "region_id": "dallas",
+      "lat": 32.948,
+      "lon": -96.73,
+      "site_type": "grocery",
+      "city": "Richardson",
+      "square_feet": 6800,
+      "prob": 0.0022,
+      "tier": "low",
+      "drivers": [
+        {
+          "value": 3.5,
+          "detail": "3.5 yrs vs 10-yr median life",
+          "factor": "age",
+          "base_prob": 0.0022
+        }
+      ],
+      "scored_at": "2026-11-08T09:07:42.463754-06:00",
+      "open_work_order": null,
+      "cost": {
+        "preventive_cost_usd": 175,
+        "emergency_cost_usd": 1850,
+        "emergency_breakdown": {
+          "repair_usd": 1850,
+          "lost_revenue_usd": 0,
+          "inventory_loss_usd": 0
+        },
+        "expected_loss_if_ignored_usd": 4,
+        "expected_savings_usd": -172,
+        "worth_acting_now": false,
+        "cost_source": {
+          "preventive": "national_average",
+          "emergency_repair": "national_average"
+        }
+      }
+    },
+    {
+      "asset_id": "S002-WATER_HEATER1",
+      "asset_type": "water_heater",
+      "site_id": "S002",
+      "site_name": "Legacy Family Clinic",
+      "region_id": "dallas",
+      "lat": 33.077,
+      "lon": -96.822,
+      "site_type": "clinic",
+      "city": "Plano",
+      "square_feet": 13000,
+      "prob": 0.0022,
+      "tier": "low",
+      "drivers": [
+        {
+          "value": 3.6,
+          "detail": "3.6 yrs vs 10-yr median life",
+          "factor": "age",
+          "base_prob": 0.0022
+        }
+      ],
+      "scored_at": "2026-11-08T09:07:42.462855-06:00",
+      "open_work_order": null,
+      "cost": {
+        "preventive_cost_usd": 175,
+        "emergency_cost_usd": 1850,
+        "emergency_breakdown": {
+          "repair_usd": 1850,
+          "lost_revenue_usd": 0,
+          "inventory_loss_usd": 0
+        },
+        "expected_loss_if_ignored_usd": 4,
+        "expected_savings_usd": -172,
+        "worth_acting_now": false,
+        "cost_source": {
+          "preventive": "national_average",
+          "emergency_repair": "national_average"
+        }
+      }
+    },
+    {
+      "asset_id": "S001-RTU1",
+      "asset_type": "rtu",
+      "site_id": "S001",
+      "site_name": "Uptown Bank Branch",
+      "region_id": "dallas",
+      "lat": 32.799,
+      "lon": -96.802,
+      "site_type": "bank branch",
+      "city": "Dallas",
+      "square_feet": 14100,
+      "prob": 0.0022,
+      "tier": "low",
+      "drivers": [
+        {
+          "value": 6.6,
+          "detail": "6.6 yrs vs 15-yr median life",
+          "factor": "age",
+          "base_prob": 0.0022
+        }
+      ],
+      "scored_at": "2026-11-08T09:07:42.458654-06:00",
+      "open_work_order": null,
+      "cost": {
+        "preventive_cost_usd": 265,
+        "emergency_cost_usd": 11575,
+        "emergency_breakdown": {
+          "repair_usd": 8425,
+          "lost_revenue_usd": 3150,
+          "inventory_loss_usd": 0
+        },
+        "expected_loss_if_ignored_usd": 25,
+        "expected_savings_usd": -247,
+        "worth_acting_now": false,
+        "cost_source": {
+          "preventive": "national_average",
+          "emergency_repair": "national_average"
+        }
+      }
+    },
+    {
+      "asset_id": "S012-RTU3",
+      "asset_type": "rtu",
+      "site_id": "S012",
+      "site_name": "Las Colinas Bank Branch",
+      "region_id": "dallas",
+      "lat": 32.869,
+      "lon": -96.94,
+      "site_type": "bank branch",
+      "city": "Irving",
+      "square_feet": 13400,
+      "prob": 0.0022,
+      "tier": "low",
+      "drivers": [
+        {
+          "value": 6.5,
+          "detail": "6.5 yrs vs 15-yr median life",
+          "factor": "age",
+          "base_prob": 0.0022
+        }
+      ],
+      "scored_at": "2026-11-08T09:07:42.469796-06:00",
+      "open_work_order": null,
+      "cost": {
+        "preventive_cost_usd": 265,
+        "emergency_cost_usd": 11425,
+        "emergency_breakdown": {
+          "repair_usd": 8425,
+          "lost_revenue_usd": 3000,
+          "inventory_loss_usd": 0
+        },
+        "expected_loss_if_ignored_usd": 25,
+        "expected_savings_usd": -247,
+        "worth_acting_now": false,
+        "cost_source": {
+          "preventive": "national_average",
+          "emergency_repair": "national_average"
+        }
+      }
+    },
+    {
+      "asset_id": "S003-RTU1",
+      "asset_type": "rtu",
+      "site_id": "S003",
+      "site_name": "Richardson Market",
+      "region_id": "dallas",
+      "lat": 32.948,
+      "lon": -96.73,
+      "site_type": "grocery",
+      "city": "Richardson",
+      "square_feet": 6800,
+      "prob": 0.0021,
+      "tier": "low",
+      "drivers": [
+        {
+          "value": 6.5,
+          "detail": "6.5 yrs vs 15-yr median life",
+          "factor": "age",
+          "base_prob": 0.0021
+        }
+      ],
+      "scored_at": "2026-11-08T09:07:42.463039-06:00",
+      "open_work_order": null,
+      "cost": {
+        "preventive_cost_usd": 265,
+        "emergency_cost_usd": 19975,
+        "emergency_breakdown": {
+          "repair_usd": 8425,
+          "lost_revenue_usd": 11550,
+          "inventory_loss_usd": 0
+        },
+        "expected_loss_if_ignored_usd": 42,
+        "expected_savings_usd": -236,
+        "worth_acting_now": false,
+        "cost_source": {
+          "preventive": "national_average",
+          "emergency_repair": "national_average"
+        }
+      }
+    },
+    {
+      "asset_id": "S008-RTU3",
+      "asset_type": "rtu",
+      "site_id": "S008",
+      "site_name": "Sugar Land Retail Store",
+      "region_id": "houston",
+      "lat": 29.619,
+      "lon": -95.635,
+      "site_type": "retail",
+      "city": "Sugar Land",
+      "square_feet": 17000,
+      "prob": 0.002,
+      "tier": "low",
+      "drivers": [
+        {
+          "value": 6.2,
+          "detail": "6.2 yrs vs 15-yr median life",
+          "factor": "age",
+          "base_prob": 0.002
+        }
+      ],
+      "scored_at": "2026-11-08T09:07:42.467474-06:00",
+      "open_work_order": null,
+      "cost": {
+        "preventive_cost_usd": 265,
+        "emergency_cost_usd": 16225,
+        "emergency_breakdown": {
+          "repair_usd": 8425,
+          "lost_revenue_usd": 7800,
+          "inventory_loss_usd": 0
+        },
+        "expected_loss_if_ignored_usd": 32,
+        "expected_savings_usd": -242,
+        "worth_acting_now": false,
+        "cost_source": {
+          "preventive": "national_average",
+          "emergency_repair": "national_average"
+        }
+      }
+    },
+    {
+      "asset_id": "S007-RTU3",
+      "asset_type": "rtu",
+      "site_id": "S007",
+      "site_name": "Galleria Bank Branch",
+      "region_id": "houston",
+      "lat": 29.739,
+      "lon": -95.463,
+      "site_type": "bank branch",
+      "city": "Houston",
+      "square_feet": 12100,
+      "prob": 0.0018,
+      "tier": "low",
+      "drivers": [
+        {
+          "value": 6.0,
+          "detail": "6.0 yrs vs 15-yr median life",
+          "factor": "age",
+          "base_prob": 0.0018
+        }
+      ],
+      "scored_at": "2026-11-08T09:07:42.467107-06:00",
+      "open_work_order": null,
+      "cost": {
+        "preventive_cost_usd": 265,
+        "emergency_cost_usd": 11125,
+        "emergency_breakdown": {
+          "repair_usd": 8425,
+          "lost_revenue_usd": 2700,
+          "inventory_loss_usd": 0
+        },
+        "expected_loss_if_ignored_usd": 20,
+        "expected_savings_usd": -251,
+        "worth_acting_now": false,
+        "cost_source": {
+          "preventive": "national_average",
+          "emergency_repair": "national_average"
+        }
+      }
+    },
+    {
+      "asset_id": "S010-RTU2",
+      "asset_type": "rtu",
+      "site_id": "S010",
+      "site_name": "Round Rock Clinic",
+      "region_id": "austin",
+      "lat": 30.508,
+      "lon": -97.679,
+      "site_type": "clinic",
+      "city": "Round Rock",
+      "square_feet": 12300,
+      "prob": 0.0014,
+      "tier": "low",
+      "drivers": [
+        {
+          "value": 5.3,
+          "detail": "5.3 yrs vs 15-yr median life",
+          "factor": "age",
+          "base_prob": 0.0014
+        }
+      ],
+      "scored_at": "2026-11-08T09:07:42.468626-06:00",
+      "open_work_order": null,
+      "cost": {
+        "preventive_cost_usd": 265,
+        "emergency_cost_usd": 15850,
+        "emergency_breakdown": {
+          "repair_usd": 8425,
+          "lost_revenue_usd": 7425,
+          "inventory_loss_usd": 0
+        },
+        "expected_loss_if_ignored_usd": 22,
+        "expected_savings_usd": -249,
+        "worth_acting_now": false,
+        "cost_source": {
+          "preventive": "national_average",
+          "emergency_repair": "national_average"
+        }
+      }
+    },
+    {
+      "asset_id": "S010-RTU3",
+      "asset_type": "rtu",
+      "site_id": "S010",
+      "site_name": "Round Rock Clinic",
+      "region_id": "austin",
+      "lat": 30.508,
+      "lon": -97.679,
+      "site_type": "clinic",
+      "city": "Round Rock",
+      "square_feet": 12300,
+      "prob": 0.0013,
+      "tier": "low",
+      "drivers": [
+        {
+          "value": 5.0,
+          "detail": "5.0 yrs vs 15-yr median life",
+          "factor": "age",
+          "base_prob": 0.0013
+        }
+      ],
+      "scored_at": "2026-11-08T09:07:42.468752-06:00",
+      "open_work_order": null,
+      "cost": {
+        "preventive_cost_usd": 265,
+        "emergency_cost_usd": 15850,
+        "emergency_breakdown": {
+          "repair_usd": 8425,
+          "lost_revenue_usd": 7425,
+          "inventory_loss_usd": 0
+        },
+        "expected_loss_if_ignored_usd": 21,
+        "expected_savings_usd": -251,
+        "worth_acting_now": false,
+        "cost_source": {
+          "preventive": "national_average",
+          "emergency_repair": "national_average"
+        }
+      }
+    },
+    {
+      "asset_id": "S002-RTU2",
+      "asset_type": "rtu",
+      "site_id": "S002",
+      "site_name": "Legacy Family Clinic",
+      "region_id": "dallas",
+      "lat": 33.077,
+      "lon": -96.822,
+      "site_type": "clinic",
+      "city": "Plano",
+      "square_feet": 13000,
+      "prob": 0.0012,
+      "tier": "low",
+      "drivers": [
+        {
+          "value": 4.8,
+          "detail": "4.8 yrs vs 15-yr median life",
+          "factor": "age",
+          "base_prob": 0.0012
+        }
+      ],
+      "scored_at": "2026-11-08T09:07:42.462194-06:00",
+      "open_work_order": null,
+      "cost": {
+        "preventive_cost_usd": 265,
+        "emergency_cost_usd": 16225,
+        "emergency_breakdown": {
+          "repair_usd": 8425,
+          "lost_revenue_usd": 7800,
+          "inventory_loss_usd": 0
+        },
+        "expected_loss_if_ignored_usd": 19,
+        "expected_savings_usd": -251,
+        "worth_acting_now": false,
+        "cost_source": {
+          "preventive": "national_average",
+          "emergency_repair": "national_average"
+        }
+      }
+    },
+    {
+      "asset_id": "S004-RTU4",
+      "asset_type": "rtu",
+      "site_id": "S004",
+      "site_name": "Frisco Retail Store",
+      "region_id": "dallas",
+      "lat": 33.15,
+      "lon": -96.824,
+      "site_type": "retail",
+      "city": "Frisco",
+      "square_feet": 14800,
+      "prob": 0.0012,
+      "tier": "low",
+      "drivers": [
+        {
+          "value": 4.8,
+          "detail": "4.8 yrs vs 15-yr median life",
+          "factor": "age",
+          "base_prob": 0.0012
+        }
+      ],
+      "scored_at": "2026-11-08T09:07:42.464640-06:00",
+      "open_work_order": null,
+      "cost": {
+        "preventive_cost_usd": 265,
+        "emergency_cost_usd": 15175,
+        "emergency_breakdown": {
+          "repair_usd": 8425,
+          "lost_revenue_usd": 6750,
+          "inventory_loss_usd": 0
+        },
+        "expected_loss_if_ignored_usd": 18,
+        "expected_savings_usd": -252,
+        "worth_acting_now": false,
+        "cost_source": {
+          "preventive": "national_average",
+          "emergency_repair": "national_average"
+        }
+      }
+    },
+    {
+      "asset_id": "S003-RTU2",
+      "asset_type": "rtu",
+      "site_id": "S003",
+      "site_name": "Richardson Market",
+      "region_id": "dallas",
+      "lat": 32.948,
+      "lon": -96.73,
+      "site_type": "grocery",
+      "city": "Richardson",
+      "square_feet": 6800,
+      "prob": 0.0011,
+      "tier": "low",
+      "drivers": [
+        {
+          "value": 4.6,
+          "detail": "4.6 yrs vs 15-yr median life",
+          "factor": "age",
+          "base_prob": 0.0011
+        }
+      ],
+      "scored_at": "2026-11-08T09:07:42.463296-06:00",
+      "open_work_order": null,
+      "cost": {
+        "preventive_cost_usd": 265,
+        "emergency_cost_usd": 19975,
+        "emergency_breakdown": {
+          "repair_usd": 8425,
+          "lost_revenue_usd": 11550,
+          "inventory_loss_usd": 0
+        },
+        "expected_loss_if_ignored_usd": 22,
+        "expected_savings_usd": -250,
+        "worth_acting_now": false,
+        "cost_source": {
+          "preventive": "national_average",
+          "emergency_repair": "national_average"
+        }
+      }
+    },
+    {
+      "asset_id": "S001-RTU3",
+      "asset_type": "rtu",
+      "site_id": "S001",
+      "site_name": "Uptown Bank Branch",
+      "region_id": "dallas",
+      "lat": 32.799,
+      "lon": -96.802,
+      "site_type": "bank branch",
+      "city": "Dallas",
+      "square_feet": 14100,
+      "prob": 0.0009,
+      "tier": "low",
+      "drivers": [
+        {
+          "value": 4.2,
+          "detail": "4.2 yrs vs 15-yr median life",
+          "factor": "age",
+          "base_prob": 0.0009
+        }
+      ],
+      "scored_at": "2026-11-08T09:07:42.461009-06:00",
+      "open_work_order": null,
+      "cost": {
+        "preventive_cost_usd": 265,
+        "emergency_cost_usd": 11575,
+        "emergency_breakdown": {
+          "repair_usd": 8425,
+          "lost_revenue_usd": 3150,
+          "inventory_loss_usd": 0
+        },
+        "expected_loss_if_ignored_usd": 10,
+        "expected_savings_usd": -258,
+        "worth_acting_now": false,
+        "cost_source": {
+          "preventive": "national_average",
+          "emergency_repair": "national_average"
+        }
+      }
+    },
+    {
+      "asset_id": "S005-WATER_HEATER1",
+      "asset_type": "water_heater",
+      "site_id": "S005",
+      "site_name": "Montrose Market",
+      "region_id": "houston",
+      "lat": 29.745,
+      "lon": -95.39,
+      "site_type": "grocery",
+      "city": "Houston",
+      "square_feet": 5600,
+      "prob": 0.0007,
+      "tier": "low",
+      "drivers": [
+        {
+          "value": 2.0,
+          "detail": "2.0 yrs vs 10-yr median life",
+          "factor": "age",
+          "base_prob": 0.0007
+        }
+      ],
+      "scored_at": "2026-11-08T09:07:42.465661-06:00",
+      "open_work_order": null,
+      "cost": {
+        "preventive_cost_usd": 175,
+        "emergency_cost_usd": 1850,
+        "emergency_breakdown": {
+          "repair_usd": 1850,
+          "lost_revenue_usd": 0,
+          "inventory_loss_usd": 0
+        },
+        "expected_loss_if_ignored_usd": 1,
+        "expected_savings_usd": -174,
+        "worth_acting_now": false,
+        "cost_source": {
+          "preventive": "national_average",
+          "emergency_repair": "national_average"
+        }
+      }
+    },
+    {
+      "asset_id": "S012-RTU2",
+      "asset_type": "rtu",
+      "site_id": "S012",
+      "site_name": "Las Colinas Bank Branch",
+      "region_id": "dallas",
+      "lat": 32.869,
+      "lon": -96.94,
+      "site_type": "bank branch",
+      "city": "Irving",
+      "square_feet": 13400,
+      "prob": 0.0007,
+      "tier": "low",
+      "drivers": [
+        {
+          "value": 3.8,
+          "detail": "3.8 yrs vs 15-yr median life",
+          "factor": "age",
+          "base_prob": 0.0007
+        }
+      ],
+      "scored_at": "2026-11-08T09:07:42.469679-06:00",
+      "open_work_order": null,
+      "cost": {
+        "preventive_cost_usd": 265,
+        "emergency_cost_usd": 11425,
+        "emergency_breakdown": {
+          "repair_usd": 8425,
+          "lost_revenue_usd": 3000,
+          "inventory_loss_usd": 0
+        },
+        "expected_loss_if_ignored_usd": 8,
+        "expected_savings_usd": -259,
+        "worth_acting_now": false,
+        "cost_source": {
+          "preventive": "national_average",
+          "emergency_repair": "national_average"
+        }
+      }
+    },
+    {
+      "asset_id": "S011-RTU3",
+      "asset_type": "rtu",
+      "site_id": "S011",
+      "site_name": "Domain Retail Store",
+      "region_id": "austin",
+      "lat": 30.402,
+      "lon": -97.725,
+      "site_type": "retail",
+      "city": "Austin",
+      "square_feet": 12600,
+      "prob": 0.0006,
+      "tier": "low",
+      "drivers": [
+        {
+          "value": 3.5,
+          "detail": "3.5 yrs vs 15-yr median life",
+          "factor": "age",
+          "base_prob": 0.0006
+        }
+      ],
+      "scored_at": "2026-11-08T09:07:42.469334-06:00",
+      "open_work_order": null,
+      "cost": {
+        "preventive_cost_usd": 265,
+        "emergency_cost_usd": 14125,
+        "emergency_breakdown": {
+          "repair_usd": 8425,
+          "lost_revenue_usd": 5700,
+          "inventory_loss_usd": 0
+        },
+        "expected_loss_if_ignored_usd": 8,
+        "expected_savings_usd": -259,
+        "worth_acting_now": false,
+        "cost_source": {
+          "preventive": "national_average",
+          "emergency_repair": "national_average"
+        }
+      }
+    },
+    {
+      "asset_id": "S008-RTU1",
+      "asset_type": "rtu",
+      "site_id": "S008",
+      "site_name": "Sugar Land Retail Store",
+      "region_id": "houston",
+      "lat": 29.619,
+      "lon": -95.635,
+      "site_type": "retail",
+      "city": "Sugar Land",
+      "square_feet": 17000,
+      "prob": 0.0006,
+      "tier": "low",
+      "drivers": [
+        {
+          "value": 3.3,
+          "detail": "3.3 yrs vs 15-yr median life",
+          "factor": "age",
+          "base_prob": 0.0006
+        }
+      ],
+      "scored_at": "2026-11-08T09:07:42.467234-06:00",
+      "open_work_order": null,
+      "cost": {
+        "preventive_cost_usd": 265,
+        "emergency_cost_usd": 16225,
+        "emergency_breakdown": {
+          "repair_usd": 8425,
+          "lost_revenue_usd": 7800,
+          "inventory_loss_usd": 0
+        },
+        "expected_loss_if_ignored_usd": 10,
+        "expected_savings_usd": -258,
+        "worth_acting_now": false,
+        "cost_source": {
+          "preventive": "national_average",
+          "emergency_repair": "national_average"
+        }
+      }
+    },
+    {
+      "asset_id": "S005-RTU1",
+      "asset_type": "rtu",
+      "site_id": "S005",
+      "site_name": "Montrose Market",
+      "region_id": "houston",
+      "lat": 29.745,
+      "lon": -95.39,
+      "site_type": "grocery",
+      "city": "Houston",
+      "square_feet": 5600,
+      "prob": 0.0005,
+      "tier": "low",
+      "drivers": [
+        {
+          "value": 3.1,
+          "detail": "3.1 yrs vs 15-yr median life",
+          "factor": "age",
+          "base_prob": 0.0005
+        }
+      ],
+      "scored_at": "2026-11-08T09:07:42.464798-06:00",
+      "open_work_order": null,
+      "cost": {
+        "preventive_cost_usd": 265,
+        "emergency_cost_usd": 17875,
+        "emergency_breakdown": {
+          "repair_usd": 8425,
+          "lost_revenue_usd": 9450,
+          "inventory_loss_usd": 0
+        },
+        "expected_loss_if_ignored_usd": 9,
+        "expected_savings_usd": -259,
+        "worth_acting_now": false,
+        "cost_source": {
+          "preventive": "national_average",
+          "emergency_repair": "national_average"
+        }
+      }
+    },
+    {
+      "asset_id": "S002-RTU1",
+      "asset_type": "rtu",
+      "site_id": "S002",
+      "site_name": "Legacy Family Clinic",
+      "region_id": "dallas",
+      "lat": 33.077,
+      "lon": -96.822,
+      "site_type": "clinic",
+      "city": "Plano",
+      "square_feet": 13000,
+      "prob": 0.0005,
+      "tier": "low",
+      "drivers": [
+        {
+          "value": 3.2,
+          "detail": "3.2 yrs vs 15-yr median life",
+          "factor": "age",
+          "base_prob": 0.0005
+        }
+      ],
+      "scored_at": "2026-11-08T09:07:42.461472-06:00",
+      "open_work_order": null,
+      "cost": {
+        "preventive_cost_usd": 265,
+        "emergency_cost_usd": 16225,
+        "emergency_breakdown": {
+          "repair_usd": 8425,
+          "lost_revenue_usd": 7800,
+          "inventory_loss_usd": 0
+        },
+        "expected_loss_if_ignored_usd": 8,
+        "expected_savings_usd": -259,
+        "worth_acting_now": false,
+        "cost_source": {
+          "preventive": "national_average",
+          "emergency_repair": "national_average"
+        }
+      }
+    },
+    {
+      "asset_id": "S012-RTU4",
+      "asset_type": "rtu",
+      "site_id": "S012",
+      "site_name": "Las Colinas Bank Branch",
+      "region_id": "dallas",
+      "lat": 32.869,
+      "lon": -96.94,
+      "site_type": "bank branch",
+      "city": "Irving",
+      "square_feet": 13400,
+      "prob": 0.0005,
+      "tier": "low",
+      "drivers": [
+        {
+          "value": 3.2,
+          "detail": "3.2 yrs vs 15-yr median life",
+          "factor": "age",
+          "base_prob": 0.0005
+        }
+      ],
+      "scored_at": "2026-11-08T09:07:42.469917-06:00",
+      "open_work_order": null,
+      "cost": {
+        "preventive_cost_usd": 265,
+        "emergency_cost_usd": 11425,
+        "emergency_breakdown": {
+          "repair_usd": 8425,
+          "lost_revenue_usd": 3000,
+          "inventory_loss_usd": 0
+        },
+        "expected_loss_if_ignored_usd": 6,
+        "expected_savings_usd": -261,
+        "worth_acting_now": false,
+        "cost_source": {
+          "preventive": "national_average",
+          "emergency_repair": "national_average"
+        }
+      }
+    },
+    {
+      "asset_id": "S011-RTU1",
+      "asset_type": "rtu",
+      "site_id": "S011",
+      "site_name": "Domain Retail Store",
+      "region_id": "austin",
+      "lat": 30.402,
+      "lon": -97.725,
+      "site_type": "retail",
+      "city": "Austin",
+      "square_feet": 12600,
+      "prob": 0.0004,
+      "tier": "low",
+      "drivers": [
+        {
+          "value": 2.8,
+          "detail": "2.8 yrs vs 15-yr median life",
+          "factor": "age",
+          "base_prob": 0.0004
+        }
+      ],
+      "scored_at": "2026-11-08T09:07:42.469104-06:00",
+      "open_work_order": null,
+      "cost": {
+        "preventive_cost_usd": 265,
+        "emergency_cost_usd": 14125,
+        "emergency_breakdown": {
+          "repair_usd": 8425,
+          "lost_revenue_usd": 5700,
+          "inventory_loss_usd": 0
+        },
+        "expected_loss_if_ignored_usd": 6,
+        "expected_savings_usd": -261,
+        "worth_acting_now": false,
+        "cost_source": {
+          "preventive": "national_average",
+          "emergency_repair": "national_average"
+        }
+      }
+    },
+    {
+      "asset_id": "S002-RTU3",
+      "asset_type": "rtu",
+      "site_id": "S002",
+      "site_name": "Legacy Family Clinic",
+      "region_id": "dallas",
+      "lat": 33.077,
+      "lon": -96.822,
+      "site_type": "clinic",
+      "city": "Plano",
+      "square_feet": 13000,
+      "prob": 0.0004,
+      "tier": "low",
+      "drivers": [
+        {
+          "value": 2.9,
+          "detail": "2.9 yrs vs 15-yr median life",
+          "factor": "age",
+          "base_prob": 0.0004
+        }
+      ],
+      "scored_at": "2026-11-08T09:07:42.462431-06:00",
+      "open_work_order": null,
+      "cost": {
+        "preventive_cost_usd": 265,
+        "emergency_cost_usd": 16225,
+        "emergency_breakdown": {
+          "repair_usd": 8425,
+          "lost_revenue_usd": 7800,
+          "inventory_loss_usd": 0
+        },
+        "expected_loss_if_ignored_usd": 6,
+        "expected_savings_usd": -260,
+        "worth_acting_now": false,
+        "cost_source": {
+          "preventive": "national_average",
+          "emergency_repair": "national_average"
+        }
+      }
+    },
+    {
+      "asset_id": "S007-RTU2",
+      "asset_type": "rtu",
+      "site_id": "S007",
+      "site_name": "Galleria Bank Branch",
+      "region_id": "houston",
+      "lat": 29.739,
+      "lon": -95.463,
+      "site_type": "bank branch",
+      "city": "Houston",
+      "square_feet": 12100,
+      "prob": 0.0004,
+      "tier": "low",
+      "drivers": [
+        {
+          "value": 2.9,
+          "detail": "2.9 yrs vs 15-yr median life",
+          "factor": "age",
+          "base_prob": 0.0004
+        }
+      ],
+      "scored_at": "2026-11-08T09:07:42.466942-06:00",
+      "open_work_order": null,
+      "cost": {
+        "preventive_cost_usd": 265,
+        "emergency_cost_usd": 11125,
+        "emergency_breakdown": {
+          "repair_usd": 8425,
+          "lost_revenue_usd": 2700,
+          "inventory_loss_usd": 0
+        },
+        "expected_loss_if_ignored_usd": 4,
+        "expected_savings_usd": -262,
+        "worth_acting_now": false,
+        "cost_source": {
+          "preventive": "national_average",
+          "emergency_repair": "national_average"
+        }
+      }
+    }
+  ],
+  "assetDetails": {
+    "S006-WATER_HEATER1": {
+      "asset": {
+        "asset_id": "S006-WATER_HEATER1",
+        "site_id": "S006",
+        "asset_type": "water_heater",
+        "install_date": "2014-11-08",
+        "install_date_estimated": false,
+        "make": null,
+        "model": null,
+        "serial_number": null,
+        "refrigerant": null,
+        "pm_interval_days": 90,
+        "site_name": "Katy Family Clinic",
+        "region_id": "houston",
+        "site_type": "clinic",
+        "city": "Katy",
+        "square_feet": 15100,
+        "open_hours": "8am-6pm Mon-Fri"
+      },
+      "risk_now": {
+        "prob": 0.2604,
+        "base_prob": 0.0245,
+        "multiplier": 12.182,
+        "tier": "high",
+        "drivers": [
+          {
+            "factor": "age",
+            "value": 12.0,
+            "detail": "12.0 yrs vs 10-yr median life",
+            "base_prob": 0.0245
+          },
+          {
+            "factor": "calls_90d",
+            "log_hazard": 1.05,
+            "multiplier": 2.86
+          },
+          {
+            "factor": "field_report_negative",
+            "log_hazard": 0.8,
+            "multiplier": 2.23
+          },
+          {
+            "factor": "repeat_issue",
+            "log_hazard": 0.4,
+            "multiplier": 1.49
+          },
+          {
+            "factor": "recent_repair",
+            "log_hazard": 0.25,
+            "multiplier": 1.28
+          }
+        ],
+        "age_years": 12.0
+      },
+      "cost": {
+        "preventive_cost_usd": 175,
+        "emergency_cost_usd": 1850,
+        "emergency_breakdown": {
+          "repair_usd": 1850,
+          "lost_revenue_usd": 0,
+          "inventory_loss_usd": 0
+        },
+        "expected_loss_if_ignored_usd": 482,
+        "expected_savings_usd": 162,
+        "worth_acting_now": true,
+        "cost_source": {
+          "preventive": "national_average",
+          "emergency_repair": "national_average"
+        }
+      },
+      "risk_history": [
+        {
+          "scored_at": "2026-10-09T07:00:00-05:00",
+          "prob": 0.0899,
+          "tier": "medium"
+        },
+        {
+          "scored_at": "2026-10-10T07:00:00-05:00",
+          "prob": 0.09,
+          "tier": "medium"
+        },
+        {
+          "scored_at": "2026-10-11T07:00:00-05:00",
+          "prob": 0.09,
+          "tier": "medium"
+        },
+        {
+          "scored_at": "2026-10-12T07:00:00-05:00",
+          "prob": 0.09,
+          "tier": "medium"
+        },
+        {
+          "scored_at": "2026-10-13T07:00:00-05:00",
+          "prob": 0.0901,
+          "tier": "medium"
+        },
+        {
+          "scored_at": "2026-10-14T07:00:00-05:00",
+          "prob": 0.0901,
+          "tier": "medium"
+        },
+        {
+          "scored_at": "2026-10-15T07:00:00-05:00",
+          "prob": 0.0902,
+          "tier": "medium"
+        },
+        {
+          "scored_at": "2026-10-16T07:00:00-05:00",
+          "prob": 0.0902,
+          "tier": "medium"
+        },
+        {
+          "scored_at": "2026-10-17T07:00:00-05:00",
+          "prob": 0.0902,
+          "tier": "medium"
+        },
+        {
+          "scored_at": "2026-10-18T07:00:00-05:00",
+          "prob": 0.0903,
+          "tier": "medium"
+        },
+        {
+          "scored_at": "2026-10-19T07:00:00-05:00",
+          "prob": 0.0711,
+          "tier": "low"
+        },
+        {
+          "scored_at": "2026-10-20T07:00:00-05:00",
+          "prob": 0.0711,
+          "tier": "low"
+        },
+        {
+          "scored_at": "2026-10-21T07:00:00-05:00",
+          "prob": 0.1258,
+          "tier": "medium"
+        },
+        {
+          "scored_at": "2026-10-22T07:00:00-05:00",
+          "prob": 0.1259,
+          "tier": "medium"
+        },
+        {
+          "scored_at": "2026-10-23T07:00:00-05:00",
+          "prob": 0.1259,
+          "tier": "medium"
+        },
+        {
+          "scored_at": "2026-10-24T07:00:00-05:00",
+          "prob": 0.126,
+          "tier": "medium"
+        },
+        {
+          "scored_at": "2026-10-25T07:00:00-05:00",
+          "prob": 0.126,
+          "tier": "medium"
+        },
+        {
+          "scored_at": "2026-10-26T07:00:00-05:00",
+          "prob": 0.1261,
+          "tier": "medium"
+        },
+        {
+          "scored_at": "2026-10-27T07:00:00-05:00",
+          "prob": 0.1261,
+          "tier": "medium"
+        },
+        {
+          "scored_at": "2026-10-28T07:00:00-05:00",
+          "prob": 0.1262,
+          "tier": "medium"
+        },
+        {
+          "scored_at": "2026-10-29T07:00:00-05:00",
+          "prob": 0.1262,
+          "tier": "medium"
+        },
+        {
+          "scored_at": "2026-10-30T07:00:00-05:00",
+          "prob": 0.1263,
+          "tier": "medium"
+        },
+        {
+          "scored_at": "2026-10-31T07:00:00-05:00",
+          "prob": 0.1263,
+          "tier": "medium"
+        },
+        {
+          "scored_at": "2026-11-01T06:00:00-06:00",
+          "prob": 0.1264,
+          "tier": "medium"
+        },
+        {
+          "scored_at": "2026-11-02T06:00:00-06:00",
+          "prob": 0.1264,
+          "tier": "medium"
+        },
+        {
+          "scored_at": "2026-11-03T06:00:00-06:00",
+          "prob": 0.1265,
+          "tier": "medium"
+        },
+        {
+          "scored_at": "2026-11-04T06:00:00-06:00",
+          "prob": 0.1266,
+          "tier": "medium"
+        },
+        {
+          "scored_at": "2026-11-05T06:00:00-06:00",
+          "prob": 0.1266,
+          "tier": "medium"
+        },
+        {
+          "scored_at": "2026-11-06T06:00:00-06:00",
+          "prob": 0.1267,
+          "tier": "medium"
+        },
+        {
+          "scored_at": "2026-11-07T06:00:00-06:00",
+          "prob": 0.1267,
+          "tier": "medium"
+        },
+        {
+          "scored_at": "2026-11-08T09:07:42.466393-06:00",
+          "prob": 0.1268,
+          "tier": "medium"
+        },
+        {
+          "scored_at": "2026-11-08T09:07:45.473348-06:00",
+          "prob": 0.2604,
+          "tier": "high"
+        }
+      ],
+      "work_order_history": [
+        {
+          "date": "2026-03-28",
+          "kind": "pm",
+          "issue": null,
+          "refrigerant_added": false,
+          "note": "scheduled preventive maintenance"
+        },
+        {
+          "date": "2026-06-26",
+          "kind": "pm",
+          "issue": null,
+          "refrigerant_added": false,
+          "note": "scheduled preventive maintenance"
+        },
+        {
+          "date": "2026-08-20",
+          "kind": "repair",
+          "issue": "no_hot_water",
+          "refrigerant_added": false,
+          "note": "lukewarm water, adjusted thermostat"
+        },
+        {
+          "date": "2026-09-19",
+          "kind": "repair",
+          "issue": "no_hot_water",
+          "refrigerant_added": false,
+          "note": "no hot water in exam rooms, relit pilot"
+        },
+        {
+          "date": "2026-09-24",
+          "kind": "pm",
+          "issue": null,
+          "refrigerant_added": false,
+          "note": "scheduled preventive maintenance"
+        },
+        {
+          "date": "2026-10-21",
+          "kind": "repair",
+          "issue": "element",
+          "refrigerant_added": false,
+          "note": "replaced heating element"
+        }
+      ],
+      "forecast": [
+        {
+          "date": "2026-11-08",
+          "max_f": 83.3
+        },
+        {
+          "date": "2026-11-09",
+          "max_f": 82.3
+        },
+        {
+          "date": "2026-11-10",
+          "max_f": 83.0
+        },
+        {
+          "date": "2026-11-11",
+          "max_f": 74.2
+        },
+        {
+          "date": "2026-11-12",
+          "max_f": 76.2
+        },
+        {
+          "date": "2026-11-13",
+          "max_f": 75.4
+        },
+        {
+          "date": "2026-11-14",
+          "max_f": 83.3
+        }
+      ],
+      "field_reports": [
+        {
+          "asset_id": "S006-WATER_HEATER1",
+          "text": "Katy clinic has no hot water again",
+          "working": false,
+          "received_at": "2026-11-08 09:07:45.470824-06:00"
+        }
+      ],
+      "work_orders": [
+        {
+          "id": "WO-0003",
+          "asset_id": "S006-WATER_HEATER1",
+          "site_id": "S006",
+          "prob": 0.2604,
+          "tier": "high",
+          "urgency": "48h",
+          "likely_issue": "end-of-life wear",
+          "tasks": [
+            "full inspection",
+            "check capacitor and contactor",
+            "replace filter"
+          ],
+          "do_by": "2026-11-10",
+          "reason": "26% failure risk in 30 days; drivers: age, calls_90d, field_report_negative",
+          "status": "pending_approval",
+          "status_note": null,
+          "notified": true,
+          "created_at": "2026-11-08T09:07:42.485562-06:00",
+          "updated_at": "2026-11-08T09:07:45.482351-06:00"
+        }
+      ]
+    },
+    "S005-WALK_IN_COOLER1": {
+      "asset": {
+        "asset_id": "S005-WALK_IN_COOLER1",
+        "site_id": "S005",
+        "asset_type": "walk_in_cooler",
+        "install_date": "2010-11-08",
+        "install_date_estimated": false,
+        "make": null,
+        "model": null,
+        "serial_number": null,
+        "refrigerant": "R-22",
+        "pm_interval_days": 90,
+        "site_name": "Montrose Market",
+        "region_id": "houston",
+        "site_type": "grocery",
+        "city": "Houston",
+        "square_feet": 5600,
+        "open_hours": "7am-10pm daily"
+      },
+      "risk_now": {
+        "prob": 0.2363,
+        "base_prob": 0.0129,
+        "multiplier": 20.697,
+        "tier": "high",
+        "drivers": [
+          {
+            "factor": "age",
+            "value": 16.0,
+            "detail": "16.0 yrs vs 15-yr median life",
+            "base_prob": 0.0129
+          },
+          {
+            "factor": "refrigerant_recharges_180d",
+            "log_hazard": 1.2,
+            "multiplier": 3.32
+          },
+          {
+            "factor": "calls_90d",
+            "log_hazard": 1.05,
+            "multiplier": 2.86
+          },
+          {
+            "factor": "repeat_issue",
+            "log_hazard": 0.4,
+            "multiplier": 1.49
+          },
+          {
+            "factor": "recent_repair",
+            "log_hazard": 0.25,
+            "multiplier": 1.28
+          },
+          {
+            "factor": "pm_overdue_months",
+            "log_hazard": 0.13,
+            "multiplier": 1.14
+          }
+        ],
+        "age_years": 16.0
+      },
+      "cost": {
+        "preventive_cost_usd": 250,
+        "emergency_cost_usd": 10395,
+        "emergency_breakdown": {
+          "repair_usd": 1875,
+          "lost_revenue_usd": 2520,
+          "inventory_loss_usd": 6000
+        },
+        "expected_loss_if_ignored_usd": 2456,
+        "expected_savings_usd": 1469,
+        "worth_acting_now": true,
+        "cost_source": {
+          "preventive": "national_average",
+          "emergency_repair": "national_average"
+        }
+      },
+      "risk_history": [
+        {
+          "scored_at": "2026-10-09T07:00:00-05:00",
+          "prob": 0.0607,
+          "tier": "low"
+        },
+        {
+          "scored_at": "2026-10-10T07:00:00-05:00",
+          "prob": 0.0613,
+          "tier": "low"
+        },
+        {
+          "scored_at": "2026-10-11T07:00:00-05:00",
+          "prob": 0.0613,
+          "tier": "low"
+        },
+        {
+          "scored_at": "2026-10-12T07:00:00-05:00",
+          "prob": 0.0613,
+          "tier": "low"
+        },
+        {
+          "scored_at": "2026-10-13T07:00:00-05:00",
+          "prob": 0.0619,
+          "tier": "low"
+        },
+        {
+          "scored_at": "2026-10-14T07:00:00-05:00",
+          "prob": 0.1596,
+          "tier": "medium"
+        },
+        {
+          "scored_at": "2026-10-15T07:00:00-05:00",
+          "prob": 0.1596,
+          "tier": "medium"
+        },
+        {
+          "scored_at": "2026-10-16T07:00:00-05:00",
+          "prob": 0.1611,
+          "tier": "medium"
+        },
+        {
+          "scored_at": "2026-10-17T07:00:00-05:00",
+          "prob": 0.1612,
+          "tier": "medium"
+        },
+        {
+          "scored_at": "2026-10-18T07:00:00-05:00",
+          "prob": 0.1612,
+          "tier": "medium"
+        },
+        {
+          "scored_at": "2026-10-19T07:00:00-05:00",
+          "prob": 0.1628,
+          "tier": "medium"
+        },
+        {
+          "scored_at": "2026-10-20T07:00:00-05:00",
+          "prob": 0.1628,
+          "tier": "medium"
+        },
+        {
+          "scored_at": "2026-10-21T07:00:00-05:00",
+          "prob": 0.1629,
+          "tier": "medium"
+        },
+        {
+          "scored_at": "2026-10-22T07:00:00-05:00",
+          "prob": 0.1644,
+          "tier": "medium"
+        },
+        {
+          "scored_at": "2026-10-23T07:00:00-05:00",
+          "prob": 0.1645,
+          "tier": "medium"
+        },
+        {
+          "scored_at": "2026-10-24T07:00:00-05:00",
+          "prob": 0.1645,
+          "tier": "medium"
+        },
+        {
+          "scored_at": "2026-10-25T07:00:00-05:00",
+          "prob": 0.1661,
+          "tier": "medium"
+        },
+        {
+          "scored_at": "2026-10-26T07:00:00-05:00",
+          "prob": 0.1661,
+          "tier": "medium"
+        },
+        {
+          "scored_at": "2026-10-27T07:00:00-05:00",
+          "prob": 0.1662,
+          "tier": "medium"
+        },
+        {
+          "scored_at": "2026-10-28T07:00:00-05:00",
+          "prob": 0.1677,
+          "tier": "medium"
+        },
+        {
+          "scored_at": "2026-10-29T07:00:00-05:00",
+          "prob": 0.2295,
+          "tier": "high"
+        },
+        {
+          "scored_at": "2026-10-30T07:00:00-05:00",
+          "prob": 0.2295,
+          "tier": "high"
+        },
+        {
+          "scored_at": "2026-10-31T07:00:00-05:00",
+          "prob": 0.2316,
+          "tier": "high"
+        },
+        {
+          "scored_at": "2026-11-01T06:00:00-06:00",
+          "prob": 0.2317,
+          "tier": "high"
+        },
+        {
+          "scored_at": "2026-11-02T06:00:00-06:00",
+          "prob": 0.2317,
+          "tier": "high"
+        },
+        {
+          "scored_at": "2026-11-03T06:00:00-06:00",
+          "prob": 0.2339,
+          "tier": "high"
+        },
+        {
+          "scored_at": "2026-11-04T06:00:00-06:00",
+          "prob": 0.2339,
+          "tier": "high"
+        },
+        {
+          "scored_at": "2026-11-05T06:00:00-06:00",
+          "prob": 0.234,
+          "tier": "high"
+        },
+        {
+          "scored_at": "2026-11-06T06:00:00-06:00",
+          "prob": 0.2361,
+          "tier": "high"
+        },
+        {
+          "scored_at": "2026-11-07T06:00:00-06:00",
+          "prob": 0.2362,
+          "tier": "high"
+        },
+        {
+          "scored_at": "2026-11-08T09:07:42.465148-06:00",
+          "prob": 0.2363,
+          "tier": "high"
+        }
+      ],
+      "work_order_history": [
+        {
+          "date": "2026-04-02",
+          "kind": "pm",
+          "issue": null,
+          "refrigerant_added": false,
+          "note": "scheduled preventive maintenance"
+        },
+        {
+          "date": "2026-06-11",
+          "kind": "repair",
+          "issue": "leak",
+          "refrigerant_added": true,
+          "note": "low on refrigerant, recharged"
+        },
+        {
+          "date": "2026-07-01",
+          "kind": "pm",
+          "issue": null,
+          "refrigerant_added": false,
+          "note": "scheduled preventive maintenance"
+        },
+        {
+          "date": "2026-09-09",
+          "kind": "repair",
+          "issue": "cooler_temp",
+          "refrigerant_added": true,
+          "note": "cooler not holding temp, added refrigerant"
+        },
+        {
+          "date": "2026-10-14",
+          "kind": "emergency",
+          "issue": "cooler_temp",
+          "refrigerant_added": false,
+          "note": "cooler at 48F overnight, product moved"
+        },
+        {
+          "date": "2026-10-29",
+          "kind": "repair",
+          "issue": "cooler_temp",
+          "refrigerant_added": false,
+          "note": "cooler not holding temp again, reset controls"
+        }
+      ],
+      "forecast": [
+        {
+          "date": "2026-11-08",
+          "max_f": 82.3
+        },
+        {
+          "date": "2026-11-09",
+          "max_f": 74.3
+        },
+        {
+          "date": "2026-11-10",
+          "max_f": 75.8
+        },
+        {
+          "date": "2026-11-11",
+          "max_f": 80.0
+        },
+        {
+          "date": "2026-11-12",
+          "max_f": 70.3
+        },
+        {
+          "date": "2026-11-13",
+          "max_f": 76.9
+        },
+        {
+          "date": "2026-11-14",
+          "max_f": 72.5
+        }
+      ],
+      "field_reports": [],
+      "work_orders": [
+        {
+          "id": "WO-0001",
+          "asset_id": "S005-WALK_IN_COOLER1",
+          "site_id": "S005",
+          "prob": 0.2363,
+          "tier": "high",
+          "urgency": "48h",
+          "likely_issue": "probable refrigerant leak",
+          "tasks": [
+            "leak check and repair",
+            "clean condenser coil",
+            "replace filter"
+          ],
+          "do_by": "2026-11-10",
+          "reason": "24% failure risk in 30 days; drivers: age, refrigerant_recharges_180d, calls_90d",
+          "status": "pending_approval",
+          "status_note": null,
+          "notified": true,
+          "created_at": "2026-11-08T09:07:42.480111-06:00",
+          "updated_at": "2026-11-08T09:07:42.484537-06:00"
+        }
+      ]
+    },
+    "S001-RTU2": {
+      "asset": {
+        "asset_id": "S001-RTU2",
+        "site_id": "S001",
+        "asset_type": "rtu",
+        "install_date": "2005-11-08",
+        "install_date_estimated": false,
+        "make": null,
+        "model": null,
+        "serial_number": null,
+        "refrigerant": "R-22",
+        "pm_interval_days": 90,
+        "site_name": "Uptown Bank Branch",
+        "region_id": "dallas",
+        "site_type": "bank branch",
+        "city": "Dallas",
+        "square_feet": 14100,
+        "open_hours": "9am-5pm Mon-Fri"
+      },
+      "risk_now": {
+        "prob": 0.2188,
+        "base_prob": 0.0222,
+        "multiplier": 11.023,
+        "tier": "high",
+        "drivers": [
+          {
+            "factor": "age",
+            "value": 21.0,
+            "detail": "21.0 yrs vs 15-yr median life",
+            "base_prob": 0.0222
+          },
+          {
+            "factor": "calls_90d",
+            "log_hazard": 1.05,
+            "multiplier": 2.86
+          },
+          {
+            "factor": "pm_overdue_months",
+            "log_hazard": 0.7,
+            "multiplier": 2.01
+          },
+          {
+            "factor": "repeat_issue",
+            "log_hazard": 0.4,
+            "multiplier": 1.49
+          },
+          {
+            "factor": "recent_repair",
+            "log_hazard": 0.25,
+            "multiplier": 1.28
+          }
+        ],
+        "age_years": 21.0
+      },
+      "cost": {
+        "preventive_cost_usd": 265,
+        "emergency_cost_usd": 11575,
+        "emergency_breakdown": {
+          "repair_usd": 8425,
+          "lost_revenue_usd": 3150,
+          "inventory_loss_usd": 0
+        },
+        "expected_loss_if_ignored_usd": 2533,
+        "expected_savings_usd": 1508,
+        "worth_acting_now": true,
+        "cost_source": {
+          "preventive": "national_average",
+          "emergency_repair": "national_average"
+        }
+      },
+      "risk_history": [
+        {
+          "scored_at": "2026-10-09T07:00:00-05:00",
+          "prob": 0.1446,
+          "tier": "medium"
+        },
+        {
+          "scored_at": "2026-10-10T07:00:00-05:00",
+          "prob": 0.1447,
+          "tier": "medium"
+        },
+        {
+          "scored_at": "2026-10-11T07:00:00-05:00",
+          "prob": 0.1461,
+          "tier": "medium"
+        },
+        {
+          "scored_at": "2026-10-12T07:00:00-05:00",
+          "prob": 0.1461,
+          "tier": "medium"
+        },
+        {
+          "scored_at": "2026-10-13T07:00:00-05:00",
+          "prob": 0.1461,
+          "tier": "medium"
+        },
+        {
+          "scored_at": "2026-10-14T07:00:00-05:00",
+          "prob": 0.1475,
+          "tier": "medium"
+        },
+        {
+          "scored_at": "2026-10-15T07:00:00-05:00",
+          "prob": 0.1476,
+          "tier": "medium"
+        },
+        {
+          "scored_at": "2026-10-16T07:00:00-05:00",
+          "prob": 0.1476,
+          "tier": "medium"
+        },
+        {
+          "scored_at": "2026-10-17T07:00:00-05:00",
+          "prob": 0.149,
+          "tier": "medium"
+        },
+        {
+          "scored_at": "2026-10-18T07:00:00-05:00",
+          "prob": 0.149,
+          "tier": "medium"
+        },
+        {
+          "scored_at": "2026-10-19T07:00:00-05:00",
+          "prob": 0.2047,
+          "tier": "high"
+        },
+        {
+          "scored_at": "2026-10-20T07:00:00-05:00",
+          "prob": 0.2066,
+          "tier": "high"
+        },
+        {
+          "scored_at": "2026-10-21T07:00:00-05:00",
+          "prob": 0.2066,
+          "tier": "high"
+        },
+        {
+          "scored_at": "2026-10-22T07:00:00-05:00",
+          "prob": 0.2067,
+          "tier": "high"
+        },
+        {
+          "scored_at": "2026-10-23T07:00:00-05:00",
+          "prob": 0.2086,
+          "tier": "high"
+        },
+        {
+          "scored_at": "2026-10-24T07:00:00-05:00",
+          "prob": 0.2086,
+          "tier": "high"
+        },
+        {
+          "scored_at": "2026-10-25T07:00:00-05:00",
+          "prob": 0.2087,
+          "tier": "high"
+        },
+        {
+          "scored_at": "2026-10-26T07:00:00-05:00",
+          "prob": 0.2106,
+          "tier": "high"
+        },
+        {
+          "scored_at": "2026-10-27T07:00:00-05:00",
+          "prob": 0.2106,
+          "tier": "high"
+        },
+        {
+          "scored_at": "2026-10-28T07:00:00-05:00",
+          "prob": 0.2107,
+          "tier": "high"
+        },
+        {
+          "scored_at": "2026-10-29T07:00:00-05:00",
+          "prob": 0.2126,
+          "tier": "high"
+        },
+        {
+          "scored_at": "2026-10-30T07:00:00-05:00",
+          "prob": 0.2127,
+          "tier": "high"
+        },
+        {
+          "scored_at": "2026-10-31T07:00:00-05:00",
+          "prob": 0.2127,
+          "tier": "high"
+        },
+        {
+          "scored_at": "2026-11-01T06:00:00-06:00",
+          "prob": 0.2146,
+          "tier": "high"
+        },
+        {
+          "scored_at": "2026-11-02T06:00:00-06:00",
+          "prob": 0.2147,
+          "tier": "high"
+        },
+        {
+          "scored_at": "2026-11-03T06:00:00-06:00",
+          "prob": 0.2147,
+          "tier": "high"
+        },
+        {
+          "scored_at": "2026-11-04T06:00:00-06:00",
+          "prob": 0.2167,
+          "tier": "high"
+        },
+        {
+          "scored_at": "2026-11-05T06:00:00-06:00",
+          "prob": 0.2168,
+          "tier": "high"
+        },
+        {
+          "scored_at": "2026-11-06T06:00:00-06:00",
+          "prob": 0.2168,
+          "tier": "high"
+        },
+        {
+          "scored_at": "2026-11-07T06:00:00-06:00",
+          "prob": 0.2188,
+          "tier": "high"
+        },
+        {
+          "scored_at": "2026-11-08T09:07:42.459473-06:00",
+          "prob": 0.2188,
+          "tier": "high"
+        }
+      ],
+      "work_order_history": [
+        {
+          "date": "2025-07-16",
+          "kind": "pm",
+          "issue": null,
+          "refrigerant_added": false,
+          "note": "scheduled preventive maintenance"
+        },
+        {
+          "date": "2025-10-14",
+          "kind": "pm",
+          "issue": null,
+          "refrigerant_added": false,
+          "note": "scheduled preventive maintenance"
+        },
+        {
+          "date": "2026-01-12",
+          "kind": "pm",
+          "issue": null,
+          "refrigerant_added": false,
+          "note": "scheduled preventive maintenance"
+        },
+        {
+          "date": "2026-08-30",
+          "kind": "repair",
+          "issue": "short_cycling",
+          "refrigerant_added": false,
+          "note": "unit short cycling, replaced contactor"
+        },
+        {
+          "date": "2026-09-24",
+          "kind": "repair",
+          "issue": "short_cycling",
+          "refrigerant_added": false,
+          "note": "short cycling, replaced thermostat"
+        },
+        {
+          "date": "2026-10-19",
+          "kind": "emergency",
+          "issue": "short_cycling",
+          "refrigerant_added": false,
+          "note": "short cycling again, lobby at 84F"
+        }
+      ],
+      "forecast": [
+        {
+          "date": "2026-11-08",
+          "max_f": 74.9
+        },
+        {
+          "date": "2026-11-09",
+          "max_f": 72.3
+        },
+        {
+          "date": "2026-11-10",
+          "max_f": 79.8
+        },
+        {
+          "date": "2026-11-11",
+          "max_f": 71.1
+        },
+        {
+          "date": "2026-11-12",
+          "max_f": 78.0
+        },
+        {
+          "date": "2026-11-13",
+          "max_f": 75.5
+        },
+        {
+          "date": "2026-11-14",
+          "max_f": 70.9
+        }
+      ],
+      "field_reports": [],
+      "work_orders": [
+        {
+          "id": "WO-0002",
+          "asset_id": "S001-RTU2",
+          "site_id": "S001",
+          "prob": 0.2188,
+          "tier": "high",
+          "urgency": "48h",
+          "likely_issue": "end-of-life wear",
+          "tasks": [
+            "full inspection",
+            "check capacitor and contactor",
+            "replace filter"
+          ],
+          "do_by": "2026-11-10",
+          "reason": "22% failure risk in 30 days; drivers: age, calls_90d, pm_overdue_months",
+          "status": "approved",
+          "status_note": "approved on dashboard",
+          "notified": true,
+          "created_at": "2026-11-08T09:07:42.481580-06:00",
+          "updated_at": "2026-11-08T09:07:45.491695-06:00"
+        }
+      ]
+    },
+    "S004-RTU1": {
+      "asset": {
+        "asset_id": "S004-RTU1",
+        "site_id": "S004",
+        "asset_type": "rtu",
+        "install_date": "2011-11-09",
+        "install_date_estimated": false,
+        "make": null,
+        "model": null,
+        "serial_number": null,
+        "refrigerant": "R-22",
+        "pm_interval_days": 90,
+        "site_name": "Frisco Retail Store",
+        "region_id": "dallas",
+        "site_type": "retail",
+        "city": "Frisco",
+        "square_feet": 14800,
+        "open_hours": "10am-9pm daily"
+      },
+      "risk_now": {
+        "prob": 0.0963,
+        "base_prob": 0.0114,
+        "multiplier": 8.846,
+        "tier": "medium",
+        "drivers": [
+          {
+            "factor": "age",
+            "value": 15.0,
+            "detail": "15.0 yrs vs 15-yr median life",
+            "base_prob": 0.0114
+          },
+          {
+            "factor": "calls_90d",
+            "log_hazard": 0.7,
+            "multiplier": 2.01
+          },
+          {
+            "factor": "refrigerant_recharges_180d",
+            "log_hazard": 0.6,
+            "multiplier": 1.82
+          },
+          {
+            "factor": "repeat_issue",
+            "log_hazard": 0.4,
+            "multiplier": 1.49
+          },
+          {
+            "factor": "recent_repair",
+            "log_hazard": 0.25,
+            "multiplier": 1.28
+          },
+          {
+            "factor": "pm_overdue_months",
+            "log_hazard": 0.23,
+            "multiplier": 1.26
+          }
+        ],
+        "age_years": 15.0
+      },
+      "cost": {
+        "preventive_cost_usd": 265,
+        "emergency_cost_usd": 15175,
+        "emergency_breakdown": {
+          "repair_usd": 8425,
+          "lost_revenue_usd": 6750,
+          "inventory_loss_usd": 0
+        },
+        "expected_loss_if_ignored_usd": 1461,
+        "expected_savings_usd": 758,
+        "worth_acting_now": true,
+        "cost_source": {
+          "preventive": "national_average",
+          "emergency_repair": "national_average"
+        }
+      },
+      "risk_history": [
+        {
+          "scored_at": "2026-10-09T07:00:00-05:00",
+          "prob": 0.0589,
+          "tier": "low"
+        },
+        {
+          "scored_at": "2026-10-10T07:00:00-05:00",
+          "prob": 0.0595,
+          "tier": "low"
+        },
+        {
+          "scored_at": "2026-10-11T07:00:00-05:00",
+          "prob": 0.0596,
+          "tier": "low"
+        },
+        {
+          "scored_at": "2026-10-12T07:00:00-05:00",
+          "prob": 0.0596,
+          "tier": "low"
+        },
+        {
+          "scored_at": "2026-10-13T07:00:00-05:00",
+          "prob": 0.0602,
+          "tier": "low"
+        },
+        {
+          "scored_at": "2026-10-14T07:00:00-05:00",
+          "prob": 0.0602,
+          "tier": "low"
+        },
+        {
+          "scored_at": "2026-10-15T07:00:00-05:00",
+          "prob": 0.0602,
+          "tier": "low"
+        },
+        {
+          "scored_at": "2026-10-16T07:00:00-05:00",
+          "prob": 0.0608,
+          "tier": "low"
+        },
+        {
+          "scored_at": "2026-10-17T07:00:00-05:00",
+          "prob": 0.0608,
+          "tier": "low"
+        },
+        {
+          "scored_at": "2026-10-18T07:00:00-05:00",
+          "prob": 0.0609,
+          "tier": "low"
+        },
+        {
+          "scored_at": "2026-10-19T07:00:00-05:00",
+          "prob": 0.0615,
+          "tier": "low"
+        },
+        {
+          "scored_at": "2026-10-20T07:00:00-05:00",
+          "prob": 0.0615,
+          "tier": "low"
+        },
+        {
+          "scored_at": "2026-10-21T07:00:00-05:00",
+          "prob": 0.0615,
+          "tier": "low"
+        },
+        {
+          "scored_at": "2026-10-22T07:00:00-05:00",
+          "prob": 0.0621,
+          "tier": "low"
+        },
+        {
+          "scored_at": "2026-10-23T07:00:00-05:00",
+          "prob": 0.0622,
+          "tier": "low"
+        },
+        {
+          "scored_at": "2026-10-24T07:00:00-05:00",
+          "prob": 0.1271,
+          "tier": "medium"
+        },
+        {
+          "scored_at": "2026-10-25T07:00:00-05:00",
+          "prob": 0.1283,
+          "tier": "medium"
+        },
+        {
+          "scored_at": "2026-10-26T07:00:00-05:00",
+          "prob": 0.1284,
+          "tier": "medium"
+        },
+        {
+          "scored_at": "2026-10-27T07:00:00-05:00",
+          "prob": 0.1284,
+          "tier": "medium"
+        },
+        {
+          "scored_at": "2026-10-28T07:00:00-05:00",
+          "prob": 0.1297,
+          "tier": "medium"
+        },
+        {
+          "scored_at": "2026-10-29T07:00:00-05:00",
+          "prob": 0.0933,
+          "tier": "medium"
+        },
+        {
+          "scored_at": "2026-10-30T07:00:00-05:00",
+          "prob": 0.0933,
+          "tier": "medium"
+        },
+        {
+          "scored_at": "2026-10-31T07:00:00-05:00",
+          "prob": 0.0942,
+          "tier": "medium"
+        },
+        {
+          "scored_at": "2026-11-01T06:00:00-06:00",
+          "prob": 0.0943,
+          "tier": "medium"
+        },
+        {
+          "scored_at": "2026-11-02T06:00:00-06:00",
+          "prob": 0.0943,
+          "tier": "medium"
+        },
+        {
+          "scored_at": "2026-11-03T06:00:00-06:00",
+          "prob": 0.0952,
+          "tier": "medium"
+        },
+        {
+          "scored_at": "2026-11-04T06:00:00-06:00",
+          "prob": 0.0953,
+          "tier": "medium"
+        },
+        {
+          "scored_at": "2026-11-05T06:00:00-06:00",
+          "prob": 0.0953,
+          "tier": "medium"
+        },
+        {
+          "scored_at": "2026-11-06T06:00:00-06:00",
+          "prob": 0.0962,
+          "tier": "medium"
+        },
+        {
+          "scored_at": "2026-11-07T06:00:00-06:00",
+          "prob": 0.0963,
+          "tier": "medium"
+        },
+        {
+          "scored_at": "2026-11-08T09:07:42.463917-06:00",
+          "prob": 0.0963,
+          "tier": "medium"
+        }
+      ],
+      "work_order_history": [
+        {
+          "date": "2025-12-03",
+          "kind": "pm",
+          "issue": null,
+          "refrigerant_added": false,
+          "note": "scheduled preventive maintenance"
+        },
+        {
+          "date": "2026-03-03",
+          "kind": "pm",
+          "issue": null,
+          "refrigerant_added": false,
+          "note": "scheduled preventive maintenance"
+        },
+        {
+          "date": "2026-06-01",
+          "kind": "pm",
+          "issue": null,
+          "refrigerant_added": false,
+          "note": "scheduled preventive maintenance"
+        },
+        {
+          "date": "2026-07-31",
+          "kind": "repair",
+          "issue": "leak",
+          "refrigerant_added": true,
+          "note": "AC blowing warm, added refrigerant"
+        },
+        {
+          "date": "2026-09-29",
+          "kind": "repair",
+          "issue": "not_cooling",
+          "refrigerant_added": false,
+          "note": "not cooling at peak, cleaned coil"
+        },
+        {
+          "date": "2026-10-24",
+          "kind": "repair",
+          "issue": "not_cooling",
+          "refrigerant_added": false,
+          "note": "warm air from vents, cleaned coil again"
+        }
+      ],
+      "forecast": [
+        {
+          "date": "2026-11-08",
+          "max_f": 78.6
+        },
+        {
+          "date": "2026-11-09",
+          "max_f": 83.1
+        },
+        {
+          "date": "2026-11-10",
+          "max_f": 74.7
+        },
+        {
+          "date": "2026-11-11",
+          "max_f": 80.4
+        },
+        {
+          "date": "2026-11-12",
+          "max_f": 78.9
+        },
+        {
+          "date": "2026-11-13",
+          "max_f": 78.7
+        },
+        {
+          "date": "2026-11-14",
+          "max_f": 76.8
+        }
+      ],
+      "field_reports": [],
+      "work_orders": [
+        {
+          "id": "WO-0004",
+          "asset_id": "S004-RTU1",
+          "site_id": "S004",
+          "prob": 0.0963,
+          "tier": "medium",
+          "urgency": "this_week",
+          "likely_issue": "probable refrigerant leak",
+          "tasks": [
+            "leak check and repair",
+            "clean condenser coil",
+            "replace filter"
+          ],
+          "do_by": "2026-11-14",
+          "reason": "10% failure risk in 30 days; drivers: age, calls_90d, refrigerant_recharges_180d",
+          "status": "pending_approval",
+          "status_note": null,
+          "notified": true,
+          "created_at": "2026-11-08T09:07:42.487480-06:00",
+          "updated_at": "2026-11-08T09:07:42.488731-06:00"
+        }
+      ]
+    }
+  },
+  "workOrders": [
+    {
+      "id": "WO-0004",
+      "asset_id": "S004-RTU1",
+      "site_id": "S004",
+      "prob": 0.0963,
+      "tier": "medium",
+      "urgency": "this_week",
+      "likely_issue": "probable refrigerant leak",
+      "tasks": [
+        "leak check and repair",
+        "clean condenser coil",
+        "replace filter"
+      ],
+      "do_by": "2026-11-14",
+      "reason": "10% failure risk in 30 days; drivers: age, calls_90d, refrigerant_recharges_180d",
+      "status": "pending_approval",
+      "status_note": null,
+      "notified": true,
+      "created_at": "2026-11-08T09:07:42.487480-06:00",
+      "updated_at": "2026-11-08T09:07:42.488731-06:00",
+      "site_name": "Frisco Retail Store",
+      "region_id": "dallas",
+      "asset_type": "rtu",
+      "cost": {
+        "preventive_cost_usd": 265,
+        "emergency_cost_usd": 15175,
+        "emergency_breakdown": {
+          "repair_usd": 8425,
+          "lost_revenue_usd": 6750,
+          "inventory_loss_usd": 0
+        },
+        "expected_loss_if_ignored_usd": 1461,
+        "expected_savings_usd": 758,
+        "worth_acting_now": true,
+        "cost_source": {
+          "preventive": "national_average",
+          "emergency_repair": "national_average"
+        }
+      }
+    },
+    {
+      "id": "WO-0003",
+      "asset_id": "S006-WATER_HEATER1",
+      "site_id": "S006",
+      "prob": 0.2604,
+      "tier": "high",
+      "urgency": "48h",
+      "likely_issue": "end-of-life wear",
+      "tasks": [
+        "full inspection",
+        "check capacitor and contactor",
+        "replace filter"
+      ],
+      "do_by": "2026-11-10",
+      "reason": "26% failure risk in 30 days; drivers: age, calls_90d, field_report_negative",
+      "status": "pending_approval",
+      "status_note": null,
+      "notified": true,
+      "created_at": "2026-11-08T09:07:42.485562-06:00",
+      "updated_at": "2026-11-08T09:07:45.482351-06:00",
+      "site_name": "Katy Family Clinic",
+      "region_id": "houston",
+      "asset_type": "water_heater",
+      "cost": {
+        "preventive_cost_usd": 175,
+        "emergency_cost_usd": 1850,
+        "emergency_breakdown": {
+          "repair_usd": 1850,
+          "lost_revenue_usd": 0,
+          "inventory_loss_usd": 0
+        },
+        "expected_loss_if_ignored_usd": 482,
+        "expected_savings_usd": 162,
+        "worth_acting_now": true,
+        "cost_source": {
+          "preventive": "national_average",
+          "emergency_repair": "national_average"
+        }
+      }
+    },
+    {
+      "id": "WO-0002",
+      "asset_id": "S001-RTU2",
+      "site_id": "S001",
+      "prob": 0.2188,
+      "tier": "high",
+      "urgency": "48h",
+      "likely_issue": "end-of-life wear",
+      "tasks": [
+        "full inspection",
+        "check capacitor and contactor",
+        "replace filter"
+      ],
+      "do_by": "2026-11-10",
+      "reason": "22% failure risk in 30 days; drivers: age, calls_90d, pm_overdue_months",
+      "status": "approved",
+      "status_note": "approved on dashboard",
+      "notified": true,
+      "created_at": "2026-11-08T09:07:42.481580-06:00",
+      "updated_at": "2026-11-08T09:07:45.491695-06:00",
+      "site_name": "Uptown Bank Branch",
+      "region_id": "dallas",
+      "asset_type": "rtu",
+      "cost": {
+        "preventive_cost_usd": 265,
+        "emergency_cost_usd": 11575,
+        "emergency_breakdown": {
+          "repair_usd": 8425,
+          "lost_revenue_usd": 3150,
+          "inventory_loss_usd": 0
+        },
+        "expected_loss_if_ignored_usd": 2533,
+        "expected_savings_usd": 1508,
+        "worth_acting_now": true,
+        "cost_source": {
+          "preventive": "national_average",
+          "emergency_repair": "national_average"
+        }
+      }
+    },
+    {
+      "id": "WO-0001",
+      "asset_id": "S005-WALK_IN_COOLER1",
+      "site_id": "S005",
+      "prob": 0.2363,
+      "tier": "high",
+      "urgency": "48h",
+      "likely_issue": "probable refrigerant leak",
+      "tasks": [
+        "leak check and repair",
+        "clean condenser coil",
+        "replace filter"
+      ],
+      "do_by": "2026-11-10",
+      "reason": "24% failure risk in 30 days; drivers: age, refrigerant_recharges_180d, calls_90d",
+      "status": "pending_approval",
+      "status_note": null,
+      "notified": true,
+      "created_at": "2026-11-08T09:07:42.480111-06:00",
+      "updated_at": "2026-11-08T09:07:42.484537-06:00",
+      "site_name": "Montrose Market",
+      "region_id": "houston",
+      "asset_type": "walk_in_cooler",
+      "cost": {
+        "preventive_cost_usd": 250,
+        "emergency_cost_usd": 10395,
+        "emergency_breakdown": {
+          "repair_usd": 1875,
+          "lost_revenue_usd": 2520,
+          "inventory_loss_usd": 6000
+        },
+        "expected_loss_if_ignored_usd": 2456,
+        "expected_savings_usd": 1469,
+        "worth_acting_now": true,
+        "cost_source": {
+          "preventive": "national_average",
+          "emergency_repair": "national_average"
+        }
+      }
+    }
+  ],
+  "messages": [
+    {
+      "id": 5,
+      "kind": "region",
+      "to_key": "houston",
+      "recipient_name": "Houston manager",
+      "text": "[WO-0003] Katy Family Clinic: S006-WATER_HEATER1 has a 26% chance of failing in 30 days (end-of-life wear). Preventive visit needed this week. Reply APPROVE WO-0003 or HOLD WO-0003",
+      "sent": false,
+      "dry_run": true,
+      "error": null,
+      "idempotency_key": "WO-0003-high",
+      "created_at": "2026-11-08T09:07:45.482021-06:00"
+    },
+    {
+      "id": 4,
+      "kind": "region",
+      "to_key": "dallas",
+      "recipient_name": "Dallas manager",
+      "text": "[WO-0004] Frisco Retail Store: S004-RTU1 has a 10% chance of failing in 30 days (probable refrigerant leak). Preventive visit needed this week. Reply APPROVE WO-0004 or HOLD WO-0004",
+      "sent": false,
+      "dry_run": true,
+      "error": null,
+      "idempotency_key": "WO-0004-medium",
+      "created_at": "2026-11-08T09:07:42.488585-06:00"
+    },
+    {
+      "id": 3,
+      "kind": "region",
+      "to_key": "houston",
+      "recipient_name": "Houston manager",
+      "text": "[WO-0003] Katy Family Clinic: S006-WATER_HEATER1 has a 13% chance of failing in 30 days (end-of-life wear). Preventive visit needed this week. Reply APPROVE WO-0003 or HOLD WO-0003",
+      "sent": false,
+      "dry_run": true,
+      "error": null,
+      "idempotency_key": "WO-0003-medium",
+      "created_at": "2026-11-08T09:07:42.486491-06:00"
+    },
+    {
+      "id": 2,
+      "kind": "region",
+      "to_key": "houston",
+      "recipient_name": "Houston manager",
+      "text": "[WO-0001] Montrose Market: S005-WALK_IN_COOLER1 has a 24% chance of failing in 30 days (probable refrigerant leak). Preventive visit needed this week. Reply APPROVE WO-0001 or HOLD WO-0001",
+      "sent": false,
+      "dry_run": true,
+      "error": null,
+      "idempotency_key": "WO-0001-high",
+      "created_at": "2026-11-08T09:07:42.484364-06:00"
+    },
+    {
+      "id": 1,
+      "kind": "region",
+      "to_key": "dallas",
+      "recipient_name": "Dallas manager",
+      "text": "[WO-0002] Uptown Bank Branch: S001-RTU2 has a 22% chance of failing in 30 days (end-of-life wear). Preventive visit needed this week. Reply APPROVE WO-0002 or HOLD WO-0002",
+      "sent": false,
+      "dry_run": true,
+      "error": null,
+      "idempotency_key": "WO-0002-high",
+      "created_at": "2026-11-08T09:07:42.482826-06:00"
+    }
+  ],
+  "calls": [
+    {
+      "id": 3,
+      "asset_id": "S006-WATER_HEATER1",
+      "work_order_id": "WO-0003",
+      "region_id": "houston",
+      "recipient_name": "Houston service worker",
+      "script": "This is PenguinRE with an urgent maintenance alert. The water heater at Katy Family Clinic in Katy has an estimated 26 percent chance of failing in the next 30 days, because it is near the end of its service life and repeated service calls in the last 90 days. Please plan a visit within 48 hours; the details are in work order WO 0003.",
+      "called": false,
+      "dry_run": true,
+      "call_sid": null,
+      "error": null,
+      "idempotency_key": "call-S006-WATER_HEATER1-20261108",
+      "created_at": "2026-11-08T09:07:45.487762-06:00"
+    },
+    {
+      "id": 2,
+      "asset_id": "S001-RTU2",
+      "work_order_id": "WO-0002",
+      "region_id": "dallas",
+      "recipient_name": "Dallas service worker",
+      "script": "This is PenguinRE with an urgent maintenance alert. The rooftop A C unit at Uptown Bank Branch in Dallas has an estimated 22 percent chance of failing in the next 30 days, because it is near the end of its service life and repeated service calls in the last 90 days. Please plan a visit within 48 hours; the details are in work order WO 0002.",
+      "called": false,
+      "dry_run": true,
+      "call_sid": null,
+      "error": null,
+      "idempotency_key": "call-S001-RTU2-20261108",
+      "created_at": "2026-11-08T09:07:42.495448-06:00"
+    },
+    {
+      "id": 1,
+      "asset_id": "S005-WALK_IN_COOLER1",
+      "work_order_id": "WO-0001",
+      "region_id": "houston",
+      "recipient_name": "Houston service worker",
+      "script": "This is PenguinRE with an urgent maintenance alert. The walk-in cooler at Montrose Market in Houston has an estimated 24 percent chance of failing in the next 30 days, because it is near the end of its service life and refrigerant recharges, which suggest a leak. Please plan a visit within 48 hours; the details are in work order WO 0001.",
+      "called": false,
+      "dry_run": true,
+      "call_sid": null,
+      "error": null,
+      "idempotency_key": "call-S005-WALK_IN_COOLER1-20261108",
+      "created_at": "2026-11-08T09:07:42.494459-06:00"
+    }
+  ],
+  "runs": [
+    {
+      "run_id": 2,
+      "trigger": "EVENT field report: site S006 asset S006-WATER_HEATER1 reported not working: 'Katy clinic has no hot water again'",
+      "summary": "Run summary: escalated WO-0003 (medium -> high) for S006-WATER_HEATER1; texted Houston manager",
+      "steps": 4,
+      "started_at": "2026-11-08T09:07:45.473816-06:00",
+      "finished_at": "2026-11-08T09:07:45.482990-06:00"
+    },
+    {
+      "run_id": 1,
+      "trigger": "Run today's risk sweep for the portfolio.",
+      "summary": "Run summary: created WO-0001 for S005-WALK_IN_COOLER1; created WO-0002 for S001-RTU2; texted Dallas manager; texted Houston manager; created WO-0003 for S006-WATER_HEATER1; texted Houston manager; created WO-0004 for S004-RTU1; texted Dallas manager",
+      "steps": 7,
+      "started_at": "2026-11-08T09:07:42.454315-06:00",
+      "finished_at": "2026-11-08T09:07:42.491456-06:00"
+    }
+  ]
+}
