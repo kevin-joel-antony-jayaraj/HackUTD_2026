@@ -41,6 +41,7 @@ ACTIONS = ("create_work_order", "request_data", "monitor", "no_action")
 URGENCIES = ("today", "48h", "this_week", "none")
 ACTION_RANK = {"create_work_order": 3, "request_data": 2, "monitor": 1, "no_action": 0}   # higher = more protective
 URGENCY_RANK = {"today": 3, "48h": 2, "this_week": 1, "none": 0}
+SITE_CONCURRENCY = int(os.environ.get("DECIDE_SITE_CONCURRENCY", "3"))   # sites decided in parallel
 URGENCY_NUMBERS = {24.0, 48.0}   # "48h" is our own urgency vocabulary, not a claim about the data
 
 CONSTRAINT_TEXT = {
@@ -164,8 +165,9 @@ def render_questions(ctx: dict) -> list[str]:
     return qs[:6]
 
 
-def rule_default(asset: dict, violations: list[str]) -> dict:
-    """What code does when no model run can be trusted for this asset. Conservative, uses only data."""
+def rule_default(asset: dict, violations: list[str], source: str = "rule_default",
+                 prefix: str = "Rule-based default. ") -> dict:
+    """What code does when no model run can be trusted for this asset (or none is needed). Conservative, uses only data."""
     ok = allowed_actions(asset)
     if asset["band"] in ("critical", "poor"):
         order = ("create_work_order", "request_data", "monitor", "no_action")
@@ -185,10 +187,10 @@ def rule_default(asset: dict, violations: list[str]) -> dict:
         if action == "request_data":
             tasks += [f"Provide: {g}" for g in asset["data_gaps"][:3]]
     return {"asset_id": asset["asset_id"], "action": action, "urgency": urgency, "tasks": tasks,
-            "reason": render_reason(asset, prefix="Rule-based default. "),
+            "reason": render_reason(asset, prefix=prefix),
             "cites": [d["factor"] for d in asset["drivers"][:2]],
             "requires_human_review": must_review(asset) or action == "create_work_order",
-            "source": "rule_default", "violations": violations, "agreement": True, "alternatives": []}
+            "source": source, "violations": violations, "agreement": True, "alternatives": []}
 
 
 # ------------------------------------------------------------------ one independent run
@@ -243,6 +245,12 @@ def reconcile(asset: dict, runs: list[dict | None], n_runs: int) -> dict | None:
 
 def decide_site(context: dict, model_call=call_nemotron, n_runs: int = 2) -> dict:
     assets = {a["asset_id"]: a for a in context["assets"]}
+    # No real choice anywhere at this site (e.g. critical / leak-flagged / unknown assets): code decides,
+    # no model call. Faster, and the most important cases never depend on the model.
+    if assets and all(len(allowed_actions(a)) == 1 for a in assets.values()):
+        return {"summary": render_summary(context), "questions": render_questions(context),
+                "decisions": [rule_default(a, [], "rule", "Decided by rule (only one action is allowed). ")
+                              for a in assets.values()]}
     ctx_text = json.dumps(context, default=str)
     with ThreadPoolExecutor(max_workers=n_runs) as pool:
         results = list(pool.map(lambda _: _propose(context, ctx_text, model_call), range(n_runs)))
@@ -266,9 +274,11 @@ def run(dsn: str, site: str | None, dry: bool, n_runs: int = 2, model_call=call_
         run_id = row[0]
         cur.execute("SELECT site_id, context FROM llm_site_context " + ("WHERE site_id = %s " if site else "") +
                     "ORDER BY site_id", (site,) if site else ())
-        for site_id, ctx in cur.fetchall():
-            print(f"  deciding {site_id} ({n_runs} runs) ...", file=sys.stderr)
-            res = decide_site(ctx, model_call, n_runs)
+        contexts = cur.fetchall()
+        print(f"  deciding {len(contexts)} site(s), {SITE_CONCURRENCY} at a time, {n_runs} runs each ...", file=sys.stderr)
+        with ThreadPoolExecutor(max_workers=max(1, min(SITE_CONCURRENCY, len(contexts)))) as pool:
+            decided = list(pool.map(lambda c: decide_site(c[1], model_call, n_runs), contexts))
+        for (site_id, _), res in zip(contexts, decided):      # writes stay sequential, in one transaction
             res["site_id"] = site_id
             results.append(res)
             if dry:

@@ -20,6 +20,7 @@ import os
 import shutil
 import tempfile
 import threading
+import time
 import traceback
 import uuid
 from datetime import date, datetime
@@ -97,11 +98,12 @@ STEPS = ["extract", "load", "weather", "score", "decide"]
 
 def _step(job, name, **info):
     job["step"] = name
-    job["steps"][name] = {"status": "running", **info}
+    job["steps"][name] = {"status": "running", "_t0": time.monotonic(), **info}
 
 
 def _done(job, name, **info):
-    job["steps"][name] = {"status": "done", **info}
+    t0 = job["steps"].get(name, {}).get("_t0", time.monotonic())
+    job["steps"][name] = {"status": "done", "seconds": round(time.monotonic() - t0, 1), **info}
 
 
 def run_pipeline(job: dict, files: dict[str, Path]):
@@ -170,10 +172,12 @@ def run_pipeline(job: dict, files: dict[str, Path]):
         results = decide_mod.run(dsn(), None, False, 2)
         ds = [d for r in results for d in r["decisions"]]
         _done(job, "decide", decisions=len(ds), from_model=sum(d["source"] == "llm" for d in ds),
+              by_rule=sum(d["source"] == "rule" for d in ds),
               rule_default=sum(d["source"] == "rule_default" for d in ds),
               runs_disagreed=sum(not d["agreement"] for d in ds))
 
         job.update(status="done", step=None, finished_at=datetime.now().isoformat(timespec="seconds"),
+                   seconds_total=round(sum(v.get("seconds", 0) for v in job["steps"].values()), 1),
                    rejected=new["rejected"][:50], warnings=new["warnings"][:50])
     except Exception as e:
         job.update(status="failed", error=str(e), trace=traceback.format_exc()[-1500:],
@@ -230,12 +234,14 @@ def pipeline_job(job_id: str):
     job = JOBS.get(job_id)
     if not job:
         raise HTTPException(404, "unknown job (jobs are kept in memory and reset when the server restarts)")
-    return {k: v for k, v in job.items() if not k.startswith("_")} | {"step_order": STEPS}
+    out = {k: v for k, v in job.items() if not k.startswith("_")}
+    out["steps"] = {n: {k: v for k, v in st.items() if not k.startswith("_")} for n, st in job["steps"].items()}
+    return out | {"step_order": STEPS}
 
 
 @app.get("/pipeline/jobs")
 def pipeline_jobs():
-    return sorted(({k: v for k, v in j.items() if not k.startswith("_") and k != "trace"} for j in JOBS.values()),
+    return sorted(({k: v for k, v in j.items() if not k.startswith("_") and k not in ("trace", "steps")} for j in JOBS.values()),
                   key=lambda j: j["started_at"], reverse=True)[:20]
 
 

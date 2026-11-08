@@ -41,6 +41,12 @@ are at http://localhost:8000/docs.
 | `POST /admin/reset` | Empty all tables (for demos). |
 | `GET /health` | Database and Nemotron key status. |
 
+**Speed:** almost all the time is spent waiting on Nemotron. File chunks and sites run in parallel,
+capped by `NEMOTRON_MAX_CONCURRENCY` (default 4) so the key's rate limit isn't exceeded. Rate-limit
+errors (429) back off and retry. Sites where every machine has only one allowed action are decided by
+code without a model call. The demo page shows the ranking as soon as scoring finishes, before the
+decisions are done.
+
 Without an NVIDIA key, uploads stop with a clear error. Re-scoring still works, and decisions use the
 rule-based defaults.
 

@@ -22,15 +22,21 @@ import json
 import os
 import re
 import sys
+import threading
 import time
 import urllib.error
 import urllib.request
+from concurrent.futures import ThreadPoolExecutor
 from datetime import date, datetime
 
 API_URL = os.environ.get("NVIDIA_API_URL", "https://integrate.api.nvidia.com/v1/chat/completions")
 MODEL = os.environ.get("NEMOTRON_MODEL", "nvidia/nemotron-3-ultra-550b-a55b")
 FALLBACK_MODEL = os.environ.get("NEMOTRON_FALLBACK_MODEL", "nvidia/nemotron-3.5-lightning-30b-a3b")
 CHUNK_ROWS = int(os.environ.get("EXTRACT_CHUNK_ROWS", "25"))
+EXTRACT_CONCURRENCY = int(os.environ.get("EXTRACT_CONCURRENCY", "4"))      # chunks of one file read in parallel
+# Hard cap on simultaneous Nemotron requests across the whole process (all threads), so parallel
+# extraction and parallel site decisions cannot exceed the key's rate limit. Tune to your NVIDIA tier.
+_NEMOTRON_SLOTS = threading.BoundedSemaphore(int(os.environ.get("NEMOTRON_MAX_CONCURRENCY", "4")))
 
 ASSET_TYPES = {"rtu", "walk_in_cooler", "water_heater"}
 WO_KINDS = {"repair", "emergency", "pm", "inspection"}
@@ -160,14 +166,18 @@ def call_nemotron(system: str, user: str, retries: int = 3) -> str:
                 API_URL, data=json.dumps(body).encode(),
                 headers={"Authorization": f"Bearer {key}", "Content-Type": "application/json"})
             try:
-                with urllib.request.urlopen(req, timeout=170) as resp:
+                with _NEMOTRON_SLOTS, urllib.request.urlopen(req, timeout=170) as resp:
                     return _read_stream(resp)
             except (urllib.error.HTTPError, urllib.error.URLError, TimeoutError) as e:
                 last = e
                 if isinstance(e, urllib.error.HTTPError) and e.code in (400, 401, 403, 404):
                     raise RuntimeError(f"Nemotron request failed: HTTP {e.code} {e.read()[:300]!r}") from e
-                print(f"  {model}: {e}; retry {attempt + 1}/{retries}", file=sys.stderr)
-                time.sleep(2 ** (attempt + 1))
+                wait = 2 ** (attempt + 1)
+                if isinstance(e, urllib.error.HTTPError) and e.code == 429:   # rate limited: back off harder
+                    ra = e.headers.get("Retry-After") if e.headers else None
+                    wait = float(ra) if ra and ra.replace(".", "", 1).isdigit() else 5 * 2 ** attempt
+                print(f"  {model}: {e}; retry {attempt + 1}/{retries} in {wait:.0f}s", file=sys.stderr)
+                time.sleep(wait)
         print(f"  {model} kept failing, trying fallback", file=sys.stderr)
     raise RuntimeError(f"Nemotron unreachable on all models: {last}")
 
@@ -348,8 +358,11 @@ def extract_file(kind: str, path: str, ctx: dict | None = None) -> dict:
     lines = read_input(path)
     tabular = os.path.splitext(path)[1].lower() in (".csv", ".tsv", ".xlsx", ".xls", ".xlsm")
     rows, rejected, seen = [], [], set()
-    for n, raw in enumerate(chunks(lines, CHUNK_ROWS, tabular), 1):
-        out = extract_chunk(kind, raw)
+    parts = chunks(lines, CHUNK_ROWS, tabular)
+    # Model calls run in parallel (capped); validation and dedupe stay sequential and in file order.
+    with ThreadPoolExecutor(max_workers=max(1, min(EXTRACT_CONCURRENCY, len(parts)))) as pool:
+        outs = list(pool.map(lambda raw: extract_chunk(kind, raw), parts))
+    for n, out in enumerate(outs, 1):
         for s in out.get("skipped") or []:
             rejected.append({"source": source, "raw": s.get("raw"), "reason": f"model: {s.get('reason')}"})
         for rec in out.get("records") or []:

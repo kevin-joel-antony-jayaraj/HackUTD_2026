@@ -164,7 +164,7 @@ CREATE TABLE IF NOT EXISTS decisions (
     requires_human_review boolean NOT NULL,
     status                text NOT NULL DEFAULT 'pending_review'
                           CHECK (status IN ('pending_review','approved','rejected','done')),
-    source                text NOT NULL CHECK (source IN ('llm','rule_default')),   -- rule_default = code overrode the LLM
+    source                text NOT NULL,   -- llm | rule (only one action allowed, no model call) | rule_default (model unusable)
     violations            jsonb NOT NULL DEFAULT '[]',                              -- why the LLM answer was not used
     model                 text,
     created_at            timestamptz NOT NULL DEFAULT now(),
@@ -174,6 +174,9 @@ CREATE TABLE IF NOT EXISTS decisions (
 -- Run-to-run consistency: did independent model runs agree, and what did the others say?
 ALTER TABLE decisions ADD COLUMN IF NOT EXISTS agreement    boolean NOT NULL DEFAULT true;
 ALTER TABLE decisions ADD COLUMN IF NOT EXISTS alternatives jsonb   NOT NULL DEFAULT '[]';
+
+ALTER TABLE decisions DROP CONSTRAINT IF EXISTS decisions_source_check;
+ALTER TABLE decisions ADD CONSTRAINT decisions_source_check CHECK (source IN ('llm','rule','rule_default'));
 
 CREATE TABLE IF NOT EXISTS decision_summaries (
     run_id     bigint NOT NULL REFERENCES safety_runs ON DELETE CASCADE,

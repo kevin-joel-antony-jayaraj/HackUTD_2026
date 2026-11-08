@@ -193,7 +193,8 @@ async function loadDecisions() {
     const tasks = (d.tasks || []).map((t) => `<li>${esc(t)}</li>`).join("");
     const chips = [d.requires_human_review ? `<span class="chip warn">needs human review</span>` : "",
                    d.agreement ? "" : `<span class="chip warn">model runs disagreed: chose safer option</span>`,
-                   d.source === "rule_default" ? `<span class="chip">rule-based default</span>` : `<span class="chip">Nemotron</span>`].join("");
+                   d.source === "rule_default" ? `<span class="chip">rule-based default</span>`
+                     : d.source === "rule" ? `<span class="chip">decided by rule</span>` : `<span class="chip">Nemotron</span>`].join("");
     const btns = d.status === "pending_review"
       ? `<button class="primary" onclick="act(${d.id},'approve')">Approve</button> <button onclick="act(${d.id},'reject')">Reject</button>`
       : d.status === "approved" ? `<button onclick="act(${d.id},'done')">Mark done</button>` : "";
@@ -223,7 +224,10 @@ async function act(id, what) {
 }
 
 function renderJob(j) {
-  $("steps").innerHTML = STEPS.map((s) => `<span class="step ${(j.steps[s] || {}).status || ""}">${STEP_LABEL[s]}</span>`).join("");
+  $("steps").innerHTML = STEPS.map((s) => {
+    const st = j.steps[s] || {};
+    return `<span class="step ${st.status || ""}">${STEP_LABEL[s]}${st.seconds !== undefined ? ` · ${st.seconds}s` : ""}</span>`;
+  }).join("");
   if (j.status === "running") { $("jobmsg").className = "msg"; $("jobmsg").textContent = `Running: ${STEP_LABEL[j.step] || "starting"}…`; }
   else if (j.status === "failed") { $("jobmsg").className = "msg err"; $("jobmsg").textContent = "Failed: " + j.error; }
   else {
@@ -231,7 +235,8 @@ function renderJob(j) {
     $("jobmsg").className = "msg";
     $("jobmsg").textContent = `Done. Read ${e.sites || 0} sites, ${e.assets || 0} machines, ${e.work_orders || 0} work orders; ` +
       `${e.rejected || 0} rows rejected, ${e.warnings || 0} values flagged. ` +
-      `${d.decisions || 0} decisions (${d.from_model || 0} from Nemotron, ${d.rule_default || 0} rule-based).`;
+      `${d.decisions || 0} decisions (${d.from_model || 0} from Nemotron, ${d.by_rule || 0} by rule, ${d.rule_default || 0} fallback). ` +
+      `Total ${j.seconds_total}s.`;
   }
 }
 
@@ -240,9 +245,14 @@ async function start(path, form) {
   btns.forEach((b) => (b.disabled = true));
   try {
     const { job_id } = await api(path, {method: "POST", body: form});
+    let scoresShown = false;
     for (;;) {
       const j = await api(`/pipeline/jobs/${job_id}`);
       renderJob(j);
+      if (!scoresShown && (j.steps.score || {}).status === "done") {   // show the ranking before decisions finish
+        scoresShown = true;
+        Promise.allSettled([loadPortfolio(), loadAssets(), loadRejected()]);
+      }
       if (j.status !== "running") break;
       await new Promise((r) => setTimeout(r, 1500));
     }
