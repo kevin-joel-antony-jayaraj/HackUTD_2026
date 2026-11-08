@@ -55,7 +55,7 @@ DECLARATIONS = [
                          "reason": {"type": S, "description": "Cite the snapshot's numbers."}},
                         ["asset_id", "urgency", "likely_issue", "tasks", "do_by", "reason"])},
     {"name": "notify_service_manager",
-     "description": "Text a work order to the service manager for the site's region via Photon. "
+     "description": "Text a work order to the manager for the site's region via Photon. "
                     "The recipient is chosen by the system from the work order's site.",
      "parameters": _obj({"work_order_id": {"type": S},
                          "message": {"type": S, "description": "Under 360 characters, plain words."}},
@@ -164,7 +164,7 @@ class Toolbox:
         if wo is None:
             return {"error": "unknown work_order_id; create the work order first"}
         if wo["notified"]:
-            return {"error": "service manager already notified for this work order"}
+            return {"error": "manager already notified for this work order"}
         region = self.s.site(wo["site_id"])["region_id"]
         text = f"[{work_order_id}] {message[:360]} Reply APPROVE {work_order_id} or HOLD {work_order_id}"
         res = self._text("region", region, text, idem=f"{work_order_id}-{wo['tier']}")

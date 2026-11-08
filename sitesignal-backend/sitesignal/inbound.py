@@ -24,23 +24,29 @@ NEGATIVE = re.compile(r"\b(n|no|not|\w+n['’]t|isnt|wont|cant|doesnt|didnt|aren
 def handle_inbound(text: str, space_id: str, agent_id: str, tb: Toolbox, brain=None) -> dict:
     s, t = tb.s, text.strip()
 
-    # 1. Registration: "JOIN dallas" or "JOIN site S010"
+    # 1. Registration: "JOIN dallas" (manager), "JOIN tech dallas" (service worker), "JOIN site S010"
+    if m := re.fullmatch(r"JOIN\s+(?:tech|worker|technician)\s+(\w+)", t, re.I):
+        s.upsert_contact("worker", m.group(1), f"{m.group(1).title()} service worker", space_id, agent_id)
+        return {"registered": "worker", "key": m.group(1)}
     if m := re.fullmatch(r"JOIN\s+site\s+(\S+)", t, re.I):
         if not s.site(m.group(1).upper()):
             return {"ignored": "unknown site"}
         s.upsert_contact("site", m.group(1), f"Site manager {m.group(1).upper()}", space_id, agent_id)
         return {"registered": "site", "key": m.group(1)}
     if m := re.fullmatch(r"JOIN\s+(\w+)", t, re.I):
-        s.upsert_contact("region", m.group(1), f"{m.group(1).title()} service manager", space_id, agent_id)
+        s.upsert_contact("region", m.group(1), f"{m.group(1).title()} manager", space_id, agent_id)
         return {"registered": "region", "key": m.group(1)}
 
     contact = s.contact_by_space(space_id)
     if contact is None:
         return {"ignored": "sender not registered"}
 
-    # 2. Service manager approving or holding a work order
+    if contact["kind"] == "worker":
+        return {"ignored": "service workers get calls; reports and approvals come from the manager"}
+
+    # 2. Manager approving or holding a work order
     if contact["kind"] == "region" and (m := re.search(r"\b(APPROVE|HOLD)\s+(WO-\d+)", t, re.I)):
-        return run_agent(f"EVENT service manager replied: {m.group(1).upper()} {m.group(2).upper()}", tb, brain)
+        return run_agent(f"EVENT manager replied: {m.group(1).upper()} {m.group(2).upper()}", tb, brain)
 
     # 3. A report about equipment: from the region's manager (who names the site) or a site contact
     if contact["kind"] == "region":

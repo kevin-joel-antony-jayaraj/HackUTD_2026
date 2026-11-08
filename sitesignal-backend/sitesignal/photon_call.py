@@ -1,4 +1,4 @@
-"""Phone call to the region's manager about every high-risk asset.
+"""Phone call to the region's service worker (technician) about every high-risk asset.
 
 Medium-risk assets get a texted work order; high-risk ones also get a call, at most once
 per asset per day and MAX_CALLS_PER_RUN per run, riskiest first.
@@ -67,11 +67,8 @@ def build_script(asset: dict, site: dict, work_order_id: str | None) -> str:
     script = (f"This is PenguinRE with an urgent maintenance alert. "
               f"The {unit} at {where} has an estimated {pct} percent chance of failing in the next 30 days")
     script += f", because {' and '.join(reasons)}. " if reasons else ". "
-    if work_order_id:
-        script += (f"Work order {work_order_id.replace('-', ' ')} is waiting for you. "
-                   f"Reply APPROVE or HOLD to the text we sent.")
-    else:
-        script += "Please schedule a preventive visit as soon as possible."
+    script += "Please plan a visit within 48 hours"
+    script += f"; the details are in work order {work_order_id.replace('-', ' ')}." if work_order_id else "."
     return script
 
 
@@ -117,11 +114,11 @@ def _call(store, asset: dict, idem: str, dry_run: bool) -> dict:
     region = site["region_id"]
     wo = store.open_wo_for(asset["asset_id"])
     script = build_script(asset, site, wo["id"] if wo else None)
-    contact = store.contact("region", region)
+    contact = store.contact("worker", region)
 
     res = {"called": False, "asset_id": asset["asset_id"], "region": region, "script": script}
     if contact is None or not contact.get("phone"):
-        res["reason"] = f"no service manager phone on file for region '{region}'"
+        res["reason"] = f"no service worker phone on file for region '{region}'"
     else:
         res["to"] = contact["name"]
         if dry_run:

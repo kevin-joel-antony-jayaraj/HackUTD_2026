@@ -66,7 +66,7 @@ CREATE TABLE IF NOT EXISTS weather_forecasts (
 -- No phone numbers stored: Photon conversation ids only, set when someone texts "JOIN ...".
 CREATE TABLE IF NOT EXISTS contacts (
     id         serial PRIMARY KEY,
-    kind       text NOT NULL CHECK (kind IN ('region','site')),
+    kind       text NOT NULL CHECK (kind IN ('region','site','worker')),  -- region = manager, worker = technician
     key        text NOT NULL,                    -- region_id or site_id, lower case
     name       text NOT NULL,
     space_id   text NOT NULL,
@@ -241,6 +241,8 @@ $$;
 
 -- Phone calls (photon_call.py). Phone is optional: only needed for managers who get calls.
 ALTER TABLE contacts ADD COLUMN IF NOT EXISTS phone text;
+ALTER TABLE contacts DROP CONSTRAINT IF EXISTS contacts_kind_check;
+ALTER TABLE contacts ADD CONSTRAINT contacts_kind_check CHECK (kind IN ('region','site','worker'));
 ALTER TABLE sites ADD COLUMN IF NOT EXISTS square_feet integer;
 
 CREATE TABLE IF NOT EXISTS calls (                  -- every call attempt, real or dry run

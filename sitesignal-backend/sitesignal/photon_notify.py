@@ -4,7 +4,8 @@ Photon's Beta docs show replying into an existing conversation ("space") with
 `photon.projects.send_message(...)`, using an incoming message's `space.id` and
 `receivedBy.id`. Starting a brand-new conversation isn't documented, so people
 register first by texting the Photon number:
-    "JOIN dallas"      -> service manager for the dallas region
+    "JOIN dallas"      -> manager for the dallas region (texts, approvals, reports)
+    "JOIN tech dallas" -> service worker for the dallas region (gets the urgent calls)
     "JOIN site S010"   -> site manager for site S010
 Their conversation ids are stored in the `contacts` table (no phone numbers).
 
@@ -31,7 +32,7 @@ def _send_text(space_id: str, agent_id: str, text: str, idempotency_key: str) ->
 
 
 def send(store, kind: str, key: str, text: str, idempotency_key: str, dry_run: bool = True) -> dict:
-    """kind = 'region' (service manager) or 'site' (site manager)."""
+    """kind = 'region' (manager) or 'site' (site contact)."""
     if store.message_exists(idempotency_key):
         return {"sent": False, "reason": "duplicate: this message was already sent"}
     contact = store.contact(kind, key or "")

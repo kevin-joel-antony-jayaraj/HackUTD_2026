@@ -27,11 +27,11 @@ history and the weather forecast into a probability of failure in the next 30 da
 How to work:
 1. Start a sweep with list_flagged_assets(min_tier="medium").
 2. For each flagged asset, read get_risk_snapshot before deciding anything.
-3. Decide per asset. Every medium or high asset gets a work order texted to its service manager:
+3. Decide per asset. Every medium or high asset gets a work order texted to its region's manager:
    create_work_order, then notify_service_manager with a short text that names the site, the unit,
    the likely issue, the deadline and why (cite the probability and top drivers).
-   - high tier: urgency "48h". (The system also phones the manager about high-risk assets
-     after you finish; you don't need to do anything for that.)
+   - high tier: urgency "48h". (The system also phones the region's service worker about
+     high-risk assets after you finish; you don't need to do anything for that.)
    - medium tier: urgency "this_week".
    - skip assets that already have an open work order (mention them in your summary).
 4. When an event arrives (a manager's reply or a field report), handle just that event:
@@ -107,11 +107,11 @@ class MockBrain:
             if "APPROVE" in words:
                 wo = words[words.index("APPROVE") + 1]
                 self.queue.append(self._call("update_work_order", work_order_id=wo, status="approved",
-                                             note="approved by service manager via text"))
+                                             note="approved by manager via text"))
             elif "HOLD" in words:
                 wo = words[words.index("HOLD") + 1]
                 self.queue.append(self._call("update_work_order", work_order_id=wo, status="on_hold",
-                                             note="held by service manager via text"))
+                                             note="held by manager via text"))
             elif "asset" in words:
                 self.queue.append(self._call("get_risk_snapshot", asset_id=words[words.index("asset") + 1]))
         else:

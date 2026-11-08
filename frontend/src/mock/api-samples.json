@@ -10,9 +10,9 @@
       "square_feet": 143000,
       "assets": 51,
       "assets_by_tier": {
+        "medium": 1,
         "high": 3,
-        "low": 47,
-        "medium": 1
+        "low": 47
       },
       "work_orders_by_status": {
         "approved": 2,
@@ -21,10 +21,10 @@
       "texts_today": 5,
       "quarantined_rows": 0,
       "last_run": {
-        "run_id": 3,
-        "trigger": "EVENT service manager replied: APPROVE WO-0002",
+        "run_id": 4,
+        "trigger": "EVENT manager replied: APPROVE WO-0002",
         "summary": "Run summary: WO-0002 -> approved",
-        "finished_at": "2026-11-08T08:49:39.492662-06:00"
+        "finished_at": "2026-11-08T08:53:41.174141-06:00"
       },
       "thresholds": {
         "high": 0.2,
@@ -215,7 +215,7 @@
             "multiplier": 1.28
           }
         ],
-        "scored_at": "2026-11-08T08:49:39.481397-06:00",
+        "scored_at": "2026-11-08T08:53:41.156134-06:00",
         "open_work_order": "WO-0003",
         "cost": {
           "preventive_cost_usd": 175,
@@ -280,7 +280,7 @@
             "multiplier": 1.14
           }
         ],
-        "scored_at": "2026-11-08T08:49:37.260324-06:00",
+        "scored_at": "2026-11-08T08:53:38.146345-06:00",
         "open_work_order": "WO-0001",
         "cost": {
           "preventive_cost_usd": 250,
@@ -379,18 +379,18 @@
       },
       "risk_history": [
         {
-          "scored_at": "2026-11-08T08:49:39.481397-06:00",
+          "scored_at": "2026-11-08T08:53:41.156134-06:00",
           "prob": 0.2604,
           "tier": "high"
         },
         {
-          "scored_at": "2026-11-08T08:49:37.262234-06:00",
+          "scored_at": "2026-11-08T08:53:38.148186-06:00",
           "prob": 0.1268,
           "tier": "medium"
         },
         {
-          "scored_at": "2026-11-08T08:49:37.205937-06:00",
-          "prob": 0.1268,
+          "scored_at": "2026-11-07T06:00:00-06:00",
+          "prob": 0.1267,
           "tier": "medium"
         }
       ],
@@ -420,31 +420,31 @@
       "forecast": [
         {
           "date": "2026-11-08",
-          "max_f": 74.7
+          "max_f": 83.3
         },
         {
           "date": "2026-11-09",
-          "max_f": 65.4
+          "max_f": 82.3
         },
         {
           "date": "2026-11-10",
-          "max_f": 69.4
+          "max_f": 83.0
         },
         {
           "date": "2026-11-11",
-          "max_f": 72.1
+          "max_f": 74.2
         },
         {
           "date": "2026-11-12",
-          "max_f": 75.2
+          "max_f": 76.2
         },
         {
           "date": "2026-11-13",
-          "max_f": 62.1
+          "max_f": 75.4
         },
         {
           "date": "2026-11-14",
-          "max_f": 67.4
+          "max_f": 83.3
         }
       ],
       "field_reports": [
@@ -452,7 +452,7 @@
           "asset_id": "S006-WATER_HEATER1",
           "text": "Katy clinic has no hot water again",
           "working": false,
-          "received_at": "2026-11-08 08:49:39.480221-06:00"
+          "received_at": "2026-11-08 08:53:41.154909-06:00"
         }
       ],
       "work_orders": [
@@ -474,8 +474,8 @@
           "status": "pending_approval",
           "status_note": null,
           "notified": true,
-          "created_at": "2026-11-08T08:49:37.240470-06:00",
-          "updated_at": "2026-11-08T08:49:39.486138-06:00"
+          "created_at": "2026-11-08T08:53:38.167985-06:00",
+          "updated_at": "2026-11-08T08:53:41.161609-06:00"
         }
       ]
     }
@@ -505,8 +505,8 @@
         "status": "pending_approval",
         "status_note": null,
         "notified": true,
-        "created_at": "2026-11-08T08:49:37.243968-06:00",
-        "updated_at": "2026-11-08T08:49:37.245884-06:00",
+        "created_at": "2026-11-08T08:53:38.169901-06:00",
+        "updated_at": "2026-11-08T08:53:38.170886-06:00",
         "site_name": "Frisco Retail Store",
         "region_id": "dallas",
         "asset_type": "rtu",
@@ -545,8 +545,8 @@
         "status": "pending_approval",
         "status_note": null,
         "notified": true,
-        "created_at": "2026-11-08T08:49:37.240470-06:00",
-        "updated_at": "2026-11-08T08:49:39.486138-06:00",
+        "created_at": "2026-11-08T08:53:38.167985-06:00",
+        "updated_at": "2026-11-08T08:53:41.161609-06:00",
         "site_name": "Katy Family Clinic",
         "region_id": "houston",
         "asset_type": "water_heater",
@@ -572,7 +572,7 @@
   {
     "method": "GET",
     "path": "/messages?limit=100",
-    "description": "Every text sent (or logged, when sending is off) to service and site managers, newest first.",
+    "description": "Every text sent (or logged, when sending is off) to region managers, newest first.",
     "needs_admin_token": false,
     "use_on_screen": "Activity feed",
     "example_response": [
@@ -580,32 +580,32 @@
         "id": 5,
         "kind": "region",
         "to_key": "houston",
-        "recipient_name": "Houston service manager",
+        "recipient_name": "Houston manager",
         "text": "[WO-0003] Katy Family Clinic: S006-WATER_HEATER1 has a 26% chance of failing in 30 days (end-of-life wear). Preventive visit needed this week. Reply APPROVE WO-0003 or HOLD WO-0003",
         "sent": false,
         "dry_run": true,
         "error": null,
         "idempotency_key": "WO-0003-high",
-        "created_at": "2026-11-08T08:49:39.485957-06:00"
+        "created_at": "2026-11-08T08:53:41.161362-06:00"
       },
       {
         "id": 4,
         "kind": "region",
         "to_key": "dallas",
-        "recipient_name": "Dallas service manager",
+        "recipient_name": "Dallas manager",
         "text": "[WO-0004] Frisco Retail Store: S004-RTU1 has a 10% chance of failing in 30 days (probable refrigerant leak). Preventive visit needed this week. Reply APPROVE WO-0004 or HOLD WO-0004",
         "sent": false,
         "dry_run": true,
         "error": null,
         "idempotency_key": "WO-0004-medium",
-        "created_at": "2026-11-08T08:49:37.245684-06:00"
+        "created_at": "2026-11-08T08:53:38.170746-06:00"
       }
     ]
   },
   {
     "method": "GET",
     "path": "/calls?limit=100",
-    "description": "Every phone call placed (or logged) about high-risk machines, newest first.",
+    "description": "Every phone call placed (or logged) to a region's service worker about a high-risk machine, newest first.",
     "needs_admin_token": false,
     "use_on_screen": "Activity feed",
     "example_response": [
@@ -614,14 +614,14 @@
         "asset_id": "S006-WATER_HEATER1",
         "work_order_id": "WO-0003",
         "region_id": "houston",
-        "recipient_name": "Houston service manager",
-        "script": "This is PenguinRE with an urgent maintenance alert. The water heater at Katy Family Clinic in Katy has an estimated 26 percent chance of failing in the next 30 days, because it is near the end of its service life and repeated service calls in the last 90 days. Work order WO 0003 is waiting for you. Reply APPROVE or HOLD to the text we sent.",
+        "recipient_name": "Houston service worker",
+        "script": "This is PenguinRE with an urgent maintenance alert. The water heater at Katy Family Clinic in Katy has an estimated 26 percent chance of failing in the next 30 days, because it is near the end of its service life and repeated service calls in the last 90 days. Please plan a visit within 48 hours; the details are in work order WO 0003.",
         "called": false,
         "dry_run": true,
         "call_sid": null,
         "error": null,
         "idempotency_key": "call-S006-WATER_HEATER1-20261108",
-        "created_at": "2026-11-08T08:49:39.489123-06:00"
+        "created_at": "2026-11-08T08:53:41.164750-06:00"
       }
     ]
   },
@@ -633,12 +633,12 @@
     "use_on_screen": "'Last sweep' status",
     "example_response": [
       {
-        "run_id": 3,
-        "trigger": "EVENT service manager replied: APPROVE WO-0002",
+        "run_id": 4,
+        "trigger": "EVENT manager replied: APPROVE WO-0002",
         "summary": "Run summary: WO-0002 -> approved ...",
         "steps": 2,
-        "started_at": "2026-11-08T08:49:39.491828-06:00",
-        "finished_at": "2026-11-08T08:49:39.492662-06:00"
+        "started_at": "2026-11-08T08:53:41.173473-06:00",
+        "finished_at": "2026-11-08T08:53:41.174141-06:00"
       }
     ]
   },
@@ -662,7 +662,7 @@
   {
     "method": "POST",
     "path": "/work-orders/{wo_id}/approve",
-    "description": "Approve a work order from the dashboard (same as the manager texting APPROVE).",
+    "description": "Approve a work order from the dashboard (same as the region manager texting APPROVE).",
     "needs_admin_token": true,
     "request_body": {
       "note": "optional"
@@ -698,15 +698,15 @@
   {
     "method": "POST",
     "path": "/jobs/call-urgent",
-    "description": "Call the region's manager now about each high-risk machine not yet called about today (demo button). Returns one result per call; an empty list means nothing new to call about.",
+    "description": "Call the region's service worker now about each high-risk machine not yet called about today (demo button). Returns one result per call; an empty list means nothing new to call about.",
     "needs_admin_token": true,
     "example_response": [
       {
         "called": false,
         "asset_id": "S006-WATER_HEATER1",
         "region": "houston",
-        "script": "This is PenguinRE with an urgent maintenance alert. The water heater at Katy Family Clinic in Katy has an estimated 26 percent chance of failing in the next 30 days, because it is near the end of its service life and repeated service calls in the last 90 days. Work order WO 0003 is waiting for you. Reply APPROVE or HOLD to the text we sent.",
-        "to": "Houston service manager",
+        "script": "This is PenguinRE with an urgent maintenance alert. The water heater at Katy Family Clinic in Katy has an estimated 26 percent chance of failing in the next 30 days, because it is near the end of its service life and repeated service calls in the last 90 days. Please plan a visit within 48 hours; the details are in work order WO 0003.",
+        "to": "Houston service worker",
         "dry_run": true
       }
     ]
@@ -722,10 +722,23 @@
     },
     "example_response": {
       "run_id": 2,
-      "summary": "Run summary: escalated WO-0003 (medium -> high) for S006-WATER_HEATER1; texted Houston service manager",
+      "summary": "Run summary: escalated WO-0003 (medium -> high) for S006-WATER_HEATER1; texted Houston manager",
       "steps": 4,
       "safety_net": [],
       "calls": []
+    }
+  },
+  {
+    "method": "POST",
+    "path": "/contacts/worker/{region_id}/phone",
+    "description": "Set the phone number the region's service worker is called on (they must have texted 'JOIN tech <region>' first). E.164 format.",
+    "needs_admin_token": true,
+    "request_body": {
+      "phone": "+12145550123"
+    },
+    "example_response": {
+      "region": "dallas",
+      "phone_set": true
     }
   },
   {

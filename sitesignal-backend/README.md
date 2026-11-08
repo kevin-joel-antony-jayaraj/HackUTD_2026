@@ -3,7 +3,7 @@
 Prevents equipment failures at small commercial sites with no building sensors.
 A risk model (Weibull age curve x work-order history x weather forecast) scores every
 machine; **Gemini 3.8 Flash** acts as an agent that decides what to do; **Photon 2.0**
-texts service managers and site managers; everything lives in **Postgres**.
+texts each region's manager and calls its service worker; everything lives in **Postgres**.
 
 ```
  CSV/Excel exports --import--> Postgres <--weather job-- Open-Meteo
@@ -54,7 +54,7 @@ Reads (open): `GET /health`, `/portfolio`, `/savings`, `/assets?tier=high`, `/as
 
 Actions (`Authorization: Bearer $ADMIN_TOKEN`):
 `POST /work-orders/{id}/approve`, `/work-orders/{id}/hold`, `/jobs/sweep`, `/jobs/weather`,
-`/jobs/score`, `/jobs/call-urgent`, `/contacts/region/{region}/phone`, `/import/{sites|assets|work_orders}` (file upload), `/admin/reset-demo`,
+`/jobs/score`, `/jobs/call-urgent`, `/contacts/worker/{region}/phone`, `/import/{sites|assets|work_orders}` (file upload), `/admin/reset-demo`,
 `/photon/simulate` (fake an incoming text for demos)
 
 Photon: `POST /photon/webhook` (needs `PHOTON_WEBHOOK_SECRET`)
@@ -94,14 +94,16 @@ see what was rejected at `GET /import/quarantine`.
 2. One manager per region texts the Photon number `JOIN dallas` (or houston, austin). No phone
    numbers are needed for texts, only Photon conversation ids. That manager:
    - gets a text for every work order and replies `APPROVE WO-0003` or `HOLD WO-0003`;
-   - gets a phone call for every high-risk machine (see 4);
    - can text a problem by naming the site or area, e.g. `Katy clinic has no hot water again` or
      `Montrose cooler isn't cooling`. PenguinRE finds the machine, saves its new risk right away
      (the dashboard updates), and the agent creates or escalates a work order. A message that
      could mean two sites (just "Houston") is ignored rather than guessed.
    (`JOIN site S010` still registers a site-level contact who can report on that site only.)
-3. Set `PHOTON_SEND=1` when you want real texts.
-4. Calls: after a service manager JOINs, set their number with `POST /contacts/region/dallas/phone`
+3. One service worker (technician) per region texts `JOIN tech dallas`. They get a phone call for
+   every high-risk machine in their region, including one a manager's report just pushed to high,
+   so the person reporting a problem and the person sent to fix it are different people.
+4. Set `PHOTON_SEND=1` when you want real texts.
+5. Calls: after a service worker JOINs, set their number with `POST /contacts/worker/dallas/phone`
    `{"phone": "+1..."}` (use a teammate's phone for demos). Fill in the `TWILIO_*` and `PHOTON_SIP_*`
    values from Photon's Voice profile, then set `PHOTON_CALL=1`. A dry-run sweep never dials.
 

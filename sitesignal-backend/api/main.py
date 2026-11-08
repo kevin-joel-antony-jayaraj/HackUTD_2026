@@ -158,13 +158,13 @@ class PhoneBody(BaseModel):
     phone: str
 
 
-@app.post("/contacts/region/{region_id}/phone", dependencies=[Depends(admin)])
-def set_region_phone(region_id: str, body: PhoneBody):
+@app.post("/contacts/worker/{region_id}/phone", dependencies=[Depends(admin)])
+def set_worker_phone(region_id: str, body: PhoneBody):
     from sitesignal.photon_call import valid_phone
     if not valid_phone(body.phone):
         raise HTTPException(422, "phone must be E.164, e.g. +12145550123")
-    if not Store(db).set_contact_phone("region", region_id, body.phone):
-        raise HTTPException(404, "no service manager for that region; they must text JOIN <region> first")
+    if not Store(db).set_contact_phone("worker", region_id, body.phone):
+        raise HTTPException(404, "no service worker for that region; they must text JOIN tech <region> first")
     return {"region": region_id, "phone_set": True}
 
 
