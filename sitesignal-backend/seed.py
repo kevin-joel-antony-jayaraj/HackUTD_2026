@@ -20,9 +20,12 @@ import math
 import random
 from datetime import date, datetime, time, timedelta, timezone
 
-WIPE = """TRUNCATE regions, sites, assets, work_order_history, weather_forecasts, contacts,
+# People's registrations (contacts), handled inbound texts and the Photon poll cursor survive a
+# reset: on Photon's shared line a dropped conversation can't be reopened from our side.
+WIPE = """TRUNCATE regions, sites, assets, work_order_history, weather_forecasts,
 field_reports, work_orders, dashboard_entries, risk_scores, messages, agent_runs, audit_log,
-import_quarantine, inbound_messages, job_state, calls RESTART IDENTITY CASCADE;
+import_quarantine, calls RESTART IDENTITY CASCADE;
+DELETE FROM job_state WHERE name <> 'photon_cursor';
 ALTER SEQUENCE work_order_seq RESTART WITH 1;"""
 
 # CBECS 2018 Table B15: mean sq ft per building, mean operating hours per week.
