@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SiteSignal Safety</title>
+<style>
+  :root {
+    --bg: #f6f7f5; --panel: #ffffff; --ink: #17201b; --muted: #5d6b63; --line: #dfe4e0;
+    --accent: #0f5c3c; --accent-ink: #ffffff;
+    --critical: #b42318; --poor: #c4560c; --fair: #a07a00; --good: #1b7a46; --unknown: #6b7280;
+    --chip-bg: #eef1ee;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg: #0f1412; --panel: #161d1a; --ink: #e6ece8; --muted: #9aa8a0; --line: #2a3430;
+            --accent: #3fbf86; --accent-ink: #062014; --critical: #f97066; --poor: #fb923c;
+            --fair: #facc15; --good: #4ade80; --unknown: #9ca3af; --chip-bg: #1f2925; }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink);
+         font: 15px/1.45 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  header { padding: 18px 16px; border-bottom: 1px solid var(--line); background: var(--panel); }
+  header .wrap { display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: baseline; justify-content: space-between; }
+  h1 { font-size: 20px; margin: 0; letter-spacing: -0.01em; }
+  h1 span { color: var(--muted); font-weight: 400; font-size: 14px; margin-left: 8px; }
+  h2 { font-size: 15px; margin: 0 0 12px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+  .wrap { max-width: 1180px; margin: 0 auto; }
+  main { padding: 16px; }
+  .health { font-size: 13px; color: var(--muted); display: flex; gap: 12px; flex-wrap: wrap; }
+  .dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 5px; background: var(--unknown); }
+  .dot.ok { background: var(--good); } .dot.bad { background: var(--critical); }
+  .panel { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 16px; margin-bottom: 16px; }
+  .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; margin-bottom: 16px; }
+  .kpi { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; }
+  .kpi b { display: block; font-size: 24px; font-variant-numeric: tabular-nums; }
+  .kpi small { color: var(--muted); }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media (max-width: 860px) { .grid2 { grid-template-columns: 1fr; } }
+  label.file { display: block; margin-bottom: 10px; font-size: 14px; }
+  label.file input { display: block; margin-top: 4px; max-width: 100%; }
+  button { font: inherit; border-radius: 8px; border: 1px solid var(--line); background: var(--panel); color: var(--ink);
+           padding: 8px 14px; cursor: pointer; }
+  button.primary { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+  button:disabled { opacity: .5; cursor: not-allowed; }
+  .row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
+  .steps { display: flex; gap: 6px; flex-wrap: wrap; margin: 10px 0; }
+  .step { padding: 4px 10px; border-radius: 999px; background: var(--chip-bg); font-size: 13px; color: var(--muted); }
+  .step.running { color: var(--ink); outline: 2px solid var(--accent); }
+  .step.done { color: var(--good); } .step.failed { color: var(--critical); }
+  .msg { font-size: 13px; color: var(--muted); white-space: pre-wrap; }
+  .msg.err { color: var(--critical); }
+  .tablewrap { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  th, td { text-align: left; padding: 8px 6px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { color: var(--muted); font-weight: 500; font-size: 12px; text-transform: uppercase; letter-spacing: .05em; }
+  .band { font-weight: 600; text-transform: capitalize; }
+  .b-critical { color: var(--critical); } .b-poor { color: var(--poor); } .b-fair { color: var(--fair); }
+  .b-good { color: var(--good); } .b-unknown { color: var(--unknown); }
+  .bar { height: 6px; background: var(--chip-bg); border-radius: 3px; width: 90px; margin-top: 4px; }
+  .bar i { display: block; height: 100%; border-radius: 3px; background: currentColor; }
+  .chip { display: inline-block; font-size: 11px; padding: 2px 7px; border-radius: 999px; background: var(--chip-bg);
+          color: var(--muted); margin: 2px 4px 2px 0; }
+  .chip.warn { color: var(--critical); }
+  .dec { border-top: 1px solid var(--line); padding: 12px 0; }
+  .dec:first-of-type { border-top: 0; }
+  .dec h3 { margin: 0 0 4px; font-size: 15px; display: flex; gap: 8px; flex-wrap: wrap; align-items: baseline; }
+  .dec p { margin: 4px 0; font-size: 14px; color: var(--muted); }
+  .dec ul { margin: 4px 0 6px 18px; padding: 0; font-size: 14px; }
+  .status { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: .05em; }
+  details summary { cursor: pointer; color: var(--muted); }
+  .note { font-size: 12px; color: var(--muted); margin-top: 10px; }
+  input[type=password] { font: inherit; padding: 6px 8px; border: 1px solid var(--line); border-radius: 6px;
+                         background: var(--panel); color: var(--ink); width: 100%; max-width: 260px; }
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <h1>SiteSignal Safety <span>Maintenance risk for buildings without sensors</span></h1>
+    <div class="health" id="health">checking…</div>
+  </div>
+</header>
+<main class="wrap">
+  <div class="kpis" id="kpis"></div>
+
+  <div class="grid2">
+    <section class="panel">
+      <h2>1 · Upload your data</h2>
+      <label class="file">Sites (store list: ID, type, revenue, coordinates)<input type="file" id="f-sites"></label>
+      <label class="file">Asset list (equipment and install dates)<input type="file" id="f-assets"></label>
+      <label class="file">Work-order history (repairs, recharges, PM)<input type="file" id="f-wo"></label>
+      <div class="row">
+        <button class="primary" id="btn-run">Run pipeline</button>
+        <button id="btn-sample">Use sample data</button>
+        <button id="btn-rescore" title="Re-fetch weather, re-score and re-decide what is stored">Re-score</button>
+      </div>
+      <p class="note">CSV, Excel or plain text; messy is fine. Any file you leave out is taken from what is
+        already stored. Weather is fetched automatically.</p>
+    </section>
+    <section class="panel">
+      <h2>2 · Pipeline</h2>
+      <div class="steps" id="steps"></div>
+      <div class="msg" id="jobmsg">No run yet.</div>
+      <details style="margin-top:10px"><summary>Admin token (only if the server sets one)</summary>
+        <input type="password" id="token" placeholder="ADMIN_TOKEN" autocomplete="off">
+      </details>
+    </section>
+  </div>
+
+  <section class="panel">
+    <h2>3 · Machines, worst first</h2>
+    <div class="tablewrap"><table>
+      <thead><tr><th>Machine</th><th>Site</th><th>Safety Index</th><th>Confidence</th><th>Main reason</th><th>Rules</th></tr></thead>
+      <tbody id="assets"><tr><td colspan="6" class="msg">Nothing scored yet. Upload data or use the sample.</td></tr></tbody>
+    </table></div>
+    <p class="note">0–100, 100 = safest. An uncalibrated triage score, not a probability. "Unknown" means missing data, not safe.</p>
+  </section>
+
+  <section class="panel">
+    <h2>4 · Proposed actions (human review)</h2>
+    <div id="decisions" class="msg">No decisions yet.</div>
+  </section>
+
+  <section class="panel">
+    <details><summary id="rej-sum">Rows we could not trust</summary>
+      <div class="tablewrap"><table><thead><tr><th>Source</th><th>Reason</th><th>Row</th></tr></thead>
+        <tbody id="rejected"></tbody></table></div>
+    </details>
+  </section>
+</main>
+
+<script>
+const $ = (id) => document.getElementById(id);
+const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const STEPS = ["extract", "load", "weather", "score", "decide"];
+const STEP_LABEL = {extract: "Read files (Nemotron)", load: "Save", weather: "Weather", score: "Safety Index", decide: "Decide (Nemotron)"};
+const ACTION_LABEL = {create_work_order: "Create work order", request_data: "Request data", monitor: "Monitor", no_action: "No action"};
+const URG_LABEL = {today: "today", "48h": "within 48h", this_week: "this week", none: ""};
+
+try { $("token").value = localStorage.getItem("ss_token") || ""; } catch (e) {}
+$("token").addEventListener("change", () => { try { localStorage.setItem("ss_token", $("token").value); } catch (e) {} });
+
+async function api(path, opts = {}) {
+  const headers = opts.headers || {};
+  const t = $("token").value.trim();
+  if (t) headers["Authorization"] = "Bearer " + t;
+  const res = await fetch(path, {...opts, headers});
+  const body = await res.json().catch(() => ({}));
+  if (!res.ok) throw new Error(body.detail || res.statusText);
+  return body;
+}
+
+async function loadHealth() {
+  try {
+    const h = await api("/health");
+    const dot = (ok) => `<span class="dot ${ok ? "ok" : "bad"}"></span>`;
+    $("health").innerHTML = `<span>${dot(h.database === "ok")}Database</span>
+      <span>${dot(h.nemotron_key_configured)}Nemotron ${h.nemotron_key_configured ? "ready" : "key missing"}</span>`;
+  } catch (e) { $("health").textContent = "API unreachable"; }
+}
+
+async function loadPortfolio() {
+  const p = await api("/portfolio");
+  const b = p.assets_by_band || {}, d = p.decisions_by_status || {};
+  const money = (n) => "$" + Math.round(n || 0).toLocaleString();
+  const k = [["Sites", p.sites], ["Machines", p.assets], ["Critical", b.critical || 0, "b-critical"],
+             ["Poor", b.poor || 0, "b-poor"], ["Awaiting review", d.pending_review || 0],
+             ["Revenue/day at poor or critical sites", money(p.revenue_per_day_at_poor_or_critical_sites_usd)]];
+  $("kpis").innerHTML = k.map(([l, v, c]) => `<div class="kpi"><b class="${c || ""}">${esc(v)}</b><small>${esc(l)}</small></div>`).join("");
+}
+
+async function loadAssets() {
+  const rows = await api("/assets");
+  if (!rows.length) return;
+  $("assets").innerHTML = rows.map((a) => {
+    const si = a.safety_index;
+    const cons = (a.constraints || []).map((c) => `<span class="chip warn">${esc(c.replaceAll("_", " ").toLowerCase())}</span>`).join("");
+    return `<tr>
+      <td><b>${esc(a.asset_id)}</b><br><small class="msg">${esc(a.asset_type.replaceAll("_", " "))}</small></td>
+      <td>${esc(a.site_name)}<br><small class="msg">${esc(a.city || "")}</small></td>
+      <td class="b-${esc(a.band)}"><span class="band">${si === null ? "—" : si} · ${esc(a.band)}</span>
+          <div class="bar"><i style="width:${si === null ? 0 : si}%"></i></div></td>
+      <td>${Number(a.confidence).toFixed(2)}</td>
+      <td>${esc(a.top_driver || "—")}</td><td>${cons}</td></tr>`;
+  }).join("");
+}
+
+async function loadDecisions() {
+  const ds = await api("/decisions");
+  if (!ds.length) return;
+  $("decisions").classList.remove("msg");
+  $("decisions").innerHTML = ds.map((d) => {
+    const tasks = (d.tasks || []).map((t) => `<li>${esc(t)}</li>`).join("");
+    const chips = [d.requires_human_review ? `<span class="chip warn">needs human review</span>` : "",
+                   d.agreement ? "" : `<span class="chip warn">model runs disagreed: chose safer option</span>`,
+                   d.source === "rule_default" ? `<span class="chip">rule-based default</span>` : `<span class="chip">Nemotron</span>`].join("");
+    const btns = d.status === "pending_review"
+      ? `<button class="primary" onclick="act(${d.id},'approve')">Approve</button> <button onclick="act(${d.id},'reject')">Reject</button>`
+      : d.status === "approved" ? `<button onclick="act(${d.id},'done')">Mark done</button>` : "";
+    return `<div class="dec">
+      <h3><span class="b-${esc(d.band)}">${esc(d.asset_id)}</span>
+          <span>${esc(ACTION_LABEL[d.action])} ${esc(URG_LABEL[d.urgency])}</span>
+          <span class="status">${esc(d.status.replace("_", " "))}</span></h3>
+      <p>${esc(d.reason)}</p>${tasks ? `<ul>${tasks}</ul>` : ""}<div>${chips}</div>
+      <div class="row">${btns}</div></div>`;
+  }).join("");
+}
+
+async function loadRejected() {
+  const r = await api("/rejected");
+  $("rej-sum").textContent = `Rows we could not trust (${r.length})`;
+  $("rejected").innerHTML = r.map((x) => `<tr><td>${esc(x.source)}</td><td>${esc(x.reason)}</td>
+      <td><small class="msg">${esc(typeof x.raw === "string" ? x.raw : JSON.stringify(x.raw)).slice(0, 160)}</small></td></tr>`).join("");
+}
+
+async function refresh() {
+  await Promise.allSettled([loadHealth(), loadPortfolio(), loadAssets(), loadDecisions(), loadRejected()]);
+}
+
+async function act(id, what) {
+  try { await api(`/decisions/${id}/${what}`, {method: "POST"}); await refresh(); }
+  catch (e) { alert(e.message); }
+}
+
+function renderJob(j) {
+  $("steps").innerHTML = STEPS.map((s) => `<span class="step ${(j.steps[s] || {}).status || ""}">${STEP_LABEL[s]}</span>`).join("");
+  if (j.status === "running") { $("jobmsg").className = "msg"; $("jobmsg").textContent = `Running: ${STEP_LABEL[j.step] || "starting"}…`; }
+  else if (j.status === "failed") { $("jobmsg").className = "msg err"; $("jobmsg").textContent = "Failed: " + j.error; }
+  else {
+    const e = j.steps.extract || {}, d = j.steps.decide || {};
+    $("jobmsg").className = "msg";
+    $("jobmsg").textContent = `Done. Read ${e.sites || 0} sites, ${e.assets || 0} machines, ${e.work_orders || 0} work orders; ` +
+      `${e.rejected || 0} rows rejected, ${e.warnings || 0} values flagged. ` +
+      `${d.decisions || 0} decisions (${d.from_model || 0} from Nemotron, ${d.rule_default || 0} rule-based).`;
+  }
+}
+
+async function start(path, form) {
+  const btns = ["btn-run", "btn-sample", "btn-rescore"].map($);
+  btns.forEach((b) => (b.disabled = true));
+  try {
+    const { job_id } = await api(path, {method: "POST", body: form});
+    for (;;) {
+      const j = await api(`/pipeline/jobs/${job_id}`);
+      renderJob(j);
+      if (j.status !== "running") break;
+      await new Promise((r) => setTimeout(r, 1500));
+    }
+    await refresh();
+  } catch (e) { $("jobmsg").className = "msg err"; $("jobmsg").textContent = e.message; }
+  btns.forEach((b) => (b.disabled = false));
+}
+
+$("btn-run").onclick = () => {
+  const f = new FormData();
+  [["sites", "f-sites"], ["assets", "f-assets"], ["work_orders", "f-wo"]].forEach(([k, id]) => {
+    if ($(id).files[0]) f.append(k, $(id).files[0]);
+  });
+  start("/pipeline/run", f);
+};
+$("btn-sample").onclick = () => start("/pipeline/run-sample");
+$("btn-rescore").onclick = () => start("/pipeline/run", new FormData());
+renderJob({steps: {}, status: "idle"}); $("jobmsg").textContent = "No run yet.";
+refresh();
+</script>
+</body>
+</html>

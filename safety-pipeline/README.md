@@ -14,6 +14,36 @@ messy CSV/XLSX/text ──Nemotron──> clean JSON ──> Safety Index ──
 This folder is separate from `sitesignal-backend/`. The two define tables with the same names
 (`sites`, `assets`) but different columns, so use a separate database for each.
 
+## Run the product (API + demo page)
+
+```bash
+cd safety-pipeline
+./setup_local.sh                    # Postgres + demo data + Python deps (once)
+cp .env.example .env                # once: put NVIDIA_API_KEY and DATABASE_URL in it
+source .venv/bin/activate
+uvicorn api.main:app --port 8000
+```
+
+Open http://localhost:8000. You can upload the three files, or click **Use sample data**, then watch
+the five steps run. Review the ranked machines and approve or reject the proposed actions. API docs
+are at http://localhost:8000/docs.
+
+| Endpoint | What it does |
+|---|---|
+| `POST /pipeline/run` | Upload any of `sites`, `assets`, `work_orders` (multipart). Missing kinds are taken from the database, so new work orders alone are fine. Runs in the background. |
+| `POST /pipeline/run-sample` | Same, with the bundled messy sample files. |
+| `GET /pipeline/jobs/{id}` | Progress per step: extract, load, weather, score, decide. |
+| `GET /portfolio` | Counts, assets per band, decisions per status, revenue per day at poor or critical sites. |
+| `GET /assets`, `GET /assets/{id}` | Ranked machines. The detail view has score history, work orders, forecast and decision. |
+| `GET /sites`, `GET /sites/{id}` | Site scores, the LLM context and the site summary. |
+| `GET /decisions` | Proposed actions. `POST /decisions/{id}/approve`, `/reject` and `/done` change their status. |
+| `GET /rejected` | Rows the extractor refused, with reasons. |
+| `POST /admin/reset` | Empty all tables (for demos). |
+| `GET /health` | Database and Nemotron key status. |
+
+Without an NVIDIA key, uploads stop with a clear error. Re-scoring still works, and decisions use the
+rule-based defaults.
+
 ## Run it locally (Postgres on your machine)
 
 ```bash
