@@ -3,7 +3,7 @@
 Prevents equipment failures at small commercial sites with no building sensors.
 A risk model (Weibull age curve x work-order history x weather forecast) scores every
 machine; **Gemini 3.8 Flash** acts as an agent that decides what to do; **Photon 2.0**
-texts service managers and site managers; everything lives in **Postgres** (Tiger Data).
+texts service managers and site managers; everything lives in **Postgres**.
 
 ```
  CSV/Excel exports --import--> Postgres <--weather job-- Open-Meteo
@@ -83,9 +83,9 @@ see what was rejected at `GET /import/quarantine`.
    `{"phone": "+1..."}` (use a teammate's phone for demos). Fill in the `TWILIO_*` and `PHOTON_SIP_*`
    values from Photon's Voice profile, then set `PHOTON_CALL=1`. A dry-run sweep never dials.
 
-## Deploy (Tiger Data + Render)
+## Deploy (Postgres + Render)
 
-1. Create a Tiger Data service; copy its connection string.
+1. Create a hosted Postgres 14+ database (e.g. Render Postgres); copy its connection string.
 2. Push this repo to GitHub; in Render choose New -> Blueprint and pick the repo (`render.yaml`).
 3. Fill in `DATABASE_URL`, `GEMINI_API_KEY`, `PHOTON_*`. Create the tables once from your laptop:
    `DATABASE_URL=... python -m sitesignal.jobs schema`.

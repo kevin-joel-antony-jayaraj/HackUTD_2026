@@ -38,6 +38,10 @@ class Store:
         rows = self.db.query("SELECT site_id FROM assets WHERE asset_id = %s", (asset_id,))
         return rows[0]["site_id"] if rows else None
 
+    def site_assets(self, site_id: str) -> list[dict]:
+        return self.db.query("SELECT asset_id, asset_type FROM assets WHERE site_id = %s ORDER BY asset_id",
+                             (site_id,))
+
     def asset_ids(self) -> list[str]:
         return [r["asset_id"] for r in self.db.query("SELECT asset_id FROM assets ORDER BY asset_id")]
 

@@ -1,5 +1,4 @@
--- PenguinRE schema. Works on plain Postgres 14+; on Tiger Data (TimescaleDB) the
--- time-series tables become hypertables automatically (see the DO block at the end).
+-- PenguinRE schema. Plain Postgres 14+.
 -- Run:  psql "$DATABASE_URL" -f db/schema.sql
 
 BEGIN;
@@ -260,14 +259,3 @@ CREATE TABLE IF NOT EXISTS calls (                  -- every call attempt, real 
 CREATE INDEX IF NOT EXISTS calls_idem_idx ON calls (idempotency_key);
 
 COMMIT;
-
--- ---------------------------------------------------------------- Tiger Data / TimescaleDB
--- Hypertables need the time column in every unique key, so only risk_scores and
--- audit-style tables qualify as-is. Skipped silently on plain Postgres.
-DO $$
-BEGIN
-    IF EXISTS (SELECT 1 FROM pg_available_extensions WHERE name = 'timescaledb') THEN
-        CREATE EXTENSION IF NOT EXISTS timescaledb;
-        PERFORM create_hypertable('risk_scores', 'scored_at', if_not_exists => true, migrate_data => true);
-    END IF;
-END $$;

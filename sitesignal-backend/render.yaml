@@ -1,5 +1,5 @@
 # Render Blueprint: one web service runs the API, the Photon webhook and the scheduler.
-# Database lives on Tiger Data; paste its connection string as DATABASE_URL.
+# Database: any hosted Postgres 14+; paste its connection string as DATABASE_URL.
 services:
   - type: web
     name: sitesignal-api
