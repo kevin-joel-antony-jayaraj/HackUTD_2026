@@ -155,6 +155,21 @@ class Store:
             "VALUES (%s, %s, %s, %s, %s, %s, %s, %s) ON CONFLICT (idempotency_key) DO NOTHING",
             (kind, to_key, recipient_name, text, sent, dry_run, error, idempotency_key))
 
+    def call_exists(self, idempotency_key: str) -> bool:
+        return bool(self.db.query("SELECT 1 FROM calls WHERE idempotency_key = %s AND called", (idempotency_key,)))
+
+    def log_call(self, *, asset_id, work_order_id, region_id, recipient_name, script, called, dry_run,
+                 call_sid, error, idempotency_key) -> None:
+        self.db.query(
+            "INSERT INTO calls (asset_id, work_order_id, region_id, recipient_name, script, called, dry_run, "
+            "call_sid, error, idempotency_key) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",
+            (asset_id, work_order_id, region_id, recipient_name, script, called, dry_run, call_sid, error,
+             idempotency_key))
+
+    def set_contact_phone(self, kind: str, key: str, phone: str) -> bool:
+        return bool(self.db.query("UPDATE contacts SET phone = %s WHERE kind = %s AND key = lower(%s) "
+                                  "RETURNING id", (phone, kind, key)))
+
     def start_run(self, trigger: str) -> int:
         return self.db.query("INSERT INTO agent_runs (trigger) VALUES (%s) RETURNING run_id", (trigger,))[0]["run_id"]
 

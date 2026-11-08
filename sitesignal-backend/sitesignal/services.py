@@ -9,7 +9,7 @@ from .agent import run_agent
 from .risk_model import score_asset, tier
 from .store import Store
 from .tools import HIGH, MEDIUM, Toolbox
-from . import weather
+from . import photon_call, weather
 
 _sweep_lock = threading.Lock()
 
@@ -42,9 +42,16 @@ def run_sweep(db, dry_run: bool | None = None, brain=None) -> dict:
         if dry_run is None:
             dry_run = os.environ.get("PHOTON_SEND", "0") != "1"
         tb = Toolbox(Store(db), dry_run=dry_run)
-        return run_agent("Run today's risk sweep for the portfolio.", tb, brain)
+        result = run_agent("Run today's risk sweep for the portfolio.", tb, brain)
+        # after the agent, so the call can name its work order; a dry-run sweep never dials
+        result["call"] = call_riskiest(db, dry_run=True if dry_run else None)
+        return result
     finally:
         _sweep_lock.release()
+
+
+def call_riskiest(db, dry_run: bool | None = None) -> dict:
+    return photon_call.call_riskiest(Store(db), dry_run)
 
 
 def refresh_weather(db) -> dict:
@@ -124,7 +131,7 @@ def set_work_order_status(db, wo_id: str, status: str, note: str) -> dict | None
 
 
 def recent(db, table: str, limit: int = 100) -> list[dict]:
-    order = {"messages": "id", "dashboard_entries": "id", "agent_runs": "run_id",
+    order = {"messages": "id", "calls": "id", "dashboard_entries": "id", "agent_runs": "run_id",
              "import_quarantine": "id", "field_reports": "id"}[table]
     return _clean(db.query(f"SELECT * FROM {table} ORDER BY {order} DESC LIMIT %s", (limit,)))
 

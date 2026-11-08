@@ -240,6 +240,25 @@ RETURNS TABLE (
     FROM assets a
 $$;
 
+-- Phone calls (photon_call.py). Phone is optional: only needed for managers who get calls.
+ALTER TABLE contacts ADD COLUMN IF NOT EXISTS phone text;
+
+CREATE TABLE IF NOT EXISTS calls (                  -- every call attempt, real or dry run
+    id               bigserial PRIMARY KEY,
+    asset_id         text NOT NULL,
+    work_order_id    text,
+    region_id        text NOT NULL,
+    recipient_name   text,
+    script           text NOT NULL,
+    called           boolean NOT NULL DEFAULT false,
+    dry_run          boolean NOT NULL DEFAULT false,
+    call_sid         text,
+    error            text,
+    idempotency_key  text NOT NULL,                -- not unique: a dry run must not block the real call
+    created_at       timestamptz NOT NULL DEFAULT now()
+);
+CREATE INDEX IF NOT EXISTS calls_idem_idx ON calls (idempotency_key);
+
 COMMIT;
 
 -- ---------------------------------------------------------------- Tiger Data / TimescaleDB

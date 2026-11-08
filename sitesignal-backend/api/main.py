@@ -92,6 +92,11 @@ def messages(limit: int = 100):
     return services.recent(db, "messages", limit)
 
 
+@app.get("/calls")
+def calls(limit: int = 100):
+    return services.recent(db, "calls", limit)
+
+
 @app.get("/field-reports")
 def field_reports(limit: int = 100):
     return services.recent(db, "field_reports", limit)
@@ -137,6 +142,25 @@ def hold(wo_id: str, body: StatusBody):
 def sweep(background: BackgroundTasks):
     background.add_task(services.run_sweep, db)
     return {"started": True, "check": "/runs"}
+
+
+@app.post("/jobs/call-riskiest", dependencies=[Depends(admin)])
+def call_riskiest_job():
+    return services.call_riskiest(db)
+
+
+class PhoneBody(BaseModel):
+    phone: str
+
+
+@app.post("/contacts/region/{region_id}/phone", dependencies=[Depends(admin)])
+def set_region_phone(region_id: str, body: PhoneBody):
+    from sitesignal.photon_call import valid_phone
+    if not valid_phone(body.phone):
+        raise HTTPException(422, "phone must be E.164, e.g. +12145550123")
+    if not Store(db).set_contact_phone("region", region_id, body.phone):
+        raise HTTPException(404, "no service manager for that region; they must text JOIN <region> first")
+    return {"region": region_id, "phone_set": True}
 
 
 @app.post("/jobs/weather", dependencies=[Depends(admin)])

@@ -10,7 +10,7 @@ from datetime import date, timedelta
 
 WIPE = """TRUNCATE regions, sites, assets, work_order_history, weather_forecasts, contacts,
 field_reports, work_orders, dashboard_entries, risk_scores, messages, agent_runs, audit_log,
-import_quarantine, inbound_messages, job_state RESTART IDENTITY CASCADE;
+import_quarantine, inbound_messages, job_state, calls RESTART IDENTITY CASCADE;
 ALTER SEQUENCE work_order_seq RESTART WITH 1;"""
 
 CENTERS = {"dallas": (32.78, -96.80), "houston": (29.76, -95.37), "austin": (30.27, -97.74)}

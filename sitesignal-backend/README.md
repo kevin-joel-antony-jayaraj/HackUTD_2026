@@ -41,6 +41,7 @@ No keys yet? `BRAIN=mock` swaps Gemini for a scripted stand-in, and `PHOTON_SEND
 | Data import | `sitesignal/importer.py` | Messy CSV/XLSX -> clean rows; loose column matching, fuzzy asset IDs, recharge detection from notes, duplicates skipped, bad rows quarantined |
 | Weather job | `sitesignal/weather.py` | Open-Meteo 7-day max temps per site (free, no key) |
 | Photon outbound | `sitesignal/photon_notify.py` | Sends texts into registered conversations, deduplicated |
+| Photon calls | `sitesignal/photon_call.py` | After each sweep, calls the region's service manager about the single riskiest high-tier asset (Twilio dials over Photon's SIP voice number; once per asset per day; `PHOTON_CALL=0` logs instead) |
 | Photon inbound | `sitesignal/photon_inbound.py`, `inbound.py` | Webhook (signature-verified) or poller -> JOIN / APPROVE / HOLD / field reports -> agent |
 | API | `api/main.py` | FastAPI endpoints below |
 | Database | `db/schema.sql`, `sitesignal/store.py` | 16 tables, `asset_features()` SQL function, one-open-work-order and append-only-audit rules |
@@ -48,11 +49,11 @@ No keys yet? `BRAIN=mock` swaps Gemini for a scripted stand-in, and `PHOTON_SEND
 ## API
 
 Reads (open): `GET /health`, `/portfolio`, `/assets?tier=high`, `/assets/{id}`, `/work-orders`,
-`/dashboard`, `/messages`, `/field-reports`, `/runs`, `/runs/{id}/audit`, `/import/quarantine`
+`/dashboard`, `/messages`, `/calls`, `/field-reports`, `/runs`, `/runs/{id}/audit`, `/import/quarantine`
 
 Actions (`Authorization: Bearer $ADMIN_TOKEN`):
 `POST /work-orders/{id}/approve`, `/work-orders/{id}/hold`, `/jobs/sweep`, `/jobs/weather`,
-`/jobs/score`, `/import/{sites|assets|work_orders}` (file upload), `/admin/reset-demo`,
+`/jobs/score`, `/jobs/call-riskiest`, `/contacts/region/{region}/phone`, `/import/{sites|assets|work_orders}` (file upload), `/admin/reset-demo`,
 `/photon/simulate` (fake an incoming text for demos)
 
 Photon: `POST /photon/webhook` (needs `PHOTON_WEBHOOK_SECRET`)
@@ -75,6 +76,9 @@ see what was rejected at `GET /import/quarantine`.
 2. Each service manager texts the Photon number `JOIN dallas` (their region); each site manager
    texts `JOIN site S010`. No phone numbers are stored, only Photon conversation ids.
 3. Set `PHOTON_SEND=1` when you want real texts.
+4. Calls: after a service manager JOINs, set their number with `POST /contacts/region/dallas/phone`
+   `{"phone": "+1..."}` (use a teammate's phone for demos). Fill in the `TWILIO_*` and `PHOTON_SIP_*`
+   values from Photon's Voice profile, then set `PHOTON_CALL=1`. A dry-run sweep never dials.
 
 ## Deploy (Tiger Data + Render)
 
