@@ -3,6 +3,7 @@ backend/.venv/
 backend/__pycache__/
 backend/**/__pycache__/
 backend/data/*.db
+backend/.env
 *.pyc
 
 # Node
